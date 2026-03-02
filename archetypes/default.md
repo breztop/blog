@@ -19,7 +19,7 @@ language = 'zh-CN'
   relative = false
 
 [images]
-  - ''
+  - = ""
 
 [sitemap]
   changefreq = 'monthly'
