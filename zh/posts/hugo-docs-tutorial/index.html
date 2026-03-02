@@ -1,0 +1,153 @@
+<!doctype html><html lang=zh dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Hugo 完整文档教程 | 你的网站标题</title><meta name=keywords content="hugo,文档,教程,静态网站"><meta name=description content="完整教程：使用 Hugo 构建专业文档站点的详细指南"><meta name=author content="breeze"><link rel=canonical href=https://blog.brez.top/zh/posts/hugo-docs-tutorial/><link crossorigin=anonymous href=/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css integrity="sha256-2jIR5e+Ge/K3X9WmUVz+1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as=style><link rel=icon href=https://blog.brez.top/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://blog.brez.top/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://blog.brez.top/favicon-32x32.png><link rel=apple-touch-icon href=https://blog.brez.top/apple-touch-icon.png><link rel=mask-icon href=https://blog.brez.top/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh href=https://blog.brez.top/zh/posts/hugo-docs-tutorial/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="https://blog.brez.top/zh/posts/hugo-docs-tutorial/"><meta property="og:site_name" content="你的网站标题"><meta property="og:title" content="Hugo 完整文档教程"><meta property="og:description" content="完整教程：使用 Hugo 构建专业文档站点的详细指南"><meta property="og:locale" content="zh"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-03-02T14:06:32+08:00"><meta property="article:modified_time" content="2026-03-02T14:06:32+08:00"><meta property="article:tag" content="Hugo"><meta property="article:tag" content="文档"><meta property="article:tag" content="教程"><meta property="article:tag" content="静态网站"><meta name=twitter:card content="summary"><meta name=twitter:title content="Hugo 完整文档教程"><meta name=twitter:description content="完整教程：使用 Hugo 构建专业文档站点的详细指南"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://blog.brez.top/zh/posts/"},{"@type":"ListItem","position":2,"name":"Hugo 完整文档教程","item":"https://blog.brez.top/zh/posts/hugo-docs-tutorial/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Hugo 完整文档教程","name":"Hugo 完整文档教程","description":"完整教程：使用 Hugo 构建专业文档站点的详细指南","keywords":["hugo","文档","教程","静态网站"],"articleBody":"根据您提供的前置元数据（Front Matter）结构，您希望我为您撰写一篇关于“Hugo编写文档教程”的教程文章内容。我将按照Hugo博客的标准格式，为您完成文章的主体内容。\nHugo 完整文档教程：从零开始构建专业技术文档站点\n在现代技术开发中，清晰、规范的文档是项目成功的关键因素。Hugo 作为一个快速、现代的静态网站生成器，凭借其简洁的设计和强大的功能，成为了许多开发者首选的文档工具。本文将为您提供一份完整的 Hugo 文档编写教程。\n为什么选择 Hugo 编写文档？\nHugo 的主要优势\n• 极快的构建速度：Hugo 是目前构建速度最快的静态网站生成器之一\n• 无需数据库依赖：纯静态站点，易于部署和维护\n• Markdown 友好：使用简单的 Markdown 语法编写内容\n• 主题生态系统丰富：拥有大量专门为文档设计的主题\n• 多语言支持完善：内置国际化和多语言功能\n一、Hugo 文档站点基础设置\n1.1 安装 Hugo\n根据您的操作系统选择相应的安装方式：\nmacOS (使用 Homebrew) brew install hugo\nUbuntu/Debian sudo apt install hugo\nWindows (使用 Chocolatey) choco install hugo\n1.2 创建新站点\n创建名为 “mydocs” 的新站点 hugo new site mydocs cd mydocs\n初始化 Git 仓库 git init\n1.3 选择合适的文档主题\nHugo 有许多优秀的文档主题，以下是几个推荐：\nDocsy - 谷歌风格的文档主题 Hugo Learn - 专门为文档设计 Hugo Book - 适合创建在线书籍 Geekdoc - 简洁现代的文档主题 以 Docsy 为例：\n将 Docsy 添加为子模块 git submodule add https://github.com/google/docsy.git themes/docsy git submodule update –init –recursive\n二、文档内容组织策略\n2.1 合理的目录结构\ncontent/ ├── docs/ # 文档主目录 │ ├── _index.md # 文档首页 │ ├── getting-started/ # 入门指南 │ │ ├── _index.md │ │ ├── installation.md │ │ └── configuration.md │ ├── guides/ # 使用指南 │ ├── api/ # API 文档 │ ├── faq/ # 常见问题 │ └── changelog.md # 更新日志 ├── blog/ # 博客文章 └── about.md # 关于页面\n2.2 使用章节组织文档\nHugo 的章节功能可以帮助您更好地组织文档结构：\n在 _index.md 中定义章节权重 weight: 10 title: “入门指南”\n三、Hugo 文档编写最佳实践\n3.1 标准的前置元数据\n每个文档文件都应该包含完整的前置元数据，如您提供的示例： +++ title = “安装指南” description = “详细介绍如何安装和配置本系统” date = 2026-03-02T14:06:32+08:00 draft = false weight = 10 tags = [“installation”, “setup”, “getting-started”] categories = [“入门指南”] +++\n3.2 使用短代码增强文档\nHugo 的短代码功能可以让您的文档更加丰富：\n3.2.1 警告和提示框\n这是一个包含短代码的示例： {{\u003c alert \"warning\" \u003e}} 这是一条警告信息 {{\u003c /alert \u003e}} 3.2.2 代码块增强\n{{\u003c tabs \u003e}} {{\u003c tab \"Bash\" \u003e}} bash hugo new site mydocs {{\u003c /tab \u003e}} {{\u003c tab \"PowerShell\" \u003e}} powershell hugo new site mydocs {{\u003c /tab \u003e}} {{\u003c /tab \u003e}} {{\u003c /tabs \u003e}} 3.3 添加搜索功能\nconfig.toml [params] [params.search] enable = true type = “lunr” # 或 “algolia”\n[params.search.lunr] maxResults = 20 snippetLength = 30\n四、高级文档功能\n4.1 多版本文档管理\n对于需要维护多个版本的文档：\n创建版本化的内容结构 content/ ├── docs/ │ ├── v1.0/ │ ├── v2.0/ │ └── latest/ -\u003e v2.0/\n4.2 API 文档自动生成\n使用 Swagger/OpenAPI 规范自动生成 API 文档：\n在 static/api/ 目录下放置 OpenAPI 规范文件 然后通过主题的 API 文档功能展示 4.3 集成文档搜索\n使用 Algolia 提供全文搜索： [params.algolia] appId = “YOUR_APP_ID” apiKey = “YOUR_API_KEY” indexName = “YOUR_INDEX_NAME”\n五、文档样式和用户体验优化\n5.1 响应式设计\n确保您的文档主题支持： • 移动设备友好\n• 代码块的横向滚动\n• 表格的响应式显示\n5.2 可访问性优化\n主标题 二级标题 三级标题 5.3 性能优化\n在 config.toml 中启用性能优化 [build] writeStats = true useResourceCacheWhen = “fallback”\n[imaging] quality = 85 resampleFilter = “CatmullRom”\n六、部署和持续集成\n6.1 GitHub Pages 部署\n.github/workflows/gh-pages.yml name: Deploy to GitHub Pages on: push: branches: [ main ] jobs: deploy: runs-on: ubuntu-latest steps: - uses: actions/checkout@v3 with: submodules: recursive - name: Setup Hugo uses: peaceiris/actions-hugo@v2 with: hugo-version: 'latest' - name: Build run: hugo --minify - name: Deploy uses: peaceiris/actions-gh-pages@v3 with: github_token: ${{ secrets.GITHUB_TOKEN }} publish_dir: ./public 6.2 Netlify 部署\nnetlify.toml [build] publish = \"public\" command = \"hugo --gc --minify\" [build.environment] HUGO_VERSION = \"0.146.0\" [context.production.environment] HUGO_ENV = \"production\" 七、文档维护和质量保证\n7.1 链接检查自动化\n使用 htmltest 检查链接 npm install -g htmltest htmltest\n7.2 拼写检查\n使用 cSpell npm install -g cspell cspell “content/**/*.md”\n7.3 文档版本控制策略\nCHANGELOG.md ├── 2026-03-02 - 版本 2.0.0 │ ├── 新增功能 │ ├── 问题修复 │ └── 已知问题 └── 2025-12-15 - 版本 1.2.0 八、高级技巧和工具\n8.1 使用 Asciinema 嵌入终端演示\n{{\u003c asciinema src=\"/casts/demo.cast\" \u003e}} 8.2 数学公式支持\n[params.math] enable = true katex = true $$ E = mc^2 $$ 8.3 图表绘制\n使用 Mermaid 绘制流程图、时序图等：\ngraph TD A[开始] --\u003e B[安装 Hugo] B --\u003e C[创建站点] C --\u003e D[编写文档] D --\u003e E[部署] E --\u003e F[完成] 九、实际示例：完整的 config.toml 配置\nbaseURL = \"https://docs.example.com/\" languageCode = \"zh-cn\" title = \"项目文档\" theme = \"docsy\" [params] description = \"项目完整文档，包含安装、使用、API 参考等\" author = \"项目团队\" [params.ui] [params.ui.sidebar] width = [\"300px\", \"25%\"] [params.search] enable = true type = \"lunr\" [params.toc] depth = 3 numbered = true [markup] [markup.highlight] codeFences = true guessSyntax = true lineNos = true style = \"monokai\" 十、总结\n通过本教程，您应该已经掌握了使用 Hugo 创建专业文档站点的完整流程。以下是关键要点回顾：\n选择合适的主题 - 根据文档类型选择专门的文档主题 合理组织内容结构 - 建立清晰的目录层级 充分利用前置元数据 - 提供完整的文档元信息 增强用户体验 - 通过搜索、导航等功能提升可用性 自动化部署流程 - 建立持续集成和部署管道 确保文档质量 - 通过工具检查链接、拼写等问题 Hugo 的强大之处在于其灵活性和可扩展性，您可以根据项目需求调整和扩展这些配置。随着文档的不断丰富，您会发现 Hugo 能够轻松应对各种复杂的文档需求。\n文档未详述但重要的补充：在实际项目中，建议建立文档贡献指南（CONTRIBUTING.md），明确文档编写规范、审核流程和发布流程，这对于团队协作的大型项目尤为重要。\n","wordCount":"604","inLanguage":"zh","datePublished":"2026-03-02T14:06:32+08:00","dateModified":"2026-03-02T14:06:32+08:00","author":{"@type":"Person","name":"breeze"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.brez.top/zh/posts/hugo-docs-tutorial/"},"publisher":{"@type":"Organization","name":"你的网站标题","logo":{"@type":"ImageObject","url":"https://blog.brez.top/favicon.ico"}}}</script><style>.article-header{margin-bottom:2rem}.article-title{font-size:2.5rem;font-weight:800;margin-bottom:.5rem}.article-meta{color:var(--secondary);font-size:.9rem;margin-bottom:1rem}.article-meta span{margin-right:1rem}.article-tags{margin-top:1rem}.article-tags a{display:inline-block;margin-right:.5rem;padding:.2rem .8rem;background:var(--primary);color:#fff;border-radius:15px;font-size:.85rem;text-decoration:none}.article-content{line-height:1.8;font-size:1.1rem}.article-content img{max-width:100%;height:auto;border-radius:8px;margin:1.5rem 0}.article-footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border)}{ { }}</style></head><body><header class=header><nav class=nav><div class=logo><a href=https://blog.brez.top/zh/ accesskey=h title="你的网站标题 (Alt + H)">你的网站标题</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li><li><a href=https://blog.brez.top/en/ title=English aria-label=English>En</a></li></ul></div></div><ul id=menu><li><a href=https://blog.brez.top/zh/ title=首页><span>首页</span></a></li><li><a href=https://blog.brez.top/zh/posts/ title=文章><span>文章</span></a></li><li><a href=https://blog.brez.top/zh/tags/ title=标签><span>标签</span></a></li><li><a href=https://blog.brez.top/zh/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><div class=container><article class=article><header class=article-header><h1 class=article-title>Hugo 完整文档教程</h1><div class=article-meta><span>📅 2026年3月2日</span>
+<span>⏱️ 3 分钟阅读</span>
+<span>📝 604 字</span></div><div class=article-tags><a href=/zh/%20tags/hugo>hugo</a>
+<a href=/zh/%20tags/%E6%96%87%E6%A1%A3>文档</a>
+<a href=/zh/%20tags/%E6%95%99%E7%A8%8B>教程</a>
+<a href=/zh/%20tags/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99>静态网站</a></div></header><div class=article-content><p>根据您提供的前置元数据（Front Matter）结构，您希望我为您撰写一篇关于“Hugo编写文档教程”的教程文章内容。我将按照Hugo博客的标准格式，为您完成文章的主体内容。</p><p>Hugo 完整文档教程：从零开始构建专业技术文档站点</p><p>在现代技术开发中，清晰、规范的文档是项目成功的关键因素。Hugo 作为一个快速、现代的静态网站生成器，凭借其简洁的设计和强大的功能，成为了许多开发者首选的文档工具。本文将为您提供一份完整的 Hugo 文档编写教程。</p><p>为什么选择 Hugo 编写文档？</p><p>Hugo 的主要优势</p><p>• 极快的构建速度：Hugo 是目前构建速度最快的静态网站生成器之一</p><p>• 无需数据库依赖：纯静态站点，易于部署和维护</p><p>• Markdown 友好：使用简单的 Markdown 语法编写内容</p><p>• 主题生态系统丰富：拥有大量专门为文档设计的主题</p><p>• 多语言支持完善：内置国际化和多语言功能</p><p>一、Hugo 文档站点基础设置</p><p>1.1 安装 Hugo</p><p>根据您的操作系统选择相应的安装方式：</p><h1 id=macos-使用-homebrew>macOS (使用 Homebrew)</h1><p>brew install hugo</p><h1 id=ubuntudebian>Ubuntu/Debian</h1><p>sudo apt install hugo</p><h1 id=windows-使用-chocolatey>Windows (使用 Chocolatey)</h1><p>choco install hugo</p><p>1.2 创建新站点</p><h1 id=创建名为-mydocs-的新站点>创建名为 &ldquo;mydocs&rdquo; 的新站点</h1><p>hugo new site mydocs
+cd mydocs</p><h1 id=初始化-git-仓库>初始化 Git 仓库</h1><p>git init</p><p>1.3 选择合适的文档主题</p><p>Hugo 有许多优秀的文档主题，以下是几个推荐：</p><ol><li>Docsy - 谷歌风格的文档主题</li><li>Hugo Learn - 专门为文档设计</li><li>Hugo Book - 适合创建在线书籍</li><li>Geekdoc - 简洁现代的文档主题</li></ol><p>以 Docsy 为例：</p><h1 id=将-docsy-添加为子模块>将 Docsy 添加为子模块</h1><p>git submodule add <a href=https://github.com/google/docsy.git>https://github.com/google/docsy.git</a> themes/docsy
+git submodule update &ndash;init &ndash;recursive</p><p>二、文档内容组织策略</p><p>2.1 合理的目录结构</p><p>content/
+├── docs/ # 文档主目录
+│ ├── _index.md # 文档首页
+│ ├── getting-started/ # 入门指南
+│ │ ├── _index.md
+│ │ ├── installation.md
+│ │ └── configuration.md
+│ ├── guides/ # 使用指南
+│ ├── api/ # API 文档
+│ ├── faq/ # 常见问题
+│ └── changelog.md # 更新日志
+├── blog/ # 博客文章
+└── about.md # 关于页面</p><p>2.2 使用章节组织文档</p><p>Hugo 的章节功能可以帮助您更好地组织文档结构：</p><h1 id=在-_indexmd-中定义章节权重>在 _index.md 中定义章节权重</h1><p>weight: 10
+title: &ldquo;入门指南&rdquo;</p><p>三、Hugo 文档编写最佳实践</p><p>3.1 标准的前置元数据</p><p>每个文档文件都应该包含完整的前置元数据，如您提供的示例：
++++
+title = &ldquo;安装指南&rdquo;
+description = &ldquo;详细介绍如何安装和配置本系统&rdquo;
+date = 2026-03-02T14:06:32+08:00
+draft = false
+weight = 10
+tags = [&ldquo;installation&rdquo;, &ldquo;setup&rdquo;, &ldquo;getting-started&rdquo;]
+categories = [&ldquo;入门指南&rdquo;]
++++</p><p>3.2 使用短代码增强文档</p><p>Hugo 的短代码功能可以让您的文档更加丰富：</p><p>3.2.1 警告和提示框</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-markdown data-lang=markdown><span style=display:flex><span>这是一个包含短代码的示例：
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>{{&lt; alert &#34;warning&#34; &gt;}}
+</span></span><span style=display:flex><span>这是一条警告信息
+</span></span><span style=display:flex><span>{{&lt; /alert &gt;}}
+</span></span></code></pre></div><p>3.2.2 代码块增强</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-markdown data-lang=markdown><span style=display:flex><span>{{&lt; tabs &gt;}}
+</span></span><span style=display:flex><span>{{&lt; tab &#34;Bash&#34; &gt;}}
+</span></span><span style=display:flex><span>bash
+</span></span><span style=display:flex><span>hugo new site mydocs
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>{{&lt; /tab &gt;}}
+</span></span><span style=display:flex><span>{{&lt; tab &#34;PowerShell&#34; &gt;}}
+</span></span><span style=display:flex><span>powershell
+</span></span><span style=display:flex><span>hugo new site mydocs
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>{{&lt; /tab &gt;}}
+</span></span><span style=display:flex><span>{{&lt; /tab &gt;}}
+</span></span><span style=display:flex><span>{{&lt; /tabs &gt;}}
+</span></span></code></pre></div><p>3.3 添加搜索功能</p><h1 id=configtoml>config.toml</h1><p>[params]
+[params.search]
+enable = true
+type = &ldquo;lunr&rdquo; # 或 &ldquo;algolia&rdquo;</p><p>[params.search.lunr]
+maxResults = 20
+snippetLength = 30</p><p>四、高级文档功能</p><p>4.1 多版本文档管理</p><p>对于需要维护多个版本的文档：</p><h1 id=创建版本化的内容结构>创建版本化的内容结构</h1><p>content/
+├── docs/
+│ ├── v1.0/
+│ ├── v2.0/
+│ └── latest/ -> v2.0/</p><p>4.2 API 文档自动生成</p><p>使用 Swagger/OpenAPI 规范自动生成 API 文档：</p><h1 id=在-staticapi-目录下放置-openapi-规范文件>在 static/api/ 目录下放置 OpenAPI 规范文件</h1><h1 id=然后通过主题的-api-文档功能展示>然后通过主题的 API 文档功能展示</h1><p>4.3 集成文档搜索</p><p>使用 Algolia 提供全文搜索：
+[params.algolia]
+appId = &ldquo;YOUR_APP_ID&rdquo;
+apiKey = &ldquo;YOUR_API_KEY&rdquo;
+indexName = &ldquo;YOUR_INDEX_NAME&rdquo;</p><p>五、文档样式和用户体验优化</p><p>5.1 响应式设计</p><p>确保您的文档主题支持：
+• 移动设备友好</p><p>• 代码块的横向滚动</p><p>• 表格的响应式显示</p><p>5.2 可访问性优化</p><p><img alt="Hugo 标志" loading=lazy src=/images/logo.png title="Hugo Static Site Generator"></p><h1 id=主标题>主标题</h1><h2 id=二级标题>二级标题</h2><h3 id=三级标题>三级标题</h3><p>5.3 性能优化</p><h1 id=在-configtoml-中启用性能优化>在 config.toml 中启用性能优化</h1><p>[build]
+writeStats = true
+useResourceCacheWhen = &ldquo;fallback&rdquo;</p><p>[imaging]
+quality = 85
+resampleFilter = &ldquo;CatmullRom&rdquo;</p><p>六、部署和持续集成</p><p>6.1 GitHub Pages 部署</p><h1 id=githubworkflowsgh-pagesyml>.github/workflows/gh-pages.yml</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>name</span>: <span style=color:#ae81ff>Deploy to GitHub Pages</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>on</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>push</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>branches</span>: [ <span style=color:#ae81ff>main ]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>jobs</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>deploy</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>runs-on</span>: <span style=color:#ae81ff>ubuntu-latest</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>steps</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/checkout@v3</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>with</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>submodules</span>: <span style=color:#ae81ff>recursive</span>
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Setup Hugo</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>peaceiris/actions-hugo@v2</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>with</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>hugo-version</span>: <span style=color:#e6db74>&#39;latest&#39;</span>
+</span></span><span style=display:flex><span>          
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Build</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: <span style=color:#ae81ff>hugo --minify</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Deploy</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>peaceiris/actions-gh-pages@v3</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>with</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>github_token</span>: <span style=color:#ae81ff>${{ secrets.GITHUB_TOKEN }}</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>publish_dir</span>: <span style=color:#ae81ff>./public</span>
+</span></span></code></pre></div><p>6.2 Netlify 部署</p><h1 id=netlifytoml>netlify.toml</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-toml data-lang=toml><span style=display:flex><span>[<span style=color:#a6e22e>build</span>]
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>publish</span> = <span style=color:#e6db74>&#34;public&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>command</span> = <span style=color:#e6db74>&#34;hugo --gc --minify&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[<span style=color:#a6e22e>build</span>.<span style=color:#a6e22e>environment</span>]
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>HUGO_VERSION</span> = <span style=color:#e6db74>&#34;0.146.0&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[<span style=color:#a6e22e>context</span>.<span style=color:#a6e22e>production</span>.<span style=color:#a6e22e>environment</span>]
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>HUGO_ENV</span> = <span style=color:#e6db74>&#34;production&#34;</span>
+</span></span></code></pre></div><p>七、文档维护和质量保证</p><p>7.1 链接检查自动化</p><h1 id=使用-htmltest-检查链接>使用 htmltest 检查链接</h1><p>npm install -g htmltest
+htmltest</p><p>7.2 拼写检查</p><h1 id=使用-cspell>使用 cSpell</h1><p>npm install -g cspell
+cspell &ldquo;content/**/*.md&rdquo;</p><p>7.3 文档版本控制策略</p><pre tabindex=0><code>CHANGELOG.md
+├── 2026-03-02 - 版本 2.0.0
+│   ├── 新增功能
+│   ├── 问题修复
+│   └── 已知问题
+└── 2025-12-15 - 版本 1.2.0
+</code></pre><p>八、高级技巧和工具</p><p>8.1 使用 Asciinema 嵌入终端演示</p><pre tabindex=0><code>{{&lt; asciinema src=&#34;/casts/demo.cast&#34; &gt;}}
+</code></pre><p>8.2 数学公式支持</p><pre tabindex=0><code>[params.math]
+  enable = true
+  katex = true
+
+$$
+E = mc^2
+$$
+</code></pre><p>8.3 图表绘制</p><p>使用 Mermaid 绘制流程图、时序图等：</p><pre tabindex=0><code class=language-mermaid data-lang=mermaid>graph TD
+    A[开始] --&gt; B[安装 Hugo]
+    B --&gt; C[创建站点]
+    C --&gt; D[编写文档]
+    D --&gt; E[部署]
+    E --&gt; F[完成]
+</code></pre><p>九、实际示例：完整的 config.toml 配置</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-toml data-lang=toml><span style=display:flex><span><span style=color:#a6e22e>baseURL</span> = <span style=color:#e6db74>&#34;https://docs.example.com/&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>languageCode</span> = <span style=color:#e6db74>&#34;zh-cn&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>title</span> = <span style=color:#e6db74>&#34;项目文档&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>theme</span> = <span style=color:#e6db74>&#34;docsy&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[<span style=color:#a6e22e>params</span>]
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>description</span> = <span style=color:#e6db74>&#34;项目完整文档，包含安装、使用、API 参考等&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>author</span> = <span style=color:#e6db74>&#34;项目团队&#34;</span>
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  [<span style=color:#a6e22e>params</span>.<span style=color:#a6e22e>ui</span>]
+</span></span><span style=display:flex><span>    [<span style=color:#a6e22e>params</span>.<span style=color:#a6e22e>ui</span>.<span style=color:#a6e22e>sidebar</span>]
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>width</span> = [<span style=color:#e6db74>&#34;300px&#34;</span>, <span style=color:#e6db74>&#34;25%&#34;</span>]
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  [<span style=color:#a6e22e>params</span>.<span style=color:#a6e22e>search</span>]
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>enable</span> = <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>type</span> = <span style=color:#e6db74>&#34;lunr&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  [<span style=color:#a6e22e>params</span>.<span style=color:#a6e22e>toc</span>]
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>depth</span> = <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>numbered</span> = <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[<span style=color:#a6e22e>markup</span>]
+</span></span><span style=display:flex><span>  [<span style=color:#a6e22e>markup</span>.<span style=color:#a6e22e>highlight</span>]
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>codeFences</span> = <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>guessSyntax</span> = <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>lineNos</span> = <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>style</span> = <span style=color:#e6db74>&#34;monokai&#34;</span>
+</span></span></code></pre></div><p>十、总结</p><p>通过本教程，您应该已经掌握了使用 Hugo 创建专业文档站点的完整流程。以下是关键要点回顾：</p><ol><li>选择合适的主题 - 根据文档类型选择专门的文档主题</li><li>合理组织内容结构 - 建立清晰的目录层级</li><li>充分利用前置元数据 - 提供完整的文档元信息</li><li>增强用户体验 - 通过搜索、导航等功能提升可用性</li><li>自动化部署流程 - 建立持续集成和部署管道</li><li>确保文档质量 - 通过工具检查链接、拼写等问题</li></ol><p>Hugo 的强大之处在于其灵活性和可扩展性，您可以根据项目需求调整和扩展这些配置。随着文档的不断丰富，您会发现 Hugo 能够轻松应对各种复杂的文档需求。</p><p>文档未详述但重要的补充：在实际项目中，建议建立文档贡献指南（CONTRIBUTING.md），明确文档编写规范、审核流程和发布流程，这对于团队协作的大型项目尤为重要。</p></div><footer class=article-footer><div class=nav-previous>上一篇: <a href=/zh/posts/hello-world/>Hello World</a></div></footer></article></div></main><script>document.addEventListener("DOMContentLoaded",function(){const e=document.querySelectorAll("h2, h3, h4, h5, h6");e.forEach(e=>{e.innerHTML=`<a href="#${e.id}" class="heading-anchor">${e.innerHTML}</a>`});const t=document.querySelectorAll("pre code");t.forEach(e=>{const t=document.createElement("button");t.className="copy-code-btn",t.textContent="复制",t.addEventListener("click",()=>{navigator.clipboard.writeText(e.textContent),t.textContent="已复制!",setTimeout(()=>{t.textContent="复制"},2e3)}),e.parentElement.style.position="relative",e.parentElement.appendChild(t)})})</script></body></html>
