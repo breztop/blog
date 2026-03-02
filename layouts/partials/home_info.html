@@ -1,0 +1,38 @@
+{{- with site.Params.homeInfoParams }}
+<article class="first-entry home-info">
+    <header class="entry-header">
+        <h1>{{ .Title | markdownify }}</h1>
+    </header>
+    <div class="entry-content">
+        {{ .Content | markdownify }}
+    </div>
+    <footer class="entry-footer">
+        {{ partial "social_icons.html" (dict "align" .AlignSocialIconsTo) }}
+    </footer>
+</article>
+{{- end -}}
+
+{{/* 独立的广告块，但只在首页显示且有home-info时才显示 */}}
+{{ if and .IsHome site.Params.homeInfoParams .Site.Params.enableAds }}
+<div class="home-info-ad" style="
+    margin-top: 2rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--theme) 0%, var(--entry) 100%);
+    border-radius: 8px;
+    border-left: 3px solid var(--border);
+    text-align: center;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+">
+    {{ with .Site.Params.adContent }}
+    {{ . | safeHTML }}
+    {{ else }}
+    <!-- 默认Google AdSense代码 -->
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-xxxxx" data-ad-slot="xxxxx"
+        data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    {{ end }}
+</div>
+{{ end }}

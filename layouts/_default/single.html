@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}" dir="{{ .Language.LanguageDirection | default " auto" }}">
+
+<head>
+    {{- partial "head.html" . -}}
+    {{- block "head" . -}}{{ end }}
+
+    {{/* 您可以在此添加文章页特有的CSS样式 */}}
+    <style>
+        /* 文章页面自定义样式 */
+        .article-header {
+            margin-bottom: 2rem;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-meta {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-meta span {
+            margin-right: 1rem;
+        }
+
+        .article-tags {
+            margin-top: 1rem;
+        }
+
+        .article-tags a {
+            display: inline-block;
+            margin-right: 0.5rem;
+            padding: 0.2rem 0.8rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .article-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .article-footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+            {
+                {
+                /* 您可以在这里添加更多自定义样式 */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {{- partial "header.html" . -}}
+    <main class="main">
+        <div class="container">
+            <article class="article">
+                <header class="article-header">
+                    <h1 class="article-title">{{ .Title }}</h1>
+
+                    <div class="article-meta">
+                        {{ with .Date }}
+                        <span>📅 {{ . | time.Format ":date_long" }}</span>
+                        {{ end }}
+
+                        {{ with .ReadingTime }}
+                        <span>⏱️ {{ . }} 分钟阅读</span>
+                        {{ end }}
+
+                        {{ with .WordCount }}
+                        <span>📝 {{ . }} 字</span>
+                        {{ end }}
+                    </div>
+
+                    {{/* 标签显示 */}}
+                    {{ with .Params.tags }}
+                    <div class="article-tags">
+                        {{ range . }}
+                        <a href="{{ " tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                </header>
+
+                {{/* 封面图片（如果设置了） */}}
+                {{ with .Params.cover }}
+                {{ if .image }}
+                <div class="article-cover">
+                    <img src="{{ .image | relURL }}" alt="{{ .alt | default $.Title }}" loading="lazy">
+                    {{ with .caption }}
+                    <p class="cover-caption">{{ . }}</p>
+                    {{ end }}
+                </div>
+                {{ end }}
+                {{ end }}
+
+                <div class="article-content">
+                    {{- .Content -}}
+                </div>
+
+                <footer class="article-footer">
+                    {{/* 上一篇/下一篇导航 */}}
+                    {{ with .PrevInSection }}
+                    <div class="nav-previous">
+                        上一篇: <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                    </div>
+                    {{ end }}
+
+                    {{ with .NextInSection }}
+                    <div class="nav-next">
+                        下一篇: <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                    </div>
+                    {{ end }}
+
+                    {{/* 相关文章推荐 */}}
+                    {{ $related := .Site.RegularPages.Related . | first 3 }}
+                    {{ with $related }}
+                    <div class="related-posts">
+                        <h3>相关文章</h3>
+                        <ul>
+                            {{ range . }}
+                            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                            {{ end }}
+                        </ul>
+                    </div>
+                    {{ end }}
+                </footer>
+            </article>
+
+            {{/* 评论区域（如果启用） */}}
+            {{ if and .Site.Params.Comments.Enabled .Params.comments }}
+            <div class="comments-section">
+                <h3>评论</h3>
+                {{- partial "comments.html" . -}}
+            </div>
+            {{ end }}
+        </div>
+    </main>
+
+    {{- partial "footer.html" . -}}
+
+    {{/* 您可以在页脚后添加文章页特有的JavaScript */}}
+    <script>
+        // 文章页面脚本
+        document.addEventListener('DOMContentLoaded', function () {
+            // 平滑滚动到标题锚点
+            const headings = document.querySelectorAll('h2, h3, h4, h5, h6');
+            headings.forEach(heading => {
+                heading.innerHTML = `<a href="#${heading.id}" class="heading-anchor">${heading.innerHTML}</a>`;
+            });
+
+            // 代码块复制功能增强
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                const copyButton = document.createElement('button');
+                copyButton.className = 'copy-code-btn';
+                copyButton.textContent = '复制';
+                copyButton.addEventListener('click', () => {
+                    navigator.clipboard.writeText(block.textContent);
+                    copyButton.textContent = '已复制!';
+                    setTimeout(() => {
+                        copyButton.textContent = '复制';
+                    }, 2000);
+                });
+                block.parentElement.style.position = 'relative';
+                block.parentElement.appendChild(copyButton);
+            });
+        });
+    </script>
+</body>
+
+</html>

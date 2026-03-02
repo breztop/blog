@@ -1,0 +1,31 @@
+{{ $type := .Get 0 | default "info" }}
+{{ $icon := "" }}
+{{ $color := "" }}
+
+{{ if eq $type "warning" }}
+{{ $icon = "⚠️" }}
+{{ $color = "#fff3cd" }}
+{{ else if eq $type "info" }}
+{{ $icon = "ℹ️" }}
+{{ $color = "#d1ecf1" }}
+{{ else if eq $type "success" }}
+{{ $icon = "✅" }}
+{{ $color = "#d4edda" }}
+{{ else if eq $type "danger" }}
+{{ $icon = "❌" }}
+{{ $color = "#f8d7da" }}
+{{ end }}
+
+<div class="alert alert-{{ $type }}" style="
+    background-color: {{ $color }};
+    border-left: 4px solid;
+    border-color: {{ if eq $type " warning" }}#856404{{ else if eq $type "info" }}#0c5460{{ else if eq $type "success"
+    }}#155724{{ else }}#721c24{{ end }}; padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 4px 4px 0; ">
+    <strong style=" display: flex; align-items: center; gap: 0.5rem;">
+    {{ $icon }} {{ if eq $type "warning" }}警告{{ else if eq $type "info" }}提示{{ else if eq $type "success" }}成功{{ else
+    }}危险{{ end }}：
+    </strong>
+    <div style="margin-top: 0.5rem;">
+        {{ .Inner | markdownify }}
+    </div>
+</div>

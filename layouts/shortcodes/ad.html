@@ -1,0 +1,13 @@
+<!-- shortcodes/ad.html -->
+{{ $type := .Get "type" | default "default" }}
+{{ $size := .Get "size" | default "small" }}
+
+<div class="ad-wrapper ad-{{ $type }} ad-{{ $size }}">
+    {{ if eq $type "custom" }}
+    <!-- 自定义内容 -->
+    {{ .Inner }}
+    {{ else }}
+    <!-- 默认广告 -->
+    {{ partial "advertising.html" .Page }}
+    {{ end }}
+</div>

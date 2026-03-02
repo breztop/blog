@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}" dir="{{ .Language.LanguageDirection | default " auto" }}">
+
+<head>
+    {{/* 继承主题的核心头部，确保所有功能（暗黑模式、SEO等）正常工作 */}}
+    {{- partial "head.html" . -}}
+    {{- block "head" . -}}{{ end }}
+
+    {{/* 为主页添加一些内联样式，增强视觉效果 */}}
+    <style>
+        /* 广告组件样式 */
+        .ad-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1.5rem auto;
+            max-width: 320px;
+            /* 限制最大宽度，保持小巧 */
+        }
+
+        .ad-container {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            padding: 1rem;
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .ad-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 广告标签 */
+        .ad-label {
+            color: #666;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 0.75rem 0;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        /* 广告内容 */
+        .ad-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ad-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.2s ease;
+        }
+
+        .ad-link:hover {
+            opacity: 0.9;
+            text-decoration: none;
+        }
+
+        /* 广告图片 */
+        .ad-image {
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+
+        /* 广告文字 */
+        .ad-text {
+            flex: 1;
+            min-width: 0;
+            /* 防止文本溢出 */
+        }
+
+        .ad-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin: 0 0 0.25rem 0;
+            color: #2c3e50;
+            line-height: 1.3;
+        }
+
+        .ad-desc {
+            font-size: 0.8rem;
+            color: #666;
+            margin: 0;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 广告备注 */
+        .ad-note {
+            font-size: 0.7rem;
+            color: #999;
+            text-align: center;
+            margin: 0.75rem 0 0 0;
+            opacity: 0.6;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 480px) {
+            .ad-wrapper {
+                max-width: 280px;
+                margin: 1rem auto;
+            }
+
+            .ad-container {
+                padding: 0.75rem;
+            }
+
+            .ad-link {
+                gap: 0.5rem;
+            }
+
+            .ad-title {
+                font-size: 0.9rem;
+            }
+
+            .ad-desc {
+                font-size: 0.75rem;
+            }
+        }
+
+        .home-hero {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .home-hero .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .home-hero .actions a {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.8rem 2rem;
+            background: white;
+            color: var(--primary);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .home-hero .actions a:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* 特色文章区 */
+        .featured-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .post-card {
+            background: var(--entry);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid var(--primary);
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-card h3 {
+            margin-top: 0;
+        }
+
+        .post-card .post-meta {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* 标签云样式 */
+        .tag-cloud {
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: var(--entry);
+            border-radius: 12px;
+        }
+
+        .tag-cloud h2 {
+            margin-top: 0;
+        }
+
+        .tag-cloud-inner a {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .tag-cloud-inner a:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        .home-about {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: var(--entry);
+            border-radius: 12px;
+            flex-wrap: wrap;
+        }
+
+        .home-about-avatar img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+        }
+
+        .home-about-bio h2 {
+            margin-top: 0;
+        }
+    </style>
+
+    {{ if .IsHome }}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "{{ .Site.Title }}",
+        "description": "{{ .Site.Params.description }}",
+        "url": "{{ .Site.BaseURL }}",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "{{ .Site.BaseURL }}search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+
+    {{ with .Site.Params.microsoftClarity }}
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "{{ . }}");
+    </script>
+    {{ end }}
+    {{ end }}
+
+</head>
+
+<body>
+    {{- partial "header.html" . -}}
+    <main class="main">
+        <div class="container">
+            <section class="home-hero">
+                <h1>{{ .Site.Title | default "我的博客" }}</h1>
+                <p class="subtitle">{{ .Site.Params.description | default "分享知识、技术与思考" }}</p>
+                <div class="actions">
+                    {{/* 您可以修改这里的链接 */}}
+                    <a href="{{ " posts/" | relLangURL }}">浏览文章</a>
+                    <a href="{{ " about/" | relLangURL }}">关于我</a>
+                </div>
+            </section>
+
+            {{/* 获取最新的5篇文章 */}}
+            {{ $featuredPages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections | first 5 }}
+            {{ if $featuredPages }}
+            <section>
+                <h2 style="text-align: center; margin-bottom: 2rem;">最新文章</h2>
+                <div class="featured-posts">
+                    {{ range $featuredPages }}
+                    <article class="post-card">
+                        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                        <div class="post-meta">
+                            {{ .Date | time.Format ":date_long" }} · {{ .ReadingTime }} 分钟阅读
+                        </div>
+                        <p>{{ .Summary | truncate 150 }}</p>
+                        <a href="{{ .RelPermalink }}">继续阅读 →</a>
+                    </article>
+                    {{ end }}
+                </div>
+            </section>
+            {{ end }}
+
+            {{/* ========== 标签云 ========== */}}
+            {{ if gt (len .Site.Taxonomies.tags) 0 }}
+            <section class="tag-cloud">
+                <h2>探索标签</h2>
+                <div class="tag-cloud-inner">
+                    {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+                    {{ with $.Site.GetPage (printf "/tags/%s" $name) }}
+                    <a href="{{ .RelPermalink }}" style="font-size: {{ add 0.8 (div (len $taxonomy.Pages) 3) }}rem;">
+                        {{ .Title }} ({{ len $taxonomy.Pages }})
+                    </a>
+                    {{ end }}
+                    {{ end }}
+                </div>
+            </section>
+            {{ end }}
+
+            {{/* ========== 个人简介 ========== */}}
+            <section class="home-about">
+                <div class="home-about-avatar">
+                    {{/* 请将 `avatar.jpg` 替换为您的头像图片，并放在 `static/` 目录下 */}}
+                    <img src="{{ " avatar.jpg" | relURL }}" alt="{{ .Site.Params.author }}">
+                </div>
+                <div class="home-about-bio">
+                    <h2>你好，我是 {{ .Site.Params.author | default "Breeze" }}</h2>
+                    <p>
+                        {{ .Site.Params.bio | default "一名热爱技术、喜欢分享的开发者。这里记录我的学习笔记、项目经验和生活思考。" }}
+                    </p>
+                    {{/* 社交图标，使用正确的参数调用 */}}
+                    {{- partial "social_icons.html" (dict "align" "center") -}}
+                </div>
+            </section>
+
+        </div>
+    </main>
+    {{ partial "advertising.html" . }}
+    {{- partial "footer.html" . -}}
+</body>
+
+</html>

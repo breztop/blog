@@ -1,10 +1,10 @@
 +++
-date = '{{ .Date }}'
+date = '2026-03-02T15:40:34+08:00'
 draft = false
-title = '{{ replace .File.ContentBaseName "-" " " | title }}'
+title = 'Lang'
 slug = ''
 description = ''
-author = '{{ .Site.Params.author | default "breeze" }}'
+author = 'breeze'
 tags = []
 categories = []
 series = []
