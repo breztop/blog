@@ -1,0 +1,28 @@
+# 可按实际联系方式替换以下示例数据。
+- name: Email
+  icon: email
+  url: mailto:hello@brez.top
+  display: hello@brez.top
+  description: 适合反馈链接错误、内容问题或合作沟通。
+  color: "#ea4335"
+
+- name: GitHub
+  icon: github
+  url: https://github.com/breztop
+  display: github.com/breztop
+  description: 提交问题、查看项目更新或直接发起交流。
+  color: "#24292f"
+
+- name: RSS
+  icon: rss
+  url: /index.xml
+  display: 订阅博客更新
+  description: 想持续关注新文章，可以直接添加 RSS 订阅。
+  color: "#f59e0b"
+
+- name: X
+  icon: x
+  url: https://x.com/brez_top
+  display: x.com/brez_top
+  description: 适合轻量沟通与关注最近动态。
+  color: "#111111"

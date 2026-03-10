@@ -1,0 +1,16 @@
+# 可按实际站点结构继续扩展这些快捷入口。
+- name: brez.top
+  url: https://brez.top
+  description: 返回根域名主页，查看整体站点导航。
+
+- name: 文章列表
+  url: /posts/
+  description: 浏览博客里的全部技术文章与更新。
+
+- name: 标签导航
+  url: /tags/
+  description: 按主题快速定位 Hugo、文档、教程等内容。
+
+- name: 分类页
+  url: /categories/
+  description: 从分类入口继续查找相关内容。

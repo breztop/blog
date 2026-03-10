@@ -9,12 +9,12 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
   [languages.zh]  # 中文配置
     languageName = "中文"
     weight = 1
-    title = "你的网站标题"
+    title = "breeze 的博客"
   
   [languages.en]  # 英文配置
     languageName = "English"
     weight = 2
-    title = "Your Site Title"
+    title = "breeze's blog"
 
 [params]
   title = "breeze's blog"
@@ -28,27 +28,19 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
   keywords = ["web开发", "自动化", "博客", "技术分享"]
 
   enableAds = true
-  adContent = """
-  <div style="padding:0.5rem;">
-    <a href="https://example.com" target="_blank" rel="sponsored nofollow" 
-       style="color:var(--primary);text-decoration:none;">
-      <strong>产品名称</strong><br>
-      <small>产品描述...</small>
-    </a>
-  </div>
-  """
+  
+  [params.ads]
+    showOnHome = true
+    showOnPosts = true
+    showOnPages = true
+    showOnList = true
+    position = "multiple"
   
   [params.homeInfoParams]
     title = "欢迎来到我的博客"
     content = "这里是个人博客，分享技术、生活和思考"
     
     AlignSocialIconsTo = "left"
-    
-  [params.ads]
-    showOnHome = true
-    showOnPosts = false
-    showOnPages = false
-    position = "home_info_bottom"
   
   # 站点地图配置
   [params.sitemap]

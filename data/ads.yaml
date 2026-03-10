@@ -1,0 +1,51 @@
+# 广告配置数据文件
+# 在 list.html、single.html 等模板中通过 .Site.Data.ads 调用
+# 支持 3-6 个广告位，按需调整
+
+- id: ad-1
+  title: "云服务器优惠"
+  description: "高性能云服务器，新用户首月仅需 1 元，稳定可靠"
+  url: "https://example.com/cloud"
+  image: "/ads/cloud.png"
+  color: "#2d5bef"
+  featured: true
+
+- id: ad-2
+  title: "开发工具包"
+  description: "一站式开发工具集合，提升 10 倍编码效率"
+  url: "https://example.com/devtools"
+  image: "/ads/devtools.png"
+  color: "#10b981"
+  featured: true
+
+- id: ad-3
+  title: "技术课程"
+  description: "从入门到精通，系统学习 Web 开发全栈技能"
+  url: "https://example.com/courses"
+  image: "/ads/courses.png"
+  color: "#f59e0b"
+  featured: true
+
+- id: ad-4
+  title: "域名注册"
+  description: "全球域名低价注册，免费 SSL 证书，快速备案"
+  url: "https://example.com/domain"
+  image: "/ads/domain.png"
+  color: "#ef4444"
+  featured: false
+
+- id: ad-5
+  title: "CDN 加速"
+  description: "全球节点覆盖，秒级缓存刷新，加速您的网站"
+  url: "https://example.com/cdn"
+  image: "/ads/cdn.png"
+  color: "#8b5cf6"
+  featured: false
+
+- id: ad-6
+  title: "企业邮箱"
+  description: "专业企业邮箱服务，无限容量，安全加密"
+  url: "https://example.com/email"
+  image: "/ads/email.png"
+  color: "#06b6d4"
+  featured: false
