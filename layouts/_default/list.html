@@ -6,139 +6,28 @@
     {{- block "head" . -}}{{ end }}
 
     <style>
-        :root {
-            --primary: #2d5bef;
-            --secondary: #1a3fbf;
-            --accent: #00d4ff;
-        }
-
         /* ========== 列表页面头部 ========== */
         .list-header {
             text-align: center;
-            padding: 4rem 1rem 3rem;
-            margin: -1rem -1rem 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .list-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.3;
-        }
-
-        .list-header-content {
-            position: relative;
-            z-index: 1;
+            padding: 3rem 1.5rem;
+            background: var(--entry);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
         }
 
         .list-header h1 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin: 0 0 0.75rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin: 0 0 0.5rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .list-header p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-            margin: 0;
-            font-weight: 300;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* ========== 广告横幅（3-6 个广告位） ========== */
-        .ad-banner-section {
-            margin: 2rem 0 3rem;
-            padding: 2rem;
-            background: var(--entry);
-            border-radius: 16px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .ad-banner-title {
-            font-size: 0.75rem;
-            color: var(--secondary);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin: 0 0 1.5rem;
-            text-align: center;
-            opacity: 0.7;
-            font-weight: 600;
-        }
-
-        .ad-banner-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.25rem;
-        }
-
-        .ad-banner-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.25rem;
-            background: linear-gradient(135deg, rgba(45, 91, 239, 0.08) 0%, rgba(45, 91, 239, 0.02) 100%);
-            border: 1px solid rgba(45, 91, 239, 0.15);
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text);
-            transition: all 0.3s ease;
-        }
-
-        .ad-banner-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(45, 91, 239, 0.25);
-            border-color: rgba(45, 91, 239, 0.4);
-            text-decoration: none;
-        }
-
-        .ad-banner-image {
-            width: 70px;
-            height: 70px;
-            border-radius: 10px;
-            object-fit: cover;
-            flex-shrink: 0;
-            background: linear-gradient(135deg, rgba(45, 91, 239, 0.1), rgba(0, 212, 255, 0.1));
-            display: grid;
-            place-items: center;
-            font-size: 1.5rem;
-            font-weight: bold;
             color: var(--primary);
         }
 
-        .ad-banner-text {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .ad-banner-title-text {
+        .list-header p {
             font-size: 1rem;
-            font-weight: 700;
-            margin: 0 0 0.35rem;
-            color: var(--text);
-            line-height: 1.3;
-        }
-
-        .ad-banner-desc {
-            font-size: 0.85rem;
             color: var(--secondary);
             margin: 0;
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         /* ========== 文章列表 ========== */
@@ -150,34 +39,26 @@
 
         .post-item {
             background: var(--entry);
-            border-radius: 16px;
-            padding: 1.75rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            border-left: 4px solid var(--primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
         }
 
         .post-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
-            border-left-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-color: var(--primary);
         }
 
         .post-item h2 {
-            margin: 0 0 0.75rem;
-            font-size: 1.5rem;
-            line-height: 1.4;
+            margin: 0 0 0.8rem;
+            font-size: 1.4rem;
         }
 
         .post-item h2 a {
-            color: var(--text);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .post-item h2 a:hover {
             color: var(--primary);
+            text-decoration: none;
         }
 
         .post-meta {
@@ -189,17 +70,11 @@
             margin-bottom: 1rem;
         }
 
-        .post-meta span {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-        }
-
         .post-summary {
-            color: var(--text);
-            opacity: 0.85;
-            line-height: 1.7;
-            margin: 0 0 1.25rem;
+            font-size: 0.95rem;
+            color: var(--content);
+            line-height: 1.6;
+            margin-bottom: 1rem;
         }
 
         .post-tags {
@@ -210,180 +85,49 @@
 
         .post-tag {
             display: inline-block;
-            padding: 0.35rem 0.85rem;
-            background: linear-gradient(135deg, rgba(45, 91, 239, 0.1), rgba(0, 212, 255, 0.1));
-            border: 1px solid rgba(45, 91, 239, 0.2);
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            background: var(--tertiary);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--secondary);
             text-decoration: none;
-            color: var(--text);
-            transition: all 0.2s ease;
         }
 
         .post-tag:hover {
             background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
+            color: var(--theme);
         }
 
-        /* ========== 侧边栏广告位 ========== */
-        .sidebar-ad-section {
-            margin: 3rem 0;
-            padding: 2rem;
-            background: var(--entry);
-            border-radius: 16px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(45, 91, 239, 0.1);
+        /* ========== 广告位优化（缩小） ========== */
+        .list-ad-section {
+            margin: 2rem 0;
         }
 
-        .sidebar-ad-title {
-            font-size: 0.75rem;
-            color: var(--secondary);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin: 0 0 1.25rem;
-            text-align: center;
-            opacity: 0.7;
-            font-weight: 600;
-        }
-
-        .sidebar-ad-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .sidebar-ad-card {
-            display: block;
-            padding: 1.25rem;
-            background: linear-gradient(135deg, rgba(45, 91, 239, 0.1) 0%, rgba(45, 91, 239, 0.05) 100%);
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text);
-            border: 1px solid rgba(45, 91, 239, 0.15);
-            transition: all 0.3s ease;
-        }
-
-        .sidebar-ad-card:hover {
-            background: linear-gradient(135deg, rgba(45, 91, 239, 0.15) 0%, rgba(45, 91, 239, 0.08) 100%);
-            border-color: rgba(45, 91, 239, 0.3);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(45, 91, 239, 0.2);
-        }
-
-        .sidebar-ad-card-title {
-            font-size: 1rem;
-            font-weight: 700;
-            margin: 0 0 0.5rem;
-            color: var(--text);
-        }
-
-        .sidebar-ad-card-desc {
-            font-size: 0.85rem;
-            color: var(--secondary);
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        /* ========== 分页 ========== */
+        /* 分页 */
         .pagination {
             display: flex;
             justify-content: center;
-            align-items: center;
             gap: 0.5rem;
             margin: 3rem 0;
-            flex-wrap: wrap;
         }
 
-        .pagination a,
-        .pagination span {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 45px;
-            height: 45px;
-            padding: 0 1rem;
-            border-radius: 12px;
+        .pagination a, .pagination span {
+            padding: 0.5rem 1rem;
             background: var(--entry);
-            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
             text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .pagination a:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: translateY(-2px);
+            color: var(--primary);
         }
 
         .pagination .active {
             background: var(--primary);
-            color: white;
+            color: var(--theme);
             border-color: var(--primary);
         }
 
-        .pagination .disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* ========== 空状态 ========== */
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--secondary);
-        }
-
-        .empty-state svg {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 1.5rem;
-            opacity: 0.5;
-        }
-
-        .empty-state h3 {
-            font-size: 1.5rem;
-            margin: 0 0 0.5rem;
-        }
-
-        .empty-state p {
-            margin: 0;
-            opacity: 0.8;
-        }
-
-        /* ========== 响应式 ========== */
-        @media (max-width: 768px) {
-            .list-header {
-                padding: 3rem 1rem 2rem;
-            }
-
-            .ad-banner-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar-ad-content {
-                grid-template-columns: 1fr;
-            }
-
-            .post-meta {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-        }
-
-        /* 淡入动画 */
-        .fade-in {
-            animation: fadeIn 0.6s ease-out both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: none; }
-        }
+        .fade-in { animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
     </style>
 </head>
 
@@ -392,131 +136,44 @@
     
     <main class="main">
         <div class="container">
-            {{/* ========== 页面头部 ========== */}}
             <header class="list-header fade-in">
-                <div class="list-header-content">
-                    <h1>{{ .Title }}</h1>
-                    {{ with .Description }}
-                    <p>{{ . }}</p>
-                    {{ end }}
-                </div>
+                <h1>{{ .Title }}</h1>
+                {{ with .Description }}
+                <p>{{ . }}</p>
+                {{ end }}
             </header>
 
-            {{/* ========== 广告横幅（3-6 个广告位） ========== */}}
             {{ if .Site.Params.enableAds }}
-            {{ $ads := .Site.Data.ads }}
-            {{ if $ads }}
-            <section class="ad-banner-section fade-in">
-                <h4 class="ad-banner-title">✨ 赞助商推荐</h4>
-                <div class="ad-banner-grid">
-                    {{ range first 6 $ads }}
-                    <a href="{{ .url }}" class="ad-banner-item" target="_blank" rel="sponsored noopener">
-                        {{ if .image }}
-                        <img src="{{ .image }}" alt="{{ .title }}" class="ad-banner-image" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
-                        <div class="ad-banner-image" style="display:none">{{ index .title 0 }}</div>
-                        {{ else }}
-                        <div class="ad-banner-image">{{ index .title 0 }}</div>
-                        {{ end }}
-                        <div class="ad-banner-text">
-                            <h5 class="ad-banner-title-text">{{ .title }}</h5>
-                            <p class="ad-banner-desc">{{ .description }}</p>
-                        </div>
-                    </a>
-                    {{ end }}
-                </div>
+            <section class="list-ad-section fade-in">
+                {{ partial "advertising.html" . }}
             </section>
             {{ end }}
-            {{ end }}
 
-            {{/* ========== 文章列表 ========== */}}
             <div class="posts-list fade-in">
                 {{ $pages := .Pages }}
                 {{ if .IsHome }}
                     {{ $pages = where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
                 {{ end }}
 
-                {{ if eq (len $pages) 0 }}
-                <div class="empty-state">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14 2 14 8 20 8"/>
-                        <line x1="16" y1="13" x2="8" y2="13"/>
-                        <line x1="16" y1="17" x2="8" y2="17"/>
-                        <polyline points="10 9 9 9 8 9"/>
-                    </svg>
-                    <h3>暂无文章</h3>
-                    <p>这里还没有内容，敬请期待！</p>
-                </div>
-                {{ else }}
-                    {{ range $pages }}
-                    <article class="post-item">
-                        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-                        <div class="post-meta">
-                            {{ with .Date }}
-                            <span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
-                                {{ . | time.Format "2006-01-02" }}
-                            </span>
-                            {{ end }}
-                            {{ with .ReadingTime }}
-                            <span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <polyline points="12 6 12 12 16 14"/>
-                                </svg>
-                                {{ . }} 分钟阅读
-                            </span>
-                            {{ end }}
-                            {{ with .WordCount }}
-                            <span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="16" y1="13" x2="8" y2="13"/>
-                                    <line x1="16" y1="17" x2="8" y2="17"/>
-                                    <line x1="12" y1="3" x2="12" y2="3.01"/>
-                                </svg>
-                                {{ . }} 字
-                            </span>
-                            {{ end }}
-                        </div>
-                        <p class="post-summary">{{ .Summary | truncate 200 }}</p>
-                        {{ with .Params.tags }}
-                        <div class="post-tags">
-                            {{ range . }}
-                            <a href="{{ "tags/" | relLangURL }}{{ . | urlize }}" class="post-tag">#{{ . }}</a>
-                            {{ end }}
-                        </div>
+                {{ range $pages }}
+                <article class="post-item">
+                    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+                    <div class="post-meta">
+                        <span>📅 {{ .Date | time.Format "2006-01-02" }}</span>
+                        <span>⏱️ {{ .ReadingTime }} min</span>
+                    </div>
+                    <p class="post-summary">{{ .Summary | plainify | truncate 200 }}</p>
+                    {{ with .Params.tags }}
+                    <div class="post-tags">
+                        {{ range . }}
+                        <a href="{{ "tags/" | relLangURL }}{{ . | urlize }}" class="post-tag">#{{ . }}</a>
                         {{ end }}
-                    </article>
+                    </div>
                     {{ end }}
+                </article>
                 {{ end }}
             </div>
 
-            {{/* ========== 侧边栏广告位 ========== */}}
-            {{ if and .Site.Params.enableAds .Site.Params.ads.showOnPosts }}
-            {{ $ads := .Site.Data.ads }}
-            {{ if $ads }}
-            <aside class="sidebar-ad-section fade-in">
-                <h4 class="sidebar-ad-title">🤝 合作伙伴</h4>
-                <div class="sidebar-ad-content">
-                    {{ range first 3 $ads }}
-                    <a href="{{ .url }}" class="sidebar-ad-card" target="_blank" rel="sponsored noopener">
-                        <h5 class="sidebar-ad-card-title">{{ .title }}</h5>
-                        <p class="sidebar-ad-card-desc">{{ .description }}</p>
-                    </a>
-                    {{ end }}
-                </div>
-            </aside>
-            {{ end }}
-            {{ end }}
-
-            {{/* ========== 分页 ========== */}}
             {{- partial "pagination.html" . -}}
         </div>
     </main>

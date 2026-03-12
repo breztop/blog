@@ -6,364 +6,194 @@
     {{- block "head" . -}}{{ end }}
 
     <style>
-        :root {
-            --primary: #2d5bef;
-            --secondary: #1a3fbf;
-            --accent: #00d4ff;
-            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        /* ========== Hero 区域 ========== */
+        /* ========== Hero 区域 (极简版，提高文章可见度) ========== */
         .home-hero {
-            position: relative;
-            text-align: center;
-            padding: 4rem 1rem 3rem;
-            margin: -1rem -1rem 2rem;
-            background: var(--bg-gradient);
-            color: white;
-            overflow: hidden;
+            padding: 1.5rem; /* 大幅减少内边距 */
+            background: var(--entry);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
         }
 
-        .home-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.3;
-        }
-
-        .home-hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
+        .home-hero-text {
+            text-align: left;
+            flex: 1;
         }
 
         .home-hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin: 0 0 1rem;
+            font-size: 1.8rem; /* 进一步缩小 */
             font-weight: 800;
-            letter-spacing: -1px;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            margin-bottom: 0.4rem;
+            color: var(--primary);
+            letter-spacing: -0.5px;
         }
 
         .home-hero .subtitle {
-            font-size: clamp(1.1rem, 2vw, 1.4rem);
-            opacity: 0.95;
-            margin: 0 0 2rem;
-            font-weight: 300;
-            line-height: 1.6;
+            font-size: 0.95rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            line-height: 1.4;
         }
 
         .home-hero .actions {
             display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
+            gap: 0.8rem;
         }
 
         .home-hero .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.9rem 2rem;
-            background: white;
-            color: var(--primary);
-            border-radius: 50px;
+            padding: 0.5rem 1.2rem;
+            background: var(--primary);
+            color: var(--theme);
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: 0.85rem;
+            transition: all 0.2s;
         }
 
         .home-hero .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            opacity: 0.9;
+            transform: translateY(-1px);
         }
 
         .home-hero .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .home-hero .btn-secondary:hover {
-            background: white;
+            background: var(--tertiary);
             color: var(--primary);
         }
 
-        /* ========== 特色文章区 ========== */
-        .featured-section {
-            margin: 3rem 0;
+        @media (max-width: 768px) {
+            .home-hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem 1.5rem;
+            }
+            .home-hero-text {
+                text-align: center;
+            }
+            .home-hero .actions {
+                justify-content: center;
+            }
         }
 
+        /* ========== 文章卡片列表 (更紧凑) ========== */
         .section-title {
-            text-align: center;
-            font-size: 1.8rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin: 0 0 2rem;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--bg-gradient);
-            border-radius: 2px;
-        }
-
-        .featured-posts {
+        .post-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* 更小的最小宽度 */
+            gap: 1.2rem;
+            margin-bottom: 2rem;
         }
 
         .post-card {
             background: var(--entry);
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
             display: flex;
             flex-direction: column;
         }
 
         .post-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
             border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        .post-card-image {
-            width: 100%;
-            height: 180px;
-            border-radius: 12px;
-            object-fit: cover;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-        }
-
-        .post-card h3 {
-            margin: 0 0 0.75rem;
-            font-size: 1.3rem;
-            line-height: 1.4;
-        }
-
-        .post-card h3 a {
-            color: var(--text);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .post-card h3 a:hover {
-            color: var(--primary);
+        .post-card-content {
+            padding: 1rem;
         }
 
         .post-card-meta {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             color: var(--secondary);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .post-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .post-card h3 a {
+            color: var(--primary);
+            text-decoration: none;
         }
 
         .post-card-summary {
-            color: var(--text);
-            opacity: 0.8;
-            line-height: 1.7;
-            margin: 0 0 1rem;
-            flex: 1;
+            font-size: 0.85rem;
+            color: var(--content);
+            line-height: 1.4;
+            margin-bottom: 0.8rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .post-card-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary);
             font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--primary);
             text-decoration: none;
-            transition: gap 0.2s ease;
         }
 
-        .post-card-link:hover {
-            gap: 0.8rem;
-        }
-
-        /* ========== 关于作者 ========== */
-        .home-about {
+        /* ========== 底部区域 ========== */
+        .home-bottom-grid {
             display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 2rem;
-            align-items: center;
-            margin: 4rem 0;
-            padding: 2.5rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .home-widget {
             background: var(--entry);
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
         }
 
-        .home-about-avatar {
-            position: relative;
-        }
-
-        .home-about-avatar img {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid var(--primary);
-            box-shadow: 0 10px 30px rgba(45, 91, 239, 0.3);
-        }
-
-        .home-about-bio h2 {
-            margin: 0 0 1rem;
-            font-size: 1.8rem;
-        }
-
-        .home-about-bio p {
-            color: var(--text);
-            opacity: 0.85;
-            line-height: 1.8;
-            margin: 0 0 1.5rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.6rem 1.2rem;
-            background: var(--primary);
-            color: white;
-            border-radius: 25px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .social-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(45, 91, 239, 0.4);
-        }
-
-        /* ========== 标签云 ========== */
-        .tag-cloud-section {
-            margin: 4rem 0;
-            padding: 2.5rem;
-            background: var(--entry);
-            border-radius: 20px;
-            text-align: center;
-        }
-
-        .tag-cloud-inner {
+        .tag-cloud {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
+            gap: 0.4rem;
         }
 
-        .tag-cloud-item {
-            display: inline-block;
-            padding: 0.6rem 1.2rem;
-            background: linear-gradient(135deg, rgba(45, 91, 239, 0.1), rgba(0, 212, 255, 0.1));
-            border: 1px solid rgba(45, 91, 239, 0.2);
-            border-radius: 25px;
-            color: var(--text);
+        .tag-item {
+            padding: 0.2rem 0.5rem;
+            background: var(--tertiary);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--secondary);
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
         }
 
-        .tag-cloud-item:hover {
-            background: var(--primary);
-            color: white;
-            transform: scale(1.05);
+        @media (max-width: 640px) {
+            .home-bottom-grid { grid-template-columns: 1fr; }
         }
 
-        /* ========== 广告位 ========== */
-        .home-ad-section {
-            margin: 3rem 0;
-        }
-
-        /* ========== 响应式 ========== */
-        @media (max-width: 768px) {
-            .home-hero {
-                padding: 3rem 1rem 2rem;
-                margin: -0.5rem -1rem 1.5rem;
-            }
-
-            .featured-posts {
-                grid-template-columns: 1fr;
-            }
-
-            .home-about {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 1.5rem;
-            }
-
-            .home-about-avatar {
-                display: flex;
-                justify-content: center;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-        }
-
-        /* 淡入动画 */
         .fade-in-up {
-            animation: fadeInUp 0.6s ease-out both;
+            animation: fadeInUp 0.4s ease-out both;
         }
-
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: none;
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: none; }
         }
     </style>
-
-    {{ if .IsHome }}
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "{{ .Site.Title }}",
-        "description": "{{ .Site.Params.description }}",
-        "url": "{{ .Site.BaseURL }}",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "{{ .Site.BaseURL }}search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
-    }
-    </script>
-    {{ end }}
 </head>
 
 <body>
@@ -371,118 +201,63 @@
     
     <main class="main">
         <div class="container">
-            {{/* ========== Hero 区域 ========== */}}
+            {{/* Hero Section */}}
             <section class="home-hero fade-in-up">
-                <div class="home-hero-content">
-                    <h1>{{ .Site.Title | default "我的博客" }}</h1>
-                    <p class="subtitle">{{ or .Site.Params.bio .Site.Params.description "分享知识、技术与思考" }}</p>
+                <div class="home-hero-text">
+                    <h1>{{ .Site.Title }}</h1>
+                    <p class="subtitle">{{ .Site.Params.description }}</p>
                     <div class="actions">
-                        <a href="{{ "posts/" | relLangURL }}" class="btn">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                <polyline points="14 2 14 8 20 8"/>
-                            </svg>
-                            浏览文章
-                        </a>
-                        <a href="{{ "about/" | relLangURL }}" class="btn btn-secondary">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                <circle cx="12" cy="7" r="4"/>
-                            </svg>
-                            关于我
-                        </a>
+                        <a href="{{ "posts/" | relLangURL }}" class="btn">{{ i18n "read_articles" | default "阅读文章" }}</a>
+                        <a href="{{ "about/" | relLangURL }}" class="btn btn-secondary">{{ i18n "about_me" | default "关于我" }}</a>
                     </div>
                 </div>
             </section>
 
-            {{/* ========== 最新文章 ========== */}}
-            {{ $featuredPages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections | first 6 }}
-            {{ if $featuredPages }}
-            <section class="featured-section fade-in-up">
-                <h2 class="section-title">最新文章</h2>
-                <div class="featured-posts">
-                    {{ range $featuredPages }}
-                    <article class="post-card">
-                        {{ with .Params.cover }}
-                        {{ if .image }}
-                        <img src="{{ .image | relURL }}" alt="{{ .alt | default $.Title }}" class="post-card-image" loading="lazy">
-                        {{ end }}
-                        {{ else }}
-                        <div class="post-card-image"></div>
-                        {{ end }}
-                        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                        <div class="post-card-meta">
-                            <span>📅 {{ .Date | time.Format "2006-01-02" }}</span>
-                            <span>⏱️ {{ .ReadingTime }} 分钟</span>
-                        </div>
-                        <p class="post-card-summary">{{ .Summary | truncate 120 }}</p>
-                        <a href="{{ .RelPermalink }}" class="post-card-link">
-                            阅读全文
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="5" y1="12" x2="19" y2="12"/>
-                                <polyline points="12 5 19 12 12 19"/>
-                            </svg>
-                        </a>
-                    </article>
-                    {{ end }}
-                </div>
-            </section>
-            {{ end }}
-
-            {{/* ========== 标签云 ========== */}}
-            {{ if gt (len .Site.Taxonomies.tags) 0 }}
-            <section class="tag-cloud-section fade-in-up">
-                <h2 class="section-title">探索标签</h2>
-                <div class="tag-cloud-inner">
-                    {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
-                    {{ with $.Site.GetPage (printf "/tags/%s" $name) }}
-                    <a href="{{ .RelPermalink }}" class="tag-cloud-item">
-                        {{ .Title }} <span style="opacity:0.6">({{ len $taxonomy.Pages }})</span>
-                    </a>
-                    {{ end }}
-                    {{ end }}
-                </div>
-            </section>
-            {{ end }}
-
-            {{/* ========== 关于作者 ========== */}}
-            <section class="home-about fade-in-up">
-                <div class="home-about-avatar">
-                    <img src="{{ .Site.Params.avatar | default "avatar.jpg" | relURL }}" alt="{{ .Site.Params.author }}" loading="lazy">
-                </div>
-                <div class="home-about-bio">
-                    <h2>你好，我是 {{ .Site.Params.author | default "Breeze" }}</h2>
-                    <p>{{ .Site.Params.bio | default "一名热爱技术、喜欢分享的开发者。这里记录我的学习笔记、项目经验和生活思考。" }}</p>
-                    <div class="social-links">
-                        {{ with .Site.Params.social.github }}
-                        <a href="{{ . }}" class="social-link" target="_blank" rel="noopener">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                            GitHub
-                        </a>
-                        {{ end }}
-                        {{ with .Site.Params.social.twitter }}
-                        <a href="{{ . }}" class="social-link" target="_blank" rel="noopener">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                            X
-                        </a>
-                        {{ end }}
-                        {{ with .Site.Params.social.email }}
-                        <a href="mailto:{{ . }}" class="social-link">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                            Email
-                        </a>
-                        {{ end }}
-                    </div>
-                </div>
-            </section>
-
-            {{/* ========== 广告位（可选） ========== */}}
+            {{/* Ad Section */}}
             {{ if .Site.Params.enableAds }}
-            <section class="home-ad-section">
+            <section style="margin-bottom: 2rem;" class="fade-in-up">
                 {{ partial "advertising.html" . }}
             </section>
             {{ end }}
 
+            {{/* Latest Posts */}}
+            <h2 class="section-title fade-in-up">{{ i18n "recent_posts" | default "最新发布" }}</h2>
+            <div class="post-grid fade-in-up">
+                {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections | first 12 }}
+                {{ range $pages }}
+                <article class="post-card">
+                    <div class="post-card-content">
+                        <div class="post-card-meta">
+                            <span>📅 {{ .Date | time.Format "2006-01-02" }}</span>
+                            <span>⏱️ {{ .ReadingTime }} min</span>
+                        </div>
+                        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                        <p class="post-card-summary">{{ .Summary | plainify | truncate 100 }}</p>
+                        <a href="{{ .RelPermalink }}" class="post-card-link">{{ i18n "read_more" | default "阅读更多" }} →</a>
+                    </div>
+                </article>
+                {{ end }}
+            </div>
+
+            <div class="home-bottom-grid fade-in-up">
+                <div class="home-widget">
+                    <h3 class="section-title" style="font-size: 1rem;">{{ i18n "hot_tags" | default "热门标签" }}</h3>
+                    <div class="tag-cloud">
+                        {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+                        <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}" class="tag-item">
+                            {{ $name }} ({{ len $taxonomy.Pages }})
+                        </a>
+                        {{ end }}
+                    </div>
+                </div>
+
+                <div class="home-widget">
+                    <h3 class="section-title" style="font-size: 1rem;">{{ i18n "about_me" | default "关于我" }}</h3>
+                    <p style="font-size: 0.8rem; color: var(--secondary); line-height: 1.5;">
+                        {{ .Site.Params.bio }}
+                    </p>
+                </div>
+            </div>
         </div>
     </main>
     

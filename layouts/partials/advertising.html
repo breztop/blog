@@ -1,16 +1,105 @@
 <!-- partials/advertising.html -->
-<aside class="ad-wrapper" aria-label="赞助商广告">
-    <div class="ad-container">
-        <p class="ad-label">赞助商广告</p>
-        <div class="ad-content">
-            <a href="https://example.com" target="_blank" rel="sponsored noopener" class="ad-link">
-                <img src="/ads/your-ad.png" alt="广告描述" class="ad-image" width="200" height="100">
-                <div class="ad-text">
-                    <h4 class="ad-title">产品/服务名称</h4>
-                    <p class="ad-desc">简洁的广告描述文案，吸引用户点击</p>
-                </div>
-            </a>
-        </div>
-        <p class="ad-note">广告内容与本站立场无关</p>
+<style>
+    .ad-banner {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+        background: var(--entry);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin: 1rem 0;
+    }
+
+    .ad-banner-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .ad-banner-label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .ad-banner-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .ad-banner-item {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 0.6rem;
+        background: var(--tertiary);
+        border-radius: 6px;
+        text-decoration: none;
+        color: var(--content);
+        transition: background 0.2s;
+    }
+
+    .ad-banner-item:hover {
+        background: var(--border);
+    }
+
+    .ad-banner-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        object-fit: cover;
+        background: var(--primary);
+    }
+
+    .ad-banner-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .ad-banner-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ad-banner-desc {
+        font-size: 0.7rem;
+        color: var(--secondary);
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    @media (max-width: 480px) {
+        .ad-banner-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<aside class="ad-banner" aria-label="Sponsored content">
+    <div class="ad-banner-header">
+        <span class="ad-banner-label">Sponsored</span>
+    </div>
+    <div class="ad-banner-grid">
+        {{ $ads := .Site.Data.ads }}
+        {{ range first 3 $ads }}
+        <a href="{{ .url }}" target="_blank" rel="sponsored noopener" class="ad-banner-item">
+            <div class="ad-banner-img"></div>
+            <div class="ad-banner-info">
+                <h4 class="ad-banner-title">{{ .title }}</h4>
+                <p class="ad-banner-desc">{{ .description }}</p>
+            </div>
+        </a>
+        {{ end }}
     </div>
 </aside>

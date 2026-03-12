@@ -6,23 +6,23 @@
     {{- block "head" . -}}{{ end }}
 
     <style>
-        :root {
-            --primary: #2d5bef;
-            --secondary: #1a3fbf;
-            --accent: #00d4ff;
-        }
-
         /* ========== 文章布局 ========== */
         .article-wrapper {
             display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 2rem;
+            grid-template-columns: 1fr 300px;
+            gap: 2.5rem;
             margin: 2rem 0;
+        }
+
+        /* 关键：防止网格项被宽代码块撑开 */
+        .article-wrapper > * {
+            min-width: 0;
         }
 
         @media (max-width: 1024px) {
             .article-wrapper {
                 grid-template-columns: 1fr;
+                gap: 3rem;
             }
         }
 
@@ -30,15 +30,15 @@
         .article-header {
             margin-bottom: 2.5rem;
             padding-bottom: 2rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--border);
         }
 
         .article-title {
-            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
             font-weight: 800;
-            margin: 0 0 1rem;
-            line-height: 1.3;
-            letter-spacing: -0.5px;
+            margin: 0 0 1.2rem;
+            line-height: 1.25;
+            color: var(--primary);
         }
 
         .article-meta {
@@ -53,39 +53,38 @@
         .article-meta span {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .article-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.6rem;
         }
 
         .article-tag {
             display: inline-block;
-            padding: 0.4rem 1rem;
-            background: linear-gradient(135deg, rgba(45, 91, 239, 0.1), rgba(0, 212, 255, 0.1));
-            border: 1px solid rgba(45, 91, 239, 0.2);
-            border-radius: 20px;
-            font-size: 0.85rem;
+            padding: 0.3rem 0.8rem;
+            background: var(--tertiary);
+            border-radius: 6px;
+            font-size: 0.8rem;
             text-decoration: none;
-            color: var(--text);
+            color: var(--primary);
             transition: all 0.2s ease;
         }
 
         .article-tag:hover {
             background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
+            color: var(--theme);
+            transform: translateY(-1px);
         }
 
         /* ========== 封面图片 ========== */
         .article-cover {
-            margin: 0 0 2.5rem;
-            border-radius: 16px;
+            margin: 0 0 3rem;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .article-cover img {
@@ -95,324 +94,231 @@
         }
 
         .cover-caption {
-            padding: 1rem 1.5rem;
+            padding: 0.8rem 1.2rem;
             background: var(--entry);
             font-size: 0.85rem;
             color: var(--secondary);
             text-align: center;
+            font-style: italic;
         }
 
-        /* ========== 文章内容 ========== */
+        /* ========== 文章内容渲染改进 ========== */
         .article-content {
-            line-height: 1.9;
-            font-size: 1.05rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: var(--content);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
-        .article-content h1,
+        /* 标题间距与样式 */
         .article-content h2,
         .article-content h3,
-        .article-content h4,
-        .article-content h5,
-        .article-content h6 {
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
+        .article-content h4 {
+            margin: 2.5rem 0 1.2rem;
+            color: var(--primary);
             font-weight: 700;
-            line-height: 1.4;
         }
 
-        .article-content h1 { font-size: 2rem; }
-        .article-content h2 { font-size: 1.75rem; }
+        .article-content h2 { 
+            font-size: 1.8rem; 
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
         .article-content h3 { font-size: 1.5rem; }
-        .article-content h4 { font-size: 1.25rem; }
+        .article-content h4 { font-size: 1.2rem; }
 
         .article-content p {
-            margin: 1.25rem 0;
+            margin: 1.2rem 0;
+        }
+
+        /* 代码块优化 */
+        .article-content code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        .article-content pre {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto; /* 关键：仅在代码块内滚动 */
+            background: var(--code-block-bg) !important;
+            max-width: 100%;
+            position: relative;
+        }
+
+        .article-content pre code {
+            background: transparent;
+            padding: 0;
+            display: block;
+            line-height: 1.5;
+            font-size: 0.9rem;
+            white-space: pre; /* 保持原样，通过 overflow-x 控制 */
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid var(--primary);
+            padding: 0.5rem 1.5rem;
+            margin: 2rem 0;
+            background: var(--entry);
+            color: var(--secondary);
+            border-radius: 0 8px 8px 0;
         }
 
         .article-content img {
             max-width: 100%;
             height: auto;
-            border-radius: 12px;
-            margin: 2rem 0;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .article-content code {
-            background: rgba(45, 91, 239, 0.1);
-            padding: 0.2rem 0.5rem;
-            border-radius: 6px;
-            font-size: 0.9em;
-            font-family: 'Consolas', 'Monaco', monospace;
-        }
-
-        .article-content pre {
-            background: #1a1a2e;
-            padding: 1.5rem;
-            border-radius: 12px;
-            overflow-x: auto;
-            margin: 2rem 0;
-        }
-
-        .article-content pre code {
-            background: none;
-            padding: 0;
-            color: #e6eef8;
-        }
-
-        .article-content blockquote {
-            border-left: 4px solid var(--primary);
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            color: var(--secondary);
-            font-style: italic;
-        }
-
-        .article-content ul,
-        .article-content ol {
-            margin: 1.5rem 0;
-            padding-left: 2rem;
-        }
-
-        .article-content li {
-            margin: 0.75rem 0;
-        }
-
-        .article-content a {
-            color: var(--primary);
-            text-decoration: underline;
-            text-underline-offset: 3px;
-        }
-
-        .article-content a:hover {
-            color: var(--accent);
-        }
-
-        .article-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-        }
-
-        .article-content th,
-        .article-content td {
-            padding: 0.75rem 1rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
-
-        .article-content th {
-            background: rgba(45, 91, 239, 0.1);
-            font-weight: 600;
-        }
-
-        /* ========== 文章底部 ========== */
-        .article-footer {
-            margin-top: 4rem;
-            padding-top: 2.5rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        @media (max-width: 640px) {
-            .nav-section {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .nav-item {
-            padding: 1.5rem;
-            background: var(--entry);
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .nav-item:hover {
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(45, 91, 239, 0.2);
-        }
-
-        .nav-label {
-            font-size: 0.75rem;
-            color: var(--secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .nav-title {
-            font-size: 1rem;
-            font-weight: 600;
-            line-height: 1.4;
-        }
-
-        /* ========== 相关文章 ========== */
-        .related-posts {
-            margin-top: 2.5rem;
-        }
-
-        .related-posts h3 {
-            font-size: 1.4rem;
-            margin: 0 0 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .related-posts ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: grid;
-            gap: 1rem;
-        }
-
-        .related-posts li a {
+            border-radius: 8px;
+            margin: 1.5rem auto;
             display: block;
-            padding: 1.25rem;
-            background: var(--entry);
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: all 0.2s ease;
         }
 
-        .related-posts li a:hover {
-            border-color: var(--primary);
-            transform: translateX(5px);
-        }
-
-        /* ========== 侧边栏 ========== */
+        /* ========== 侧边栏及广告位缩小 ========== */
         .article-sidebar {
             position: sticky;
             top: 2rem;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
-        /* 侧边栏广告位 */
         .sidebar-ad {
             background: var(--entry);
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(45, 91, 239, 0.1);
+            border-radius: 12px;
+            padding: 1.2rem;
+            border: 1px solid var(--border);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .sidebar-ad:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
         .sidebar-ad-label {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: var(--secondary);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin: 0 0 1rem;
-            text-align: center;
-            opacity: 0.7;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
             font-weight: 600;
+            display: block;
+            text-align: center;
         }
 
         .sidebar-ad-list {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.8rem;
         }
 
         .sidebar-ad-item {
             display: block;
-            padding: 1.25rem;
-            background: linear-gradient(135deg, rgba(45, 91, 239, 0.1) 0%, rgba(45, 91, 239, 0.05) 100%);
-            border-radius: 12px;
+            padding: 0.8rem;
+            background: var(--tertiary);
+            border-radius: 8px;
             text-decoration: none;
-            color: var(--text);
-            border: 1px solid rgba(45, 91, 239, 0.15);
-            transition: all 0.3s ease;
+            color: var(--content);
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
         }
 
         .sidebar-ad-item:hover {
-            background: linear-gradient(135deg, rgba(45, 91, 239, 0.15) 0%, rgba(45, 91, 239, 0.08) 100%);
-            border-color: rgba(45, 91, 239, 0.3);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(45, 91, 239, 0.2);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            background: var(--entry);
         }
 
         .sidebar-ad-item-title {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 700;
-            margin: 0 0 0.5rem;
-            color: var(--text);
+            margin: 0 0 0.3rem;
         }
 
         .sidebar-ad-item-desc {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--secondary);
             margin: 0;
-            line-height: 1.5;
+            line-height: 1.4;
         }
 
-        /* ========== 目录（可选） ========== */
+        /* 目录样式 */
         .toc-sidebar {
             background: var(--entry);
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            padding: 1.2rem;
+            border: 1px solid var(--border);
         }
 
         .toc-title {
             font-size: 1rem;
             font-weight: 700;
             margin: 0 0 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            color: var(--primary);
         }
 
         .toc-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+            font-size: 0.85rem;
         }
 
-        .toc-list li {
+        .toc-list ul {
+            list-style: none;
+            padding-left: 1rem;
             margin: 0.5rem 0;
         }
 
         .toc-list a {
-            font-size: 0.9rem;
-            color: var(--text);
+            color: var(--secondary);
             text-decoration: none;
-            opacity: 0.8;
-            transition: all 0.2s ease;
         }
 
         .toc-list a:hover {
             color: var(--primary);
-            opacity: 1;
         }
 
-        /* ========== 响应式 ========== */
-        @media (max-width: 1024px) {
-            .article-sidebar {
-                position: static;
-            }
+        /* ========== 底部导航 ========== */
+        .article-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
         }
 
-        /* 淡入动画 */
+        .nav-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .nav-section { grid-template-columns: 1fr; }
+        }
+
+        .nav-item {
+            padding: 1rem;
+            background: var(--entry);
+            border-radius: 8px;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover {
+            border-color: var(--primary);
+            background: var(--tertiary);
+        }
+
+        .nav-label { font-size: 0.7rem; color: var(--secondary); margin-bottom: 0.3rem; }
+        .nav-title { font-size: 0.9rem; font-weight: 600; color: var(--primary); }
+
+        /* 动画 */
         .fade-in {
-            animation: fadeIn 0.6s ease-out both;
+            animation: fadeIn 0.5s ease-out;
         }
-
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: none; }
         }
     </style>
@@ -431,37 +337,15 @@
                         
                         <div class="article-meta">
                             {{ with .Date }}
-                            <span>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
-                                {{ . | time.Format "2006-01-02" }}
-                            </span>
+                            <span>📅 {{ . | time.Format "2006-01-02" }}</span>
                             {{ end }}
                             
                             {{ with .ReadingTime }}
-                            <span>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <polyline points="12 6 12 12 16 14"/>
-                                </svg>
-                                {{ . }} 分钟阅读
-                            </span>
+                            <span>⏱️ {{ . }} 分钟阅读</span>
                             {{ end }}
                             
                             {{ with .WordCount }}
-                            <span>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="16" y1="13" x2="8" y2="13"/>
-                                    <line x1="16" y1="17" x2="8" y2="17"/>
-                                </svg>
-                                {{ . }} 字
-                            </span>
+                            <span>📝 {{ . }} 字</span>
                             {{ end }}
                         </div>
 
@@ -474,7 +358,6 @@
                         {{ end }}
                     </header>
 
-                    {{/* 封面图片 */}}
                     {{ with .Params.cover }}
                     {{ if .image }}
                     <div class="article-cover">
@@ -491,7 +374,6 @@
                     </div>
 
                     <footer class="article-footer">
-                        {{/* 上一篇/下一篇导航 */}}
                         <div class="nav-section">
                             {{ with .PrevInSection }}
                             <a href="{{ .RelPermalink }}" class="nav-item">
@@ -507,39 +389,18 @@
                             </a>
                             {{ end }}
                         </div>
-
-                        {{/* 相关文章推荐 */}}
-                        {{ $related := .Site.RegularPages.Related . | first 5 }}
-                        {{ with $related }}
-                        <div class="related-posts">
-                            <h3>
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <line x1="2" y1="12" x2="22" y2="12"/>
-                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                                </svg>
-                                相关文章
-                            </h3>
-                            <ul>
-                                {{ range . }}
-                                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-                                {{ end }}
-                            </ul>
-                        </div>
-                        {{ end }}
                     </footer>
                 </article>
 
                 {{/* ========== 侧边栏 ========== */}}
                 <aside class="article-sidebar fade-in">
-                    {{/* 侧边栏广告位 */}}
                     {{ if and .Site.Params.enableAds .Site.Params.ads.showOnPosts }}
                     {{ $ads := .Site.Data.ads }}
                     {{ if $ads }}
                     <div class="sidebar-ad">
-                        <h4 class="sidebar-ad-label">🤝 合作伙伴</h4>
+                        <span class="sidebar-ad-label">Sponsored</span>
                         <div class="sidebar-ad-list">
-                            {{ range first 3 $ads }}
+                            {{ range first 2 $ads }}
                             <a href="{{ .url }}" class="sidebar-ad-item" target="_blank" rel="sponsored noopener">
                                 <h5 class="sidebar-ad-item-title">{{ .title }}</h5>
                                 <p class="sidebar-ad-item-desc">{{ .description }}</p>
@@ -550,20 +411,9 @@
                     {{ end }}
                     {{ end }}
 
-                    {{/* 目录（如果文章有标题） */}}
                     {{ if gt (len .TableOfContents) 50 }}
                     <div class="toc-sidebar">
-                        <h4 class="toc-title">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="8" y1="6" x2="21" y2="6"/>
-                                <line x1="8" y1="12" x2="21" y2="12"/>
-                                <line x1="8" y1="18" x2="21" y2="18"/>
-                                <line x1="3" y1="6" x2="3.01" y2="6"/>
-                                <line x1="3" y1="12" x2="3.01" y2="12"/>
-                                <line x1="3" y1="18" x2="3.01" y2="18"/>
-                            </svg>
-                            目录
-                        </h4>
+                        <h4 class="toc-title">目录</h4>
                         <nav class="toc-list">
                             {{ .TableOfContents }}
                         </nav>

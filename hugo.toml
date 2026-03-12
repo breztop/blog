@@ -10,11 +10,53 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
     languageName = "中文"
     weight = 1
     title = "breeze 的博客"
-  
+    [languages.zh.menu]
+      [[languages.zh.menu.main]]
+        identifier = "home"
+        name = "首页"
+        url = "/"
+        weight = 1
+      [[languages.zh.menu.main]]
+        identifier = "posts"
+        name = "文章"
+        url = "/posts/"
+        weight = 10
+      [[languages.zh.menu.main]]
+        identifier = "tags"
+        name = "标签"
+        url = "/tags/"
+        weight = 20
+      [[languages.zh.menu.main]]
+        identifier = "about"
+        name = "关于"
+        url = "/about/"
+        weight = 30
+
   [languages.en]  # 英文配置
     languageName = "English"
     weight = 2
     title = "breeze's blog"
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "home"
+        name = "Home"
+        url = ""
+        weight = 1
+      [[languages.en.menu.main]]
+        identifier = "posts"
+        name = "Posts"
+        url = "posts/"
+        weight = 10
+      [[languages.en.menu.main]]
+        identifier = "tags"
+        name = "Tags"
+        url = "tags/"
+        weight = 20
+      [[languages.en.menu.main]]
+        identifier = "about"
+        name = "About"
+        url = "about/"
+        weight = 30
 
 [params]
   title = "breeze's blog"
@@ -61,33 +103,3 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
   [socialIcons.github]
     name = "GitHub"
     url = "https://github.com/breztop"
-
-[menu]
-  # 首页
-  [[menu.main]]
-    identifier = "home"
-    name = "首页"
-    url = "/"
-    weight = 1
-  
-  # 文章列表
-  [[menu.main]]
-    identifier = "posts"
-    name = "文章"
-    url = "/posts/"
-    weight = 10
-  
-  # 标签
-  [[menu.main]]
-    identifier = "tags"
-    name = "标签"
-    url = "/tags/"
-    weight = 20
-  
-  # 关于页面
-  [[menu.main]]
-    identifier = "about"
-    name = "关于"
-    url = "/about/"
-    weight = 30
-  
