@@ -1,0 +1,409 @@
+
+/* Fix code block overflow causing horizontal scroll on mobile */
+.post-content pre,
+.highlight,
+.post-content .highlight {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.post-content pre code {
+    display: grid !important;
+    width: max-content !important;
+    min-width: 100%;
+    word-break: normal !important;
+    word-wrap: normal !important;
+    white-space: pre !important;
+}
+
+.chroma .lntable {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+}
+
+/* --- Article Reading Beautification --- */
+
+:root {
+    --content-gap: 32px;
+    --content-fg: rgb(31, 31, 31);
+    --content-bg: rgb(255, 255, 255);
+    --code-inline-fg: #c92626;
+    --code-inline-bg: #f6f8fa;
+    --code-inline-border: #d0d7de;
+    --table-border: #8e8e8e;
+    --table-th-bg: #e8e8e8;
+    --table-tr-hover: #f0f0f0;
+    --list-border: #8e8e8e;
+    --hr-color: #8e8e8e;
+}
+
+[data-theme="dark"] {
+    --content-fg: rgb(196, 196, 197);
+    --content-bg: rgb(29, 30, 32);
+    --code-inline-fg: #f0883e;
+    --code-inline-bg: #161b22;
+    --code-inline-border: #565656;
+    --table-border: #565656;
+    --table-th-bg: #333333;
+    --table-tr-hover: #3a3a3a;
+    --list-border: #565656;
+    --hr-color: #565656;
+}
+
+/* Light mode code block colors */
+:root .chroma {
+    color: #24273a;
+    background-color: #f6f8fa;
+}
+
+:root .chroma .lntable {
+    border: 1px solid #d0d7de;
+}
+
+:root .chroma .k { color: #8250df }
+:root .chroma .kc { color: #953800 }
+:root .chroma .kd { color: #953800 }
+:root .chroma .kn { color: #116329 }
+:root .chroma .kp { color: #8250df }
+:root .chroma .kr { color: #8250df }
+:root .chroma .kt { color: #953800 }
+:root .chroma .na { color: #0969da }
+:root .chroma .nb { color: #0550ae }
+:root .chroma .nc { color: #953800 }
+:root .chroma .no { color: #953800 }
+:root .chroma .nd { color: #8250ef }
+:root .chroma .ni { color: #116329 }
+:root .chroma .ne { color: #953800 }
+:root .chroma .nf { color: #8250df }
+:root .chroma .nt { color: #116329 }
+:root .chroma .nv { color: #6605c5 }
+:root .chroma .s { color: #0a3069 }
+:root .chroma .sa { color: #cf222e }
+:root .chroma .sb { color: #0a3069 }
+:root .chroma .sc { color: #0a3069 }
+:root .chroma .dl { color: #0969da }
+:root .chroma .sd { color: #5e6d82 }
+:root .chroma .s2 { color: #0a3069 }
+:root .chroma .se { color: #0969da }
+:root .chroma .sh { color: #5e6d82 }
+:root .chroma .si { color: #0a3069 }
+:root .chroma .sx { color: #0a3069 }
+:root .chroma .sr { color: #116329 }
+:root .chroma .s1 { color: #0a3069 }
+:root .chroma .ss { color: #116329 }
+:root .chroma .m { color: #953800 }
+:root .chroma .mb { color: #953800 }
+:root .chroma .mf { color: #953800 }
+:root .chroma .mh { color: #953800 }
+:root .chroma .mi { color: #953800 }
+:root .chroma .il { color: #953800 }
+:root .chroma .mo { color: #953800 }
+:root .chroma .o { color: #0550ae; font-weight: bold }
+:root .chroma .ow { color: #0550ae; font-weight: bold }
+:root .chroma .c { color: #6e7781; font-style: italic }
+:root .chroma .ch { color: #6e7781; font-style: italic }
+:root .chroma .cm { color: #6e7781; font-style: italic }
+:root .chroma .c1 { color: #6e7781; font-style: italic }
+:root .chroma .cs { color: #6e7781; font-style: italic }
+:root .chroma .cp { color: #0550ae }
+:root .chroma .cpf { color: #0550ae; font-weight: bold; font-style: italic }
+:root .chroma .gd { color: #cf222e; background-color: #ffebe9 }
+:root .chroma .ge { font-style: italic }
+:root .chroma .gr { color: #cf222e }
+:root .chroma .gh { color: #953800; font-weight: bold }
+:root .chroma .gi { color: #116329; background-color: #dafbe1 }
+:root .chroma .gu { color: #953800; font-weight: bold }
+:root .chroma .gt { color: #cf222e }
+:root .chroma .lnt { color: #6e7781 }
+:root .chroma .ln { color: #6e7781 }
+:root .chroma .hl { background-color: #f6f8fa }
+:root .chroma .line { display: flex; }
+
+/* Dark mode code block colors */
+[data-theme="dark"] .chroma {
+    color: #cad3f5;
+    background-color: #1e1e2e;
+}
+
+[data-theme="dark"] .chroma .lntable {
+    border: 1px solid #313244;
+}
+
+[data-theme="dark"] .chroma .k { color: #cba6f7 }
+[data-theme="dark"] .chroma .kc { color: #fab387 }
+[data-theme="dark"] .chroma .kd { color: #f38ba8 }
+[data-theme="dark"] .chroma .kn { color: #94e2d5 }
+[data-theme="dark"] .chroma .kp { color: #cba6f7 }
+[data-theme="dark"] .chroma .kr { color: #cba6f7 }
+[data-theme="dark"] .chroma .kt { color: #f38ba8 }
+[data-theme="dark"] .chroma .na { color: #89b4fa }
+[data-theme="dark"] .chroma .nb { color: #94e2d5 }
+[data-theme="dark"] .chroma .nc { color: #f9e2af }
+[data-theme="dark"] .chroma .no { color: #f9e2af }
+[data-theme="dark"] .chroma .nd { color: #89b4fa; font-weight: bold }
+[data-theme="dark"] .chroma .ni { color: #94e2d5 }
+[data-theme="dark"] .chroma .ne { color: #fab387 }
+[data-theme="dark"] .chroma .nf { color: #89b4fa }
+[data-theme="dark"] .chroma .nt { color: #94e2d5 }
+[data-theme="dark"] .chroma .nv { color: #f5c2e7 }
+[data-theme="dark"] .chroma .s { color: #a6e3a1 }
+[data-theme="dark"] .chroma .sa { color: #f38ba8 }
+[data-theme="dark"] .chroma .sb { color: #a6e3a1 }
+[data-theme="dark"] .chroma .sc { color: #a6e3a1 }
+[data-theme="dark"] .chroma .dl { color: #89b4fa }
+[data-theme="dark"] .chroma .sd { color: #6c7086 }
+[data-theme="dark"] .chroma .s2 { color: #a6e3a1 }
+[data-theme="dark"] .chroma .se { color: #89b4fa }
+[data-theme="dark"] .chroma .sh { color: #6c7086 }
+[data-theme="dark"] .chroma .si { color: #a6e3a1 }
+[data-theme="dark"] .chroma .sx { color: #a6e3a1 }
+[data-theme="dark"] .chroma .sr { color: #94e2d5 }
+[data-theme="dark"] .chroma .s1 { color: #a6e3a1 }
+[data-theme="dark"] .chroma .ss { color: #94e2d5 }
+[data-theme="dark"] .chroma .m { color: #fab387 }
+[data-theme="dark"] .chroma .mb { color: #fab387 }
+[data-theme="dark"] .chroma .mf { color: #fab387 }
+[data-theme="dark"] .chroma .mh { color: #fab387 }
+[data-theme="dark"] .chroma .mi { color: #fab387 }
+[data-theme="dark"] .chroma .il { color: #fab387 }
+[data-theme="dark"] .chroma .mo { color: #fab387 }
+[data-theme="dark"] .chroma .o { color: #94e2d5; font-weight: bold }
+[data-theme="dark"] .chroma .ow { color: #94e2d5; font-weight: bold }
+[data-theme="dark"] .chroma .c { color: #6c7086; font-style: italic }
+[data-theme="dark"] .chroma .ch { color: #6c7086; font-style: italic }
+[data-theme="dark"] .chroma .cm { color: #6c7086; font-style: italic }
+[data-theme="dark"] .chroma .c1 { color: #6c7086; font-style: italic }
+[data-theme="dark"] .chroma .cs { color: #6c7086; font-style: italic }
+[data-theme="dark"] .chroma .cp { color: #94e2d5 }
+[data-theme="dark"] .chroma .cpf { color: #94e2d5; font-weight: bold; font-style: italic }
+[data-theme="dark"] .chroma .gd { color: #f38ba8; background-color: #3d2c35 }
+[data-theme="dark"] .chroma .ge { font-style: italic }
+[data-theme="dark"] .chroma .gr { color: #f38ba8 }
+[data-theme="dark"] .chroma .gh { color: #fab387; font-weight: bold }
+[data-theme="dark"] .chroma .gi { color: #a6e3a1; background-color: #243826 }
+[data-theme="dark"] .chroma .gu { color: #fab387; font-weight: bold }
+[data-theme="dark"] .chroma .gt { color: #f38ba8 }
+[data-theme="dark"] .chroma .lnt { color: #6c7086 }
+[data-theme="dark"] .chroma .ln { color: #6c7086 }
+[data-theme="dark"] .chroma .hl { background-color: #313244 }
+[data-theme="dark"] .chroma .line { display: flex; }
+
+/* Code inline - both modes */
+.post-content code,
+.article-content code {
+    color: var(--code-inline-fg);
+    background: var(--code-inline-bg);
+    border: 1px solid var(--code-inline-border);
+}
+
+/* Using high-quality system font stack */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei';
+    -webkit-font-smoothing: antialiased;
+}
+
+.post-content, .article-content {
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: var(--content-fg);
+}
+
+/* Title and Metadata */
+.post-title, .article-title {
+    margin-bottom: 16px;
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--primary);
+}
+
+.post-meta, .article-meta {
+    margin-bottom: 40px;
+    font-size: 15px;
+    color: var(--secondary);
+}
+
+/* Headings */
+.post-content h1, .post-content h2, .post-content h3, .post-content h4,
+.article-content h1, .article-content h2, .article-content h3, .article-content h4 {
+    color: var(--primary);
+    margin-top: 3.2rem;
+    margin-bottom: 1.4rem;
+    font-weight: 700;
+    position: relative;
+    clear: both;
+}
+
+.post-content h1::before, .article-content h1::before {
+    content: '';
+    display: block;
+    height: 1px;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, var(--primary), transparent);
+}
+
+.post-content h1, .article-content h1 {
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--primary);
+}
+
+.post-content h2, .article-content h2 {
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--tertiary);
+}
+
+.post-content h3, .article-content h3 {
+    padding-left: 12px;
+    border-left: 4px solid var(--primary);
+}
+
+.post-content h4, .article-content h4 {
+    padding-left: 8px;
+    border-left: 2px solid var(--primary);
+}
+
+/* Blockquote */
+.post-content blockquote, .article-content blockquote {
+    margin: 32px 0;
+    padding: 12px 24px;
+    border-inline-start: 4px solid var(--primary);
+    background: var(--code-bg);
+    border-radius: 4px;
+    color: var(--secondary);
+    font-style: italic;
+}
+
+/* Images */
+.post-content img, .article-content img {
+    border-radius: 8px;
+    margin: 32px auto;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Links */
+.post-content a, .article-content a {
+    color: var(--primary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--tertiary);
+    transition: all 0.15s ease;
+}
+
+.post-content a:hover, .article-content a:hover {
+    border-bottom-color: var(--primary);
+}
+
+/* List Styling with borders */
+.post-content ul,
+.post-content ol,
+.article-content ul,
+.article-content ol {
+    padding-inline-start: 24px;
+    border-left: 2px solid var(--list-border);
+    margin-left: 8px;
+}
+
+.post-content li,
+.article-content li {
+    margin-bottom: 8px;
+    padding-left: 8px;
+}
+
+.post-content li::marker,
+.article-content li::marker {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Table Styling */
+.post-content table,
+.article-content table,
+.post-content table *,
+.article-content table * {
+    border: 1px solid var(--table-border) !important;
+}
+
+.post-content table,
+.article-content table {
+    width: 100%;
+    border-collapse: collapse !important;
+    border: 2px solid var(--table-border) !important;
+    margin-bottom: var(--content-gap);
+    background: var(--content-bg);
+}
+
+.post-content table th,
+.post-content table td,
+.article-content table th,
+.article-content table td {
+    padding: 10px 14px;
+    border: 1px solid var(--table-border);
+    text-align: left;
+}
+
+.post-content table th,
+.article-content table th {
+    background: var(--table-th-bg);
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.post-content table tr:hover,
+.article-content table tr:hover {
+    background: var(--table-tr-hover);
+}
+
+/* Horizontal Rule */
+.post-content hr, .article-content hr {
+    margin: 48px 0;
+    height: 1px;
+    background: var(--hr-color);
+    border: none;
+    opacity: 0.4;
+}
+
+/* --- Compact Ad Styling --- */
+.article-ad-top, .article-ad-bottom {
+    margin: 1.5rem 0;
+}
+
+.ad-banner {
+    padding: 0.8rem 1.2rem !important;
+    margin: 0 !important;
+    gap: 0.4rem !important;
+}
+
+.ad-banner-header {
+    margin-bottom: 0.2rem !important;
+}
+
+.ad-banner-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+    gap: 0.6rem !important;
+}
+
+.ad-banner-item {
+    padding: 0.4rem 0.6rem !important;
+}
+
+.ad-banner-img {
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.ad-banner-title {
+    font-size: 0.8rem !important;
+}
+
+.ad-banner-desc {
+    font-size: 0.65rem !important;
+}

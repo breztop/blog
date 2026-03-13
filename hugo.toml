@@ -103,3 +103,9 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
   [socialIcons.github]
     name = "GitHub"
     url = "https://github.com/breztop"
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    style = "monokai" # or any style, PaperMod uses its own classes if noClasses is false
+    lineNos = true

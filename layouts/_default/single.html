@@ -111,11 +111,11 @@
             overflow-wrap: break-word;
         }
 
-        /* 标题间距与样式 */
+        /* 标题间距与样式 - 增加上下空隙 */
         .article-content h2,
         .article-content h3,
         .article-content h4 {
-            margin: 2.5rem 0 1.2rem;
+            margin: 3.5rem 0 1.5rem; /* 增加上边距 */
             color: var(--primary);
             font-weight: 700;
         }
@@ -123,13 +123,42 @@
         .article-content h2 { 
             font-size: 1.8rem; 
             border-bottom: 1px solid var(--border);
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.8rem;
         }
         .article-content h3 { font-size: 1.5rem; }
         .article-content h4 { font-size: 1.2rem; }
 
         .article-content p {
-            margin: 1.2rem 0;
+            margin: 1.5rem 0;
+        }
+
+        /* 表格样式优化 - 增强边框可见度 */
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        .article-content table th,
+        .article-content table td {
+            padding: 12px;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .article-content table th {
+            background: var(--tertiary);
+            font-weight: 700;
+        }
+
+        /* 针对深色模式增强表格线 */
+        [data-theme="dark"] .article-content table th,
+        [data-theme="dark"] .article-content table td {
+            border-color: rgba(117, 185, 222, 0.2);
+        }
+        
+        [data-theme="dark"] .article-content table th {
+            background: rgba(117, 185, 222, 0.1);
         }
 
         /* 代码块优化 */
@@ -324,7 +353,7 @@
     </style>
 </head>
 
-<body>
+<body id="top">
     {{- partial "header.html" . -}}
     
     <main class="main">
@@ -369,9 +398,21 @@
                     {{ end }}
                     {{ end }}
 
+                    {{ if and .Site.Params.enableAds .Site.Params.ads.showOnPosts }}
+                    <div class="article-ad-top">
+                        {{ partial "advertising.html" . }}
+                    </div>
+                    {{ end }}
+
                     <div class="article-content">
                         {{ .Content }}
                     </div>
+
+                    {{ if and .Site.Params.enableAds .Site.Params.ads.showOnPosts }}
+                    <div class="article-ad-bottom">
+                        {{ partial "advertising.html" . }}
+                    </div>
+                    {{ end }}
 
                     <footer class="article-footer">
                         <div class="nav-section">

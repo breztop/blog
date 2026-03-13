@@ -9,24 +9,32 @@
         /* ========== 关于页面头部 ========== */
         .about-header {
             text-align: center;
-            padding: 4rem 1.5rem;
+            padding: 2.5rem 1rem; /* 显著减小高度 */
             background: var(--entry);
             border-bottom: 1px solid var(--border);
-            margin-bottom: 2rem;
-        }
-
-        .about-avatar-large {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            border: 4px solid var(--primary);
-            object-fit: cover;
             margin-bottom: 1.5rem;
         }
 
+        .about-avatar-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--theme);
+            display: inline-grid;
+            place-items: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .about-avatar-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
         .about-header h1 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            margin: 0 0 0.5rem;
+            font-size: 2.2rem; /* 减小标题 */
+            margin: 0 0 0.4rem;
             font-weight: 800;
             color: var(--primary);
         }
@@ -182,13 +190,17 @@
     </style>
 </head>
 
-<body>
+<body id="top">
     {{- partial "header.html" . -}}
     
     <main class="main">
         <div class="container">
             <header class="about-header fade-in">
-                <img src="{{ .Site.Params.avatar | default "avatar.jpg" | relURL }}" alt="{{ .Site.Params.author }}" class="about-avatar-large" loading="lazy">
+                <div class="about-avatar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
                 <h1>{{ .Title }}</h1>
                 <p class="tagline">{{ .Description | default "了解博客作者的故事" }}</p>
             </header>
