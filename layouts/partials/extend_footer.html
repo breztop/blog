@@ -1,0 +1,38 @@
+{{- /* Footer custom content area start */ -}}
+<style>
+    .goatcounter-count {
+        font-variant-numeric: tabular-nums;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.goatcounter-count').forEach(function (el) {
+            var path = el.getAttribute('data-goatcounter-path');
+            if (!path) return;
+            
+            // Normalize path for GoatCounter (usually strips trailing slash)
+            if (path.endsWith('/') && path.length > 1) {
+                path = path.slice(0, -1);
+            }
+            
+            // Fetch from GoatCounter API
+            // Note: Replace 'stats.brez.top' with your actual GoatCounter domain if different
+            var api_url = 'https://stats.brez.top/counter/' + encodeURIComponent(path) + '.json';
+            
+            fetch(api_url)
+                .then(function (response) { return response.json(); })
+                .then(function (data) {
+                    if (data && typeof data.count !== 'undefined') {
+                        el.innerText = data.count + ' 次阅读';
+                    } else {
+                        el.innerText = '0 次阅读';
+                    }
+                })
+                .catch(function (error) {
+                    console.warn('GoatCounter error:', error);
+                    el.innerText = '0 次阅读';
+                });
+        });
+    });
+</script>
+{{- /* Footer custom content area end */ -}}

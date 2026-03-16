@@ -205,7 +205,7 @@
             <section class="home-hero fade-in-up">
                 <div class="home-hero-text">
                     <h1>{{ .Site.Title }}</h1>
-                    <p class="subtitle">{{ .Site.Params.description }}</p>
+                    <p class="subtitle">{{ .Site.Params.description }} &nbsp;·&nbsp; <span class="goatcounter-count" data-goatcounter-path="/">...</span></p>
                     <div class="actions">
                         <a href="{{ "posts/" | relLangURL }}" class="btn">{{ i18n "read_articles" | default "阅读文章" }}</a>
                         <a href="{{ "about/" | relLangURL }}" class="btn btn-secondary">{{ i18n "about_me" | default "关于我" }}</a>
@@ -230,6 +230,7 @@
                         <div class="post-card-meta">
                             <span>📅 {{ .Date | time.Format "2006-01-02" }}</span>
                             <span>⏱️ {{ .ReadingTime }} min</span>
+                            <span class="goatcounter-count" data-goatcounter-path="{{ .RelPermalink }}">...</span>
                         </div>
                         <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
                         <p class="post-card-summary">{{ .Summary | plainify | truncate 100 }}</p>

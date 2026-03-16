@@ -161,6 +161,7 @@
                     <div class="post-meta">
                         <span>📅 {{ .Date | time.Format "2006-01-02" }}</span>
                         <span>⏱️ {{ .ReadingTime }} min</span>
+                        <span class="goatcounter-count" data-goatcounter-path="{{ .RelPermalink }}">...</span>
                     </div>
                     <p class="post-summary">{{ .Summary | plainify | truncate 200 }}</p>
                     {{ with .Params.tags }}

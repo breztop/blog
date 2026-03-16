@@ -376,6 +376,8 @@
                             {{ with .WordCount }}
                             <span>📝 {{ . }} 字</span>
                             {{ end }}
+                            
+                            <span>👁️ <span class="goatcounter-count" data-goatcounter-path="{{ .RelPermalink }}">...</span></span>
                         </div>
 
                         {{ with .Params.tags }}
