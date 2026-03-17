@@ -70,6 +70,12 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
   keywords = ["web开发", "自动化", "博客", "技术分享"]
 
   enableAds = true
+
+  [params.assets]
+    favicon = "/favicon.svg"
+    favicon16x16 = "/favicon.svg"
+    favicon32x32 = "/favicon.svg"
+    apple_touch_icon = "/favicon.svg"
   
   [params.ads]
     showOnHome = true

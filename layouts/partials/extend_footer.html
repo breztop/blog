@@ -12,11 +12,9 @@
             
             // Normalize path: remove trailing slash (e.g., /zh/ -> /zh)
             var p = path.replace(/\/$/, '');
-            // Prefix with hostname to match the reporting format: /domain.com/path
             var fullPath = '/' + location.host + (p || '');
             
-            // Fetch from GoatCounter API
-            var api_url = 'https://stats.brez.top/counter/' + encodeURIComponent(fullPath) + '.json';
+            var api_url = 'https://stats.brez.top/counter/' + fullPath + '.json';
             
             fetch(api_url)
                 .then(function (response) { return response.json(); })
