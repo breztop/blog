@@ -10,14 +10,13 @@
             var path = el.getAttribute('data-goatcounter-path');
             if (!path) return;
             
-            // Normalize path for GoatCounter (usually strips trailing slash)
-            if (path.endsWith('/') && path.length > 1) {
-                path = path.slice(0, -1);
-            }
+            // Normalize path: remove trailing slash (e.g., /zh/ -> /zh)
+            var p = path.replace(/\/$/, '');
+            // Prefix with hostname to match the reporting format: /domain.com/path
+            var fullPath = '/' + location.host + (p || '');
             
             // Fetch from GoatCounter API
-            // Note: Replace 'stats.brez.top' with your actual GoatCounter domain if different
-            var api_url = 'https://stats.brez.top/counter/' + encodeURIComponent(path) + '.json';
+            var api_url = 'https://stats.brez.top/counter/' + encodeURIComponent(fullPath) + '.json';
             
             fetch(api_url)
                 .then(function (response) { return response.json(); })
