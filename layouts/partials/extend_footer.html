@@ -5,30 +5,21 @@
     }
 </style>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.goatcounter-count').forEach(function (el) {
-            var path = el.getAttribute('data-goatcounter-path');
-            if (!path) return;
-            
-            // Normalize path: remove trailing slash (e.g., /zh/ -> /zh)
-            var p = path.replace(/\/$/, '');
-            var fullPath = '/' + location.host + (p || '');
-            
-            var api_url = 'https://stats.brez.top/counter/' + fullPath + '.json';
-            
-            fetch(api_url)
-                .then(function (response) { return response.json(); })
-                .then(function (data) {
-                    if (data && typeof data.count !== 'undefined') {
-                        el.innerText = data.count + ' 次阅读';
-                    } else {
-                        el.innerText = '0 次阅读';
-                    }
-                })
-                .catch(function (error) {
-                    console.warn('GoatCounter error:', error);
-                    el.innerText = '0 次阅读';
-                });
+    document.addEventListener('DOMContentLoaded', () => {
+        const SITE_URL = "https://stats.brez.top";
+        document.querySelectorAll('.goatcounter-count').forEach(async el => {
+            let path = el.getAttribute('data-goatcounter-path') || location.pathname;
+            path = path.replace(/\/$/, '') || '/';
+            const api_url = `${SITE_URL}/counter/${path}.json`;
+            try {
+                const r = await fetch(api_url);
+                if (r.ok) {
+                    const data = await r.json();
+                    el.innerText = (data.count || 0) + ' 次阅读';
+                }
+            } catch (e) {
+                if (el.innerText === '...') el.innerText = '0 次阅读';
+            }
         });
     });
 </script>
