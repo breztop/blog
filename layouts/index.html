@@ -6,9 +6,8 @@
     {{- block "head" . -}}{{ end }}
 
     <style>
-        /* ========== Hero 区域 (极简版，提高文章可见度) ========== */
         .home-hero {
-            padding: 1.5rem; /* 大幅减少内边距 */
+            padding: 1.5rem;
             background: var(--entry);
             border-radius: 12px;
             margin-bottom: 2rem;
@@ -25,7 +24,7 @@
         }
 
         .home-hero h1 {
-            font-size: 1.8rem; /* 进一步缩小 */
+            font-size: 1.8rem;
             font-weight: 800;
             margin-bottom: 0.4rem;
             color: var(--primary);
@@ -79,7 +78,6 @@
             }
         }
 
-        /* ========== 文章卡片列表 (更紧凑) ========== */
         .section-title {
             font-size: 1.2rem;
             font-weight: 700;
@@ -92,7 +90,7 @@
 
         .post-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* 更小的最小宽度 */
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 1.2rem;
             margin-bottom: 2rem;
         }
@@ -205,7 +203,7 @@
             <section class="home-hero fade-in-up">
                 <div class="home-hero-text">
                     <h1>{{ .Site.Title }}</h1>
-                    <p class="subtitle">{{ .Site.Params.description }} &nbsp;·&nbsp; <span class="goatcounter-count" data-goatcounter-path="/">...</span></p>
+                    <p class="subtitle">{{ .Site.Params.description }} &nbsp;·&nbsp; <span class="goatcounter-count" data-goatcounter-path="{{ .RelPermalink }}">...</span></p>
                     <div class="actions">
                         <a href="{{ "posts/" | relLangURL }}" class="btn">{{ i18n "read_articles" | default "阅读文章" }}</a>
                         <a href="{{ "about/" | relLangURL }}" class="btn btn-secondary">{{ i18n "about_me" | default "关于我" }}</a>
