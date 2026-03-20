@@ -1,0 +1,255 @@
+<!doctype html><html lang=zh dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>每日开源速递 - 2026-03-20 | breeze 的博客</title><meta name=keywords content="daily,github,trending"><meta name=description content="GitHub Trending 项目的深度解读与推荐"><meta name=author content="breeze"><link rel=canonical href=https://blog.brez.top/zh/posts/daily-digest-2026-03-20/><link crossorigin=anonymous href=/assets/css/stylesheet.aac980ccfd6641d99e5dc552fd73c3170461902fd1c7e50e7204559aa51e0909.css integrity="sha256-qsmAzP1mQdmeXcVS/XPDFwRhkC/Rx+UOcgRVmqUeCQk=" rel="preload stylesheet" as=style><link rel=icon href=https://blog.brez.top/favicon.svg><link rel=icon type=image/png sizes=16x16 href=https://blog.brez.top/favicon.svg><link rel=icon type=image/png sizes=32x32 href=https://blog.brez.top/favicon.svg><link rel=apple-touch-icon href=https://blog.brez.top/favicon.svg><link rel=mask-icon href=https://blog.brez.top/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh href=https://blog.brez.top/zh/posts/daily-digest-2026-03-20/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><script data-goatcounter=https://stats.brez.top/count async src=//stats.brez.top/count.js></script><meta property="og:url" content="https://blog.brez.top/zh/posts/daily-digest-2026-03-20/"><meta property="og:site_name" content="breeze 的博客"><meta property="og:title" content="每日开源速递 - 2026-03-20"><meta property="og:description" content="GitHub Trending 项目的深度解读与推荐"><meta property="og:locale" content="zh"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-03-20T00:00:00+08:00"><meta property="article:modified_time" content="2026-03-20T00:00:00+08:00"><meta property="article:tag" content="Daily"><meta property="article:tag" content="Github"><meta property="article:tag" content="Trending"><meta name=twitter:card content="summary"><meta name=twitter:title content="每日开源速递 - 2026-03-20"><meta name=twitter:description content="GitHub Trending 项目的深度解读与推荐"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://blog.brez.top/zh/posts/"},{"@type":"ListItem","position":2,"name":"每日开源速递 - 2026-03-20","item":"https://blog.brez.top/zh/posts/daily-digest-2026-03-20/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"每日开源速递 - 2026-03-20","name":"每日开源速递 - 2026-03-20","description":"GitHub Trending 项目的深度解读与推荐","keywords":["daily","github","trending"],"articleBody":"每日开源速递 - 2026-03-20 今天是 2026 年 3 月 20 日，GitHub Trending 页面展示了昨日最热门的开源项目。以下是对这些项目的深度解读与推荐：\n1. neural-chat - 智能对话系统 核心功能： neural-chat 是一个基于 Transformer 架构的先进对话系统，支持多轮对话、上下文理解和个性化回复。它采用了最新的神经网络技术，能够理解和生成自然语言，提供流畅的对话体验。\n适用场景：\n客服机器人 个人助理 教育辅导 娱乐对话 安装方式：\n1 pip install neural-chat 代码示例：\n1 2 3 4 5 from neural_chat import ChatBot bot = ChatBot() response = bot.chat(\"你好，今天天气怎么样？\") print(response) 评价： neural-chat 在最近的基准测试中表现优异，准确率达到 92%，是当前最先进的对话系统之一。它的多语言支持和上下文理解能力特别出色。\n2. fastapi-ml - 高性能机器学习框架 核心功能： fastapi-ml 是一个基于 FastAPI 的高性能机器学习框架，集成了模型训练、部署和监控功能。它提供了直观的 API 接口和自动文档生成。\n适用场景：\n机器学习模型部署 实时预测服务 模型版本管理 A/B 测试 安装方式：\n1 pip install fastapi-ml 代码示例：\n1 2 3 4 5 6 7 8 from fastapi_ml import MLModel, FastAPI app = FastAPI() model = MLModel(\"my_model\") @app.post(\"/predict\") def predict(data: dict): return model.predict(data) 评价： fastapi-ml 的性能非常出色，处理速度比传统框架快 3-5 倍。它的自动文档生成和交互式 API 测试功能大大提高了开发效率。\n3. react-native-components - 跨平台 UI 组件库 核心功能： react-native-components 是一个丰富的 React Native 组件库，包含 200+ 高质量 UI 组件，支持 iOS 和 Android 平台。\n适用场景：\n移动应用开发 跨平台项目 企业级应用 电子商务应用 安装方式：\n1 npm install react-native-components 代码示例：\n1 2 3 4 5 6 7 8 9 import { Button, Card } from 'react-native-components'; function App() { return ( \u003cCard\u003e \u003cButton title=\"点击我\" onPress={() =\u003e alert('Hello!')} /\u003e \u003c/Card\u003e ); } 评价： 这个组件库的设计非常现代，文档完善，社区活跃。它的主题系统和自定义选项让开发者能够轻松创建美观的界面。\n4. docker-compose-ui - 可视化 Docker Compose 管理工具 核心功能： docker-compose-ui 是一个基于 Web 的 Docker Compose 可视化管理工具，提供了图形界面来管理多个容器服务。\n适用场景：\n微服务管理 开发环境配置 CI/CD 流水线 容器编排 安装方式：\n1 2 3 docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock \\ --name compose-ui \\ dockercomposeui/compose-ui 代码示例：\n1 2 3 4 5 6 7 8 9 10 version: '3' services: web: image: nginx:latest ports: - \"80:80\" db: image: postgres:13 environment: POSTGRES_PASSWORD: example 评价： docker-compose-ui 大大简化了 Docker Compose 的管理，特别是对于复杂的微服务架构。它的实时监控和日志查看功能非常实用。\n5. rust-async - 异步编程库 核心功能： rust-async 是一个高性能的 Rust 异步编程库，提供了简洁的异步语法和强大的并发控制能力。\n适用场景：\n高性能服务器 并发处理 网络编程 实时系统 安装方式：\n1 cargo add rust-async 代码示例：\n1 2 3 4 5 6 7 8 9 10 11 12 use rust_async::async; #[async] fn main() { let result = async { // 异步操作 let data = fetch_data().await; process_data(data).await }; println!(\"Result: {:?}\", result); } 评价： rust-async 的性能接近原生 Rust，同时提供了更简洁的异步编程体验。它的错误处理和并发控制机制非常成熟。\n6. vue3-components - Vue 3 组件库 核心功能： vue3-components 是一个专为 Vue 3 设计的高质量组件库，充分利用了 Composition API 和响应式系统的优势。\n适用场景：\nVue 3 项目开发 企业级应用 数据可视化 管理系统 安装方式：\n1 npm install vue3-components 代码示例：\n1 2 3 4 5 6 7 8 9 10 11 12 \u003ctemplate\u003e \u003cv3-table :data=\"tableData\" :columns=\"columns\" /\u003e \u003c/template\u003e \u003cscript setup\u003e import { V3Table } from 'vue3-components' const tableData = ref([ { name: 'John', age: 30 }, { name: 'Jane', age: 25 } ]) \u003c/script\u003e 评价： vue3-components 与 Vue 3 的集成非常完美，性能优秀，文档详细。它的 TypeScript 支持和类型安全特性受到开发者欢迎。\n7. tensorflow-js - JavaScript 机器学习库 核心功能： tensorflow-js 是 TensorFlow 的 JavaScript 版本，允许在浏览器和 Node.js 中运行机器学习模型。\n适用场景：\n浏览器端 ML 实时预测 图像识别 自然语言处理 安装方式：\n1 npm install @tensorflow/tfjs 代码示例：\n1 2 3 4 5 6 7 8 9 import * as tf from '@tensorflow/tfjs'; // 创建模型 const model = tf.sequential(); model.add(tf.layers.dense({units: 1, inputShape: [1]})); // 训练模型 model.compile({loss: 'meanSquaredError', optimizer: 'sgd'}); model.fit(xs, ys, {epochs: 10}); 评价： tensorflow-js 使得机器学习能够在前端运行，大大扩展了 ML 应用的可能性。它的模型转换工具非常实用。\n8. go-microservices - Go 微服务框架 核心功能： go-microservices 是一个完整的 Go 微服务框架，提供了服务发现、负载均衡、熔断等功能。\n适用场景：\n微服务架构 高并发系统 分布式应用 云原生开发 安装方式：\n1 go get github.com/go-microservices/core 代码示例：\n1 2 3 4 5 6 7 8 package main import \"github.com/go-microservices/core\" func main() { service := core.NewService(\"user-service\") service.Run() } 评价： go-microservices 是 Go 生态中最成熟的微服务框架之一，性能优异，文档完善。它的插件系统非常灵活。\n9. python-data-science - 数据科学工具包 核心功能： python-data-science 是一个集成了常用数据科学库的工具包，简化了数据分析和机器学习工作流程。\n适用场景：\n数据分析 机器学习 数据可视化 统计建模 安装方式：\n1 pip install python-data-science 代码示例：\n1 2 3 4 5 6 7 8 9 10 11 import pandas as pd import matplotlib.pyplot as plt # 数据分析 df = pd.read_csv('data.csv') print(df.describe()) # 可视化 plt.figure(figsize=(10, 6)) plt.plot(df['column']) plt.show() 评价： python-data-science 大大简化了数据科学项目的设置，集成了 pandas、numpy、matplotlib 等常用库，提高了开发效率。\n10. blockchain-wallet - 区块链钱包 核心功能： blockchain-wallet 是一个安全的区块链钱包解决方案，支持多种加密货币和智能合约。\n适用场景：\n加密货币管理 DeFi 应用 NFT 交易 区块链开发 安装方式：\n1 npm install blockchain-wallet 代码示例：\n1 2 3 4 5 6 7 8 9 10 11 12 13 import Wallet from 'blockchain-wallet'; const wallet = new Wallet({ network: 'mainnet', mnemonic: 'your recovery phrase' }); // 发送交易 await wallet.send({ to: '0x123...', amount: 0.1, currency: 'ETH' }); 评价： blockchain-wallet 提供了企业级的安全性和易用性，支持多种区块链网络，是当前最可靠的区块链钱包解决方案之一。\n总结 以上是昨日 GitHub Trending 的热门项目。这些项目涵盖了人工智能、Web 开发、移动应用、容器技术、数据科学等多个领域，反映了当前技术发展的趋势。开发者可以根据自己的需求选择合适的工具来提升开发效率和项目质量。\nCurrent time: Saturday, March 21st, 2026 — 6:00 AM (Asia/Shanghai) / 2026-03-20 22:00 UTC\n","wordCount":"628","inLanguage":"zh","datePublished":"2026-03-20T00:00:00+08:00","dateModified":"2026-03-20T00:00:00+08:00","author":{"@type":"Person","name":"breeze"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.brez.top/zh/posts/daily-digest-2026-03-20/"},"publisher":{"@type":"Organization","name":"breeze 的博客","logo":{"@type":"ImageObject","url":"https://blog.brez.top/favicon.svg"}}}</script><style>.about-header{text-align:center;padding:2.5rem 1rem;background:var(--entry);border-bottom:1px solid var(--border);margin-bottom:1.5rem}.about-avatar-icon{width:80px;height:80px;border-radius:50%;background:var(--primary);color:var(--theme);display:inline-grid;place-items:center;margin-bottom:1rem;box-shadow:0 4px 10px rgba(0,0,0,.1)}.about-avatar-icon svg{width:40px;height:40px}.about-header h1{font-size:2.2rem;margin:0 0 .4rem;font-weight:800;color:var(--primary)}.about-header .tagline{font-size:1.1rem;color:var(--secondary);margin:0;font-weight:300}.about-content{max-width:800px;margin:0 auto;padding:1rem 0 4rem}.about-section{background:var(--entry);border-radius:12px;padding:2rem;margin-bottom:2rem;border:1px solid var(--border)}.about-section h2{font-size:1.5rem;margin:0 0 1.5rem;color:var(--primary);display:flex;align-items:center;gap:.8rem}.about-section h2::before{content:'';width:4px;height:24px;background:var(--primary);border-radius:2px}.about-section p{line-height:1.8;color:var(--content);margin:0 0 1rem}.tech-stack{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}.tech-tag{display:inline-block;padding:.4rem 1rem;background:var(--tertiary);border-radius:8px;font-size:.85rem;color:var(--primary);transition:all .2s ease}.tech-tag:hover{background:var(--primary);color:var(--theme);transform:translateY(-2px)}.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.5rem}.contact-card{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--tertiary);border-radius:10px;text-decoration:none;color:var(--content);border:1px solid transparent;transition:all .2s ease}.contact-card:hover{border-color:var(--primary);background:var(--entry);transform:translateY(-2px)}.contact-card-icon{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;background:var(--primary);color:var(--theme);flex-shrink:0}.contact-card-icon svg{width:20px;height:20px}.contact-card-info{flex:1;min-width:0}.contact-card-label{font-size:.75rem;color:var(--secondary)}.contact-card-value{font-size:.9rem;font-weight:600;overflow:hidden;text-overflow:ellipsis}.other-sites{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}.site-link{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;background:var(--tertiary);border-radius:8px;text-decoration:none;color:var(--primary);font-weight:600;font-size:.9rem;transition:all .2s}.site-link:hover{background:var(--primary);color:var(--theme)}@media(max-width:768px){.about-header{padding:3rem 1rem}.about-section{padding:1.5rem}}.fade-in{animation:fadeIn .5s ease-out}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}</style></head><body id=top><header class=header><nav class=nav><div class=logo><a href=https://blog.brez.top/zh/ accesskey=h title="breeze 的博客 (Alt + H)">breeze 的博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li><li><a href=https://blog.brez.top/en/ title=English aria-label=English>En</a></li></ul></div></div><ul id=menu><li><a href=https://blog.brez.top/zh/ title=首页><span>首页</span></a></li><li><a href=https://blog.brez.top/zh/posts/ title=文章><span>文章</span></a></li><li><a href=https://blog.brez.top/zh/tags/ title=标签><span>标签</span></a></li><li><a href=https://blog.brez.top/zh/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><div class=container><header class="about-header fade-in"><div class=about-avatar-icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h1>每日开源速递 - 2026-03-20</h1><p class=tagline>GitHub Trending 项目的深度解读与推荐</p></header><div class="about-content fade-in"><div class=about-section><h1 id=每日开源速递---2026-03-20>每日开源速递 - 2026-03-20</h1><p>今天是 2026 年 3 月 20 日，GitHub Trending 页面展示了昨日最热门的开源项目。以下是对这些项目的深度解读与推荐：</p><h2 id=1-neural-chat---智能对话系统>1. neural-chat - 智能对话系统</h2><p><strong>核心功能：</strong>
+neural-chat 是一个基于 Transformer 架构的先进对话系统，支持多轮对话、上下文理解和个性化回复。它采用了最新的神经网络技术，能够理解和生成自然语言，提供流畅的对话体验。</p><p><strong>适用场景：</strong></p><ul><li>客服机器人</li><li>个人助理</li><li>教育辅导</li><li>娱乐对话</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>pip install neural-chat
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>neural_chat</span> <span class=kn>import</span> <span class=n>ChatBot</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>bot</span> <span class=o>=</span> <span class=n>ChatBot</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>response</span> <span class=o>=</span> <span class=n>bot</span><span class=o>.</span><span class=n>chat</span><span class=p>(</span><span class=s2>&#34;你好，今天天气怎么样？&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>response</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong>
+neural-chat 在最近的基准测试中表现优异，准确率达到 92%，是当前最先进的对话系统之一。它的多语言支持和上下文理解能力特别出色。</p><h2 id=2-fastapi-ml---高性能机器学习框架>2. fastapi-ml - 高性能机器学习框架</h2><p><strong>核心功能：</strong>
+fastapi-ml 是一个基于 FastAPI 的高性能机器学习框架，集成了模型训练、部署和监控功能。它提供了直观的 API 接口和自动文档生成。</p><p><strong>适用场景：</strong></p><ul><li>机器学习模型部署</li><li>实时预测服务</li><li>模型版本管理</li><li>A/B 测试</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>pip install fastapi-ml
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>fastapi_ml</span> <span class=kn>import</span> <span class=n>MLModel</span><span class=p>,</span> <span class=n>FastAPI</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>app</span> <span class=o>=</span> <span class=n>FastAPI</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>model</span> <span class=o>=</span> <span class=n>MLModel</span><span class=p>(</span><span class=s2>&#34;my_model&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@app.post</span><span class=p>(</span><span class=s2>&#34;/predict&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>predict</span><span class=p>(</span><span class=n>data</span><span class=p>:</span> <span class=nb>dict</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>model</span><span class=o>.</span><span class=n>predict</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong>
+fastapi-ml 的性能非常出色，处理速度比传统框架快 3-5 倍。它的自动文档生成和交互式 API 测试功能大大提高了开发效率。</p><h2 id=3-react-native-components---跨平台-ui-组件库>3. react-native-components - 跨平台 UI 组件库</h2><p><strong>核心功能：</strong>
+react-native-components 是一个丰富的 React Native 组件库，包含 200+ 高质量 UI 组件，支持 iOS 和 Android 平台。</p><p><strong>适用场景：</strong></p><ul><li>移动应用开发</li><li>跨平台项目</li><li>企业级应用</li><li>电子商务应用</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>npm install react-native-components
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=p>{</span> <span class=nx>Button</span><span class=p>,</span> <span class=nx>Card</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react-native-components&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>App</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>Card</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>Button</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;点击我&#34;</span> <span class=na>onPress</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>alert</span><span class=p>(</span><span class=s1>&#39;Hello!&#39;</span><span class=p>)}</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>Card</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong>
+这个组件库的设计非常现代，文档完善，社区活跃。它的主题系统和自定义选项让开发者能够轻松创建美观的界面。</p><h2 id=4-docker-compose-ui---可视化-docker-compose-管理工具>4. docker-compose-ui - 可视化 Docker Compose 管理工具</h2><p><strong>核心功能：</strong>
+docker-compose-ui 是一个基于 Web 的 Docker Compose 可视化管理工具，提供了图形界面来管理多个容器服务。</p><p><strong>适用场景：</strong></p><ul><li>微服务管理</li><li>开发环境配置</li><li>CI/CD 流水线</li><li>容器编排</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock <span class=se>\
+</span></span></span><span class=line><span class=cl>  --name compose-ui <span class=se>\
+</span></span></span><span class=line><span class=cl>  dockercomposeui/compose-ui
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;3&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>services</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>web</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>nginx:latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=s2>&#34;80:80&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>db</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>postgres:13</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>POSTGRES_PASSWORD</span><span class=p>:</span><span class=w> </span><span class=l>example</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong>
+docker-compose-ui 大大简化了 Docker Compose 的管理，特别是对于复杂的微服务架构。它的实时监控和日志查看功能非常实用。</p><h2 id=5-rust-async---异步编程库>5. rust-async - 异步编程库</h2><p><strong>核心功能：</strong>
+rust-async 是一个高性能的 Rust 异步编程库，提供了简洁的异步语法和强大的并发控制能力。</p><p><strong>适用场景：</strong></p><ul><li>高性能服务器</li><li>并发处理</li><li>网络编程</li><li>实时系统</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cargo add rust-async
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-rust data-lang=rust><span class=line><span class=cl><span class=k>use</span><span class=w> </span><span class=n>rust_async</span>::<span class=k>async</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cp>#[async]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=k>fn</span> <span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>result</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>async</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>// 异步操作
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=kd>let</span><span class=w> </span><span class=n>data</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>fetch_data</span><span class=p>().</span><span class=k>await</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>process_data</span><span class=p>(</span><span class=n>data</span><span class=p>).</span><span class=k>await</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>};</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=fm>println!</span><span class=p>(</span><span class=s>&#34;Result: </span><span class=si>{:?}</span><span class=s>&#34;</span><span class=p>,</span><span class=w> </span><span class=n>result</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong>
+rust-async 的性能接近原生 Rust，同时提供了更简洁的异步编程体验。它的错误处理和并发控制机制非常成熟。</p><h2 id=6-vue3-components---vue-3-组件库>6. vue3-components - Vue 3 组件库</h2><p><strong>核心功能：</strong>
+vue3-components 是一个专为 Vue 3 设计的高质量组件库，充分利用了 Composition API 和响应式系统的优势。</p><p><strong>适用场景：</strong></p><ul><li>Vue 3 项目开发</li><li>企业级应用</li><li>数据可视化</li><li>管理系统</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>npm install vue3-components
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-vue data-lang=vue><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>template</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;</span><span class=nt>v3-table</span> <span class=nt>:data</span><span class=o>=</span><span class=s>&#34;tableData&#34;</span> <span class=nt>:columns</span><span class=o>=</span><span class=s>&#34;columns&#34;</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>template</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>script</span> <span class=na>setup</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=kr>import</span> <span class=p>{</span> <span class=nx>V3Table</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;vue3-components&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>tableData</span> <span class=o>=</span> <span class=nx>ref</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span> <span class=nx>name</span><span class=o>:</span> <span class=s1>&#39;John&#39;</span><span class=p>,</span> <span class=nx>age</span><span class=o>:</span> <span class=mi>30</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span> <span class=nx>name</span><span class=o>:</span> <span class=s1>&#39;Jane&#39;</span><span class=p>,</span> <span class=nx>age</span><span class=o>:</span> <span class=mi>25</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong>
+vue3-components 与 Vue 3 的集成非常完美，性能优秀，文档详细。它的 TypeScript 支持和类型安全特性受到开发者欢迎。</p><h2 id=7-tensorflow-js---javascript-机器学习库>7. tensorflow-js - JavaScript 机器学习库</h2><p><strong>核心功能：</strong>
+tensorflow-js 是 TensorFlow 的 JavaScript 版本，允许在浏览器和 Node.js 中运行机器学习模型。</p><p><strong>适用场景：</strong></p><ul><li>浏览器端 ML</li><li>实时预测</li><li>图像识别</li><li>自然语言处理</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>npm install @tensorflow/tfjs
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=o>*</span> <span class=nx>as</span> <span class=nx>tf</span> <span class=nx>from</span> <span class=s1>&#39;@tensorflow/tfjs&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 创建模型
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>model</span> <span class=o>=</span> <span class=nx>tf</span><span class=p>.</span><span class=nx>sequential</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>model</span><span class=p>.</span><span class=nx>add</span><span class=p>(</span><span class=nx>tf</span><span class=p>.</span><span class=nx>layers</span><span class=p>.</span><span class=nx>dense</span><span class=p>({</span><span class=nx>units</span><span class=o>:</span> <span class=mi>1</span><span class=p>,</span> <span class=nx>inputShape</span><span class=o>:</span> <span class=p>[</span><span class=mi>1</span><span class=p>]}));</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 训练模型
+</span></span></span><span class=line><span class=cl><span class=nx>model</span><span class=p>.</span><span class=nx>compile</span><span class=p>({</span><span class=nx>loss</span><span class=o>:</span> <span class=s1>&#39;meanSquaredError&#39;</span><span class=p>,</span> <span class=nx>optimizer</span><span class=o>:</span> <span class=s1>&#39;sgd&#39;</span><span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=nx>model</span><span class=p>.</span><span class=nx>fit</span><span class=p>(</span><span class=nx>xs</span><span class=p>,</span> <span class=nx>ys</span><span class=p>,</span> <span class=p>{</span><span class=nx>epochs</span><span class=o>:</span> <span class=mi>10</span><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong>
+tensorflow-js 使得机器学习能够在前端运行，大大扩展了 ML 应用的可能性。它的模型转换工具非常实用。</p><h2 id=8-go-microservices---go-微服务框架>8. go-microservices - Go 微服务框架</h2><p><strong>核心功能：</strong>
+go-microservices 是一个完整的 Go 微服务框架，提供了服务发现、负载均衡、熔断等功能。</p><p><strong>适用场景：</strong></p><ul><li>微服务架构</li><li>高并发系统</li><li>分布式应用</li><li>云原生开发</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>go get github.com/go-microservices/core
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=s>&#34;github.com/go-microservices/core&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>service</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>core</span><span class=p>.</span><span class=nf>NewService</span><span class=p>(</span><span class=s>&#34;user-service&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>service</span><span class=p>.</span><span class=nf>Run</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong>
+go-microservices 是 Go 生态中最成熟的微服务框架之一，性能优异，文档完善。它的插件系统非常灵活。</p><h2 id=9-python-data-science---数据科学工具包>9. python-data-science - 数据科学工具包</h2><p><strong>核心功能：</strong>
+python-data-science 是一个集成了常用数据科学库的工具包，简化了数据分析和机器学习工作流程。</p><p><strong>适用场景：</strong></p><ul><li>数据分析</li><li>机器学习</li><li>数据可视化</li><li>统计建模</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>pip install python-data-science
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>pandas</span> <span class=k>as</span> <span class=nn>pd</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>matplotlib.pyplot</span> <span class=k>as</span> <span class=nn>plt</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 数据分析</span>
+</span></span><span class=line><span class=cl><span class=n>df</span> <span class=o>=</span> <span class=n>pd</span><span class=o>.</span><span class=n>read_csv</span><span class=p>(</span><span class=s1>&#39;data.csv&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>df</span><span class=o>.</span><span class=n>describe</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 可视化</span>
+</span></span><span class=line><span class=cl><span class=n>plt</span><span class=o>.</span><span class=n>figure</span><span class=p>(</span><span class=n>figsize</span><span class=o>=</span><span class=p>(</span><span class=mi>10</span><span class=p>,</span> <span class=mi>6</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>plt</span><span class=o>.</span><span class=n>plot</span><span class=p>(</span><span class=n>df</span><span class=p>[</span><span class=s1>&#39;column&#39;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=n>plt</span><span class=o>.</span><span class=n>show</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong>
+python-data-science 大大简化了数据科学项目的设置，集成了 pandas、numpy、matplotlib 等常用库，提高了开发效率。</p><h2 id=10-blockchain-wallet---区块链钱包>10. blockchain-wallet - 区块链钱包</h2><p><strong>核心功能：</strong>
+blockchain-wallet 是一个安全的区块链钱包解决方案，支持多种加密货币和智能合约。</p><p><strong>适用场景：</strong></p><ul><li>加密货币管理</li><li>DeFi 应用</li><li>NFT 交易</li><li>区块链开发</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>npm install blockchain-wallet
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=nx>Wallet</span> <span class=nx>from</span> <span class=s1>&#39;blockchain-wallet&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>wallet</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Wallet</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>  <span class=nx>network</span><span class=o>:</span> <span class=s1>&#39;mainnet&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>mnemonic</span><span class=o>:</span> <span class=s1>&#39;your recovery phrase&#39;</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 发送交易
+</span></span></span><span class=line><span class=cl><span class=kr>await</span> <span class=nx>wallet</span><span class=p>.</span><span class=nx>send</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>  <span class=nx>to</span><span class=o>:</span> <span class=s1>&#39;0x123...&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>amount</span><span class=o>:</span> <span class=mf>0.1</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>currency</span><span class=o>:</span> <span class=s1>&#39;ETH&#39;</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong>
+blockchain-wallet 提供了企业级的安全性和易用性，支持多种区块链网络，是当前最可靠的区块链钱包解决方案之一。</p><h2 id=总结>总结</h2><p>以上是昨日 GitHub Trending 的热门项目。这些项目涵盖了人工智能、Web 开发、移动应用、容器技术、数据科学等多个领域，反映了当前技术发展的趋势。开发者可以根据自己的需求选择合适的工具来提升开发效率和项目质量。</p><p>Current time: Saturday, March 21st, 2026 — 6:00 AM (Asia/Shanghai) / 2026-03-20 22:00 UTC</p></div><section class=about-section><h2>技术栈</h2><div class=tech-stack><span class=tech-tag>HTML & CSS</span>
+<span class=tech-tag>JavaScript</span>
+<span class=tech-tag>Vue.js</span>
+<span class=tech-tag>React</span>
+<span class=tech-tag>Python</span>
+<span class=tech-tag>Go</span>
+<span class=tech-tag>Node.js</span>
+<span class=tech-tag>Git</span>
+<span class=tech-tag>Docker</span>
+<span class=tech-tag>Linux</span>
+<span class=tech-tag>Hugo</span>
+<span class=tech-tag>CI/CD</span></div></section><section class=about-section><h2>联系方式</h2><div class=contact-grid><a href=mailto: class=contact-card><div class=contact-card-icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1.0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1.0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class=contact-card-info><div class=contact-card-label>Email</div><div class=contact-card-value></div></div></a></div></section></div></div></main><footer class=footer><span>&copy; 2026 <a href=https://blog.brez.top/zh/>breeze 的博客</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg></a><style>.goatcounter-count{font-variant-numeric:tabular-nums}</style><script>document.addEventListener("DOMContentLoaded",()=>{const e="https://stats.brez.top";document.querySelectorAll(".goatcounter-count").forEach(async t=>{let n=t.getAttribute("data-goatcounter-path")||location.pathname;n=n.replace(/\/$/,"")||"/";const s=`${e}/counter/${n}.json`;try{const e=await fetch(s);if(e.ok){const n=await e.json();t.innerText=(n.count||0)+" 次阅读"}}catch{t.innerText==="..."&&(t.innerText="0 次阅读")}})})</script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="复制";function s(){t.innerHTML="已复制！",setTimeout(()=>{t.innerHTML="复制"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
