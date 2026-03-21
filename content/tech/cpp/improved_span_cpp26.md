@@ -1,6 +1,6 @@
 +++
 date = '2026-03-21T19:12:00+08:00'
-draft = true
+draft = false
 title = 'Improved_span_cpp26'
 slug = ''
 description = 'show the improvements of std::span in C++26'

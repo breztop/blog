@@ -18,19 +18,59 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
         weight = 1
       [[languages.zh.menu.main]]
         identifier = "posts"
-        name = "文章"
+        name = "杂项"
         url = "/posts/"
         weight = 10
+      [[languages.zh.menu.main]]
+        identifier = "life"
+        name = "生活"
+        url = "/life/"
+        weight = 20
+      [[languages.zh.menu.main]]
+        identifier = "tech"
+        name = "技术"
+        url = "/tech/"
+        weight = 30
+      [[languages.zh.menu.main]]
+        parent = "tech"
+        identifier = "cpp"
+        name = "C++"
+        url = "/tech/cpp/"
+        weight = 1
+      [[languages.zh.menu.main]]
+        parent = "tech"
+        identifier = "golang"
+        name = "Golang"
+        url = "/tech/golang/"
+        weight = 2
+      [[languages.zh.menu.main]]
+        parent = "tech"
+        identifier = "rust"
+        name = "Rust"
+        url = "/tech/rust/"
+        weight = 3
+      [[languages.zh.menu.main]]
+        parent = "tech"
+        identifier = "godot"
+        name = "Godot"
+        url = "/tech/godot/"
+        weight = 4
+      [[languages.zh.menu.main]]
+        parent = "tech"
+        identifier = "thought"
+        name = "随笔"
+        url = "/tech/thought/"
+        weight = 5
       [[languages.zh.menu.main]]
         identifier = "tags"
         name = "标签"
         url = "/tags/"
-        weight = 20
+        weight = 40
       [[languages.zh.menu.main]]
         identifier = "about"
         name = "关于"
         url = "/about/"
-        weight = 30
+        weight = 50
 
   [languages.en]  # 英文配置
     languageName = "English"
@@ -40,29 +80,70 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
       [[languages.en.menu.main]]
         identifier = "home"
         name = "Home"
-        url = ""
+        url = "/"
         weight = 1
       [[languages.en.menu.main]]
         identifier = "posts"
-        name = "Posts"
-        url = "posts/"
+        name = "Misc"
+        url = "/posts/"
         weight = 10
+      [[languages.en.menu.main]]
+        identifier = "life"
+        name = "Life"
+        url = "/life/"
+        weight = 20
+      [[languages.en.menu.main]]
+        identifier = "tech"
+        name = "Tech"
+        url = "/tech/"
+        weight = 30
+      [[languages.en.menu.main]]
+        parent = "tech"
+        identifier = "cpp"
+        name = "C++"
+        url = "/tech/cpp/"
+        weight = 1
+      [[languages.en.menu.main]]
+        parent = "tech"
+        identifier = "golang"
+        name = "Golang"
+        url = "/tech/golang/"
+        weight = 2
+      [[languages.en.menu.main]]
+        parent = "tech"
+        identifier = "rust"
+        name = "Rust"
+        url = "/tech/rust/"
+        weight = 3
+      [[languages.en.menu.main]]
+        parent = "tech"
+        identifier = "godot"
+        name = "Godot"
+        url = "/tech/godot/"
+        weight = 4
+      [[languages.en.menu.main]]
+        parent = "tech"
+        identifier = "thought"
+        name = "Thoughts"
+        url = "/tech/thought/"
+        weight = 5
       [[languages.en.menu.main]]
         identifier = "tags"
         name = "Tags"
-        url = "tags/"
-        weight = 20
+        url = "/tags/"
+        weight = 40
       [[languages.en.menu.main]]
         identifier = "about"
         name = "About"
-        url = "about/"
-        weight = 30
+        url = "/about/"
+        weight = 50
 
 [params]
   title = "breeze's blog"
   description = "breeze's blog"
   author = "breeze"
   defaultTheme = "auto"
+  mainSections = ["posts", "tech", "life"]
   ShowReadingTime = true
   ShowShareButtons = true
   ShowCodeCopyButtons = true
