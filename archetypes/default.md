@@ -2,7 +2,6 @@
 date = '{{ .Date }}'
 draft = false
 title = '{{ replace .File.ContentBaseName "-" " " | title }}'
-slug = ''
 description = ''
 author = '{{ .Site.Params.author | default "breeze" }}'
 tags = []
