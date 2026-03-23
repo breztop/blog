@@ -22,10 +22,10 @@ jobs:
           hugo-version: 'latest'
 
       - name: Build for GitHub
-        run: hugo --minify --baseURL "https://gblog.brez.top" -d ./public_github
+        run: hugo --minify --baseURL "https://blog.brez.top" -d ./public_github
 
       - name: Build for Server
-        run: hugo --minify --baseURL "https://blog.brez.top" -d ./public_server
+        run: hugo --minify --baseURL "https://gblog.brez.top" -d ./public_server
 
       - name: Deploy to GitHub
         uses: peaceiris/actions-gh-pages@v3
@@ -33,7 +33,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public_github
           publish_branch: gh-pages
-          cname: gblog.brez.top
+          cname: blog.brez.top
 
       - name: Deploy to Server Branch
         uses: peaceiris/actions-gh-pages@v3
