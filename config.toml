@@ -18,19 +18,19 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
         weight = 1
       [[languages.zh.menu.main]]
         identifier = "posts"
-        name = "杂项"
+        name = "分享"
         url = "/posts/"
         weight = 10
-      [[languages.zh.menu.main]]
-        identifier = "life"
-        name = "生活"
-        url = "/life/"
-        weight = 20
       [[languages.zh.menu.main]]
         identifier = "tech"
         name = "技术"
         url = "/tech/"
         weight = 30
+      [[languages.zh.menu.main]]
+        identifier = "life"
+        name = "生活"
+        url = "/life/"
+        weight = 20
       [[languages.zh.menu.main]]
         parent = "tech"
         identifier = "cpp"
@@ -58,7 +58,7 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
       [[languages.zh.menu.main]]
         parent = "tech"
         identifier = "thought"
-        name = "随笔"
+        name = "想法"
         url = "/tech/thought/"
         weight = 5
       [[languages.zh.menu.main]]
@@ -84,7 +84,7 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
         weight = 1
       [[languages.en.menu.main]]
         identifier = "posts"
-        name = "Misc"
+        name = "Share"
         url = "/posts/"
         weight = 10
       [[languages.en.menu.main]]
