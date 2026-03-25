@@ -1,0 +1,423 @@
+<!doctype html><html lang=zh dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>每日开源速递 - 2026-03-25 | breeze 的博客</title><meta name=keywords content="daily,github,trending"><meta name=description content="GitHub Trending 项目的深度解读与推荐"><meta name=author content="breeze"><link rel=canonical href=https://gblog.brez.top/zh/posts/daily-digest-2026-03-25/><link crossorigin=anonymous href=/assets/css/stylesheet.aac980ccfd6641d99e5dc552fd73c3170461902fd1c7e50e7204559aa51e0909.css integrity="sha256-qsmAzP1mQdmeXcVS/XPDFwRhkC/Rx+UOcgRVmqUeCQk=" rel="preload stylesheet" as=style><link rel=icon href=https://gblog.brez.top/favicon.svg><link rel=icon type=image/png sizes=16x16 href=https://gblog.brez.top/favicon.svg><link rel=icon type=image/png sizes=32x32 href=https://gblog.brez.top/favicon.svg><link rel=apple-touch-icon href=https://gblog.brez.top/favicon.svg><link rel=mask-icon href=https://gblog.brez.top/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh href=https://gblog.brez.top/zh/posts/daily-digest-2026-03-25/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><script data-goatcounter=https://stats.brez.top/count async src=//stats.brez.top/count.js></script><meta property="og:url" content="https://gblog.brez.top/zh/posts/daily-digest-2026-03-25/"><meta property="og:site_name" content="breeze 的博客"><meta property="og:title" content="每日开源速递 - 2026-03-25"><meta property="og:description" content="GitHub Trending 项目的深度解读与推荐"><meta property="og:locale" content="zh"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-03-25T00:00:00+08:00"><meta property="article:modified_time" content="2026-03-25T00:00:00+08:00"><meta property="article:tag" content="Daily"><meta property="article:tag" content="Github"><meta property="article:tag" content="Trending"><meta name=twitter:card content="summary"><meta name=twitter:title content="每日开源速递 - 2026-03-25"><meta name=twitter:description content="GitHub Trending 项目的深度解读与推荐"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"杂项","item":"https://gblog.brez.top/zh/posts/"},{"@type":"ListItem","position":2,"name":"每日开源速递 - 2026-03-25","item":"https://gblog.brez.top/zh/posts/daily-digest-2026-03-25/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"每日开源速递 - 2026-03-25","name":"每日开源速递 - 2026-03-25","description":"GitHub Trending 项目的深度解读与推荐","keywords":["daily","github","trending"],"articleBody":"每日开源速递 - 2026-03-25 今天是2026年3月25日，我们精选了GitHub上昨日最热门的10个开源项目，涵盖AI代理、3D编辑、记忆引擎、金融交易等多个领域。这些项目展现了当前技术发展的前沿趋势和创新方向。\n1. last30days-skill - AI代理技能库 核心功能： last30days-skill 是一个专为AI代理设计的技能库，允许代理研究任何主题。它能够自动收集、分析和总结过去30天内的相关信息，为代理提供最新的知识基础。\n适用场景：\n需要实时信息的研究和分析任务 AI代理的知识更新和持续学习 自动化内容收集和摘要生成 跨领域知识整合和综合分析 安装方式：\n1 2 3 4 5 6 7 8 9 # 克隆仓库 git clone https://github.com/mvanhorn/last30days-skill.git cd last30days-skill # 安装依赖 pip install -r requirements.txt # 配置API密钥 export OPENAI_API_KEY=\"your-api-key\" 代码示例：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 from last30days_skill import Last30DaysSkill # 初始化技能 skill = Last30daysSkill() # 研究特定主题 result = skill.research(\"人工智能发展趋势\") # 获取研究摘要 summary = skill.get_summary() print(f\"研究主题: {result.topic}\") print(f\"发现数量: {len(result.findings)}\") print(f\"摘要: {summary}\") 评价： 该项目解决了AI代理知识时效性的关键问题，通过自动化的信息收集和摘要生成，使代理能够保持最新的知识状态。其模块化设计使其易于集成到各种AI系统中。\n2. deer-flow - 开源超级代理框架 核心功能： DeerFlow是一个基于LangGraph和LangChain构建的超级代理框架，提供完整的代理基础设施，包括子代理、内存、沙箱和技能系统。它能够处理从几分钟到数小时的复杂任务。\n适用场景：\n复杂的多步骤任务自动化 AI代理编排和协调 长期项目管理和执行 跨系统工作流集成 安装方式：\n1 2 3 4 5 6 7 8 9 10 11 12 13 # 克隆仓库 git clone https://github.com/bytedance/deer-flow.git cd deer-flow # 生成配置文件 make config # 配置模型API密钥 export OPENAI_API_KEY=\"your-api-key\" export ANTHROPIC_API_KEY=\"your-api-key\" # 启动服务 make dev 代码示例：\n1 2 3 4 5 6 7 8 9 10 11 12 from deerflow.client import DeerFlowClient # 初始化客户端 client = DeerFlowClient() # 创建新对话 response = client.chat(\"分析2024年AI发展趋势\", thread_id=\"research-2024\") # 流式响应 for event in client.stream(\"继续分析市场影响\"): if event.type == \"messages-tuple\" and event.data.get(\"type\") == \"ai\": print(event.data[\"content\"]) 评价： DeerFlow代表了AI代理框架的新一代发展，提供了企业级的功能和可扩展性。其沙箱执行环境和子代理系统使其能够处理复杂的现实世界任务。\n3. litellm - AI网关和SDK 核心功能： LiteLLM是一个统一的AI API网关和Python SDK，支持100+ LLM API，提供成本跟踪、负载均衡、日志记录等企业级功能。它允许开发者以OpenAI格式调用各种AI模型。\n适用场景：\n多AI提供商集成 成本管理和优化 企业级AI服务 开发者工具和SDK 安装方式：\n1 2 3 4 5 6 7 8 # 安装SDK pip install litellm # 安装带代理功能 pip install 'litellm[proxy]' # 启动代理服务器 litellm --model gpt-4o 代码示例：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 import litellm import os # 配置API密钥 os.environ[\"OPENAI_API_KEY\"] = \"your-openai-key\" os.environ[\"ANTHROPIC_API_KEY\"] = \"your-anthropic-key\" # OpenAI模型调用 response = litellm.completion( model=\"openai/gpt-4o\", messages=[{\"role\": \"user\", \"content\": \"Hello!\"}] ) # Anthropic模型调用 response = litellm.completion( model=\"anthropic/claude-sonnet-4-20250514\", messages=[{\"role\": \"user\", \"content\": \"Hello!\"}] ) 评价： LiteLLM解决了AI开发中的碎片化问题，提供了一个统一的接口来访问各种AI服务。其企业级功能和性能优化使其成为生产环境的理想选择。\n4. editor - 3D建筑编辑器 核心功能： 这是一个基于React Three Fiber和WebGPU的3D建筑编辑器，提供直观的3D建模和编辑功能。它采用模块化架构，包括核心系统、3D渲染组件和编辑器界面。\n适用场景：\n建筑设计和可视化 3D建模和渲染 建筑信息模型(BIM) 虚拟现实应用 安装方式：\n1 2 3 4 5 6 7 8 9 # 克隆仓库 git clone https://github.com/pascalorg/editor.git cd editor # 安装依赖 bun install # 启动开发服务器 bun dev 代码示例：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 import { useScene, useViewer, useEditor } from '@pascal-app/core'; // 访问场景状态 const nodes = useScene((state) =\u003e state.nodes); const levelId = useViewer((state) =\u003e state.selection.levelId); // 创建新建筑 const newBuilding = { id: 'building_123', type: 'building', parentId: null, visible: true }; useScene.getState().createNode(newBuilding); 评价： 该项目展示了Web技术在3D建模领域的强大能力，其模块化设计和现代技术栈使其易于扩展和维护。\n5. claude-subconscious - Claude Code背景代理 核心功能： Claude Subconscious是一个为Claude Code提供背景代理的系统，能够观察会话、阅读文件、构建记忆，并在需要时提供指导。它运行在后台，为Claude Code提供持续的学习和记忆能力。\n适用场景：\nAI辅助编程 代码库理解和分析 持续学习和改进 开发者生产力提升 安装方式：\n1 2 3 4 5 6 7 8 9 # 克隆仓库 git clone https://github.com/letta-ai/claude-subconscious.git cd claude-subconscious # 安装依赖 npm install # 启用插件 /plugin enable . 代码示例：\n1 2 3 4 5 6 # 配置环境变量 export LETTA_API_KEY=\"your-api-key\" export LETTA_MODE=\"whisper\" # 启动Claude Code claude-code 评价： 该项目创新性地解决了AI编程助手的知识持久性问题，通过背景代理机制使AI能够记住用户的偏好和项目上下文。\n6. ruflo - Claude代理编排平台 核心功能： Ruflo是一个企业级的Claude代理编排平台，支持智能多代理群、自主工作流协调和对话式AI系统构建。它提供分布式群智能和RAG集成。\n适用场景：\n企业AI解决方案 复杂任务自动化 多代理协作系统 对话式AI应用 安装方式：\n1 2 3 4 5 6 7 8 9 # 克隆仓库 git clone https://github.com/ruvnet/ruflo.git cd ruflo # 安装依赖 npm install # 启动平台 npm run dev 评价： Ruflo代表了AI代理编排的企业级解决方案，其分布式架构和高级功能使其适合复杂的企业应用场景。\n7. project-nomad - 离线生存计算机 核心功能： Project N.O.M.A.D.是一个自包含的离线优先知识服务器，包含关键工具、知识和AI，可在任何时间任何地点保持用户的信息和赋能能力。\n适用场景：\n离线知识管理 应急准备和生存工具 教育和培训 资源受限环境 安装方式：\n1 2 3 4 5 6 7 # 安装脚本 sudo apt-get update \u0026\u0026 sudo apt-get install -y curl curl -fsSL https://raw.githubusercontent.com/Crosstalk-Solutions/project-nomad/refs/heads/main/install/install_nomad.sh -o install_nomad.sh sudo bash install_nomad.sh # 访问界面 open http://localhost:8080 代码示例：\n1 2 3 4 # 使用内置工具 nomad ai-chat \"如何进行基本急救\" nomad offline-wikipedia search \"太阳能发电\" nomad education platform \"Khan Academy courses\" 评价： 该项目体现了技术的社会责任，为资源受限环境提供了强大的知识工具，其离线优先设计特别适合应急和偏远地区使用。\n8. supermemory - AI记忆引擎 核心功能： Supermemory是AI时代的记忆API，提供状态-of-the-art的记忆和上下文引擎。它在所有主要AI记忆基准测试中排名第一，包括LongMemEval、LoCoMo和ConvoMem。\n适用场景：\nAI记忆和上下文管理 个性化AI助手 知识库和RAG系统 企业记忆解决方案 安装方式：\n1 2 3 4 5 # 安装Python包 pip install supermemory # 或Node.js包 npm install supermemory 代码示例：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 from supermemory import Supermemory # 初始化客户端 client = Supermemory() # 添加记忆 await client.add({ \"content\": \"User prefers TypeScript and functional patterns\", \"containerTag\": \"user_123\" }) # 获取用户配置文件和搜索结果 result = await client.profile({ \"containerTag\": \"user_123\", \"q\": \"programming style\" }) print(result.profile.static) # 长期事实 print(result.profile.dynamic) # 最近上下文 评价： Supermemory在AI记忆领域树立了新的标杆，其混合搜索和自动遗忘功能使其成为最先进的记忆解决方案。\n9. MoneyPrinterV2 - 在线赚钱自动化 核心功能： MoneyPrinterV2是一个自动化在线赚钱过程的应用程序，包括Twitter机器人、YouTube Shorts自动化、联盟营销等功能。\n适用场景：\n在线收入自动化 社交媒体营销 内容创作自动化 创业工具 安装方式：\n1 2 3 4 5 6 7 8 9 10 11 12 13 # 克隆仓库 git clone https://github.com/FujiwaraChoki/MoneyPrinterV2.git cd MoneyPrinterV2 # 创建虚拟环境 python -m venv venv source venv/bin/activate # 安装依赖 pip install -r requirements.txt # 运行应用 python src/main.py 代码示例：\n1 2 3 4 5 6 7 8 9 from moneyprinter import TwitterBot, YouTubeAutomator # 初始化Twitter机器人 twitter_bot = TwitterBot(config=\"config.json\") twitter_bot.post_tweet(\"Check out my new project!\") # YouTube Shorts自动化 youtube_automator = YouTubeAutomator() youtube_automator.upload_short(\"video.mp4\", \"My new video\") 评价： 该项目展示了AI在商业自动化中的应用潜力，虽然主要用于教育目的，但其技术可以应用于各种自动化场景。\n10. TradingAgents-CN - 中文金融交易框架 核心功能： TradingAgents-CN是基于多智能体LLM的中文金融交易框架，提供股票分析、多LLM集成、Docker部署和专业报告导出等功能。\n适用场景：\n金融分析和研究 AI驱动的投资策略 中文市场分析 教育和培训 安装方式：\n1 2 3 4 5 6 7 8 9 # 克隆仓库 git clone https://github.com/hsliuping/TradingAgents-CN.git cd TradingAgents-CN # Docker部署 docker-compose up -d # 或绿色版安装 # 下载绿色版并运行 代码示例：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 from tradingagents import TradingAnalyzer # 初始化分析器 analyzer = TradingAnalyzer() # 分析股票 result = analyzer.analyze_stock(\"AAPL\", model=\"gpt-4\", data_source=\"tushare\") # 获取分析报告 report = analyzer.get_report() print(f\"股票代码: {result.symbol}\") print(f\"分析结果: {report.summary}\") 评价： TradingAgents-CN为中文金融社区提供了强大的AI分析工具，其多智能体架构和本地化设计使其特别适合中国市场。\n总结 今天的GitHub Trending项目展示了AI技术的广泛应用，从代理框架到记忆引擎，从3D编辑到金融分析。这些项目不仅技术先进，而且具有实际应用价值，反映了当前技术发展的主要趋势：\nAI代理的成熟化 - 多个项目专注于AI代理的编排、记忆和执行 企业级AI解决方案 - 越来越多的项目提供生产就绪的AI服务 垂直领域应用 - AI技术在建筑、金融、教育等领域的深入应用 离线和边缘计算 - 对资源受限环境的关注增加 多模态和综合能力 - 项目越来越注重多种AI能力的整合 这些开源项目为开发者提供了丰富的工具和灵感，推动了AI技术的创新和应用。\nCurrent time: Thursday, March 26th, 2026 — 6:00 AM (Asia/Shanghai) / 2026-03-25 22:00 UTC\n","wordCount":"819","inLanguage":"zh","datePublished":"2026-03-25T00:00:00+08:00","dateModified":"2026-03-25T00:00:00+08:00","author":{"@type":"Person","name":"breeze"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://gblog.brez.top/zh/posts/daily-digest-2026-03-25/"},"publisher":{"@type":"Organization","name":"breeze 的博客","logo":{"@type":"ImageObject","url":"https://gblog.brez.top/favicon.svg"}}}</script><style>.about-header{text-align:center;padding:2.5rem 1rem;background:var(--entry);border-bottom:1px solid var(--border);margin-bottom:1.5rem}.about-avatar-icon{width:80px;height:80px;border-radius:50%;background:var(--primary);color:var(--theme);display:inline-grid;place-items:center;margin-bottom:1rem;box-shadow:0 4px 10px rgba(0,0,0,.1)}.about-avatar-icon svg{width:40px;height:40px}.about-header h1{font-size:2.2rem;margin:0 0 .4rem;font-weight:800;color:var(--primary)}.about-header .tagline{font-size:1.1rem;color:var(--secondary);margin:0;font-weight:300}.about-content{max-width:800px;margin:0 auto;padding:1rem 0 4rem}.about-section{background:var(--entry);border-radius:12px;padding:2rem;margin-bottom:2rem;border:1px solid var(--border)}.about-section h2{font-size:1.5rem;margin:0 0 1.5rem;color:var(--primary);display:flex;align-items:center;gap:.8rem}.about-section h2::before{content:'';width:4px;height:24px;background:var(--primary);border-radius:2px}.about-section p{line-height:1.8;color:var(--content);margin:0 0 1rem}.tech-stack{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}.tech-tag{display:inline-block;padding:.4rem 1rem;background:var(--tertiary);border-radius:8px;font-size:.85rem;color:var(--primary);transition:all .2s ease}.tech-tag:hover{background:var(--primary);color:var(--theme);transform:translateY(-2px)}.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.5rem}.contact-card{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--tertiary);border-radius:10px;text-decoration:none;color:var(--content);border:1px solid transparent;transition:all .2s ease}.contact-card:hover{border-color:var(--primary);background:var(--entry);transform:translateY(-2px)}.contact-card-icon{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;background:var(--primary);color:var(--theme);flex-shrink:0}.contact-card-icon svg{width:20px;height:20px}.contact-card-info{flex:1;min-width:0}.contact-card-label{font-size:.75rem;color:var(--secondary)}.contact-card-value{font-size:.9rem;font-weight:600;overflow:hidden;text-overflow:ellipsis}.other-sites{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}.site-link{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;background:var(--tertiary);border-radius:8px;text-decoration:none;color:var(--primary);font-weight:600;font-size:.9rem;transition:all .2s}.site-link:hover{background:var(--primary);color:var(--theme)}@media(max-width:768px){.about-header{padding:3rem 1rem}.about-section{padding:1.5rem}}.fade-in{animation:fadeIn .5s ease-out}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}</style></head><body id=top><header class=header><nav class=nav><div class=logo><a href=https://gblog.brez.top/zh/ accesskey=h title="breeze 的博客 (Alt + H)">breeze 的博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li><li><a href=https://gblog.brez.top/en/ title=English aria-label=English>En</a></li></ul></div></div><ul id=menu><li><a href=https://gblog.brez.top/zh/ title=首页><span>首页</span></a></li><li><a href=https://gblog.brez.top/zh/posts/ title=分享><span>分享</span></a></li><li><a href=https://gblog.brez.top/zh/life/ title=生活><span>生活</span></a></li><li><a href=https://gblog.brez.top/zh/tech/ title=技术><span>技术</span></a></li><li><a href=https://gblog.brez.top/zh/tags/ title=标签><span>标签</span></a></li><li><a href=https://gblog.brez.top/zh/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><div class=container><header class="about-header fade-in"><div class=about-avatar-icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h1>每日开源速递 - 2026-03-25</h1><p class=tagline>GitHub Trending 项目的深度解读与推荐</p></header><div class="about-content fade-in"><div class=about-section><h1 id=每日开源速递---2026-03-25>每日开源速递 - 2026-03-25</h1><p>今天是2026年3月25日，我们精选了GitHub上昨日最热门的10个开源项目，涵盖AI代理、3D编辑、记忆引擎、金融交易等多个领域。这些项目展现了当前技术发展的前沿趋势和创新方向。</p><h2 id=1-last30days-skill---ai代理技能库>1. last30days-skill - AI代理技能库</h2><p><strong>核心功能：</strong> last30days-skill 是一个专为AI代理设计的技能库，允许代理研究任何主题。它能够自动收集、分析和总结过去30天内的相关信息，为代理提供最新的知识基础。</p><p><strong>适用场景：</strong></p><ul><li>需要实时信息的研究和分析任务</li><li>AI代理的知识更新和持续学习</li><li>自动化内容收集和摘要生成</li><li>跨领域知识整合和综合分析</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 克隆仓库</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/mvanhorn/last30days-skill.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> last30days-skill
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 安装依赖</span>
+</span></span><span class=line><span class=cl>pip install -r requirements.txt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 配置API密钥</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>OPENAI_API_KEY</span><span class=o>=</span><span class=s2>&#34;your-api-key&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>last30days_skill</span> <span class=kn>import</span> <span class=n>Last30DaysSkill</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 初始化技能</span>
+</span></span><span class=line><span class=cl><span class=n>skill</span> <span class=o>=</span> <span class=n>Last30daysSkill</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 研究特定主题</span>
+</span></span><span class=line><span class=cl><span class=n>result</span> <span class=o>=</span> <span class=n>skill</span><span class=o>.</span><span class=n>research</span><span class=p>(</span><span class=s2>&#34;人工智能发展趋势&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 获取研究摘要</span>
+</span></span><span class=line><span class=cl><span class=n>summary</span> <span class=o>=</span> <span class=n>skill</span><span class=o>.</span><span class=n>get_summary</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;研究主题: </span><span class=si>{</span><span class=n>result</span><span class=o>.</span><span class=n>topic</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;发现数量: </span><span class=si>{</span><span class=nb>len</span><span class=p>(</span><span class=n>result</span><span class=o>.</span><span class=n>findings</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;摘要: </span><span class=si>{</span><span class=n>summary</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong> 该项目解决了AI代理知识时效性的关键问题，通过自动化的信息收集和摘要生成，使代理能够保持最新的知识状态。其模块化设计使其易于集成到各种AI系统中。</p><h2 id=2-deer-flow---开源超级代理框架>2. deer-flow - 开源超级代理框架</h2><p><strong>核心功能：</strong> DeerFlow是一个基于LangGraph和LangChain构建的超级代理框架，提供完整的代理基础设施，包括子代理、内存、沙箱和技能系统。它能够处理从几分钟到数小时的复杂任务。</p><p><strong>适用场景：</strong></p><ul><li>复杂的多步骤任务自动化</li><li>AI代理编排和协调</li><li>长期项目管理和执行</li><li>跨系统工作流集成</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 克隆仓库</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/bytedance/deer-flow.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> deer-flow
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 生成配置文件</span>
+</span></span><span class=line><span class=cl>make config
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 配置模型API密钥</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>OPENAI_API_KEY</span><span class=o>=</span><span class=s2>&#34;your-api-key&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>ANTHROPIC_API_KEY</span><span class=o>=</span><span class=s2>&#34;your-api-key&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启动服务</span>
+</span></span><span class=line><span class=cl>make dev
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>deerflow.client</span> <span class=kn>import</span> <span class=n>DeerFlowClient</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 初始化客户端</span>
+</span></span><span class=line><span class=cl><span class=n>client</span> <span class=o>=</span> <span class=n>DeerFlowClient</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 创建新对话</span>
+</span></span><span class=line><span class=cl><span class=n>response</span> <span class=o>=</span> <span class=n>client</span><span class=o>.</span><span class=n>chat</span><span class=p>(</span><span class=s2>&#34;分析2024年AI发展趋势&#34;</span><span class=p>,</span> <span class=n>thread_id</span><span class=o>=</span><span class=s2>&#34;research-2024&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 流式响应</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>event</span> <span class=ow>in</span> <span class=n>client</span><span class=o>.</span><span class=n>stream</span><span class=p>(</span><span class=s2>&#34;继续分析市场影响&#34;</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>event</span><span class=o>.</span><span class=n>type</span> <span class=o>==</span> <span class=s2>&#34;messages-tuple&#34;</span> <span class=ow>and</span> <span class=n>event</span><span class=o>.</span><span class=n>data</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;type&#34;</span><span class=p>)</span> <span class=o>==</span> <span class=s2>&#34;ai&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=n>event</span><span class=o>.</span><span class=n>data</span><span class=p>[</span><span class=s2>&#34;content&#34;</span><span class=p>])</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong> DeerFlow代表了AI代理框架的新一代发展，提供了企业级的功能和可扩展性。其沙箱执行环境和子代理系统使其能够处理复杂的现实世界任务。</p><h2 id=3-litellm---ai网关和sdk>3. litellm - AI网关和SDK</h2><p><strong>核心功能：</strong> LiteLLM是一个统一的AI API网关和Python SDK，支持100+ LLM API，提供成本跟踪、负载均衡、日志记录等企业级功能。它允许开发者以OpenAI格式调用各种AI模型。</p><p><strong>适用场景：</strong></p><ul><li>多AI提供商集成</li><li>成本管理和优化</li><li>企业级AI服务</li><li>开发者工具和SDK</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 安装SDK</span>
+</span></span><span class=line><span class=cl>pip install litellm
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 安装带代理功能</span>
+</span></span><span class=line><span class=cl>pip install <span class=s1>&#39;litellm[proxy]&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启动代理服务器</span>
+</span></span><span class=line><span class=cl>litellm --model gpt-4o
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>litellm</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 配置API密钥</span>
+</span></span><span class=line><span class=cl><span class=n>os</span><span class=o>.</span><span class=n>environ</span><span class=p>[</span><span class=s2>&#34;OPENAI_API_KEY&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s2>&#34;your-openai-key&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>os</span><span class=o>.</span><span class=n>environ</span><span class=p>[</span><span class=s2>&#34;ANTHROPIC_API_KEY&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s2>&#34;your-anthropic-key&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># OpenAI模型调用</span>
+</span></span><span class=line><span class=cl><span class=n>response</span> <span class=o>=</span> <span class=n>litellm</span><span class=o>.</span><span class=n>completion</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=n>model</span><span class=o>=</span><span class=s2>&#34;openai/gpt-4o&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>messages</span><span class=o>=</span><span class=p>[{</span><span class=s2>&#34;role&#34;</span><span class=p>:</span> <span class=s2>&#34;user&#34;</span><span class=p>,</span> <span class=s2>&#34;content&#34;</span><span class=p>:</span> <span class=s2>&#34;Hello!&#34;</span><span class=p>}]</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Anthropic模型调用</span>
+</span></span><span class=line><span class=cl><span class=n>response</span> <span class=o>=</span> <span class=n>litellm</span><span class=o>.</span><span class=n>completion</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=n>model</span><span class=o>=</span><span class=s2>&#34;anthropic/claude-sonnet-4-20250514&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>messages</span><span class=o>=</span><span class=p>[{</span><span class=s2>&#34;role&#34;</span><span class=p>:</span> <span class=s2>&#34;user&#34;</span><span class=p>,</span> <span class=s2>&#34;content&#34;</span><span class=p>:</span> <span class=s2>&#34;Hello!&#34;</span><span class=p>}]</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong> LiteLLM解决了AI开发中的碎片化问题，提供了一个统一的接口来访问各种AI服务。其企业级功能和性能优化使其成为生产环境的理想选择。</p><h2 id=4-editor---3d建筑编辑器>4. editor - 3D建筑编辑器</h2><p><strong>核心功能：</strong> 这是一个基于React Three Fiber和WebGPU的3D建筑编辑器，提供直观的3D建模和编辑功能。它采用模块化架构，包括核心系统、3D渲染组件和编辑器界面。</p><p><strong>适用场景：</strong></p><ul><li>建筑设计和可视化</li><li>3D建模和渲染</li><li>建筑信息模型(BIM)</li><li>虚拟现实应用</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 克隆仓库</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/pascalorg/editor.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> editor
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 安装依赖</span>
+</span></span><span class=line><span class=cl>bun install
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启动开发服务器</span>
+</span></span><span class=line><span class=cl>bun dev
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=p>{</span> <span class=nx>useScene</span><span class=p>,</span> <span class=nx>useViewer</span><span class=p>,</span> <span class=nx>useEditor</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;@pascal-app/core&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 访问场景状态
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>nodes</span> <span class=o>=</span> <span class=nx>useScene</span><span class=p>((</span><span class=nx>state</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>state</span><span class=p>.</span><span class=nx>nodes</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>levelId</span> <span class=o>=</span> <span class=nx>useViewer</span><span class=p>((</span><span class=nx>state</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>state</span><span class=p>.</span><span class=nx>selection</span><span class=p>.</span><span class=nx>levelId</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 创建新建筑
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>newBuilding</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>id</span><span class=o>:</span> <span class=s1>&#39;building_123&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>type</span><span class=o>:</span> <span class=s1>&#39;building&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>parentId</span><span class=o>:</span> <span class=kc>null</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>visible</span><span class=o>:</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>useScene</span><span class=p>.</span><span class=nx>getState</span><span class=p>().</span><span class=nx>createNode</span><span class=p>(</span><span class=nx>newBuilding</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong> 该项目展示了Web技术在3D建模领域的强大能力，其模块化设计和现代技术栈使其易于扩展和维护。</p><h2 id=5-claude-subconscious---claude-code背景代理>5. claude-subconscious - Claude Code背景代理</h2><p><strong>核心功能：</strong> Claude Subconscious是一个为Claude Code提供背景代理的系统，能够观察会话、阅读文件、构建记忆，并在需要时提供指导。它运行在后台，为Claude Code提供持续的学习和记忆能力。</p><p><strong>适用场景：</strong></p><ul><li>AI辅助编程</li><li>代码库理解和分析</li><li>持续学习和改进</li><li>开发者生产力提升</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 克隆仓库</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/letta-ai/claude-subconscious.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> claude-subconscious
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 安装依赖</span>
+</span></span><span class=line><span class=cl>npm install
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启用插件</span>
+</span></span><span class=line><span class=cl>/plugin <span class=nb>enable</span> .
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 配置环境变量</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>LETTA_API_KEY</span><span class=o>=</span><span class=s2>&#34;your-api-key&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>LETTA_MODE</span><span class=o>=</span><span class=s2>&#34;whisper&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启动Claude Code</span>
+</span></span><span class=line><span class=cl>claude-code
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong> 该项目创新性地解决了AI编程助手的知识持久性问题，通过背景代理机制使AI能够记住用户的偏好和项目上下文。</p><h2 id=6-ruflo---claude代理编排平台>6. ruflo - Claude代理编排平台</h2><p><strong>核心功能：</strong> Ruflo是一个企业级的Claude代理编排平台，支持智能多代理群、自主工作流协调和对话式AI系统构建。它提供分布式群智能和RAG集成。</p><p><strong>适用场景：</strong></p><ul><li>企业AI解决方案</li><li>复杂任务自动化</li><li>多代理协作系统</li><li>对话式AI应用</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 克隆仓库</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/ruvnet/ruflo.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> ruflo
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 安装依赖</span>
+</span></span><span class=line><span class=cl>npm install
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启动平台</span>
+</span></span><span class=line><span class=cl>npm run dev
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong> Ruflo代表了AI代理编排的企业级解决方案，其分布式架构和高级功能使其适合复杂的企业应用场景。</p><h2 id=7-project-nomad---离线生存计算机>7. project-nomad - 离线生存计算机</h2><p><strong>核心功能：</strong> Project N.O.M.A.D.是一个自包含的离线优先知识服务器，包含关键工具、知识和AI，可在任何时间任何地点保持用户的信息和赋能能力。</p><p><strong>适用场景：</strong></p><ul><li>离线知识管理</li><li>应急准备和生存工具</li><li>教育和培训</li><li>资源受限环境</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 安装脚本</span>
+</span></span><span class=line><span class=cl>sudo apt-get update <span class=o>&amp;&amp;</span> sudo apt-get install -y curl
+</span></span><span class=line><span class=cl>curl -fsSL https://raw.githubusercontent.com/Crosstalk-Solutions/project-nomad/refs/heads/main/install/install_nomad.sh -o install_nomad.sh
+</span></span><span class=line><span class=cl>sudo bash install_nomad.sh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 访问界面</span>
+</span></span><span class=line><span class=cl>open http://localhost:8080
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 使用内置工具</span>
+</span></span><span class=line><span class=cl>nomad ai-chat <span class=s2>&#34;如何进行基本急救&#34;</span>
+</span></span><span class=line><span class=cl>nomad offline-wikipedia search <span class=s2>&#34;太阳能发电&#34;</span>
+</span></span><span class=line><span class=cl>nomad education platform <span class=s2>&#34;Khan Academy courses&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong> 该项目体现了技术的社会责任，为资源受限环境提供了强大的知识工具，其离线优先设计特别适合应急和偏远地区使用。</p><h2 id=8-supermemory---ai记忆引擎>8. supermemory - AI记忆引擎</h2><p><strong>核心功能：</strong> Supermemory是AI时代的记忆API，提供状态-of-the-art的记忆和上下文引擎。它在所有主要AI记忆基准测试中排名第一，包括LongMemEval、LoCoMo和ConvoMem。</p><p><strong>适用场景：</strong></p><ul><li>AI记忆和上下文管理</li><li>个性化AI助手</li><li>知识库和RAG系统</li><li>企业记忆解决方案</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 安装Python包</span>
+</span></span><span class=line><span class=cl>pip install supermemory
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 或Node.js包</span>
+</span></span><span class=line><span class=cl>npm install supermemory
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>supermemory</span> <span class=kn>import</span> <span class=n>Supermemory</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 初始化客户端</span>
+</span></span><span class=line><span class=cl><span class=n>client</span> <span class=o>=</span> <span class=n>Supermemory</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 添加记忆</span>
+</span></span><span class=line><span class=cl><span class=k>await</span> <span class=n>client</span><span class=o>.</span><span class=n>add</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;content&#34;</span><span class=p>:</span> <span class=s2>&#34;User prefers TypeScript and functional patterns&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;containerTag&#34;</span><span class=p>:</span> <span class=s2>&#34;user_123&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>})</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 获取用户配置文件和搜索结果</span>
+</span></span><span class=line><span class=cl><span class=n>result</span> <span class=o>=</span> <span class=k>await</span> <span class=n>client</span><span class=o>.</span><span class=n>profile</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;containerTag&#34;</span><span class=p>:</span> <span class=s2>&#34;user_123&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;q&#34;</span><span class=p>:</span> <span class=s2>&#34;programming style&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>})</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>result</span><span class=o>.</span><span class=n>profile</span><span class=o>.</span><span class=n>static</span><span class=p>)</span>  <span class=c1># 长期事实</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>result</span><span class=o>.</span><span class=n>profile</span><span class=o>.</span><span class=n>dynamic</span><span class=p>)</span>  <span class=c1># 最近上下文</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong> Supermemory在AI记忆领域树立了新的标杆，其混合搜索和自动遗忘功能使其成为最先进的记忆解决方案。</p><h2 id=9-moneyprinterv2---在线赚钱自动化>9. MoneyPrinterV2 - 在线赚钱自动化</h2><p><strong>核心功能：</strong> MoneyPrinterV2是一个自动化在线赚钱过程的应用程序，包括Twitter机器人、YouTube Shorts自动化、联盟营销等功能。</p><p><strong>适用场景：</strong></p><ul><li>在线收入自动化</li><li>社交媒体营销</li><li>内容创作自动化</li><li>创业工具</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 克隆仓库</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/FujiwaraChoki/MoneyPrinterV2.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> MoneyPrinterV2
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 创建虚拟环境</span>
+</span></span><span class=line><span class=cl>python -m venv venv
+</span></span><span class=line><span class=cl><span class=nb>source</span> venv/bin/activate
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 安装依赖</span>
+</span></span><span class=line><span class=cl>pip install -r requirements.txt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 运行应用</span>
+</span></span><span class=line><span class=cl>python src/main.py
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>moneyprinter</span> <span class=kn>import</span> <span class=n>TwitterBot</span><span class=p>,</span> <span class=n>YouTubeAutomator</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 初始化Twitter机器人</span>
+</span></span><span class=line><span class=cl><span class=n>twitter_bot</span> <span class=o>=</span> <span class=n>TwitterBot</span><span class=p>(</span><span class=n>config</span><span class=o>=</span><span class=s2>&#34;config.json&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>twitter_bot</span><span class=o>.</span><span class=n>post_tweet</span><span class=p>(</span><span class=s2>&#34;Check out my new project!&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># YouTube Shorts自动化</span>
+</span></span><span class=line><span class=cl><span class=n>youtube_automator</span> <span class=o>=</span> <span class=n>YouTubeAutomator</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>youtube_automator</span><span class=o>.</span><span class=n>upload_short</span><span class=p>(</span><span class=s2>&#34;video.mp4&#34;</span><span class=p>,</span> <span class=s2>&#34;My new video&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong> 该项目展示了AI在商业自动化中的应用潜力，虽然主要用于教育目的，但其技术可以应用于各种自动化场景。</p><h2 id=10-tradingagents-cn---中文金融交易框架>10. TradingAgents-CN - 中文金融交易框架</h2><p><strong>核心功能：</strong> TradingAgents-CN是基于多智能体LLM的中文金融交易框架，提供股票分析、多LLM集成、Docker部署和专业报告导出等功能。</p><p><strong>适用场景：</strong></p><ul><li>金融分析和研究</li><li>AI驱动的投资策略</li><li>中文市场分析</li><li>教育和培训</li></ul><p><strong>安装方式：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 克隆仓库</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/hsliuping/TradingAgents-CN.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> TradingAgents-CN
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Docker部署</span>
+</span></span><span class=line><span class=cl>docker-compose up -d
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 或绿色版安装</span>
+</span></span><span class=line><span class=cl><span class=c1># 下载绿色版并运行</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>代码示例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>tradingagents</span> <span class=kn>import</span> <span class=n>TradingAnalyzer</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 初始化分析器</span>
+</span></span><span class=line><span class=cl><span class=n>analyzer</span> <span class=o>=</span> <span class=n>TradingAnalyzer</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 分析股票</span>
+</span></span><span class=line><span class=cl><span class=n>result</span> <span class=o>=</span> <span class=n>analyzer</span><span class=o>.</span><span class=n>analyze_stock</span><span class=p>(</span><span class=s2>&#34;AAPL&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=n>model</span><span class=o>=</span><span class=s2>&#34;gpt-4&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=n>data_source</span><span class=o>=</span><span class=s2>&#34;tushare&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 获取分析报告</span>
+</span></span><span class=line><span class=cl><span class=n>report</span> <span class=o>=</span> <span class=n>analyzer</span><span class=o>.</span><span class=n>get_report</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;股票代码: </span><span class=si>{</span><span class=n>result</span><span class=o>.</span><span class=n>symbol</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;分析结果: </span><span class=si>{</span><span class=n>report</span><span class=o>.</span><span class=n>summary</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>评价：</strong> TradingAgents-CN为中文金融社区提供了强大的AI分析工具，其多智能体架构和本地化设计使其特别适合中国市场。</p><h2 id=总结>总结</h2><p>今天的GitHub Trending项目展示了AI技术的广泛应用，从代理框架到记忆引擎，从3D编辑到金融分析。这些项目不仅技术先进，而且具有实际应用价值，反映了当前技术发展的主要趋势：</p><ol><li><strong>AI代理的成熟化</strong> - 多个项目专注于AI代理的编排、记忆和执行</li><li><strong>企业级AI解决方案</strong> - 越来越多的项目提供生产就绪的AI服务</li><li><strong>垂直领域应用</strong> - AI技术在建筑、金融、教育等领域的深入应用</li><li><strong>离线和边缘计算</strong> - 对资源受限环境的关注增加</li><li><strong>多模态和综合能力</strong> - 项目越来越注重多种AI能力的整合</li></ol><p>这些开源项目为开发者提供了丰富的工具和灵感，推动了AI技术的创新和应用。</p><p>Current time: Thursday, March 26th, 2026 — 6:00 AM (Asia/Shanghai) / 2026-03-25 22:00 UTC</p></div><section class=about-section><h2>技术栈</h2><div class=tech-stack><span class=tech-tag>HTML & CSS</span>
+<span class=tech-tag>JavaScript</span>
+<span class=tech-tag>Vue.js</span>
+<span class=tech-tag>React</span>
+<span class=tech-tag>Python</span>
+<span class=tech-tag>Go</span>
+<span class=tech-tag>Node.js</span>
+<span class=tech-tag>Git</span>
+<span class=tech-tag>Docker</span>
+<span class=tech-tag>Linux</span>
+<span class=tech-tag>Hugo</span>
+<span class=tech-tag>CI/CD</span></div></section><section class=about-section><h2>联系方式</h2><div class=contact-grid><a href=mailto: class=contact-card><div class=contact-card-icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1.0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1.0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class=contact-card-info><div class=contact-card-label>Email</div><div class=contact-card-value></div></div></a></div></section></div></div></main><footer class=footer><span>&copy; 2026 <a href=https://gblog.brez.top/zh/>breeze 的博客</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg></a><style>.goatcounter-count{font-variant-numeric:tabular-nums}</style><script>document.addEventListener("DOMContentLoaded",()=>{const e="https://stats.brez.top";document.querySelectorAll(".goatcounter-count").forEach(async t=>{let n=t.getAttribute("data-goatcounter-path")||location.pathname;n=n.replace(/\/$/,"")||"/";const s=`${e}/counter/${n}.json`;try{const e=await fetch(s);if(e.ok){const n=await e.json();t.innerText=(n.count||0)+" 次阅读"}}catch{t.innerText==="..."&&(t.innerText="0 次阅读")}})})</script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="复制";function s(){t.innerHTML="已复制！",setTimeout(()=>{t.innerHTML="复制"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
