@@ -1,0 +1,268 @@
+<!doctype html><html lang=zh dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>每日开源速递 - 2026-04-11 | breeze 的博客</title><meta name=keywords content="daily,github,trending"><meta name=description content="GitHub Trending 项目的深度解读与推荐"><meta name=author content="breeze"><link rel=canonical href=https://gblog.brez.top/zh/posts/daily-digest-2026-04-11/><link crossorigin=anonymous href=/assets/css/stylesheet.d08e039671cbee2e9e78bf250354ed0e301d2b215317630d8888a4b872072d47.css integrity="sha256-0I4DlnHL7i6eeL8lA1TtDjAdKyFTF2MNiIikuHIHLUc=" rel="preload stylesheet" as=style><link rel=icon href=https://gblog.brez.top/favicon.svg><link rel=icon type=image/png sizes=16x16 href=https://gblog.brez.top/favicon.svg><link rel=icon type=image/png sizes=32x32 href=https://gblog.brez.top/favicon.svg><link rel=apple-touch-icon href=https://gblog.brez.top/favicon.svg><link rel=mask-icon href=https://gblog.brez.top/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh href=https://gblog.brez.top/zh/posts/daily-digest-2026-04-11/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><script data-goatcounter=https://stats.brez.top/count async src=//stats.brez.top/count.js></script><meta property="og:url" content="https://gblog.brez.top/zh/posts/daily-digest-2026-04-11/"><meta property="og:site_name" content="breeze 的博客"><meta property="og:title" content="每日开源速递 - 2026-04-11"><meta property="og:description" content="GitHub Trending 项目的深度解读与推荐"><meta property="og:locale" content="zh"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-04-11T00:00:00+08:00"><meta property="article:modified_time" content="2026-04-11T00:00:00+08:00"><meta property="article:tag" content="Daily"><meta property="article:tag" content="Github"><meta property="article:tag" content="Trending"><meta name=twitter:card content="summary"><meta name=twitter:title content="每日开源速递 - 2026-04-11"><meta name=twitter:description content="GitHub Trending 项目的深度解读与推荐"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"杂项","item":"https://gblog.brez.top/zh/posts/"},{"@type":"ListItem","position":2,"name":"每日开源速递 - 2026-04-11","item":"https://gblog.brez.top/zh/posts/daily-digest-2026-04-11/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"每日开源速递 - 2026-04-11","name":"每日开源速递 - 2026-04-11","description":"GitHub Trending 项目的深度解读与推荐","keywords":["daily","github","trending"],"articleBody":"每日开源速递 - 2026-04-11 本期精选 10 个 GitHub 热门开源项目，涵盖 AI 编码工具、文档处理、金融 AI、教育科技等多个领域。\n1. MarkItDown - 微软出品的文档转换神器 项目地址: https://github.com/microsoft/markitdown\n核心功能 MarkItDown 是微软开源的一款轻量级 Python 工具，专门用于将各种文件格式转换为 Markdown。与 textract 类似，但更专注于保留文档结构和内容（包括标题、列表、表格、链接等）。\n支持的格式：\nPDF、PowerPoint、Word、Excel 图片（EXIF 元数据和 OCR） 音频（EXIF 元数据和语音转录） HTML、CSV、JSON、XML ZIP 文件（遍历内容） YouTube URL、EPub 适用场景 LLM 数据预处理：将各种文档转换为 Markdown 供大语言模型处理 文档归档：统一文档格式便于存储和检索 内容分析：为文本分析管道提供标准化输入 RAG 系统构建：作为文档解析器构建检索增强生成系统 安装方式 1 2 3 4 5 6 7 # 使用 pip 安装（推荐） pip install 'markitdown[all]' # 或从源码安装 git clone git@github.com:microsoft/markitdown.git cd markitdown pip install -e 'packages/markitdown[all]' 代码示例 1 2 3 4 5 6 7 8 # 基本用法 markitdown path-to-file.pdf \u003e document.md # 指定输出文件 markitdown path-to-file.pdf -o document.md # 管道用法 cat path-to-file.pdf | markitdown 1 2 3 4 5 from markitdown import MarkItDown md = MarkItDown() result = md.convert(\"document.pdf\") print(result.text_content) 评价 MarkItDown 是构建 LLM 应用时的必备工具之一。它的 MCP（Model Context Protocol）服务器支持让它可以无缝集成到 Claude Desktop 等 LLM 应用中。微软背书加上活跃的社区维护，使其成为文档转换领域的首选方案。\n2. Archon - AI 编码工作流引擎 项目地址: https://github.com/coleam00/Archon\n核心功能 Archon 是首个开源的 AI 编码工作流构建器，旨在让 AI 编码变得确定性和可重复。它将开发流程编码为 YAML 工作流，包括规划、实现、验证、代码审查和 PR 创建等阶段。\n关键特性：\n可重复性：相同的工作流，相同的执行序列 隔离性：每个工作流运行在独立的 git worktree 中 组合性：确定性节点（bash 脚本、测试）与 AI 节点（规划、代码生成）混合 可移植性：工作流定义存储在 .archon/workflows/ 中，跨平台通用 适用场景 标准化开发流程：确保团队遵循一致的代码开发规范 自动化代码审查：在提交前自动运行代码质量检查 批量重构任务：并行处理多个代码改进任务 CI/CD 集成：将 AI 能力集成到现有的持续集成流程 安装方式 1 2 3 4 5 6 7 8 9 # 需要 Bun、Claude Code 和 GitHub CLI # 安装 Bun curl -fsSL https://bun.sh/install | bash # 克隆仓库并运行设置向导 git clone https://github.com/coleam00/Archon.git cd Archon bun install bun run setup 代码示例 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 # .archon/workflows/build-feature.yaml nodes: - id: plan prompt: \"Explore the codebase and create an implementation plan\" - id: implement depends_on: [plan] loop: prompt: \"Read the plan. Implement the next task. Run validation.\" until: ALL_TASKS_COMPLETE fresh_context: true - id: run-tests depends_on: [implement] bash: \"bun run validate\" - id: review depends_on: [run-tests] prompt: \"Review all changes against the plan. Fix any issues.\" - id: create-pr depends_on: [review] prompt: \"Push changes and create a pull request\" 评价 Archon 填补了 AI 编码工具在确定性执行方面的空白。它解决了\"每次运行结果不同\"的痛点，让 AI 编码从\"vibe coding\"走向工程化。对于需要可预测、可审计的 AI 辅助开发团队来说，这是一个重要工具。\n3. Hermes Agent - 自进化的 AI 代理 项目地址: https://github.com/NousResearch/hermes-agent\n核心功能 Hermes 是由 Nous Research 构建的自进化 AI 代理，内置学习循环机制。它能从经验中创建技能、在使用过程中改进技能、主动推送知识持久化、搜索过往对话，并建立对用户的深度模型。\n核心特性：\n完整 TUI：多行编辑、斜杠命令自动补全、对话历史 多平台支持：Telegram、Discord、Slack、WhatsApp、Signal 学习闭环：代理策划记忆、自主技能创建、技能自我改进 子代理并行：生成隔离的子代理进行并行工作流 多终端后端：本地、Docker、SSH、Daytona、Singularity、Modal 适用场景 个人 AI 助手：长期记忆用户偏好和工作习惯 跨平台协作：在不同消息平台间保持对话连续性 自动化任务：内置 cron 调度器运行定时任务 研究实验：支持批量轨迹生成和 RL 环境 安装方式 1 2 3 4 5 6 # 一键安装 curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash # 启动 source ~/.bashrc hermes 代码示例 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 # 交互式 CLI hermes # 选择模型 hermes model # 配置工具 hermes tools # 启动消息网关 hermes gateway # 更新 hermes update # 诊断问题 hermes doctor 评价 Hermes 代表了 AI 代理的下一个进化阶段——从执行指令到主动学习和自我改进。Nous Research 在开源 AI 领域的声誉让这个项目备受关注。对于希望拥有\"真正懂你\"的 AI 助手的用户来说，Hermes 值得尝试。\n4. Rowboat - 带记忆的 AI 同事 项目地址: https://github.com/rowboatlabs/rowboat\n核心功能 Rowboat 是一个开源的 AI 同事，连接邮件和会议记录，构建长期知识图谱，并利用这些上下文帮助完成工作。所有数据都存储在本地。\n核心能力：\n知识图谱构建：从 Gmail、日历、会议记录中提取信息 会议准备：自动提取过往决策、待解决问题和相关线程 实时笔记：创建自动更新的\"活笔记\"追踪特定主题 文档生成：基于上下文生成简报、邮件、文档和 PDF 幻灯片 Obsidian 兼容：使用纯 Markdown 笔记和反向链接 适用场景 知识工作者：需要管理大量信息和会议的专业人士 项目经理：追踪决策、行动项和负责人 销售团队：准备客户会议，追踪交易进展 研究人员：持续监控特定主题的发展 安装方式 1 2 3 4 5 6 7 8 9 10 11 # 下载最新版本（支持 Mac/Windows/Linux） # 访问 https://www.rowboatlabs.com/downloads # 配置 Google 服务（可选） # 按照 google-setup.md 配置 Gmail、日历和 Drive # 配置语音输入（可选） # 在 ~/.rowboat/config/deepgram.json 添加 Deepgram API 密钥 # 配置语音输出（可选） # 在 ~/.rowboat/config/elevenlabs.json 添加 ElevenLabs API 密钥 代码示例 使用示例（自然语言指令）：\n\"Build me a deck about our next quarter roadmap\" → 使用知识图谱中的上下文生成 PDF \"Prep me for my meeting with Alex\" → 提取过往决策、待解决问题和相关线程 \"Track competitor X through live notes\" → 创建自动更新的监控笔记 评价 Rowboat 的本地优先设计是一个重要差异化因素。在隐私日益受关注的今天，能够完全掌控自己的数据同时享受 AI 助手的便利，这对许多用户来说极具吸引力。Y Combinator 背景也为其可靠性提供了背书。\n5. Multica - 开源托管代理平台 项目地址: https://github.com/multica-ai/multica\n核心功能 Multica 将编码代理转变为真正的团队成员。可以像分配给同事一样分配问题给代理——它们会自主接手工作、编写代码、报告阻塞并更新状态。\n核心特性：\n代理即队友：代理有个人资料、显示在看板、发表评论、创建问题 自主执行：完整的任务生命周期管理（入队、认领、开始、完成/失败） 可复用技能：每个解决方案都成为团队可复用的技能 统一运行时：本地守护进程和云运行时的统一仪表板 多工作区：团队级隔离，每个工作区有自己的代理、问题和设置 适用场景 开发团队：将 AI 代理纳入日常开发流程 代码审查：自动分配代码审查任务给代理 技术债务管理：批量分配重构和优化任务 技能库建设：积累和复用团队的最佳实践 安装方式 1 2 3 4 5 6 7 8 9 # 使用 Docker 自托管 git clone https://github.com/multica-ai/multica.git cd multica cp .env.example .env # 编辑 .env — 至少修改 JWT_SECRET docker compose -f docker-compose.selfhost.yml up -d # 或使用云版本 # 访问 https://multica.ai 代码示例 1 2 3 4 5 6 7 8 9 10 # 安装 CLI brew tap multica-ai/tap brew install multica # 认证并启动守护进程 multica login multica daemon start # 查看可用命令 multica --help 评价 Multica 解决了\"如何让 AI 代理真正成为团队一员\"的问题。它的设计哲学是将代理视为同事而非工具，这种视角转变对于 AI 辅助开发的未来至关重要。支持 Claude Code、Codex、OpenClaw、OpenCode 等多种代理运行时，体现了其开放和 vendor-neutral 的定位。\n6. Andrej Karpathy Skills - Claude Code 最佳实践 项目地址: https://github.com/forrestchang/andrej-karpathy-skills\n核心功能 基于 Andrej Karpathy 对 LLM 编码陷阱的观察，提炼出的四个核心原则，用于改善 Claude Code 的行为。\n四大原则：\nThink Before Coding（编码前思考）：明确陈述假设，存在歧义时提问而非猜测 Simplicity First（简洁优先）：最小代码解决问题，不为单用途代码创建抽象 Surgical Changes（精准修改）：只修改必须修改的部分，不触碰无关代码 Goal-Driven Execution（目标驱动执行）：定义成功标准，循环直到验证通过 适用场景 AI 辅助编码：使用 Claude Code、Cursor 等工具时的行为准则 代码审查：评估 AI 生成代码的质量标准 团队规范：建立团队使用 AI 编码工具的最佳实践 教育培训：教授如何有效使用 AI 编码助手 安装方式 1 2 3 4 5 6 # 方式一：Claude Code 插件（推荐） /plugin marketplace add forrestchang/andrej-karpathy-skills /plugin install andrej-karpathy-skills@karpathy-skills # 方式二：项目级 CLAUDE.md curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md 代码示例 原则应用示例：\n# 不好的指令： \"Add validation\" # 好的指令（目标驱动）： \"Write tests for invalid inputs, then make them pass\" # 不好的指令： \"Fix the bug\" # 好的指令（目标驱动）： \"Write a test that reproduces it, then make it pass\" 评价 这个项目浓缩了 Andrej Karpathy——AI 领域最受尊敬的声音之一——对 LLM 编码的深刻洞察。四个原则看似简单，但实践起来需要纪律。对于希望从\"vibe coding\"升级到\"agentic engineering\"的开发者来说，这是必读材料。\n7. Kronos - 金融市场语言基础模型 项目地址: https://github.com/shiyu-coder/Kronos\n核心功能 Kronos 是首个开源的金融 K 线（candlesticks）基础模型，在来自 45+ 全球交易所的数据上训练。它专门用于处理金融数据的独特高噪声特性。\n技术架构：\n专用 Tokenizer：将连续的多维 K 线数据（OHLCV）量化为层次化离散 token 自回归 Transformer：在这些 token 上预训练的大型模型 多尺寸模型：从 4.1M 参数的 mini 到 499.2M 参数的 large 适用场景 量化交易：股票价格预测和趋势分析 风险管理：市场波动预测 投资组合优化：基于历史模式的投资决策 金融研究：金融市场行为模式分析 安装方式 1 2 3 4 5 # 安装依赖 pip install -r requirements.txt # 从 Hugging Face 加载模型 from model import Kronos, KronosTokenizer, KronosPredictor ","wordCount":"808","inLanguage":"zh","datePublished":"2026-04-11T00:00:00+08:00","dateModified":"2026-04-11T00:00:00+08:00","author":{"@type":"Person","name":"breeze"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://gblog.brez.top/zh/posts/daily-digest-2026-04-11/"},"publisher":{"@type":"Organization","name":"breeze 的博客","logo":{"@type":"ImageObject","url":"https://gblog.brez.top/favicon.svg"}}}</script><style>.about-header{text-align:center;padding:2.5rem 1rem;background:var(--entry);border-bottom:1px solid var(--border);margin-bottom:1.5rem}.about-avatar-icon{width:80px;height:80px;border-radius:50%;background:var(--primary);color:var(--theme);display:inline-grid;place-items:center;margin-bottom:1rem;box-shadow:0 4px 10px rgba(0,0,0,.1)}.about-avatar-icon svg{width:40px;height:40px}.about-header h1{font-size:2.2rem;margin:0 0 .4rem;font-weight:800;color:var(--primary)}.about-header .tagline{font-size:1.1rem;color:var(--secondary);margin:0;font-weight:300}.about-content{max-width:800px;margin:0 auto;padding:1rem 0 4rem}.about-section{background:var(--entry);border-radius:12px;padding:2rem;margin-bottom:2rem;border:1px solid var(--border)}.about-section h2{font-size:1.5rem;margin:0 0 1.5rem;color:var(--primary);display:flex;align-items:center;gap:.8rem}.about-section h2::before{content:'';width:4px;height:24px;background:var(--primary);border-radius:2px}.about-section p{line-height:1.8;color:var(--content);margin:0 0 1rem}.tech-stack{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}.tech-tag{display:inline-block;padding:.4rem 1rem;background:var(--tertiary);border-radius:8px;font-size:.85rem;color:var(--primary);transition:all .2s ease}.tech-tag:hover{background:var(--primary);color:var(--theme);transform:translateY(-2px)}.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.5rem}.contact-card{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--tertiary);border-radius:10px;text-decoration:none;color:var(--content);border:1px solid transparent;transition:all .2s ease}.contact-card:hover{border-color:var(--primary);background:var(--entry);transform:translateY(-2px)}.contact-card-icon{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;background:var(--primary);color:var(--theme);flex-shrink:0}.contact-card-icon svg{width:20px;height:20px}.contact-card-info{flex:1;min-width:0}.contact-card-label{font-size:.75rem;color:var(--secondary)}.contact-card-value{font-size:.9rem;font-weight:600;overflow:hidden;text-overflow:ellipsis}.other-sites{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}.site-link{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;background:var(--tertiary);border-radius:8px;text-decoration:none;color:var(--primary);font-weight:600;font-size:.9rem;transition:all .2s}.site-link:hover{background:var(--primary);color:var(--theme)}@media(max-width:768px){.about-header{padding:3rem 1rem}.about-section{padding:1.5rem}}.fade-in{animation:fadeIn .5s ease-out}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}</style></head><body id=top><header class=header><nav class=nav><div class=logo><a href=https://gblog.brez.top/zh/ accesskey=h title="breeze 的博客 (Alt + H)">breeze 的博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li><li><a href=https://gblog.brez.top/en/ title=English aria-label=English>En</a></li></ul></div></div><ul id=menu><li><a href=https://gblog.brez.top/zh/ title=首页><span>首页</span></a></li><li><a href=https://gblog.brez.top/zh/posts/ title=分享><span>分享</span></a></li><li><a href=https://gblog.brez.top/zh/life/ title=生活><span>生活</span></a></li><li><a href=https://gblog.brez.top/zh/tech/ title=技术><span>技术</span></a></li><li><a href=https://gblog.brez.top/zh/tags/ title=标签><span>标签</span></a></li><li><a href=https://gblog.brez.top/zh/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><div class=container><header class="about-header fade-in"><div class=about-avatar-icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h1>每日开源速递 - 2026-04-11</h1><p class=tagline>GitHub Trending 项目的深度解读与推荐</p></header><div class="about-content fade-in"><div class=about-section><h1 id=每日开源速递---2026-04-11>每日开源速递 - 2026-04-11</h1><blockquote><p>本期精选 10 个 GitHub 热门开源项目，涵盖 AI 编码工具、文档处理、金融 AI、教育科技等多个领域。</p></blockquote><hr><h2 id=1-markitdown---微软出品的文档转换神器>1. MarkItDown - 微软出品的文档转换神器</h2><p><strong>项目地址</strong>: <a href=https://github.com/microsoft/markitdown>https://github.com/microsoft/markitdown</a></p><h3 id=核心功能>核心功能</h3><p>MarkItDown 是微软开源的一款轻量级 Python 工具，专门用于将各种文件格式转换为 Markdown。与 textract 类似，但更专注于保留文档结构和内容（包括标题、列表、表格、链接等）。</p><p><strong>支持的格式</strong>：</p><ul><li>PDF、PowerPoint、Word、Excel</li><li>图片（EXIF 元数据和 OCR）</li><li>音频（EXIF 元数据和语音转录）</li><li>HTML、CSV、JSON、XML</li><li>ZIP 文件（遍历内容）</li><li>YouTube URL、EPub</li></ul><h3 id=适用场景>适用场景</h3><ul><li><strong>LLM 数据预处理</strong>：将各种文档转换为 Markdown 供大语言模型处理</li><li><strong>文档归档</strong>：统一文档格式便于存储和检索</li><li><strong>内容分析</strong>：为文本分析管道提供标准化输入</li><li><strong>RAG 系统构建</strong>：作为文档解析器构建检索增强生成系统</li></ul><h3 id=安装方式>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 使用 pip 安装（推荐）</span>
+</span></span><span class=line><span class=cl>pip install <span class=s1>&#39;markitdown[all]&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 或从源码安装</span>
+</span></span><span class=line><span class=cl>git clone git@github.com:microsoft/markitdown.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> markitdown
+</span></span><span class=line><span class=cl>pip install -e <span class=s1>&#39;packages/markitdown[all]&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 基本用法</span>
+</span></span><span class=line><span class=cl>markitdown path-to-file.pdf &gt; document.md
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 指定输出文件</span>
+</span></span><span class=line><span class=cl>markitdown path-to-file.pdf -o document.md
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 管道用法</span>
+</span></span><span class=line><span class=cl>cat path-to-file.pdf <span class=p>|</span> markitdown
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>markitdown</span> <span class=kn>import</span> <span class=n>MarkItDown</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>md</span> <span class=o>=</span> <span class=n>MarkItDown</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>result</span> <span class=o>=</span> <span class=n>md</span><span class=o>.</span><span class=n>convert</span><span class=p>(</span><span class=s2>&#34;document.pdf&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>result</span><span class=o>.</span><span class=n>text_content</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价>评价</h3><p>MarkItDown 是构建 LLM 应用时的必备工具之一。它的 MCP（Model Context Protocol）服务器支持让它可以无缝集成到 Claude Desktop 等 LLM 应用中。微软背书加上活跃的社区维护，使其成为文档转换领域的首选方案。</p><hr><h2 id=2-archon---ai-编码工作流引擎>2. Archon - AI 编码工作流引擎</h2><p><strong>项目地址</strong>: <a href=https://github.com/coleam00/Archon>https://github.com/coleam00/Archon</a></p><h3 id=核心功能-1>核心功能</h3><p>Archon 是首个开源的 AI 编码工作流构建器，旨在让 AI 编码变得确定性和可重复。它将开发流程编码为 YAML 工作流，包括规划、实现、验证、代码审查和 PR 创建等阶段。</p><p><strong>关键特性</strong>：</p><ul><li><strong>可重复性</strong>：相同的工作流，相同的执行序列</li><li><strong>隔离性</strong>：每个工作流运行在独立的 git worktree 中</li><li><strong>组合性</strong>：确定性节点（bash 脚本、测试）与 AI 节点（规划、代码生成）混合</li><li><strong>可移植性</strong>：工作流定义存储在 <code>.archon/workflows/</code> 中，跨平台通用</li></ul><h3 id=适用场景-1>适用场景</h3><ul><li><strong>标准化开发流程</strong>：确保团队遵循一致的代码开发规范</li><li><strong>自动化代码审查</strong>：在提交前自动运行代码质量检查</li><li><strong>批量重构任务</strong>：并行处理多个代码改进任务</li><li><strong>CI/CD 集成</strong>：将 AI 能力集成到现有的持续集成流程</li></ul><h3 id=安装方式-1>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 需要 Bun、Claude Code 和 GitHub CLI</span>
+</span></span><span class=line><span class=cl><span class=c1># 安装 Bun</span>
+</span></span><span class=line><span class=cl>curl -fsSL https://bun.sh/install <span class=p>|</span> bash
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 克隆仓库并运行设置向导</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/coleam00/Archon.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> Archon
+</span></span><span class=line><span class=cl>bun install
+</span></span><span class=line><span class=cl>bun run setup
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-1>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c># .archon/workflows/build-feature.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>nodes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>plan</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>prompt</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Explore the codebase and create an implementation plan&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>implement</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=l>plan]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>loop</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>prompt</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Read the plan. Implement the next task. Run validation.&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>until</span><span class=p>:</span><span class=w> </span><span class=l>ALL_TASKS_COMPLETE</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>fresh_context</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>run-tests</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=l>implement]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>bash</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;bun run validate&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>review</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=l>run-tests]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>prompt</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Review all changes against the plan. Fix any issues.&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>create-pr</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=l>review]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>prompt</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Push changes and create a pull request&#34;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=评价-1>评价</h3><p>Archon 填补了 AI 编码工具在确定性执行方面的空白。它解决了"每次运行结果不同"的痛点，让 AI 编码从"vibe coding"走向工程化。对于需要可预测、可审计的 AI 辅助开发团队来说，这是一个重要工具。</p><hr><h2 id=3-hermes-agent---自进化的-ai-代理>3. Hermes Agent - 自进化的 AI 代理</h2><p><strong>项目地址</strong>: <a href=https://github.com/NousResearch/hermes-agent>https://github.com/NousResearch/hermes-agent</a></p><h3 id=核心功能-2>核心功能</h3><p>Hermes 是由 Nous Research 构建的自进化 AI 代理，内置学习循环机制。它能从经验中创建技能、在使用过程中改进技能、主动推送知识持久化、搜索过往对话，并建立对用户的深度模型。</p><p><strong>核心特性</strong>：</p><ul><li><strong>完整 TUI</strong>：多行编辑、斜杠命令自动补全、对话历史</li><li><strong>多平台支持</strong>：Telegram、Discord、Slack、WhatsApp、Signal</li><li><strong>学习闭环</strong>：代理策划记忆、自主技能创建、技能自我改进</li><li><strong>子代理并行</strong>：生成隔离的子代理进行并行工作流</li><li><strong>多终端后端</strong>：本地、Docker、SSH、Daytona、Singularity、Modal</li></ul><h3 id=适用场景-2>适用场景</h3><ul><li><strong>个人 AI 助手</strong>：长期记忆用户偏好和工作习惯</li><li><strong>跨平台协作</strong>：在不同消息平台间保持对话连续性</li><li><strong>自动化任务</strong>：内置 cron 调度器运行定时任务</li><li><strong>研究实验</strong>：支持批量轨迹生成和 RL 环境</li></ul><h3 id=安装方式-2>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 一键安装</span>
+</span></span><span class=line><span class=cl>curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh <span class=p>|</span> bash
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启动</span>
+</span></span><span class=line><span class=cl><span class=nb>source</span> ~/.bashrc
+</span></span><span class=line><span class=cl>hermes
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-2>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 交互式 CLI</span>
+</span></span><span class=line><span class=cl>hermes
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 选择模型</span>
+</span></span><span class=line><span class=cl>hermes model
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 配置工具</span>
+</span></span><span class=line><span class=cl>hermes tools
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启动消息网关</span>
+</span></span><span class=line><span class=cl>hermes gateway
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 更新</span>
+</span></span><span class=line><span class=cl>hermes update
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 诊断问题</span>
+</span></span><span class=line><span class=cl>hermes doctor
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-2>评价</h3><p>Hermes 代表了 AI 代理的下一个进化阶段——从执行指令到主动学习和自我改进。Nous Research 在开源 AI 领域的声誉让这个项目备受关注。对于希望拥有"真正懂你"的 AI 助手的用户来说，Hermes 值得尝试。</p><hr><h2 id=4-rowboat---带记忆的-ai-同事>4. Rowboat - 带记忆的 AI 同事</h2><p><strong>项目地址</strong>: <a href=https://github.com/rowboatlabs/rowboat>https://github.com/rowboatlabs/rowboat</a></p><h3 id=核心功能-3>核心功能</h3><p>Rowboat 是一个开源的 AI 同事，连接邮件和会议记录，构建长期知识图谱，并利用这些上下文帮助完成工作。所有数据都存储在本地。</p><p><strong>核心能力</strong>：</p><ul><li><strong>知识图谱构建</strong>：从 Gmail、日历、会议记录中提取信息</li><li><strong>会议准备</strong>：自动提取过往决策、待解决问题和相关线程</li><li><strong>实时笔记</strong>：创建自动更新的"活笔记"追踪特定主题</li><li><strong>文档生成</strong>：基于上下文生成简报、邮件、文档和 PDF 幻灯片</li><li><strong>Obsidian 兼容</strong>：使用纯 Markdown 笔记和反向链接</li></ul><h3 id=适用场景-3>适用场景</h3><ul><li><strong>知识工作者</strong>：需要管理大量信息和会议的专业人士</li><li><strong>项目经理</strong>：追踪决策、行动项和负责人</li><li><strong>销售团队</strong>：准备客户会议，追踪交易进展</li><li><strong>研究人员</strong>：持续监控特定主题的发展</li></ul><h3 id=安装方式-3>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 下载最新版本（支持 Mac/Windows/Linux）</span>
+</span></span><span class=line><span class=cl><span class=c1># 访问 https://www.rowboatlabs.com/downloads</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 配置 Google 服务（可选）</span>
+</span></span><span class=line><span class=cl><span class=c1># 按照 google-setup.md 配置 Gmail、日历和 Drive</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 配置语音输入（可选）</span>
+</span></span><span class=line><span class=cl><span class=c1># 在 ~/.rowboat/config/deepgram.json 添加 Deepgram API 密钥</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 配置语音输出（可选）</span>
+</span></span><span class=line><span class=cl><span class=c1># 在 ~/.rowboat/config/elevenlabs.json 添加 ElevenLabs API 密钥</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-3>代码示例</h3><p>使用示例（自然语言指令）：</p><pre tabindex=0><code>&#34;Build me a deck about our next quarter roadmap&#34;
+→ 使用知识图谱中的上下文生成 PDF
+
+&#34;Prep me for my meeting with Alex&#34;
+→ 提取过往决策、待解决问题和相关线程
+
+&#34;Track competitor X through live notes&#34;
+→ 创建自动更新的监控笔记
+</code></pre><h3 id=评价-3>评价</h3><p>Rowboat 的本地优先设计是一个重要差异化因素。在隐私日益受关注的今天，能够完全掌控自己的数据同时享受 AI 助手的便利，这对许多用户来说极具吸引力。Y Combinator 背景也为其可靠性提供了背书。</p><hr><h2 id=5-multica---开源托管代理平台>5. Multica - 开源托管代理平台</h2><p><strong>项目地址</strong>: <a href=https://github.com/multica-ai/multica>https://github.com/multica-ai/multica</a></p><h3 id=核心功能-4>核心功能</h3><p>Multica 将编码代理转变为真正的团队成员。可以像分配给同事一样分配问题给代理——它们会自主接手工作、编写代码、报告阻塞并更新状态。</p><p><strong>核心特性</strong>：</p><ul><li><strong>代理即队友</strong>：代理有个人资料、显示在看板、发表评论、创建问题</li><li><strong>自主执行</strong>：完整的任务生命周期管理（入队、认领、开始、完成/失败）</li><li><strong>可复用技能</strong>：每个解决方案都成为团队可复用的技能</li><li><strong>统一运行时</strong>：本地守护进程和云运行时的统一仪表板</li><li><strong>多工作区</strong>：团队级隔离，每个工作区有自己的代理、问题和设置</li></ul><h3 id=适用场景-4>适用场景</h3><ul><li><strong>开发团队</strong>：将 AI 代理纳入日常开发流程</li><li><strong>代码审查</strong>：自动分配代码审查任务给代理</li><li><strong>技术债务管理</strong>：批量分配重构和优化任务</li><li><strong>技能库建设</strong>：积累和复用团队的最佳实践</li></ul><h3 id=安装方式-4>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 使用 Docker 自托管</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/multica-ai/multica.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> multica
+</span></span><span class=line><span class=cl>cp .env.example .env
+</span></span><span class=line><span class=cl><span class=c1># 编辑 .env — 至少修改 JWT_SECRET</span>
+</span></span><span class=line><span class=cl>docker compose -f docker-compose.selfhost.yml up -d
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 或使用云版本</span>
+</span></span><span class=line><span class=cl><span class=c1># 访问 https://multica.ai</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-4>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 安装 CLI</span>
+</span></span><span class=line><span class=cl>brew tap multica-ai/tap
+</span></span><span class=line><span class=cl>brew install multica
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 认证并启动守护进程</span>
+</span></span><span class=line><span class=cl>multica login
+</span></span><span class=line><span class=cl>multica daemon start
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看可用命令</span>
+</span></span><span class=line><span class=cl>multica --help
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-4>评价</h3><p>Multica 解决了"如何让 AI 代理真正成为团队一员"的问题。它的设计哲学是将代理视为同事而非工具，这种视角转变对于 AI 辅助开发的未来至关重要。支持 Claude Code、Codex、OpenClaw、OpenCode 等多种代理运行时，体现了其开放和 vendor-neutral 的定位。</p><hr><h2 id=6-andrej-karpathy-skills---claude-code-最佳实践>6. Andrej Karpathy Skills - Claude Code 最佳实践</h2><p><strong>项目地址</strong>: <a href=https://github.com/forrestchang/andrej-karpathy-skills>https://github.com/forrestchang/andrej-karpathy-skills</a></p><h3 id=核心功能-5>核心功能</h3><p>基于 Andrej Karpathy 对 LLM 编码陷阱的观察，提炼出的四个核心原则，用于改善 Claude Code 的行为。</p><p><strong>四大原则</strong>：</p><ol><li><strong>Think Before Coding（编码前思考）</strong>：明确陈述假设，存在歧义时提问而非猜测</li><li><strong>Simplicity First（简洁优先）</strong>：最小代码解决问题，不为单用途代码创建抽象</li><li><strong>Surgical Changes（精准修改）</strong>：只修改必须修改的部分，不触碰无关代码</li><li><strong>Goal-Driven Execution（目标驱动执行）</strong>：定义成功标准，循环直到验证通过</li></ol><h3 id=适用场景-5>适用场景</h3><ul><li><strong>AI 辅助编码</strong>：使用 Claude Code、Cursor 等工具时的行为准则</li><li><strong>代码审查</strong>：评估 AI 生成代码的质量标准</li><li><strong>团队规范</strong>：建立团队使用 AI 编码工具的最佳实践</li><li><strong>教育培训</strong>：教授如何有效使用 AI 编码助手</li></ul><h3 id=安装方式-5>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 方式一：Claude Code 插件（推荐）</span>
+</span></span><span class=line><span class=cl>/plugin marketplace add forrestchang/andrej-karpathy-skills
+</span></span><span class=line><span class=cl>/plugin install andrej-karpathy-skills@karpathy-skills
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 方式二：项目级 CLAUDE.md</span>
+</span></span><span class=line><span class=cl>curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-5>代码示例</h3><p>原则应用示例：</p><pre tabindex=0><code># 不好的指令：
+&#34;Add validation&#34;
+
+# 好的指令（目标驱动）：
+&#34;Write tests for invalid inputs, then make them pass&#34;
+
+# 不好的指令：
+&#34;Fix the bug&#34;
+
+# 好的指令（目标驱动）：
+&#34;Write a test that reproduces it, then make it pass&#34;
+</code></pre><h3 id=评价-5>评价</h3><p>这个项目浓缩了 Andrej Karpathy——AI 领域最受尊敬的声音之一——对 LLM 编码的深刻洞察。四个原则看似简单，但实践起来需要纪律。对于希望从"vibe coding"升级到"agentic engineering"的开发者来说，这是必读材料。</p><hr><h2 id=7-kronos---金融市场语言基础模型>7. Kronos - 金融市场语言基础模型</h2><p><strong>项目地址</strong>: <a href=https://github.com/shiyu-coder/Kronos>https://github.com/shiyu-coder/Kronos</a></p><h3 id=核心功能-6>核心功能</h3><p>Kronos 是首个开源的金融 K 线（candlesticks）基础模型，在来自 45+ 全球交易所的数据上训练。它专门用于处理金融数据的独特高噪声特性。</p><p><strong>技术架构</strong>：</p><ul><li><strong>专用 Tokenizer</strong>：将连续的多维 K 线数据（OHLCV）量化为层次化离散 token</li><li><strong>自回归 Transformer</strong>：在这些 token 上预训练的大型模型</li><li><strong>多尺寸模型</strong>：从 4.1M 参数的 mini 到 499.2M 参数的 large</li></ul><h3 id=适用场景-6>适用场景</h3><ul><li><strong>量化交易</strong>：股票价格预测和趋势分析</li><li><strong>风险管理</strong>：市场波动预测</li><li><strong>投资组合优化</strong>：基于历史模式的投资决策</li><li><strong>金融研究</strong>：金融市场行为模式分析</li></ul><h3 id=安装方式-6>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 安装依赖</span>
+</span></span><span class=line><span class=cl>pip install -r requirements.txt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 从 Hugging Face 加载模型</span>
+</span></span><span class=line><span class=cl>from model import Kronos, KronosTokenizer, KronosPredictor
+</span></span></code></pre></td></tr></table></div></div></div><section class=about-section><h2>技术栈</h2><div class=tech-stack><span class=tech-tag>HTML & CSS</span>
+<span class=tech-tag>JavaScript</span>
+<span class=tech-tag>Vue.js</span>
+<span class=tech-tag>React</span>
+<span class=tech-tag>Python</span>
+<span class=tech-tag>Go</span>
+<span class=tech-tag>Node.js</span>
+<span class=tech-tag>Git</span>
+<span class=tech-tag>Docker</span>
+<span class=tech-tag>Linux</span>
+<span class=tech-tag>Hugo</span>
+<span class=tech-tag>CI/CD</span></div></section><section class=about-section><h2>联系方式</h2><div class=contact-grid><a href=mailto: class=contact-card><div class=contact-card-icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1.0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1.0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class=contact-card-info><div class=contact-card-label>Email</div><div class=contact-card-value></div></div></a></div></section></div></div></main><footer class=footer><span>&copy; 2026 <a href=https://gblog.brez.top/zh/>breeze 的博客</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg></a><style>.goatcounter-count{font-variant-numeric:tabular-nums}</style><script>document.addEventListener("DOMContentLoaded",()=>{const e="https://stats.brez.top";document.querySelectorAll(".goatcounter-count").forEach(async t=>{let n=t.getAttribute("data-goatcounter-path")||location.pathname;n=n.replace(/\/$/,"")||"/";const s=`${e}/counter/${n}.json`;try{const e=await fetch(s);if(e.ok){const n=await e.json();t.innerText=(n.count||0)+" 次阅读"}}catch{t.innerText==="..."&&(t.innerText="0 次阅读")}})})</script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="复制";function s(){t.innerHTML="已复制！",setTimeout(()=>{t.innerHTML="复制"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
