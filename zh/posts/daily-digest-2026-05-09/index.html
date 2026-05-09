@@ -1,0 +1,459 @@
+<!doctype html><html lang=zh dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>每日开源速递 - 2026-05-09 | breeze 的博客</title><meta name=keywords content="daily,github,trending"><meta name=description content="GitHub Trending 项目的深度解读与推荐"><meta name=author content="breeze"><link rel=canonical href=https://blog.brez.top/zh/posts/daily-digest-2026-05-09/><link crossorigin=anonymous href=/assets/css/stylesheet.d08e039671cbee2e9e78bf250354ed0e301d2b215317630d8888a4b872072d47.css integrity="sha256-0I4DlnHL7i6eeL8lA1TtDjAdKyFTF2MNiIikuHIHLUc=" rel="preload stylesheet" as=style><link rel=icon href=https://blog.brez.top/favicon.svg><link rel=icon type=image/png sizes=16x16 href=https://blog.brez.top/favicon.svg><link rel=icon type=image/png sizes=32x32 href=https://blog.brez.top/favicon.svg><link rel=apple-touch-icon href=https://blog.brez.top/favicon.svg><link rel=mask-icon href=https://blog.brez.top/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh href=https://blog.brez.top/zh/posts/daily-digest-2026-05-09/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><script data-goatcounter=https://stats.brez.top/count async src=//stats.brez.top/count.js></script><meta property="og:url" content="https://blog.brez.top/zh/posts/daily-digest-2026-05-09/"><meta property="og:site_name" content="breeze 的博客"><meta property="og:title" content="每日开源速递 - 2026-05-09"><meta property="og:description" content="GitHub Trending 项目的深度解读与推荐"><meta property="og:locale" content="zh"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-05-09T00:00:00+08:00"><meta property="article:modified_time" content="2026-05-09T00:00:00+08:00"><meta property="article:tag" content="Daily"><meta property="article:tag" content="Github"><meta property="article:tag" content="Trending"><meta name=twitter:card content="summary"><meta name=twitter:title content="每日开源速递 - 2026-05-09"><meta name=twitter:description content="GitHub Trending 项目的深度解读与推荐"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"杂项","item":"https://blog.brez.top/zh/posts/"},{"@type":"ListItem","position":2,"name":"每日开源速递 - 2026-05-09","item":"https://blog.brez.top/zh/posts/daily-digest-2026-05-09/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"每日开源速递 - 2026-05-09","name":"每日开源速递 - 2026-05-09","description":"GitHub Trending 项目的深度解读与推荐","keywords":["daily","github","trending"],"articleBody":"每日开源速递 - 2026年5月9日 本周 GitHub Trending 上涌现了一批极具价值的技术项目，涵盖 AI 编程助手、网络安全、3D 渲染、知识管理等多个领域。以下是对 10 个热门项目的深度解读。\n1. ChromeDevTools/chrome-devtools-mcp ⭐ 38,779 核心功能 Chrome DevTools for Agents 是一个 Model-Context-Protocol (MCP) 服务器，让 AI 编程助手能够控制和调试 Chrome 浏览器。它提供了完整的 Chrome DevTools 能力，包括性能分析、网络调试、控制台检查、屏幕截图等 31 个工具。\n适用场景 AI 编程助手自动化测试：让 AI 自动化执行浏览器测试 性能优化分析：自动录制性能追踪并提取可操作见解 浏览器调试：分析网络请求、截图、检查控制台消息 可靠自动化：使用 Puppeteer 自动化 Chrome 操作并等待结果 安装方式 1 2 3 4 5 6 7 8 9 # MCP 客户端配置示例 { \"mcpServers\": { \"chrome-devtools\": { \"command\": \"npx\", \"args\": [\"-y\", \"chrome-devtools-mcp@latest\"] } } } 或使用 Claude Code 插件安装：\n/plugin marketplace add ChromeDevTools/chrome-devtools-mcp /plugin install chrome-devtools-mcp@chrome-devtools-plugins 代码示例 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 // 检查网站性能 Check the performance of https://developers.chrome.com // 截图 take_screenshot take_screenshot --format=png --width=1920 --height=1080 // 执行脚本 evaluate_script evaluate_script --code=\"document.title\" evaluate_script --code=\"window.location.href\" // 获取控制台消息 get_console_message get_console_message --limit=10 评价 Chrome DevTools MCP 是 AI 编程助手领域的重要突破。它将成熟的 Chrome DevTools 能力以标准化方式暴露给 AI，让 AI 能够进行真正的浏览器级操作，而不仅仅是文本处理。这对于需要 UI 测试、性能分析、自动化任务等场景的开发者来说是一个革命性的工具。支持主流 AI 编程工具（Claude Code、Cursor、Gemini 等），集成体验良好。\n2. addyosmani/agent-skills ⭐ 37,311 核心功能 Agent Skills 是一套生产级的工程技能包，为 AI 编程助手提供标准化的开发工作流程和质量门禁。它包含 22 个技能和 3 个专业角色，覆盖从需求定义到生产部署的完整开发生命周期。\n适用场景 AI 辅助开发规范：确保 AI 遵循最佳实践 代码审查自动化：通过预设审查标准提高代码质量 测试驱动开发：强制执行测试优先的开发模式 安全加固：集成安全检查清单 安装方式 Claude Code 市场：\n/plugin marketplace add addyosmani/agent-skills /plugin install agent-skills@addy-agent-skills 本地开发：\n1 2 git clone https://github.com/addyosmani/agent-skills.git claude --plugin-dir /path/to/agent-skills 代码示例 使用斜杠命令激活技能：\n1 2 3 4 5 6 7 8 9 10 11 12 # 定义需求 /spec # 规划实现 /plan # 构建增量 /build # 测试验证 /test # 代码审查 /review # 发布上线 /ship 评价 Agent Skills 解决了 AI 编程助手普遍存在的问题：缺乏工程规范和质量控制。它将资深工程师的最佳实践编码为可执行的工作流程，确保 AI 不会为了速度而牺牲质量。每个技能都包含验证门禁和反合理化表，防止 AI 跳过关键步骤。这是从\"玩具级 AI 助手\"到\"生产级工程伙伴\"的重要一步。\n3. Lordog/dive-into-llms ⭐ 36,464 核心功能 《动手学大模型》系列编程实践教程，提供大模型相关的入门编程参考。课程覆盖微调与部署、提示学习、知识编辑、数学推理、模型水印、越狱攻击、大模型隐写、多模态模型、GUI 智能体、智能体安全、RLHF 安全对齐等 12 个主题。\n适用场景 大模型入门学习：系统学习大模型开发流程 学术研究参考：课程设计或研究项目参考 技术实践指南：手把手代码实践教程 国产化适配：包含华为昇腾社区支持的《大模型开发全流程》教程 安装方式 直接访问在线教程或本地克隆：\n1 2 3 4 5 6 git clone https://github.com/Lordog/dive-into-llms.git cd dive-into-llms # 查看课程目录 ls -la # 微调与部署、提示学习、知识编辑等主题 代码示例 1 2 3 4 5 6 7 8 9 10 11 12 # 示例：提示学习 # 大模型的 API 调用与推理指南 prompt = \"AI在线求鼓励？大模型对一些问题的回答令人大跌眼镜，但它可能只是想要一句「鼓励」\" # 示例：知识编辑 # 语言模型的编辑方法和工具 # 选择合适的编辑方法，对特定知识进行编辑 # 验证编辑后的模型 # 示例：数学推理 # 如何让大模型学会数学推理？ # 快速蒸馏一个迷你 R1 评价 这是一套非常全面的大模型编程实践教程，由上海交通大学和新加坡国立大学的教师团队开发，完全公益免费。教程内容紧跟前沿，涵盖了从基础到高级的 12 个主题，包括数学推理、GUI Agent、大模型对齐、隐写术等前沿话题。特别值得一提的是与华为昇腾社区合作的《大模型开发全流程》教程，为国产化 AI 开发提供了完整支持。适合作为大模型学习和研究的权威参考。\n4. datawhalechina/hello-agents ⭐ 45,637 核心功能 Hello Agents 是一个开源 AI 编程助手生态系统，提供从模型调用、智能体构建到应用部署的全栈解决方案。它集成了多种大模型提供商，支持智能体工作流编排。\n适用场景 AI 应用开发：快速构建基于大模型的智能应用 智能体编排：管理多智能体协作 模型调用：统一接口访问多种大模型 学习 AI 开发：完整的 AI 开发学习路径 安装方式 1 2 3 4 5 6 7 8 9 # 克隆仓库 git clone https://github.com/datawhalechina/hello-agents.git cd hello-agents # 安装依赖 pip install -r requirements.txt # 运行示例 python examples/quickstart.py 代码示例 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 # 模型调用示例 from hello_agents import AgentClient client = AgentClient(model=\"gpt-4\") response = client.chat( messages=[ {\"role\": \"user\", \"content\": \"解释量子计算的基本概念\"} ] ) print(response.content) # 智能体工作流示例 workflow = AgentWorkflow([ {\"role\": \"analyzer\", \"model\": \"gpt-4\"}, {\"role\": \"reviewer\", \"model\": \"claude-3-opus\"}, {\"role\": \"finalizer\", \"model\": \"gpt-3.5-turbo\"} ]) result = workflow.run(input_data) 评价 Hello Agents 作为一个综合性 AI 开发平台，提供了从底层模型调用到上层智能体编排的完整工具链。项目获得了超过 4.5 万星，说明其受欢迎程度。它降低了 AI 应用开发的门槛，让开发者能够专注于业务逻辑而非底层实现。与 Hello Agents 生态其他项目（如 easy-vibe）形成互补，构建了完整的 AI 开发工具链。\n5. bytedance/UI-TARS-desktop ⭐ 31,345 核心功能 UI-TARS Desktop 是字节跳动开发的桌面端 AI 智能体，能够理解用户意图、执行复杂任务、进行多轮对话。它集成了浏览器自动化、文件操作、网络请求等能力。\n适用场景 桌面自动化：自动化重复性桌面任务 智能助手：作为个人数字助手管理日常事务 工作流自动化：跨应用的工作流自动化 学习 AI 智能体：研究桌面智能体的实现 安装方式 下载对应平台的安装包：\nWindows: 下载链接 macOS: 下载链接 Linux: 下载链接 代码示例 1 2 3 4 5 6 7 8 9 10 11 12 # 智能体交互示例 agent = UI_TARS() # 自然语言指令 agent.execute(\"帮我查看今天的天气，然后整理一下待办事项\") # 多轮对话 response = agent.chat(\"今天天气怎么样？\") response = agent.chat(\"那我该穿什么衣服？\") # 任务自动化 agent.task(\"打开浏览器，搜索'人工智能最新进展'，总结前三个结果\") 评价 UI-TARS Desktop 展示了字节跳动在 AI 智能体领域的技术积累。作为一个桌面端智能体，它能够理解上下文、执行复杂任务，并且界面友好。支持多平台部署，让用户能够在不同操作系统上使用。对于需要自动化桌面任务的用户来说，这是一个强大的工具。与 Web 版 UI-TARS 形成互补，覆盖了从浏览器到桌面端的全场景。\n6. rowboatlabs/rowboat ⭐ 13,742 核心功能 Rowboat 是一个本地优先的 AI 共事伙伴，能够连接邮箱、会议笔记等数据源，构建长期知识图谱，并基于上下文帮助用户完成工作。它维护一个 Obsidian 兼容的 Markdown 保险库作为透明的工作记忆。\n适用场景 会议准备：基于历史决策、线程和未解决问题准备会议 邮件起草：基于历史和承诺起草邮件 文档生成：从持续上下文生成文档和演示文稿 任务跟踪：捕获决策、行动项和负责人 安装方式 下载对应平台的安装包：\nWindows: 下载链接 macOS: 下载链接 Linux: 下载链接 代码示例 1 2 3 4 5 6 7 8 9 10 11 # 配置 Google 服务 # 在 Rowboat 设置中配置 Gmail、Calendar、Drive # 启用语音输入（可选） # 在 ~/.rowboat/config/deepgram.json 中添加 Deepgram API key # 启用语音输出（可选） # 在 ~/.rowboat/config/elevenlabs.json 中添加 ElevenLabs API key # 创建实时笔记 # 在笔记中输入 @rowboat 创建实时笔记 评价 Rowboat 的核心理念是\"记忆积累而非检索\"，通过长期维护知识图谱来解决 AI 助手普遍存在的上下文丢失问题。所有数据存储在本地 Markdown 文件中，用户可以完全掌控自己的数据。支持 Google 服务的深度集成，能够从邮件、日历、会议笔记中自动提取信息。对于需要长期协作、知识管理的团队来说，这是一个非常实用的工具。\n7. decolua/9router ⭐ 6,438 核心功能 9Router 是一个智能 AI 编程工具路由器，能够连接所有 AI 编程工具（Claude Code、Cursor、Copilot、Codex 等）到 40+ AI 提供商和 100+ 模型。它提供 RTK Token Saver（节省 20-40% tokens）、自动降级、多账户支持等功能。\n适用场景 成本优化：最大化订阅额度使用，避免浪费 永不中断：订阅 → 便宜 → 免费，自动降级 多工具集成：统一接口访问多个 AI 编程工具 Token 节省：压缩工具输出，减少 token 消耗 安装方式 1 2 3 4 5 6 7 8 9 10 # 全局安装 npm install -g 9router 9router # 访问管理面板 # Dashboard: http://localhost:20128/dashboard # 连接免费提供商（无需注册） # Dashboard → Providers → Connect Kiro AI (free Claude unlimited) # 或 OpenCode Free (无需认证) 代码示例 1 2 3 4 5 6 7 8 9 10 11 12 13 # CLI 工具配置 # Claude Code/Codex/OpenClaw/Cursor/Cline 设置 Endpoint: http://localhost:20128/v1 API Key: [从 Dashboard 复制] Model: kr/claude-sonnet-4.5 # 或使用组合 # Dashboard → Combos → Create New # Name: free-combo # Models: # 1. kr/claude-sonnet-4.5 (Claude 4.5 free unlimited) # 2. kr/glm-5 (GLM-5 free via Kiro) # 3. vertex/gemini-3.1-pro-preview ($300 free credits) 评价 9Router 解决了 AI 编程工具的一个痛点：订阅额度浪费和中断问题。通过智能路由和自动降级策略，它确保用户永远不会因为额度用完而停止编码。RTK Token Saver 功能通过压缩 git diff、grep、ls 等工具输出，节省 20-40% 的 tokens，对于重度用户来说非常实用。支持 40+ 提供商和 100+ 模型，组合灵活，成本可控。开源免费，没有隐藏费用。\n8. rohitg00/agentmemory ⭐ 3,374 核心功能 Agent Memory 是一个持久化记忆系统，为 AI 编程助手提供跨会话的记忆能力。它基于 iii engine 构建，支持 12 个钩子自动捕获、BM25 + 向量 + 知识图谱混合搜索，在 LongMemEval-S 基准测试中达到 95.2% 的 R@5 检索准确率。\n适用场景 跨会话上下文保持：避免重复解释项目架构 代码模式记忆：记住常用的代码模式和最佳实践 决策记录：自动记录和检索历史决策 团队记忆共享：支持多智能体协作时的记忆共享 安装方式 1 2 3 4 5 6 7 8 9 10 11 # 启动记忆服务器 npx @agentmemory/agentmemory # 查看实时监控 open http://localhost:3113 # 导入现有会话 npx @agentmemory/agentmemory import-jsonl # 运行演示 npx @agentmemory/agentmemory demo 代码示例 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 # MCP 客户端配置 { \"mcpServers\": { \"agentmemory\": { \"command\": \"npx\", \"args\": [\"-y\", \"@agentmemory/mcp\"] } } } # 使用记忆工具 # 搜索历史观察 memory_smart_search --query \"database performance optimization\" # 保存洞察 memory_save --content \"使用 jose 而不是 jsonwebtoken 以支持 Edge 兼容性\" # 检测模式 memory_patterns # 查看会话历史 memory_sessions 评价 Agent Memory 解决了 AI 编程助手的\"健忘症\"问题。传统的 MEMORY.md 最多 200 行且容易过时，而 agentmemory 通过 12 个钩子自动捕获所有工具使用，构建可搜索的持久化记忆库。在 LongMemEval-S 基准测试中，它达到了 95.2% 的 R@5 检索准确率，远超 BM25-only 的 86.2%。支持跨多个 AI 编程工具（Claude Code、Cursor、Codex 等）共享记忆，是构建真正智能的 AI 工程伙伴的关键组件。\n9. playcanvas/supersplat ⭐ 6,237 核心功能 SuperSplat Editor 是一个免费的 3D Gaussian Splat 编辑器，用于检查、编辑、优化和发布 3D Gaussian Splats。它完全基于 Web 技术，在浏览器中运行，无需下载或安装任何软件。\n适用场景 3D 场景编辑：编辑和优化 Gaussian Splat 场景 在线预览：通过浏览器直接预览 3D 效果 性能优化：优化渲染性能和文件大小 发布分享：轻松发布和分享 3D 内容 安装方式 1 2 3 4 5 6 7 8 9 10 11 12 # 克隆仓库 git clone https://github.com/playcanvas/supersplat.git cd supersplat # 安装依赖 npm install # 启动开发服务器 npm run develop # 访问编辑器 open http://localhost:3000 代码示例 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 # 本地开发环境 npm install npm run develop # 测试翻译 # 访问 http://localhost:3000/?lng=fr # 访问 http://localhost:3000/?lng=de # 访问 http://localhost:3000/?lng=es # 添加新语言 # 1. 在 static/locales/ 目录下创建 .json 文件 # 2. 在 src/ui/localization.ts 中添加语言到列表 # 构建生产版本 npm run build 评价 SuperSplat Editor 是 Gaussian Splat 这一新兴 3D 渲染技术的优秀工具。Gaussian Splat 是一种革命性的 3D 渲染方法，能够以较低的计算成本实现高质量的实时渲染。SuperSplat Editor 完全基于 Web 技术，无需安装，开箱即用，大大降低了 3D 内容创作和优化的门槛。对于需要处理 3D 数据的开发者来说，这是一个不可或缺的工具。\n10. masterking32/MasterDnsVPN ⭐ 2,467 核心功能 MasterDnsVPN 是一个高级 DNS 隧道 VPN，专为绕过审查设计。它使用自定义协议、低开销 ARQ、解析器负载均衡、高丢包稳定性，性能比 DNSTT 快 9 倍，比 SlipStream 快 3.6 倍。\n适用场景 网络审查绕过：在受审查网络中访问互联网 不稳定网络：在高丢包、低带宽环境下保持连接 DNS 隧道：通过 DNS 查询传输 TCP 流量 加密通信：支持多种加密方法 安装方式 服务器端（Linux 自动安装）：\n1 bash \u003c(curl -Ls https://raw.githubusercontent.com/masterking32/MasterDnsVPN/main/server_linux_install.sh) 客户端配置：\n1 2 3 4 5 6 7 8 9 10 11 12 # Windows # 1. 下载并解压 Windows 客户端 # 2. 编辑 client_config.toml # 3. 运行客户端可执行文件 # Linux sudo apt update sudo apt install unzip nano unzip MasterDnsVPN_Client_Linux_AMD64.zip chmod +x MasterDnsVPN_Client_Linux_AMD64 nano client_config.toml ./MasterDnsVPN_Client_Linux_AMD64 代码示例 1 2 3 4 5 6 7 8 9 10 11 12 13 14 # client_config.toml 示例 [client] LISTEN_IP = \"127.0.0.1\" LISTEN_PORT = 18000 SOCKS5_AUTH = true SOCKS5_USER = \"master_dns_vpn\" SOCKS5_PASS = \"master_dns_vpn\" DOMAINS = [\"v.example.com\"] ENCRYPTION_KEY = \"your-encryption-key\" [client.local_dns] LOCAL_DNS_ENABLED = true LOCAL_DNS_PORT = 53 LOCAL_DNS_CACHE_MAX_RECORDS = 5000 评价 MasterDnsVPN 是一个技术先进的 DNS 隧道项目，特别适合在严格审查的网络环境中使用。它采用多种创新技术：低开销协议（比 DNSTT 少 88% 开销）、ARQ 自动重传、多路径传输、智能解析器选择、MTU 自动发现。在伊朗 70 天完全断网的情况下，它仍然保持了稳定的连接，证明了其强大的生存能力。适合技术用户和网络研究人员使用。\n总结 本周的 GitHub Trending 展示了 AI 编程助手、网络安全、3D 渲染等领域的快速发展：\nAI 编程助手生态日趋完善：Chrome DevTools MCP、Agent Skills、Agent Memory 等项目共同构建了完整的 AI 工程生态系统 网络安全工具不断创新：MasterDnsVPN 在极端网络条件下表现优异 3D 渲染技术成熟：SuperSplat Editor 让 Gaussian Splat 技术更加易用 成本优化成为刚需：9Router 解决了 AI 编程工具的订阅浪费问题 这些项目不仅技术先进，而且注重实用性和可访问性，为开发者提供了强大的工具支持。\nCurrent time: Sunday, May 10th, 2026 — 6:00 AM (Asia/Shanghai) / 2026-05-09 22:00 UTC\n","wordCount":"1222","inLanguage":"zh","datePublished":"2026-05-09T00:00:00+08:00","dateModified":"2026-05-09T00:00:00+08:00","author":{"@type":"Person","name":"breeze"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.brez.top/zh/posts/daily-digest-2026-05-09/"},"publisher":{"@type":"Organization","name":"breeze 的博客","logo":{"@type":"ImageObject","url":"https://blog.brez.top/favicon.svg"}}}</script><style>.about-header{text-align:center;padding:2.5rem 1rem;background:var(--entry);border-bottom:1px solid var(--border);margin-bottom:1.5rem}.about-avatar-icon{width:80px;height:80px;border-radius:50%;background:var(--primary);color:var(--theme);display:inline-grid;place-items:center;margin-bottom:1rem;box-shadow:0 4px 10px rgba(0,0,0,.1)}.about-avatar-icon svg{width:40px;height:40px}.about-header h1{font-size:2.2rem;margin:0 0 .4rem;font-weight:800;color:var(--primary)}.about-header .tagline{font-size:1.1rem;color:var(--secondary);margin:0;font-weight:300}.about-content{max-width:800px;margin:0 auto;padding:1rem 0 4rem}.about-section{background:var(--entry);border-radius:12px;padding:2rem;margin-bottom:2rem;border:1px solid var(--border)}.about-section h2{font-size:1.5rem;margin:0 0 1.5rem;color:var(--primary);display:flex;align-items:center;gap:.8rem}.about-section h2::before{content:'';width:4px;height:24px;background:var(--primary);border-radius:2px}.about-section p{line-height:1.8;color:var(--content);margin:0 0 1rem}.tech-stack{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}.tech-tag{display:inline-block;padding:.4rem 1rem;background:var(--tertiary);border-radius:8px;font-size:.85rem;color:var(--primary);transition:all .2s ease}.tech-tag:hover{background:var(--primary);color:var(--theme);transform:translateY(-2px)}.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.5rem}.contact-card{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--tertiary);border-radius:10px;text-decoration:none;color:var(--content);border:1px solid transparent;transition:all .2s ease}.contact-card:hover{border-color:var(--primary);background:var(--entry);transform:translateY(-2px)}.contact-card-icon{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;background:var(--primary);color:var(--theme);flex-shrink:0}.contact-card-icon svg{width:20px;height:20px}.contact-card-info{flex:1;min-width:0}.contact-card-label{font-size:.75rem;color:var(--secondary)}.contact-card-value{font-size:.9rem;font-weight:600;overflow:hidden;text-overflow:ellipsis}.other-sites{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}.site-link{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;background:var(--tertiary);border-radius:8px;text-decoration:none;color:var(--primary);font-weight:600;font-size:.9rem;transition:all .2s}.site-link:hover{background:var(--primary);color:var(--theme)}@media(max-width:768px){.about-header{padding:3rem 1rem}.about-section{padding:1.5rem}}.fade-in{animation:fadeIn .5s ease-out}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}</style></head><body id=top><header class=header><nav class=nav><div class=logo><a href=https://blog.brez.top/zh/ accesskey=h title="breeze 的博客 (Alt + H)">breeze 的博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li><li><a href=https://blog.brez.top/en/ title=English aria-label=English>En</a></li></ul></div></div><ul id=menu><li><a href=https://blog.brez.top/zh/ title=首页><span>首页</span></a></li><li><a href=https://blog.brez.top/zh/posts/ title=分享><span>分享</span></a></li><li><a href=https://blog.brez.top/zh/life/ title=生活><span>生活</span></a></li><li><a href=https://blog.brez.top/zh/tech/ title=技术><span>技术</span></a></li><li><a href=https://blog.brez.top/zh/tags/ title=标签><span>标签</span></a></li><li><a href=https://blog.brez.top/zh/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><div class=container><header class="about-header fade-in"><div class=about-avatar-icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h1>每日开源速递 - 2026-05-09</h1><p class=tagline>GitHub Trending 项目的深度解读与推荐</p></header><div class="about-content fade-in"><div class=about-section><h1 id=每日开源速递---2026年5月9日>每日开源速递 - 2026年5月9日</h1><p>本周 GitHub Trending 上涌现了一批极具价值的技术项目，涵盖 AI 编程助手、网络安全、3D 渲染、知识管理等多个领域。以下是对 10 个热门项目的深度解读。</p><h2 id=1-chromedevtoolschrome-devtools-mcp--38779>1. ChromeDevTools/chrome-devtools-mcp ⭐ 38,779</h2><h3 id=核心功能>核心功能</h3><p>Chrome DevTools for Agents 是一个 Model-Context-Protocol (MCP) 服务器，让 AI 编程助手能够控制和调试 Chrome 浏览器。它提供了完整的 Chrome DevTools 能力，包括性能分析、网络调试、控制台检查、屏幕截图等 31 个工具。</p><h3 id=适用场景>适用场景</h3><ul><li><strong>AI 编程助手自动化测试</strong>：让 AI 自动化执行浏览器测试</li><li><strong>性能优化分析</strong>：自动录制性能追踪并提取可操作见解</li><li><strong>浏览器调试</strong>：分析网络请求、截图、检查控制台消息</li><li><strong>可靠自动化</strong>：使用 Puppeteer 自动化 Chrome 操作并等待结果</li></ul><h3 id=安装方式>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># MCP 客户端配置示例</span>
+</span></span><span class=line><span class=cl><span class=o>{</span>
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;mcpServers&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;chrome-devtools&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;command&#34;</span>: <span class=s2>&#34;npx&#34;</span>,
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;args&#34;</span>: <span class=o>[</span><span class=s2>&#34;-y&#34;</span>, <span class=s2>&#34;chrome-devtools-mcp@latest&#34;</span><span class=o>]</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>或使用 Claude Code 插件安装：</p><pre tabindex=0><code>/plugin marketplace add ChromeDevTools/chrome-devtools-mcp
+/plugin install chrome-devtools-mcp@chrome-devtools-plugins
+</code></pre><h3 id=代码示例>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 检查网站性能
+</span></span></span><span class=line><span class=cl><span class=nx>Check</span> <span class=nx>the</span> <span class=nx>performance</span> <span class=k>of</span> <span class=nx>https</span><span class=o>:</span><span class=c1>//developers.chrome.com
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 截图
+</span></span></span><span class=line><span class=cl><span class=nx>take_screenshot</span>
+</span></span><span class=line><span class=cl><span class=nx>take_screenshot</span> <span class=o>--</span><span class=nx>format</span><span class=o>=</span><span class=nx>png</span> <span class=o>--</span><span class=nx>width</span><span class=o>=</span><span class=mi>1920</span> <span class=o>--</span><span class=nx>height</span><span class=o>=</span><span class=mi>1080</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 执行脚本
+</span></span></span><span class=line><span class=cl><span class=nx>evaluate_script</span>
+</span></span><span class=line><span class=cl><span class=nx>evaluate_script</span> <span class=o>--</span><span class=nx>code</span><span class=o>=</span><span class=s2>&#34;document.title&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>evaluate_script</span> <span class=o>--</span><span class=nx>code</span><span class=o>=</span><span class=s2>&#34;window.location.href&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 获取控制台消息
+</span></span></span><span class=line><span class=cl><span class=nx>get_console_message</span>
+</span></span><span class=line><span class=cl><span class=nx>get_console_message</span> <span class=o>--</span><span class=nx>limit</span><span class=o>=</span><span class=mi>10</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价>评价</h3><p>Chrome DevTools MCP 是 AI 编程助手领域的重要突破。它将成熟的 Chrome DevTools 能力以标准化方式暴露给 AI，让 AI 能够进行真正的浏览器级操作，而不仅仅是文本处理。这对于需要 UI 测试、性能分析、自动化任务等场景的开发者来说是一个革命性的工具。支持主流 AI 编程工具（Claude Code、Cursor、Gemini 等），集成体验良好。</p><hr><h2 id=2-addyosmaniagent-skills--37311>2. addyosmani/agent-skills ⭐ 37,311</h2><h3 id=核心功能-1>核心功能</h3><p>Agent Skills 是一套生产级的工程技能包，为 AI 编程助手提供标准化的开发工作流程和质量门禁。它包含 22 个技能和 3 个专业角色，覆盖从需求定义到生产部署的完整开发生命周期。</p><h3 id=适用场景-1>适用场景</h3><ul><li><strong>AI 辅助开发规范</strong>：确保 AI 遵循最佳实践</li><li><strong>代码审查自动化</strong>：通过预设审查标准提高代码质量</li><li><strong>测试驱动开发</strong>：强制执行测试优先的开发模式</li><li><strong>安全加固</strong>：集成安全检查清单</li></ul><h3 id=安装方式-1>安装方式</h3><p>Claude Code 市场：</p><pre tabindex=0><code>/plugin marketplace add addyosmani/agent-skills
+/plugin install agent-skills@addy-agent-skills
+</code></pre><p>本地开发：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git clone https://github.com/addyosmani/agent-skills.git
+</span></span><span class=line><span class=cl>claude --plugin-dir /path/to/agent-skills
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-1>代码示例</h3><p>使用斜杠命令激活技能：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 定义需求</span>
+</span></span><span class=line><span class=cl>/spec
+</span></span><span class=line><span class=cl><span class=c1># 规划实现</span>
+</span></span><span class=line><span class=cl>/plan
+</span></span><span class=line><span class=cl><span class=c1># 构建增量</span>
+</span></span><span class=line><span class=cl>/build
+</span></span><span class=line><span class=cl><span class=c1># 测试验证</span>
+</span></span><span class=line><span class=cl>/test
+</span></span><span class=line><span class=cl><span class=c1># 代码审查</span>
+</span></span><span class=line><span class=cl>/review
+</span></span><span class=line><span class=cl><span class=c1># 发布上线</span>
+</span></span><span class=line><span class=cl>/ship
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-1>评价</h3><p>Agent Skills 解决了 AI 编程助手普遍存在的问题：缺乏工程规范和质量控制。它将资深工程师的最佳实践编码为可执行的工作流程，确保 AI 不会为了速度而牺牲质量。每个技能都包含验证门禁和反合理化表，防止 AI 跳过关键步骤。这是从"玩具级 AI 助手"到"生产级工程伙伴"的重要一步。</p><hr><h2 id=3-lordogdive-into-llms--36464>3. Lordog/dive-into-llms ⭐ 36,464</h2><h3 id=核心功能-2>核心功能</h3><p>《动手学大模型》系列编程实践教程，提供大模型相关的入门编程参考。课程覆盖微调与部署、提示学习、知识编辑、数学推理、模型水印、越狱攻击、大模型隐写、多模态模型、GUI 智能体、智能体安全、RLHF 安全对齐等 12 个主题。</p><h3 id=适用场景-2>适用场景</h3><ul><li><strong>大模型入门学习</strong>：系统学习大模型开发流程</li><li><strong>学术研究参考</strong>：课程设计或研究项目参考</li><li><strong>技术实践指南</strong>：手把手代码实践教程</li><li><strong>国产化适配</strong>：包含华为昇腾社区支持的《大模型开发全流程》教程</li></ul><h3 id=安装方式-2>安装方式</h3><p>直接访问在线教程或本地克隆：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git clone https://github.com/Lordog/dive-into-llms.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> dive-into-llms
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看课程目录</span>
+</span></span><span class=line><span class=cl>ls -la
+</span></span><span class=line><span class=cl><span class=c1># 微调与部署、提示学习、知识编辑等主题</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-2>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># 示例：提示学习</span>
+</span></span><span class=line><span class=cl><span class=c1># 大模型的 API 调用与推理指南</span>
+</span></span><span class=line><span class=cl><span class=n>prompt</span> <span class=o>=</span> <span class=s2>&#34;AI在线求鼓励？大模型对一些问题的回答令人大跌眼镜，但它可能只是想要一句「鼓励」&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 示例：知识编辑</span>
+</span></span><span class=line><span class=cl><span class=c1># 语言模型的编辑方法和工具</span>
+</span></span><span class=line><span class=cl><span class=c1># 选择合适的编辑方法，对特定知识进行编辑</span>
+</span></span><span class=line><span class=cl><span class=c1># 验证编辑后的模型</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 示例：数学推理</span>
+</span></span><span class=line><span class=cl><span class=c1># 如何让大模型学会数学推理？</span>
+</span></span><span class=line><span class=cl><span class=c1># 快速蒸馏一个迷你 R1</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-2>评价</h3><p>这是一套非常全面的大模型编程实践教程，由上海交通大学和新加坡国立大学的教师团队开发，完全公益免费。教程内容紧跟前沿，涵盖了从基础到高级的 12 个主题，包括数学推理、GUI Agent、大模型对齐、隐写术等前沿话题。特别值得一提的是与华为昇腾社区合作的《大模型开发全流程》教程，为国产化 AI 开发提供了完整支持。适合作为大模型学习和研究的权威参考。</p><hr><h2 id=4-datawhalechinahello-agents--45637>4. datawhalechina/hello-agents ⭐ 45,637</h2><h3 id=核心功能-3>核心功能</h3><p>Hello Agents 是一个开源 AI 编程助手生态系统，提供从模型调用、智能体构建到应用部署的全栈解决方案。它集成了多种大模型提供商，支持智能体工作流编排。</p><h3 id=适用场景-3>适用场景</h3><ul><li><strong>AI 应用开发</strong>：快速构建基于大模型的智能应用</li><li><strong>智能体编排</strong>：管理多智能体协作</li><li><strong>模型调用</strong>：统一接口访问多种大模型</li><li><strong>学习 AI 开发</strong>：完整的 AI 开发学习路径</li></ul><h3 id=安装方式-3>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 克隆仓库</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/datawhalechina/hello-agents.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> hello-agents
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 安装依赖</span>
+</span></span><span class=line><span class=cl>pip install -r requirements.txt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 运行示例</span>
+</span></span><span class=line><span class=cl>python examples/quickstart.py
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-3>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># 模型调用示例</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>hello_agents</span> <span class=kn>import</span> <span class=n>AgentClient</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>client</span> <span class=o>=</span> <span class=n>AgentClient</span><span class=p>(</span><span class=n>model</span><span class=o>=</span><span class=s2>&#34;gpt-4&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>response</span> <span class=o>=</span> <span class=n>client</span><span class=o>.</span><span class=n>chat</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=n>messages</span><span class=o>=</span><span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span><span class=s2>&#34;role&#34;</span><span class=p>:</span> <span class=s2>&#34;user&#34;</span><span class=p>,</span> <span class=s2>&#34;content&#34;</span><span class=p>:</span> <span class=s2>&#34;解释量子计算的基本概念&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>response</span><span class=o>.</span><span class=n>content</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 智能体工作流示例</span>
+</span></span><span class=line><span class=cl><span class=n>workflow</span> <span class=o>=</span> <span class=n>AgentWorkflow</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span><span class=s2>&#34;role&#34;</span><span class=p>:</span> <span class=s2>&#34;analyzer&#34;</span><span class=p>,</span> <span class=s2>&#34;model&#34;</span><span class=p>:</span> <span class=s2>&#34;gpt-4&#34;</span><span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span><span class=s2>&#34;role&#34;</span><span class=p>:</span> <span class=s2>&#34;reviewer&#34;</span><span class=p>,</span> <span class=s2>&#34;model&#34;</span><span class=p>:</span> <span class=s2>&#34;claude-3-opus&#34;</span><span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span><span class=s2>&#34;role&#34;</span><span class=p>:</span> <span class=s2>&#34;finalizer&#34;</span><span class=p>,</span> <span class=s2>&#34;model&#34;</span><span class=p>:</span> <span class=s2>&#34;gpt-3.5-turbo&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>result</span> <span class=o>=</span> <span class=n>workflow</span><span class=o>.</span><span class=n>run</span><span class=p>(</span><span class=n>input_data</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-3>评价</h3><p>Hello Agents 作为一个综合性 AI 开发平台，提供了从底层模型调用到上层智能体编排的完整工具链。项目获得了超过 4.5 万星，说明其受欢迎程度。它降低了 AI 应用开发的门槛，让开发者能够专注于业务逻辑而非底层实现。与 Hello Agents 生态其他项目（如 easy-vibe）形成互补，构建了完整的 AI 开发工具链。</p><hr><h2 id=5-bytedanceui-tars-desktop--31345>5. bytedance/UI-TARS-desktop ⭐ 31,345</h2><h3 id=核心功能-4>核心功能</h3><p>UI-TARS Desktop 是字节跳动开发的桌面端 AI 智能体，能够理解用户意图、执行复杂任务、进行多轮对话。它集成了浏览器自动化、文件操作、网络请求等能力。</p><h3 id=适用场景-4>适用场景</h3><ul><li><strong>桌面自动化</strong>：自动化重复性桌面任务</li><li><strong>智能助手</strong>：作为个人数字助手管理日常事务</li><li><strong>工作流自动化</strong>：跨应用的工作流自动化</li><li><strong>学习 AI 智能体</strong>：研究桌面智能体的实现</li></ul><h3 id=安装方式-4>安装方式</h3><p>下载对应平台的安装包：</p><ul><li>Windows: <a href=https://github.com/bytedance/UI-TARS-desktop/releases>下载链接</a></li><li>macOS: <a href=https://github.com/bytedance/UI-TARS-desktop/releases>下载链接</a></li><li>Linux: <a href=https://github.com/bytedance/UI-TARS-desktop/releases>下载链接</a></li></ul><h3 id=代码示例-4>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># 智能体交互示例</span>
+</span></span><span class=line><span class=cl><span class=n>agent</span> <span class=o>=</span> <span class=n>UI_TARS</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 自然语言指令</span>
+</span></span><span class=line><span class=cl><span class=n>agent</span><span class=o>.</span><span class=n>execute</span><span class=p>(</span><span class=s2>&#34;帮我查看今天的天气，然后整理一下待办事项&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 多轮对话</span>
+</span></span><span class=line><span class=cl><span class=n>response</span> <span class=o>=</span> <span class=n>agent</span><span class=o>.</span><span class=n>chat</span><span class=p>(</span><span class=s2>&#34;今天天气怎么样？&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>response</span> <span class=o>=</span> <span class=n>agent</span><span class=o>.</span><span class=n>chat</span><span class=p>(</span><span class=s2>&#34;那我该穿什么衣服？&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 任务自动化</span>
+</span></span><span class=line><span class=cl><span class=n>agent</span><span class=o>.</span><span class=n>task</span><span class=p>(</span><span class=s2>&#34;打开浏览器，搜索&#39;人工智能最新进展&#39;，总结前三个结果&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-4>评价</h3><p>UI-TARS Desktop 展示了字节跳动在 AI 智能体领域的技术积累。作为一个桌面端智能体，它能够理解上下文、执行复杂任务，并且界面友好。支持多平台部署，让用户能够在不同操作系统上使用。对于需要自动化桌面任务的用户来说，这是一个强大的工具。与 Web 版 UI-TARS 形成互补，覆盖了从浏览器到桌面端的全场景。</p><hr><h2 id=6-rowboatlabsrowboat--13742>6. rowboatlabs/rowboat ⭐ 13,742</h2><h3 id=核心功能-5>核心功能</h3><p>Rowboat 是一个本地优先的 AI 共事伙伴，能够连接邮箱、会议笔记等数据源，构建长期知识图谱，并基于上下文帮助用户完成工作。它维护一个 Obsidian 兼容的 Markdown 保险库作为透明的工作记忆。</p><h3 id=适用场景-5>适用场景</h3><ul><li><strong>会议准备</strong>：基于历史决策、线程和未解决问题准备会议</li><li><strong>邮件起草</strong>：基于历史和承诺起草邮件</li><li><strong>文档生成</strong>：从持续上下文生成文档和演示文稿</li><li><strong>任务跟踪</strong>：捕获决策、行动项和负责人</li></ul><h3 id=安装方式-5>安装方式</h3><p>下载对应平台的安装包：</p><ul><li>Windows: <a href=https://github.com/rowboatlabs/rowboat/releases/latest>下载链接</a></li><li>macOS: <a href=https://github.com/rowboatlabs/rowboat/releases/latest>下载链接</a></li><li>Linux: <a href=https://github.com/rowboatlabs/rowboat/releases/latest>下载链接</a></li></ul><h3 id=代码示例-5>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 配置 Google 服务</span>
+</span></span><span class=line><span class=cl><span class=c1># 在 Rowboat 设置中配置 Gmail、Calendar、Drive</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启用语音输入（可选）</span>
+</span></span><span class=line><span class=cl><span class=c1># 在 ~/.rowboat/config/deepgram.json 中添加 Deepgram API key</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启用语音输出（可选）</span>
+</span></span><span class=line><span class=cl><span class=c1># 在 ~/.rowboat/config/elevenlabs.json 中添加 ElevenLabs API key</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 创建实时笔记</span>
+</span></span><span class=line><span class=cl><span class=c1># 在笔记中输入 @rowboat 创建实时笔记</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-5>评价</h3><p>Rowboat 的核心理念是"记忆积累而非检索"，通过长期维护知识图谱来解决 AI 助手普遍存在的上下文丢失问题。所有数据存储在本地 Markdown 文件中，用户可以完全掌控自己的数据。支持 Google 服务的深度集成，能够从邮件、日历、会议笔记中自动提取信息。对于需要长期协作、知识管理的团队来说，这是一个非常实用的工具。</p><hr><h2 id=7-decolua9router--6438>7. decolua/9router ⭐ 6,438</h2><h3 id=核心功能-6>核心功能</h3><p>9Router 是一个智能 AI 编程工具路由器，能够连接所有 AI 编程工具（Claude Code、Cursor、Copilot、Codex 等）到 40+ AI 提供商和 100+ 模型。它提供 RTK Token Saver（节省 20-40% tokens）、自动降级、多账户支持等功能。</p><h3 id=适用场景-6>适用场景</h3><ul><li><strong>成本优化</strong>：最大化订阅额度使用，避免浪费</li><li><strong>永不中断</strong>：订阅 → 便宜 → 免费，自动降级</li><li><strong>多工具集成</strong>：统一接口访问多个 AI 编程工具</li><li><strong>Token 节省</strong>：压缩工具输出，减少 token 消耗</li></ul><h3 id=安装方式-6>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 全局安装</span>
+</span></span><span class=line><span class=cl>npm install -g 9router
+</span></span><span class=line><span class=cl>9router
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 访问管理面板</span>
+</span></span><span class=line><span class=cl><span class=c1># Dashboard: http://localhost:20128/dashboard</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 连接免费提供商（无需注册）</span>
+</span></span><span class=line><span class=cl><span class=c1># Dashboard → Providers → Connect Kiro AI (free Claude unlimited)</span>
+</span></span><span class=line><span class=cl><span class=c1># 或 OpenCode Free (无需认证)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-6>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># CLI 工具配置</span>
+</span></span><span class=line><span class=cl><span class=c1># Claude Code/Codex/OpenClaw/Cursor/Cline 设置</span>
+</span></span><span class=line><span class=cl>Endpoint: http://localhost:20128/v1
+</span></span><span class=line><span class=cl>API Key: <span class=o>[</span>从 Dashboard 复制<span class=o>]</span>
+</span></span><span class=line><span class=cl>Model: kr/claude-sonnet-4.5
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 或使用组合</span>
+</span></span><span class=line><span class=cl><span class=c1># Dashboard → Combos → Create New</span>
+</span></span><span class=line><span class=cl><span class=c1># Name: free-combo</span>
+</span></span><span class=line><span class=cl><span class=c1># Models:</span>
+</span></span><span class=line><span class=cl><span class=c1># 1. kr/claude-sonnet-4.5 (Claude 4.5 free unlimited)</span>
+</span></span><span class=line><span class=cl><span class=c1># 2. kr/glm-5 (GLM-5 free via Kiro)</span>
+</span></span><span class=line><span class=cl><span class=c1># 3. vertex/gemini-3.1-pro-preview ($300 free credits)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-6>评价</h3><p>9Router 解决了 AI 编程工具的一个痛点：订阅额度浪费和中断问题。通过智能路由和自动降级策略，它确保用户永远不会因为额度用完而停止编码。RTK Token Saver 功能通过压缩 git diff、grep、ls 等工具输出，节省 20-40% 的 tokens，对于重度用户来说非常实用。支持 40+ 提供商和 100+ 模型，组合灵活，成本可控。开源免费，没有隐藏费用。</p><hr><h2 id=8-rohitg00agentmemory--3374>8. rohitg00/agentmemory ⭐ 3,374</h2><h3 id=核心功能-7>核心功能</h3><p>Agent Memory 是一个持久化记忆系统，为 AI 编程助手提供跨会话的记忆能力。它基于 iii engine 构建，支持 12 个钩子自动捕获、BM25 + 向量 + 知识图谱混合搜索，在 LongMemEval-S 基准测试中达到 95.2% 的 R@5 检索准确率。</p><h3 id=适用场景-7>适用场景</h3><ul><li><strong>跨会话上下文保持</strong>：避免重复解释项目架构</li><li><strong>代码模式记忆</strong>：记住常用的代码模式和最佳实践</li><li><strong>决策记录</strong>：自动记录和检索历史决策</li><li><strong>团队记忆共享</strong>：支持多智能体协作时的记忆共享</li></ul><h3 id=安装方式-7>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 启动记忆服务器</span>
+</span></span><span class=line><span class=cl>npx @agentmemory/agentmemory
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看实时监控</span>
+</span></span><span class=line><span class=cl>open http://localhost:3113
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 导入现有会话</span>
+</span></span><span class=line><span class=cl>npx @agentmemory/agentmemory import-jsonl
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 运行演示</span>
+</span></span><span class=line><span class=cl>npx @agentmemory/agentmemory demo
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-7>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># MCP 客户端配置</span>
+</span></span><span class=line><span class=cl><span class=o>{</span>
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;mcpServers&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;agentmemory&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;command&#34;</span>: <span class=s2>&#34;npx&#34;</span>,
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;args&#34;</span>: <span class=o>[</span><span class=s2>&#34;-y&#34;</span>, <span class=s2>&#34;@agentmemory/mcp&#34;</span><span class=o>]</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 使用记忆工具</span>
+</span></span><span class=line><span class=cl><span class=c1># 搜索历史观察</span>
+</span></span><span class=line><span class=cl>memory_smart_search --query <span class=s2>&#34;database performance optimization&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 保存洞察</span>
+</span></span><span class=line><span class=cl>memory_save --content <span class=s2>&#34;使用 jose 而不是 jsonwebtoken 以支持 Edge 兼容性&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 检测模式</span>
+</span></span><span class=line><span class=cl>memory_patterns
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看会话历史</span>
+</span></span><span class=line><span class=cl>memory_sessions
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-7>评价</h3><p>Agent Memory 解决了 AI 编程助手的"健忘症"问题。传统的 MEMORY.md 最多 200 行且容易过时，而 agentmemory 通过 12 个钩子自动捕获所有工具使用，构建可搜索的持久化记忆库。在 LongMemEval-S 基准测试中，它达到了 95.2% 的 R@5 检索准确率，远超 BM25-only 的 86.2%。支持跨多个 AI 编程工具（Claude Code、Cursor、Codex 等）共享记忆，是构建真正智能的 AI 工程伙伴的关键组件。</p><hr><h2 id=9-playcanvassupersplat--6237>9. playcanvas/supersplat ⭐ 6,237</h2><h3 id=核心功能-8>核心功能</h3><p>SuperSplat Editor 是一个免费的 3D Gaussian Splat 编辑器，用于检查、编辑、优化和发布 3D Gaussian Splats。它完全基于 Web 技术，在浏览器中运行，无需下载或安装任何软件。</p><h3 id=适用场景-8>适用场景</h3><ul><li><strong>3D 场景编辑</strong>：编辑和优化 Gaussian Splat 场景</li><li><strong>在线预览</strong>：通过浏览器直接预览 3D 效果</li><li><strong>性能优化</strong>：优化渲染性能和文件大小</li><li><strong>发布分享</strong>：轻松发布和分享 3D 内容</li></ul><h3 id=安装方式-8>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 克隆仓库</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/playcanvas/supersplat.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> supersplat
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 安装依赖</span>
+</span></span><span class=line><span class=cl>npm install
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启动开发服务器</span>
+</span></span><span class=line><span class=cl>npm run develop
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 访问编辑器</span>
+</span></span><span class=line><span class=cl>open http://localhost:3000
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-8>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 本地开发环境</span>
+</span></span><span class=line><span class=cl>npm install
+</span></span><span class=line><span class=cl>npm run develop
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 测试翻译</span>
+</span></span><span class=line><span class=cl><span class=c1># 访问 http://localhost:3000/?lng=fr</span>
+</span></span><span class=line><span class=cl><span class=c1># 访问 http://localhost:3000/?lng=de</span>
+</span></span><span class=line><span class=cl><span class=c1># 访问 http://localhost:3000/?lng=es</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 添加新语言</span>
+</span></span><span class=line><span class=cl><span class=c1># 1. 在 static/locales/ 目录下创建 &lt;locale&gt;.json 文件</span>
+</span></span><span class=line><span class=cl><span class=c1># 2. 在 src/ui/localization.ts 中添加语言到列表</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 构建生产版本</span>
+</span></span><span class=line><span class=cl>npm run build
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-8>评价</h3><p>SuperSplat Editor 是 Gaussian Splat 这一新兴 3D 渲染技术的优秀工具。Gaussian Splat 是一种革命性的 3D 渲染方法，能够以较低的计算成本实现高质量的实时渲染。SuperSplat Editor 完全基于 Web 技术，无需安装，开箱即用，大大降低了 3D 内容创作和优化的门槛。对于需要处理 3D 数据的开发者来说，这是一个不可或缺的工具。</p><hr><h2 id=10-masterking32masterdnsvpn--2467>10. masterking32/MasterDnsVPN ⭐ 2,467</h2><h3 id=核心功能-9>核心功能</h3><p>MasterDnsVPN 是一个高级 DNS 隧道 VPN，专为绕过审查设计。它使用自定义协议、低开销 ARQ、解析器负载均衡、高丢包稳定性，性能比 DNSTT 快 9 倍，比 SlipStream 快 3.6 倍。</p><h3 id=适用场景-9>适用场景</h3><ul><li><strong>网络审查绕过</strong>：在受审查网络中访问互联网</li><li><strong>不稳定网络</strong>：在高丢包、低带宽环境下保持连接</li><li><strong>DNS 隧道</strong>：通过 DNS 查询传输 TCP 流量</li><li><strong>加密通信</strong>：支持多种加密方法</li></ul><h3 id=安装方式-9>安装方式</h3><p>服务器端（Linux 自动安装）：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>bash &lt;<span class=o>(</span>curl -Ls https://raw.githubusercontent.com/masterking32/MasterDnsVPN/main/server_linux_install.sh<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>客户端配置：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Windows</span>
+</span></span><span class=line><span class=cl><span class=c1># 1. 下载并解压 Windows 客户端</span>
+</span></span><span class=line><span class=cl><span class=c1># 2. 编辑 client_config.toml</span>
+</span></span><span class=line><span class=cl><span class=c1># 3. 运行客户端可执行文件</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Linux</span>
+</span></span><span class=line><span class=cl>sudo apt update
+</span></span><span class=line><span class=cl>sudo apt install unzip nano
+</span></span><span class=line><span class=cl>unzip MasterDnsVPN_Client_Linux_AMD64.zip
+</span></span><span class=line><span class=cl>chmod +x MasterDnsVPN_Client_Linux_AMD64
+</span></span><span class=line><span class=cl>nano client_config.toml
+</span></span><span class=line><span class=cl>./MasterDnsVPN_Client_Linux_AMD64
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-9>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-toml data-lang=toml><span class=line><span class=cl><span class=c># client_config.toml 示例</span>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>client</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nx>LISTEN_IP</span> <span class=p>=</span> <span class=s2>&#34;127.0.0.1&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>LISTEN_PORT</span> <span class=p>=</span> <span class=mi>18000</span>
+</span></span><span class=line><span class=cl><span class=nx>SOCKS5_AUTH</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl><span class=nx>SOCKS5_USER</span> <span class=p>=</span> <span class=s2>&#34;master_dns_vpn&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>SOCKS5_PASS</span> <span class=p>=</span> <span class=s2>&#34;master_dns_vpn&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>DOMAINS</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;v.example.com&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nx>ENCRYPTION_KEY</span> <span class=p>=</span> <span class=s2>&#34;your-encryption-key&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>client</span><span class=p>.</span><span class=nx>local_dns</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nx>LOCAL_DNS_ENABLED</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl><span class=nx>LOCAL_DNS_PORT</span> <span class=p>=</span> <span class=mi>53</span>
+</span></span><span class=line><span class=cl><span class=nx>LOCAL_DNS_CACHE_MAX_RECORDS</span> <span class=p>=</span> <span class=mi>5000</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-9>评价</h3><p>MasterDnsVPN 是一个技术先进的 DNS 隧道项目，特别适合在严格审查的网络环境中使用。它采用多种创新技术：低开销协议（比 DNSTT 少 88% 开销）、ARQ 自动重传、多路径传输、智能解析器选择、MTU 自动发现。在伊朗 70 天完全断网的情况下，它仍然保持了稳定的连接，证明了其强大的生存能力。适合技术用户和网络研究人员使用。</p><hr><h2 id=总结>总结</h2><p>本周的 GitHub Trending 展示了 AI 编程助手、网络安全、3D 渲染等领域的快速发展：</p><ol><li><strong>AI 编程助手生态日趋完善</strong>：Chrome DevTools MCP、Agent Skills、Agent Memory 等项目共同构建了完整的 AI 工程生态系统</li><li><strong>网络安全工具不断创新</strong>：MasterDnsVPN 在极端网络条件下表现优异</li><li><strong>3D 渲染技术成熟</strong>：SuperSplat Editor 让 Gaussian Splat 技术更加易用</li><li><strong>成本优化成为刚需</strong>：9Router 解决了 AI 编程工具的订阅浪费问题</li></ol><p>这些项目不仅技术先进，而且注重实用性和可访问性，为开发者提供了强大的工具支持。</p><hr><p>Current time: Sunday, May 10th, 2026 — 6:00 AM (Asia/Shanghai) / 2026-05-09 22:00 UTC</p></div><section class=about-section><h2>技术栈</h2><div class=tech-stack><span class=tech-tag>HTML & CSS</span>
+<span class=tech-tag>JavaScript</span>
+<span class=tech-tag>Vue.js</span>
+<span class=tech-tag>React</span>
+<span class=tech-tag>Python</span>
+<span class=tech-tag>Go</span>
+<span class=tech-tag>Node.js</span>
+<span class=tech-tag>Git</span>
+<span class=tech-tag>Docker</span>
+<span class=tech-tag>Linux</span>
+<span class=tech-tag>Hugo</span>
+<span class=tech-tag>CI/CD</span></div></section><section class=about-section><h2>联系方式</h2><div class=contact-grid><a href=mailto: class=contact-card><div class=contact-card-icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1.0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1.0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class=contact-card-info><div class=contact-card-label>Email</div><div class=contact-card-value></div></div></a></div></section></div></div></main><footer class=footer><span>&copy; 2026 <a href=https://blog.brez.top/zh/>breeze 的博客</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg></a><style>.goatcounter-count{font-variant-numeric:tabular-nums}</style><script>document.addEventListener("DOMContentLoaded",()=>{const e="https://stats.brez.top";document.querySelectorAll(".goatcounter-count").forEach(async t=>{let n=t.getAttribute("data-goatcounter-path")||location.pathname;n=n.replace(/\/$/,"")||"/";const s=`${e}/counter/${n}.json`;try{const e=await fetch(s);if(e.ok){const n=await e.json();t.innerText=(n.count||0)+" 次阅读"}}catch{t.innerText==="..."&&(t.innerText="0 次阅读")}})})</script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="复制";function s(){t.innerHTML="已复制！",setTimeout(()=>{t.innerHTML="复制"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
