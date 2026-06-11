@@ -151,6 +151,7 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
   keywords = ["web开发", "自动化", "博客", "技术分享"]
 
   enableAds = true
+  adCount = 5
 
   [params.assets]
     favicon = "/favicon.svg"

@@ -21,18 +21,24 @@
     border-radius: 8px;
     border-left: 3px solid var(--border);
     text-align: center;
-    opacity: 0.8;
+    opacity: 0.95;
     transition: opacity 0.3s;
 ">
     {{ with .Site.Params.adContent }}
     {{ . | safeHTML }}
     {{ else }}
-    <!-- 默认Google AdSense代码 -->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-xxxxx" data-ad-slot="xxxxx"
-        data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+    {{/* 走默认广告位，data/ads.yaml 的第一个 featured 项 */}}
+    {{ $ads := .Site.Data.ads }}
+    {{ $heroAd := index (where $ads "featured" true) 0 }}
+    {{ with $heroAd }}
+    <a href="{{ .url }}" target="_blank" rel="sponsored noopener" style="text-decoration: none; color: inherit; display: block;">
+        <div style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: var(--secondary); margin-bottom: 0.4rem;">Sponsored</div>
+        <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem;">{{ .title }}</div>
+        <div style="font-size: 0.85rem; color: var(--secondary);">{{ .description }}</div>
+    </a>
+    {{ else }}
+    <div style="font-size: 0.85rem; color: var(--secondary);">在 config.toml 设置 <code>[params] adContent</code> 即可在此处投放自定义内容。</div>
+    {{ end }}
     {{ end }}
 </div>
 {{ end }}

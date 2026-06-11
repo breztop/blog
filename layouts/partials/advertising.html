@@ -28,8 +28,8 @@
 
     .ad-banner-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 0.8rem;
     }
 
     .ad-banner-item {
@@ -38,22 +38,29 @@
         gap: 0.8rem;
         padding: 0.6rem;
         background: var(--tertiary);
+        border: 1px solid transparent;
         border-radius: 6px;
         text-decoration: none;
         color: var(--content);
-        transition: background 0.2s;
+        transition: all 0.2s;
     }
 
     .ad-banner-item:hover {
         background: var(--border);
+        border-color: var(--primary);
+        transform: translateY(-1px);
     }
 
     .ad-banner-img {
         width: 40px;
         height: 40px;
-        border-radius: 4px;
-        object-fit: cover;
-        background: var(--primary);
+        border-radius: 6px;
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.1rem;
     }
 
     .ad-banner-info {
@@ -86,20 +93,34 @@
     }
 </style>
 
+{{- /*
+  adCount: 从 Site.Params.adCount 读取（默认 5，范围 3-6）
+  展示逻辑：按数据顺序取前 N 个，剩余的暂时隐藏
+*/ -}}
+{{ $adCount := site.Params.adCount | default 5 }}
+{{ if gt $adCount 6 }}{{ $adCount = 6 }}{{ end }}
+{{ if lt $adCount 3 }}{{ $adCount = 3 }}{{ end }}
+
 <aside class="ad-banner" aria-label="Sponsored content">
     <div class="ad-banner-header">
         <span class="ad-banner-label">Sponsored</span>
+        <a href="/about/" class="ad-banner-label" style="text-transform: none; text-decoration: none; font-size: 0.65rem;">合作 →</a>
     </div>
     <div class="ad-banner-grid">
         {{ $ads := .Site.Data.ads }}
-        {{ range first 3 $ads }}
+        {{ if $ads }}
+        {{ range first $adCount $ads }}
         <a href="{{ .url }}" target="_blank" rel="sponsored noopener" class="ad-banner-item">
-            <div class="ad-banner-img"></div>
+            {{ $bg := .color | default "#3b82f6" }}
+            <div class="ad-banner-img" style="background: {{ $bg }}">{{ substr .title 0 1 }}</div>
             <div class="ad-banner-info">
                 <h4 class="ad-banner-title">{{ .title }}</h4>
                 <p class="ad-banner-desc">{{ .description }}</p>
             </div>
         </a>
+        {{ end }}
+        {{ else }}
+        <p style="font-size: 0.8rem; color: var(--secondary); margin: 0;">暂无可展示的广告位。</p>
         {{ end }}
     </div>
 </aside>
