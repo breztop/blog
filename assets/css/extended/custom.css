@@ -433,3 +433,124 @@ body {
         max-width: min(1280px, 70vw);
     }
 }
+
+/* ============================================================================
+ * Post grid: 1-3 列响应式 + 加大间距 (override layouts/index.html 内嵌样式)
+ * ========================================================================== */
+.post-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 640px) {
+    .post-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.75rem;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .post-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* ============================================================================
+ * Post card: 精致化 + 文字精简 (override layouts/index.html 内嵌样式)
+ * ========================================================================== */
+.post-card {
+    background: var(--entry);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: transparent;
+}
+
+:root[data-theme="dark"] .post-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.post-card-content {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* meta: 字号小一点 + 紧凑 + 用 · 分隔 + 隐藏浏览数占位 */
+.post-card-meta {
+    font-size: 0.75rem;
+    color: var(--secondary);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.post-card-meta > span:not(:last-child)::after {
+    content: "·";
+    margin-left: 0.4rem;
+    opacity: 0.5;
+}
+
+.post-card-meta .goatcounter-count {
+    display: none !important;
+}
+
+/* 标题: 加重 + 加大 */
+.post-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.35;
+    color: var(--primary);
+}
+
+.post-card h3 a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.15s;
+}
+
+.post-card h3 a:hover {
+    opacity: 0.75;
+}
+
+/* 摘要: 2 行截断 + 行高松一点 + 占满高度撑开卡片 */
+.post-card-summary {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+}
+
+/* 阅读更多: 推到卡片底部 */
+.post-card-link {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--primary);
+    text-decoration: none;
+    align-self: flex-start;
+    margin-top: auto;
+    transition: opacity 0.15s;
+}
+
+.post-card-link:hover {
+    opacity: 0.75;
+}
