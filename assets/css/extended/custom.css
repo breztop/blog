@@ -407,3 +407,29 @@ body {
 .ad-banner-desc {
     font-size: 0.65rem !important;
 }
+
+/* ============================================================================
+ * Responsive main content width (override PaperMod's fixed 720px main-width)
+ * Bump up on wider screens so content doesn't feel squashed at 50% of viewport.
+ * ========================================================================== */
+.main {
+    max-width: 90vw;
+}
+
+@media screen and (min-width: 768px) {
+    .main {
+        max-width: 85vw;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .main {
+        max-width: 70vw;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .main {
+        max-width: min(1280px, 70vw);
+    }
+}
