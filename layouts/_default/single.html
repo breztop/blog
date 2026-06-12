@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
+<html lang="{{ .Site.Language.Locale }}" dir="{{ .Language.Direction | default "auto" }}">
 
 <head>
     {{- partial "head.html" . -}}
@@ -438,7 +438,7 @@
                 {{/* ========== 侧边栏 ========== */}}
                 <aside class="article-sidebar fade-in">
                     {{ if and .Site.Params.enableAds .Site.Params.ads.showOnPosts }}
-                    {{ $ads := .Site.Data.ads }}
+                    {{ $ads := hugo.Data.ads }}
                     {{ if $ads }}
                     <div class="sidebar-ad">
                         <span class="sidebar-ad-label">Sponsored</span>

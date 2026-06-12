@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
+<html lang="{{ .Site.Language.Locale }}" dir="{{ .Language.Direction | default "auto" }}">
 
 <head>
     {{- partial "head.html" . -}}
@@ -223,7 +223,7 @@
                 <section class="about-section">
                     <h2>联系方式</h2>
                     <div class="contact-grid">
-                        {{ range .Site.Data.contact }}
+                        {{ range hugo.Data.contact }}
                         <a href="{{ .url }}" class="contact-card" {{ if not (hasPrefix .url "mailto:") }}target="_blank" rel="noopener"{{ end }}>
                             <div class="contact-card-icon" style="background: {{ .color | default "#3b82f6" }};">
                                 <span style="font-size: 1.1rem; font-weight: 700; color: #fff;">{{ substr .name 0 1 }}</span>

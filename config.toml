@@ -7,7 +7,7 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
 
 [languages]
   [languages.zh]  # 中文配置
-    languageName = "中文"
+    label = "中文"
     weight = 1
     title = "breeze 的博客"
     [languages.zh.menu]
@@ -73,7 +73,7 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
         weight = 50
 
   [languages.en]  # 英文配置
-    languageName = "English"
+    label = "English"
     weight = 2
     title = "breeze's blog"
     [languages.en.menu]
@@ -197,3 +197,6 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
     noClasses = false
     style = "monokai" # or any style, PaperMod uses its own classes if noClasses is false
     lineNos = true
+
+# Suppress the noisy goldmark raw-HTML warning (improved_span_cpp26.md uses inline <...>)
+ignoreLogs = ['warning-goldmark-raw-html']

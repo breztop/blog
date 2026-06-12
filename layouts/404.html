@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
+<html lang="{{ .Site.Language.Locale }}" dir="{{ .Language.Direction | default "auto" }}">
 
 <head>
     <meta charset="UTF-8">
@@ -173,7 +173,7 @@
         {{ end }}
         
         {{/* 作者联系区 */}}
-        {{ $contact := .Site.Data.contact }}
+        {{ $contact := hugo.Data.contact }}
         {{ if $contact }}
         <section class="contact-section">
             <h3 class="contact-title">如果你认为这是一个错误，可通过以下方式联系作者：</h3>
@@ -192,7 +192,7 @@
         {{ end }}
         
         {{/* 尾部快捷导航 */}}
-        {{ $quicklinks := .Site.Data.quicklinks }}
+        {{ $quicklinks := hugo.Data.quicklinks }}
         {{ if $quicklinks }}
         <section class="quick-links">
             <h3 class="quick-links-title">其他站点</h3>

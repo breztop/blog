@@ -5,7 +5,10 @@ description: "零基础入门 Blender 4.x：看懂五区界面、掌握视图导
 tags: [blender, godot, multiplayer, 3d, tutorial]
 categories: [game-dev]
 draft: false
-cover: /images/posts/blender-godot-2026-06-12.png
+cover:
+  image: /images/posts/blender-godot-2026-06-12.png
+  alt: "Blender 4.x 界面五区布局示意"
+  relative: false
 ---
 
 ![cover](/images/posts/blender-godot-2026-06-12.png)

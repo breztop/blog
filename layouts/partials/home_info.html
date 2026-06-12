@@ -28,7 +28,7 @@
     {{ . | safeHTML }}
     {{ else }}
     {{/* 走默认广告位，data/ads.yaml 的第一个 featured 项 */}}
-    {{ $ads := .Site.Data.ads }}
+    {{ $ads := hugo.Data.ads }}
     {{ $heroAd := index (where $ads "featured" true) 0 }}
     {{ with $heroAd }}
     <a href="{{ .url }}" target="_blank" rel="sponsored noopener" style="text-decoration: none; color: inherit; display: block;">
