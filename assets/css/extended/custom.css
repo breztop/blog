@@ -488,7 +488,7 @@ body {
     flex: 1;
 }
 
-/* meta: 字号小一点 + 紧凑 + 用 · 分隔 + 隐藏浏览数占位 */
+/* meta: 字号小一点 + 紧凑 + 用 · 分隔 */
 .post-card-meta {
     font-size: 0.75rem;
     color: var(--secondary);
@@ -504,9 +504,8 @@ body {
     opacity: 0.5;
 }
 
-.post-card-meta .goatcounter-count {
-    display: none !important;
-}
+/* .post-card-meta 的 goatcounter 仍隐藏（卡片用），
+   但 .post-meta 的阅读数（列表用）现在保留显示 */
 
 /* 标题: 加重 + 加大 */
 .post-card h3 {
@@ -554,3 +553,84 @@ body {
 .post-card-link:hover {
     opacity: 0.75;
 }
+
+/* ============================================================================
+ * Pagination (被 layouts/partials/templates/pagination.html 调用)
+ * ========================================================================== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 2.5rem 0 1.5rem;
+    flex-wrap: wrap;
+}
+
+.pagination a,
+.pagination span {
+    padding: 0.45rem 0.85rem;
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    min-width: 2.2rem;
+    text-align: center;
+}
+
+.pagination a:hover {
+    background: var(--tertiary);
+    border-color: var(--primary);
+}
+
+.pagination .active {
+    background: var(--primary);
+    color: var(--theme);
+    border-color: var(--primary);
+    cursor: default;
+}
+
+.pagination .disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.pagination .pagination-pages {
+    display: inline-flex;
+    gap: 0.3rem;
+}
+
+/* ============================================================================
+ * Mobile typography (added 2026-06-13 per breeze)
+ * 解决手机端每行字数过少的问题
+ * 视窗 < 768px：正文 0.9rem (16.2px)，padding 压到 8px，max-width 放宽到 96vw
+ * 视窗 < 400px：进一步压缩到 0.85rem (15.3px) + 98vw + 4px
+ * ========================================================================== */
+@media screen and (max-width: 768px) {
+    .post-content, .article-content {
+        font-size: 0.9rem;
+        line-height: 1.75;
+    }
+    .post-title, .article-title {
+        font-size: 1.5rem;
+    }
+    .main {
+        padding: 8px;
+        max-width: 96vw;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .post-content, .article-content {
+        font-size: 0.85rem;
+        line-height: 1.7;
+    }
+    .main {
+        padding: 4px;
+        max-width: 98vw;
+    }
+}
+

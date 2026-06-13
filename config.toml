@@ -1,6 +1,7 @@
 baseURL = 'https://breztop.github.io/'  # 请根据您的实际部署地址修改
 title = "breeze's blog"
 theme = 'PaperMod'
+paginate = 8
 
 defaultContentLanguage = "zh"  # 设置默认语言为中文
 defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
@@ -198,5 +199,4 @@ defaultContentLanguageInSubdir = true  # 在子目录中包含语言代码
     style = "monokai" # or any style, PaperMod uses its own classes if noClasses is false
     lineNos = true
 
-# Suppress the noisy goldmark raw-HTML warning (improved_span_cpp26.md uses inline <...>)
-ignoreLogs = ['warning-goldmark-raw-html']
+# (no longer need ignoreLogs — fixed improved_span_cpp26.md by wrapping C++ code in fences)

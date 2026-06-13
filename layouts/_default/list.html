@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Locale }}" dir="{{ .Language.Direction | default "auto" }}">
+<html lang="{{ .Site.Language.Lang }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
 
 <head>
     {{- partial "head.html" . -}}
@@ -150,18 +150,13 @@
             {{ end }}
 
             <div class="posts-list fade-in">
-                {{ $pages := .Pages }}
-                {{ if .IsHome }}
-                    {{ $pages = where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
-                {{ end }}
-
-                {{ range $pages }}
+                {{ range .Paginator.Pages }}
                 <article class="post-item">
                     <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
                     <div class="post-meta">
-                        <span>📅 {{ .Date | time.Format "2006-01-02" }}</span>
-                        <span>⏱️ {{ .ReadingTime }} min</span>
-                        <span class="goatcounter-count" data-goatcounter-path="{{ .RelPermalink }}">...</span>
+                        <span class="meta-date">📅 {{ .Date | time.Format "2006-01-02" }}</span>
+                        <span class="meta-time">⏱️ {{ .ReadingTime }} min</span>
+                        <span class="meta-views goatcounter-count" data-goatcounter-path="{{ .RelPermalink }}">👁️ ...</span>
                     </div>
                     <p class="post-summary">{{ .Summary | plainify | truncate 200 }}</p>
                     {{ with .Params.tags }}
@@ -175,7 +170,7 @@
                 {{ end }}
             </div>
 
-            {{- partial "pagination.html" . -}}
+            {{- partial "templates/pagination.html" . -}}
         </div>
     </main>
     
