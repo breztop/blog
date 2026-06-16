@@ -5,7 +5,9 @@ description: "零基础动手写 Godot 4 ENet 高层联机代码:MultiplayerSpaw
 tags: [blender, godot, multiplayer, 3d, tutorial]
 categories: [game-dev]
 draft: false
-cover: /images/posts/blender-godot-2026-06-16.png
+cover:
+  image: /images/posts/blender-godot-2026-06-16.png
+  alt: "Blender & Godot 3D 教程系列封面"
 ---
 
 ![cover](/images/posts/blender-godot-2026-06-16.png)
