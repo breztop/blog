@@ -3,8 +3,9 @@ title: "每日开源速递 - 2026-05-07"
 date: 2026-05-07T00:00:00+08:00
 description: "GitHub Trending 项目的深度解读与推荐"
 tags: [daily, github, trending]
-categories: [tech-news]
+categories: [tech-news, 历史归档]
 draft: false
+hiddenInHomeList: true
 ---
 
 # 每日开源速递 - 2026-05-07

@@ -1,14 +1,14 @@
-# 每日开源速递 - 2026-04-07
-
-```yaml
 ---
 title: "每日开源速递 - 2026-04-07"
 date: 2026-04-07T00:00:00+08:00
 description: "GitHub Trending 项目的深度解读与推荐"
 tags: [daily, github, trending]
-categories: [tech-news]
+categories: [tech-news, 历史归档]
+hiddenInHomeList: true
 draft: false
 ---
+
+# 每日开源速递 - 2026年4月7日
 
 ## 1. Google AI Edge / gallery
 
@@ -267,6 +267,3 @@ print(optimized_article)
 ```
 
 **评价**：Seomachine结合了Claude的自然语言处理能力，能够生成高质量的SEO优化内容，帮助用户提升网站的搜索引擎排名。
-
-
-Current time: Wednesday, April 8th, 2026 — 6:00 AM (Asia/Shanghai) / 2026-04-07 22:00 UTC

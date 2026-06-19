@@ -3,8 +3,9 @@ title: "每日开源速递 - 2026-04-05"
 date: 2026-04-05T00:00:00+08:00
 description: "GitHub Trending 项目的深度解读与推荐"
 tags: [daily, github, trending]
-categories: [tech-news]
+categories: [tech-news, 历史归档]
 draft: false
+hiddenInHomeList: true
 ---
 
 ## 今日开源热点速览

@@ -3,8 +3,9 @@ title: "每日开源速递 - 2026-04-16"
 date: 2026-04-16T00:00:00+08:00
 description: "GitHub Trending 项目的深度解读与推荐"
 tags: [daily, github, trending]
-categories: [tech-news]
+categories: [tech-news, 历史归档]
 draft: false
+hiddenInHomeList: true
 ---
 
 今日 GitHub Trending 精选了 12 个极具创新性的开源项目，涵盖 AI Agent、语音合成、代码内存管理、文件类型检测、知识图谱等多个领域。这些项目代表了当前开源社区最前沿的技术探索方向，无论是对于开发者还是研究者都具有重要的参考价值。
