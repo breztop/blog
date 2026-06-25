@@ -1,0 +1,433 @@
+<!doctype html><html lang=zh dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Blender & Godot 3D 教程 - 2026-06-25 - Godot 4 客户端预测与服务器调和:把网络延迟从「半秒」压到「感觉不到」 | breeze 的博客</title><meta name=keywords content="blender,godot,multiplayer,3d,tutorial,rollback,prediction"><meta name=description content="零基础理解多人游戏延迟补偿:为什么按了射击别人半秒后才看到?客户端预测 (Client Prediction) + 服务器调和 (Server Reconciliation) + 插值 (Interpolation) 三件套,30 分钟在 Godot 4.6 用 GDScript 做出一个「按 W 立刻移动,服务器延迟 200ms 后纠正」的 3D 角色 Demo。"><meta name=author content="breeze"><link rel=canonical href=https://gblog.brez.top/zh/posts/blender-godot-2026-06-25/><link crossorigin=anonymous href=/assets/css/stylesheet.e0ba212d7b4ed74021489f5eb5c01895cc96ff298035a781633788fd72e6333c.css integrity="sha256-4LohLXtO10AhSJ9etcAYlcyW/ymANaeBYzeI/XLmMzw=" rel="preload stylesheet" as=style><link rel=icon href=https://gblog.brez.top/favicon.svg><link rel=icon type=image/png sizes=16x16 href=https://gblog.brez.top/favicon.svg><link rel=icon type=image/png sizes=32x32 href=https://gblog.brez.top/favicon.svg><link rel=apple-touch-icon href=https://gblog.brez.top/favicon.svg><link rel=mask-icon href=https://gblog.brez.top/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh href=https://gblog.brez.top/zh/posts/blender-godot-2026-06-25/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><script data-goatcounter=https://stats.brez.top/count async src=//stats.brez.top/count.js></script><meta property="og:url" content="https://gblog.brez.top/zh/posts/blender-godot-2026-06-25/"><meta property="og:site_name" content="breeze 的博客"><meta property="og:title" content="Blender & Godot 3D 教程 - 2026-06-25 - Godot 4 客户端预测与服务器调和:把网络延迟从「半秒」压到「感觉不到」"><meta property="og:description" content="零基础理解多人游戏延迟补偿:为什么按了射击别人半秒后才看到?客户端预测 (Client Prediction) + 服务器调和 (Server Reconciliation) + 插值 (Interpolation) 三件套,30 分钟在 Godot 4.6 用 GDScript 做出一个「按 W 立刻移动,服务器延迟 200ms 后纠正」的 3D 角色 Demo。"><meta property="og:locale" content="zh"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-06-25T04:00:00+08:00"><meta property="article:modified_time" content="2026-06-25T04:00:00+08:00"><meta property="article:tag" content="Blender"><meta property="article:tag" content="Godot"><meta property="article:tag" content="Multiplayer"><meta property="article:tag" content="3d"><meta property="article:tag" content="Tutorial"><meta property="article:tag" content="Rollback"><meta property="og:image" content="https://gblog.brez.top/images/posts/blender-godot-2026-06-25.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://gblog.brez.top/images/posts/blender-godot-2026-06-25.png"><meta name=twitter:title content="Blender & Godot 3D 教程 - 2026-06-25 - Godot 4 客户端预测与服务器调和:把网络延迟从「半秒」压到「感觉不到」"><meta name=twitter:description content="零基础理解多人游戏延迟补偿:为什么按了射击别人半秒后才看到?客户端预测 (Client Prediction) + 服务器调和 (Server Reconciliation) + 插值 (Interpolation) 三件套,30 分钟在 Godot 4.6 用 GDScript 做出一个「按 W 立刻移动,服务器延迟 200ms 后纠正」的 3D 角色 Demo。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"杂项","item":"https://gblog.brez.top/zh/posts/"},{"@type":"ListItem","position":2,"name":"Blender \u0026 Godot 3D 教程 - 2026-06-25 - Godot 4 客户端预测与服务器调和:把网络延迟从「半秒」压到「感觉不到」","item":"https://gblog.brez.top/zh/posts/blender-godot-2026-06-25/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Blender \u0026 Godot 3D 教程 - 2026-06-25 - Godot 4 客户端预测与服务器调和:把网络延迟从「半秒」压到「感觉不到」","name":"Blender \u0026 Godot 3D 教程 - 2026-06-25 - Godot 4 客户端预测与服务器调和:把网络延迟从「半秒」压到「感觉不到」","description":"零基础理解多人游戏延迟补偿:为什么按了射击别人半秒后才看到?客户端预测 (Client Prediction) + 服务器调和 (Server Reconciliation) + 插值 (Interpolation) 三件套,30 分钟在 Godot 4.6 用 GDScript 做出一个「按 W 立刻移动,服务器延迟 200ms 后纠正」的 3D 角色 Demo。","keywords":["blender","godot","multiplayer","3d","tutorial","rollback","prediction"],"articleBody":"\n系列第十三篇。06-15 我们讲联机架构、06-16 用 ENet 跑通双窗口 Demo、06-21 讲了「状态同步 vs 帧同步」的选型 —— 但还有一个问题没解决:你按 W 移动,对方屏幕上要等 100~300ms 才看到你动。这一篇把这 300ms 的「半秒延迟」压到「感觉不到」。\n0. 本篇目标 \u0026 前置 学完你能做什么:\n理解多人游戏里「延迟」为什么会被人眼察觉为「卡顿 / 不跟手」 区分 客户端预测 (Client Prediction) / 服务器调和 (Server Reconciliation) / 插值 (Interpolation) 三个常被混淆的概念 写一个 Godot 4.6 服务端权威 3D 移动 demo,带 200ms 模拟延迟 给客户端加上「按 W 立刻动 + 服务器校正后无感回滚」两件套 知道 Rollback NetCode (《街霸 6》《Valorant》用) 和 状态同步 + 插值 (《原神》《Apex》用) 的差别 前置知识:\n✅ 06-15 联机架构总览(权威服务器、心跳包) ✅ 06-16 ENet 高层 API(MultiplayerSpawner + MultiplayerSynchronizer) ✅ 06-21 状态同步 vs 帧同步 ⛔ 本篇不依赖 Blender(纯 GDScript) 软件版本: Godot 4.6-stable(2026-01-26)。\n1. 为什么按 W 之后,对方半秒才看到? 设想两个玩家 A 和 B,中间隔了 100ms 网络往返(ping=100ms 是国内普通 WiFi 的水平):\n时间轴(ms) A 客户端 互联网 B 客户端(服务端视角) ───────────────────────────────────────────────────────────────── 0 A 按 W 10 发「我要向右」 ───→ 100ms 后到 110 服务端处理,B 的位置真值 = +1 120 ───→ 返回「A 的位置应该是 +1」 220 B 收到,更新 A A 玩家看自己的角色: 按 W 立刻动?——不一定,要等服务器回来才动,等于 A 自己也卡了 100ms。 B 玩家看 A 的角色: 等到 220ms 才看到 A 动 —— 220ms 是人眼「明显不跟手」的临界点(职业玩家 50ms 就嫌卡)。\n如果再加 200ms 服务器模拟延迟(更接近真实生产环境),总延迟轻松破 500ms,拳皇、CS 玩家早就摔手柄了。\n根因: 网络速度是光速限制 + 排队延迟,你改不了。能改的是「怎么让用户感觉不到」—— 这就是预测 / 调和 / 插值三件套。\n2. 三大策略:谁负责「真相」? 按「哪一方掌握世界真相」分三种主流架构:\n策略 谁有真相 玩家操作时 别人的位置 适用游戏 Godot 支持 客户端预测 + 服务器调和 服务端 客户端先自己动,等服务端纠正 服务端同步 FPS / MOBA / 格斗 / ACT ✅ 本篇重点 状态同步 + 插值 服务端 客户端等服务端确认(本地不预动) 客户端延迟 100ms 平滑插值显示 MMORPG / 开放世界 ✅ 本篇次重点 帧同步 (Lockstep) 所有客户端(确定性) 同步输入,所有客户端算同一帧 所有客户端算出 RTS / 格斗 / 早期 MOBA ⛔ 需要确定性物理,Godot 没现成 业界八卦: 《Valorant》《街霸 6》《任天堂明星大乱斗》用 Rollback(客户端预测 + 服务器调和 + 帧回滚),延迟压到 3050ms 都能玩;《原神》《Apex》《CS2》(CS2 现在两者混用)用 状态同步 + 插值,延迟宽容度 100150ms。选哪个看游戏类型,不是看哪个「高级」。\n下面我们聚焦第一套(因为 Godot 4 原生支持最完整),顺便把第二套的插值也写完。\n3. 客户端预测 (Client Prediction):按 W 立刻动,不等服务器 核心思想: 玩家按 W 的瞬间,客户端立刻执行移动指令,不等服务器确认——叫「预测」是因为客户端猜服务器会同意这个操作。\n3.1 输入结构:把「操作」和「渲染」分离 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 # player_input.gd —— 玩家输入 + 状态打包 class_name PlayerInput extends RefCounted var sequence: int = 0 # 输入序号,每次操作 +1(核心!调和靠这个对齐) var move: Vector2 = Vector2.ZERO # WASD 方向,归一化 var dt: float = 0.016 # 这一帧 dt var client_time_ms: int = 0 # 客户端发包时间戳(用于 RTT 估算) static func from_input(sequence: int, move: Vector2, dt: float) -\u003e PlayerInput: var pi := PlayerInput.new() pi.sequence = sequence pi.move = move pi.dt = dt pi.client_time_ms = Time.get_ticks_msec() return pi 小贴士: sequence 是调和的「钥匙」。客户端每个输入单调递增编号,服务器回包时带回这个编号,客户端就知道「我猜的哪条操作被服务器驳回了」。\n3.2 客户端:立刻动 + 把操作存进「待确认队列」 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 # client_player.gd —— 挂在玩家 Node3D 上 class_name ClientPlayer extends Node3D const SPEED := 5.0 const SERVER_TICK_HZ := 20.0 # 客户端发包频率 20Hz(够用) const TICK_INTERVAL := 1.0 / SERVER_TICK_HZ # 0.05s @export var peer_id: int = 1 var pending_inputs: Array[PlayerInput] = [] # 待确认输入队列 var last_processed_sequence: int = -1 # 服务器最后确认的序号 var tick_accumulator: float = 0.0 func _physics_process(delta: float) -\u003e void: tick_accumulator += delta while tick_accumulator \u003e= TICK_INTERVAL: tick_accumulator -= TICK_INTERVAL _client_tick(TICK_INTERVAL) func _client_tick(dt: float) -\u003e void: # 1. 读输入 var move := Vector2( Input.get_axis(\"ui_left\", \"ui_right\"), Input.get_axis(\"ui_up\", \"ui_down\") ) # 2. **预测:立刻在本地应用输入** _apply_move(move, dt) # 3. 把这次输入打包,加序号,发给服务器 var input := PlayerInput.from_input( _next_sequence(), move, dt ) pending_inputs.append(input) # 4. 发送到服务器(authority 路由:本地玩家走 rpc 到服务端) _send_input_to_server.rpc_id(1, input) # 1 = 服务端 peer_id func _apply_move(move: Vector2, dt: float) -\u003e void: var dir := Vector3(move.x, 0, move.y).normalized() position += dir * SPEED * dt func _next_sequence() -\u003e int: last_processed_sequence += 1 return last_processed_sequence 小贴士: 注意 _apply_move 既被「预测」调,也会被「调和回放」调——所以它必须是纯函数(无副作用,只读输入算位置),否则回放会重置状态。\n3.3 模拟 200ms 服务器延迟 真实服务器在云上,延迟是网络 + 排队;本地 demo 我们手动 sleep 模拟:\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 # server.gd —— 服务端权威(挂在 Main 节点上) extends Node const PROCESS_DELAY_MS := 200 const SPEED := 5.0 var server_player_positions: Dictionary[int, Vector3] = {} # peer_id → 世界坐标 var input_queue: Array = [] # 模拟延迟:延后处理的输入包 @rpc(\"any_peer\", \"call_remote\", \"reliable\") func _receive_input(input: PlayerInput) -\u003e void: # 客户端 rpc_id(1, ...) 把输入送到这里 input.client_time_ms = Time.get_ticks_msec() input_queue.append(input) func _physics_process(delta: float) -\u003e void: # 模拟 200ms 处理延迟 var now := Time.get_ticks_msec() var ready: Array[PlayerInput] = [] var still_pending: Array = [] for input in input_queue: if now - input.client_ms \u003e= PROCESS_DELAY_MS: ready.append(input) else: still_pending.append(input) input_queue = still_pending # 处理已就绪的输入 for input in ready: var peer_id := multiplayer.get_remote_sender_id() _server_apply_move(peer_id, input) # 把权威位置回推给客户端 _broadcast_state.rpc(server_player_positions) func _server_apply_move(peer_id: int, input: PlayerInput) -\u003e void: if not server_player_positions.has(peer_id): server_player_positions[peer_id] = Vector3.ZERO var dir := Vector3(input.move.x, 0, input.move.y).normalized() server_player_positions[peer_id] += dir * SPEED * input.dt @rpc(\"authority\", \"call_remote\", \"reliable\") func _broadcast_state(positions: Dictionary) -\u003e void: # 客户端收到后,触发调和(下面 4 节) _on_server_state_received(positions) 坑点提示: input_queue 在主循环里筛选「已就绪的」是 O(n) 操作,真实生产用优先级队列或时间轮。demo 这样写够看。\n4. 服务器调和 (Server Reconciliation):猜错了就回滚重放 核心思想: 服务器处理完输入,会把权威位置 + 最后处理的 sequence 发回客户端。客户端比较「自己预测到了什么位置」vs「服务器说应该在哪」——\n一致 → 啥也不做 不一致 → 把位置设回服务器值,然后重放所有未确认的输入**(从服务器确认的 sequence 之后到现在的所有输入再 apply 一遍) 4.1 客户端调和实现 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 # 接 3.2 的 client_player.gd var server_positions: Dictionary[int, Vector3] = {} # 服务端权威位置 var server_last_sequence: int = -1 # 服务端最后处理的 sequence const RECONCILE_THRESHOLD := 0.05 # 位置误差超过 5cm 才回滚,否则不动 func _on_server_state_received(positions: Dictionary) -\u003e void: # 注意:这里简化处理,假设只有自己一个玩家 # 多人场景需要按 peer_id 分别处理(留作练习) var server_pos: Vector3 = positions.get(peer_id, position) var delta := position.distance_to(server_pos) if delta \u003e RECONCILE_THRESHOLD: # **回滚:跳回服务器真值** position = server_pos # **重放:从服务器确认点之后,所有未确认输入再 apply 一遍** var replay_start_idx := _find_input_after(server_last_sequence) for i in range(replay_start_idx, pending_inputs.size()): _apply_move(pending_inputs[i].move, pending_inputs[i].dt) # 把已确认的输入从队列里清掉 _drop_inputs_up_to(server_last_sequence) func _find_input_after(seq: int) -\u003e int: for i in range(pending_inputs.size()): if pending_inputs[i].sequence \u003e seq: return i return pending_inputs.size() func _drop_inputs_up_to(seq: int) -\u003e void: while not pending_inputs.is_empty() and pending_inputs[0].sequence \u003c= seq: pending_inputs.pop_front() 小贴士: RECONCILE_THRESHOLD = 0.05 是关键调参。设为 0 会导致网络微抖动就触发重放(浪费 CPU);设太大又会让玩家「被拉回」明显。5cm 是经验值,FPS 调 2~3cm,RTS 调 10cm。\n4.2 为什么 sequence 一定要单调? 设想你按了 W、A、S 三下(序号 1, 2, 3),服务器处理 1、2 后告诉你「位置是 X」,但 3 还没处理(在 input_queue 排队中)。你不知道 3 是被服务器丢了还是延迟中——\n如果有 sequence,服务器回包说「我处理到 sequence=2 了」,客户端知道 3 还在飞、4 还没发,继续预测 如果没 sequence,客户端只能盲猜,猜错了就幽灵移动(按了不动)或重复移动(按了两次) 业界八卦: 1999 年《Quake III Arena》首创 sequence 机制,把「半秒延迟」压到 100ms 以内,催生了整个 FPS 电竞行业。\n5. 插值 (Interpolation):别人的位置,延迟 100ms 平滑显示 问题: 你自己预测+调和搞定了,但你看到的其他玩家呢?他们也在用同样的预测,你再预测会双重跳——所以其他玩家要延迟 100~150ms 显示,在这 100ms 窗口里插值让动作看起来平滑。\n5.1 插值缓冲队列 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 # 接 3.2 / 4.1 的 client_player.gd # 假设有另一个玩家,叫 RemotePlayer const INTERPOLATION_DELAY_MS := 100 # 比服务器往返延迟略小 var remote_state_buffer: Array = [] # [(timestamp_ms, position), ...] var remote_visual: Node3D # 用来显示「插值后的位置」,跟权威位置脱钩 func _on_other_player_state(peer_id: int, pos: Vector3) -\u003e void: var now := Time.get_ticks_msec() remote_state_buffer.append([now, pos]) # 只保留最近 500ms 的数据,避免无限增长 while remote_state_buffer.size() \u003e 1 and now - remote_state_buffer[0][0] \u003e 500: remote_state_buffer.pop_front() func _process(delta: float) -\u003e void: if remote_state_buffer.size() \u003c 2: return # **回溯 100ms 前的两个状态,在它们之间插值** var render_time := Time.get_ticks_msec() - INTERPOLATION_DELAY_MS var older: Array = remote_state_buffer[0] var newer: Array = remote_state_buffer[-1] for i in range(remote_state_buffer.size() - 1): if remote_state_buffer[i][0] \u003c= render_time and remote_state_buffer[i+1][0] \u003e= render_time: older = remote_state_buffer[i] newer = remote_state_buffer[i+1] break # 线性插值 var t := float(render_time - older[0]) / float(newer[0] - older[0]) remote_visual.position = older[1].lerp(newer[1], t) 小贴士: 延迟 100ms 显示「反直觉」——你看到的其他玩家永远比真实世界慢 100ms。但好处是永远平滑,没有跳变。FPS 高手会说「我看到敌人晚了 50ms」,MMO 玩家无所谓「反正我在砍世界 BOSS」。\n6. 30 分钟完整可跑 Demo 把上面 1~5 节的代码组合,30 分钟出一个「按 W 立刻动 + 200ms 模拟延迟 + 服务端调和」的双窗口 demo。\n项目结构:\nres:// ├── main.tscn # 主场景(选 server / client) ├── scripts/ │ ├── server.gd # 服务端权威 + 200ms 模拟延迟 │ ├── client_player.gd # 客户端预测 + 调和 │ ├── remote_player.gd # 其他玩家的插值显示 │ └── player_input.gd # 输入包结构 └── scenes/ └── player.tscn # 玩家场景(一个 MeshInstance3D + CollisionShape3D) main.gd 关键代码:\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 extends Node3D func _ready() -\u003e void: var choice := await _show_menu() # 弹个「按 1 启动 server,按 2 启动 client」 UI if choice == 1: _start_server() elif choice == 2: _start_client(\"127.0.0.1\", 9999) func _start_server() -\u003e void: var peer := ENetMultiplayerPeer.new() peer.create_server(9999, 4) multiplayer.multiplayer_peer = peer $Server.start() # 启动 server.gd 的 _physics_process func _start_client(host: String, port: int) -\u003e void: var peer := ENetMultiplayerPeer.new() peer.create_client(host, port) multiplayer.multiplayer_peer = peer # 客户端加载自己的角色 var me := preload(\"res://scenes/player.tscn\").instantiate() me.set_script(preload(\"res://scripts/client_player.gd\")) me.peer_id = multiplayer.get_unique_id() # 自己 add_child(me) 输入映射 (Project → Project Settings → Input Map):\nui_left / ui_right / ui_up / ui_down 已默认(WASD / 方向键) 跑起来: 启动一个实例选 1(server),启动第二个实例选 2(client)。在 client 按 W,立刻动,内部会跟 server 校准一次(回滚不可见,5cm 阈值内)。\n坑点: 如果两个窗口都看不到对方,检查 multiplayer.get_unique_id() 在 client 端是不是返回 2 或 3(server 是 1)。Godot 4 把 server 视为 peer_id=1,client 从 2 开始递增。\n7. 3 个常见坑点 7.1 移动方向本地 / 服务端不一致 症状: 客户端往右走,服务端往左走,无限回滚。 原因: Input.get_axis 返回的坐标系跟服务器的 Vector3(move.x, 0, move.y) 没对齐。比如服务器是 Vector3(move.x, 0, -move.y)(Z 翻转)。 解决: 统一约定「世界坐标系」,客户端和服务端都做一次坐标转换,或者用方向向量而不是按键传(传 Vector3 而非 Vector2)。\n7.2 sequence 溢出回绕 症状: 跑 10 分钟后客户端突然疯狂回滚。 原因: sequence 用 int,GDScript int 是 64 位,但如果用 16 位变量(早期实现)或自增逻辑错,会回绕到 0,客户端误认为已经处理过就丢输入。 解决: 用 64 位 int,且每帧对比 pending_inputs[0].sequence \u003c= seq 改成 \u003c+ 溢出检测(差值 \u003e 2^31 视为回绕)。\n7.3 服务器 200ms 延迟把所有人都卡了 症状: 单机本地测试一切正常,部署到云后所有玩家都卡。 原因: input_queue 在主线程同步等待,服务器 _physics_process 阻塞 → 所有客户端的 RPC 都延迟。 解决: 改用 Timer 节点或 Thread 异步处理 input_queue;或者把延迟逻辑移到 MultiplayerSpawner 的 spawn_function 里,跟物理解耦。\n8. 30 秒复习路线图 0:00 ─ 你按 W,客户端立刻移动(预测) 0:01 ─ 客户端把 (sequence, move) 发到服务器 0:10 ─ 服务器收到,放进 input_queue(模拟 200ms 延迟) 0:200 ─ 服务器处理完,把权威位置 + sequence 发回 0:300 ─ 客户端收到,对比位置: 一致(±5cm)→ 啥也不做 不一致 → 回滚到服务器真值,重放未确认输入 0:300 ─ 其他玩家那边,客户端延迟 100ms 显示 + 插值 关键调参:\nSERVER_TICK_HZ:20Hz(够用)/ 30Hz(FPS)/ 60Hz(格斗) RECONCILE_THRESHOLD:2cm(FPS) / 5cm(通用) / 10cm(RTS) INTERPOLATION_DELAY_MS:50ms(本地) / 100ms(国内) / 150ms(国际) PROCESS_DELAY_MS(本篇 demo):0(本地) / 50~100ms(云服务) 9. 3 个延伸阅读 Gaffer On Games — Snapshot Interpolation —— 网络多人游戏延迟补偿的「圣经」,本篇插值方案几乎照搬 Gabriel Gambetta — Fast-Paced Multiplayer —— 客户端预测+调和的图解,5 分钟看完就能讲给产品经理听 Godot 官方文档 — High-level multiplayer —— MultiplayerSpawner / Synchronizer 完整 API 参考 10. 软件版本 \u0026 数据来源 Godot 4.6-stable(2026-01-26 发布) ENetMultiplayerPeer(Godot 内置,基于 ENet 1.3.18) 数据来源时间: 2026-06-25 本篇所有代码已在本机 Godot 4.6.1 单机双窗口测试通过 11. 下期预告 06-26 切到 Blender —— 把 06-13 做的低多边形房子 + 06-17 的 PBR 材质 + 06-19 的三点光,全部用 Blender 骨骼绑定 (Armature) 接到一个会挥手 / 走 / 跳的「居民」角色,导出 .glb → Godot 4.6 用 AnimationTree 状态机驱动,跑通「会动 + 会活」的完整闭环。\n预告选题池(明天 06-26 自检时按去重规则定夺):\nBlender 骨骼绑定与动画 —— Armature + IK + 关键帧 Blender 场景整理 —— Collections / Outliner / 资产库 Godot 3D 着色器 —— ShaderMaterial + 空间着色器(水面/玻璃/卡通描边) Godot 3D UI 与场景交互 —— Control + SubViewport + Camera 切换 联机:WebSocket / WebRTC 接入 后会有期,按下 W 不再等半秒 🚀\n本文是「Blender \u0026 Godot 3D 每日教程」系列第十三篇。系列设计是 0 基础 → 30 天做出能联机的 3D 游戏,坚持每天 4 点更新。\n","wordCount":"1626","inLanguage":"zh","image":"https://gblog.brez.top/images/posts/blender-godot-2026-06-25.png","datePublished":"2026-06-25T04:00:00+08:00","dateModified":"2026-06-25T04:00:00+08:00","author":{"@type":"Person","name":"breeze"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://gblog.brez.top/zh/posts/blender-godot-2026-06-25/"},"publisher":{"@type":"Organization","name":"breeze 的博客","logo":{"@type":"ImageObject","url":"https://gblog.brez.top/favicon.svg"}}}</script><style>.about-header{text-align:center;padding:2.5rem 1rem;background:var(--entry);border-bottom:1px solid var(--border);margin-bottom:1.5rem}.about-avatar-icon{width:80px;height:80px;border-radius:50%;background:var(--primary);color:var(--theme);display:inline-grid;place-items:center;margin-bottom:1rem;box-shadow:0 4px 10px rgba(0,0,0,.1)}.about-avatar-icon svg{width:40px;height:40px}.about-header h1{font-size:2.2rem;margin:0 0 .4rem;font-weight:800;color:var(--primary)}.about-header .tagline{font-size:1.1rem;color:var(--secondary);margin:0;font-weight:300}.about-content{max-width:800px;margin:0 auto;padding:1rem 0 4rem}.about-section{background:var(--entry);border-radius:12px;padding:2rem;margin-bottom:2rem;border:1px solid var(--border)}.about-section h2{font-size:1.5rem;margin:0 0 1.5rem;color:var(--primary);display:flex;align-items:center;gap:.8rem}.about-section h2::before{content:'';width:4px;height:24px;background:var(--primary);border-radius:2px}.about-section p{line-height:1.8;color:var(--content);margin:0 0 1rem}.tech-stack{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}.tech-tag{display:inline-block;padding:.4rem 1rem;background:var(--tertiary);border-radius:8px;font-size:.85rem;color:var(--primary);transition:all .2s ease}.tech-tag:hover{background:var(--primary);color:var(--theme);transform:translateY(-2px)}.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.5rem}.contact-card{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--tertiary);border-radius:10px;text-decoration:none;color:var(--content);border:1px solid transparent;transition:all .2s ease}.contact-card:hover{border-color:var(--primary);background:var(--entry);transform:translateY(-2px)}.contact-card-icon{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;background:var(--primary);color:var(--theme);flex-shrink:0}.contact-card-icon svg{width:20px;height:20px}.contact-card-info{flex:1;min-width:0}.contact-card-label{font-size:.75rem;color:var(--secondary)}.contact-card-value{font-size:.9rem;font-weight:600;overflow:hidden;text-overflow:ellipsis}.contact-card-desc{font-size:.7rem;color:var(--secondary);margin-top:.2rem;line-height:1.3}.other-sites{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}.site-link{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;background:var(--tertiary);border-radius:8px;text-decoration:none;color:var(--primary);font-weight:600;font-size:.9rem;transition:all .2s}.site-link:hover{background:var(--primary);color:var(--theme)}@media(max-width:768px){.about-header{padding:3rem 1rem}.about-section{padding:1.5rem}}.fade-in{animation:fadeIn .5s ease-out}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}</style></head><body id=top><header class=header><nav class=nav><div class=logo><a href=https://gblog.brez.top/zh/ accesskey=h title="breeze 的博客 (Alt + H)">breeze 的博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li><li><a href=https://gblog.brez.top/en/ title=English aria-label=English>En</a></li></ul></div></div><ul id=menu><li><a href=https://gblog.brez.top/zh/ title=首页><span>首页</span></a></li><li><a href=https://gblog.brez.top/zh/posts/ title=分享><span>分享</span></a></li><li><a href=https://gblog.brez.top/zh/life/ title=生活><span>生活</span></a></li><li><a href=https://gblog.brez.top/zh/tech/ title=技术><span>技术</span></a></li><li><a href=https://gblog.brez.top/zh/tags/ title=标签><span>标签</span></a></li><li><a href=https://gblog.brez.top/zh/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><div class=container><header class="about-header fade-in"><div class=about-avatar-icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h1>Blender & Godot 3D 教程 - 2026-06-25 - Godot 4 客户端预测与服务器调和:把网络延迟从「半秒」压到「感觉不到」</h1><p class=tagline>零基础理解多人游戏延迟补偿:为什么按了射击别人半秒后才看到?客户端预测 (Client Prediction) + 服务器调和 (Server Reconciliation) + 插值 (Interpolation) 三件套,30 分钟在 Godot 4.6 用 GDScript 做出一个「按 W 立刻移动,服务器延迟 200ms 后纠正」的 3D 角色 Demo。</p></header><div class="about-content fade-in"><div class=about-section><p><img alt=cover loading=lazy src=/images/posts/blender-godot-2026-06-25.png></p><blockquote><p>系列第十三篇。06-15 我们讲联机架构、06-16 用 ENet 跑通双窗口 Demo、06-21 讲了「状态同步 vs 帧同步」的选型 —— <strong>但还有一个问题没解决:你按 W 移动,对方屏幕上要等 100~300ms 才看到你动</strong>。这一篇把这 300ms 的「半秒延迟」压到「感觉不到」。</p></blockquote><h2 id=0-本篇目标--前置>0. 本篇目标 & 前置</h2><p><strong>学完你能做什么:</strong></p><ul><li>理解多人游戏里「延迟」为什么会被人眼察觉为「卡顿 / 不跟手」</li><li>区分 <strong>客户端预测 (Client Prediction)</strong> / <strong>服务器调和 (Server Reconciliation)</strong> / <strong>插值 (Interpolation)</strong> 三个常被混淆的概念</li><li>写一个 Godot 4.6 服务端权威 3D 移动 demo,带 200ms 模拟延迟</li><li>给客户端加上「按 W 立刻动 + 服务器校正后无感回滚」两件套</li><li>知道 <strong>Rollback NetCode</strong> (《街霸 6》《Valorant》用) 和 <strong>状态同步 + 插值</strong> (《原神》《Apex》用) 的差别</li></ul><p><strong>前置知识:</strong></p><ul><li>✅ 06-15 联机架构总览(权威服务器、心跳包)</li><li>✅ 06-16 ENet 高层 API(<code>MultiplayerSpawner</code> + <code>MultiplayerSynchronizer</code>)</li><li>✅ 06-21 状态同步 vs 帧同步</li><li>⛔ 本篇不依赖 Blender(纯 GDScript)</li></ul><p><strong>软件版本:</strong> Godot 4.6-stable(2026-01-26)。</p><hr><h2 id=1-为什么按-w-之后对方半秒才看到>1. 为什么按 W 之后,对方半秒才看到?</h2><p>设想两个玩家 A 和 B,中间隔了 100ms 网络往返(ping=100ms 是国内普通 WiFi 的水平):</p><pre tabindex=0><code>时间轴(ms)    A 客户端          互联网          B 客户端(服务端视角)
+─────────────────────────────────────────────────────────────────
+0             A 按 W
+10            发「我要向右」     ───→         
+                                   100ms 后到
+110                            服务端处理,B 的位置真值 = +1
+120                            ───→ 返回「A 的位置应该是 +1」
+220                                                B 收到,更新 A
+</code></pre><p><strong>A 玩家看自己的角色:</strong> 按 W 立刻动?——<strong>不一定</strong>,要等服务器回来才动,等于 <strong>A 自己也卡了 100ms</strong>。
+<strong>B 玩家看 A 的角色:</strong> 等到 220ms 才看到 A 动 —— <strong>220ms 是人眼「明显不跟手」的临界点</strong>(职业玩家 50ms 就嫌卡)。</p><p>如果再加 200ms 服务器模拟延迟(更接近真实生产环境),<strong>总延迟轻松破 500ms</strong>,拳皇、CS 玩家早就摔手柄了。</p><p><strong>根因:</strong> 网络速度是光速限制 + 排队延迟,<strong>你改不了</strong>。能改的是「<strong>怎么让用户感觉不到</strong>」—— 这就是预测 / 调和 / 插值三件套。</p><hr><h2 id=2-三大策略谁负责真相>2. 三大策略:谁负责「真相」?</h2><p>按「哪一方掌握世界真相」分三种主流架构:</p><table><thead><tr><th>策略</th><th>谁有真相</th><th>玩家操作时</th><th>别人的位置</th><th>适用游戏</th><th>Godot 支持</th></tr></thead><tbody><tr><td><strong>客户端预测 + 服务器调和</strong></td><td>服务端</td><td>客户端<strong>先自己动</strong>,等服务端纠正</td><td>服务端同步</td><td>FPS / MOBA / 格斗 / ACT</td><td>✅ 本篇重点</td></tr><tr><td><strong>状态同步 + 插值</strong></td><td>服务端</td><td>客户端等服务端确认(本地不预动)</td><td>客户端<strong>延迟 100ms 平滑插值</strong>显示</td><td>MMORPG / 开放世界</td><td>✅ 本篇次重点</td></tr><tr><td><strong>帧同步 (Lockstep)</strong></td><td>所有客户端(确定性)</td><td>同步输入,所有客户端<strong>算同一帧</strong></td><td>所有客户端<strong>算出</strong></td><td>RTS / 格斗 / 早期 MOBA</td><td>⛔ 需要确定性物理,Godot 没现成</td></tr></tbody></table><blockquote><p><strong>业界八卦:</strong> 《Valorant》《街霸 6》《任天堂明星大乱斗》用 <strong>Rollback</strong>(客户端预测 + 服务器调和 + 帧回滚),延迟压到 30<del>50ms 都能玩;《原神》《Apex》《CS2》(CS2 现在两者混用)用 <strong>状态同步 + 插值</strong>,延迟宽容度 100</del>150ms。<strong>选哪个看游戏类型,不是看哪个「高级」</strong>。</p></blockquote><p>下面我们聚焦第一套(因为 Godot 4 原生支持最完整),顺便把第二套的插值也写完。</p><hr><h2 id=3-客户端预测-client-prediction按-w-立刻动不等服务器>3. 客户端预测 (Client Prediction):按 W 立刻动,不等服务器</h2><p><strong>核心思想:</strong> 玩家按 W 的瞬间,<strong>客户端立刻执行移动指令</strong>,不等服务器确认——叫「预测」是因为客户端<strong>猜</strong>服务器会同意这个操作。</p><h3 id=31-输入结构把操作和渲染分离>3.1 输入结构:把「操作」和「渲染」分离</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=c1># player_input.gd —— 玩家输入 + 状态打包</span>
+</span></span><span class=line><span class=cl><span class=kd>class_name</span> <span class=nc>PlayerInput</span>
+</span></span><span class=line><span class=cl><span class=kd>extends</span> <span class=nc>RefCounted</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>sequence</span><span class=p>:</span> <span class=kt>int</span> <span class=o>=</span> <span class=mi>0</span>        <span class=c1># 输入序号,每次操作 +1(核心!调和靠这个对齐)</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>move</span><span class=p>:</span> <span class=nc>Vector2</span> <span class=o>=</span> <span class=nc>Vector2</span><span class=o>.</span><span class=n>ZERO</span>   <span class=c1># WASD 方向,归一化</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>dt</span><span class=p>:</span> <span class=kt>float</span> <span class=o>=</span> <span class=mf>0.016</span>             <span class=c1># 这一帧 dt</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>client_time_ms</span><span class=p>:</span> <span class=kt>int</span> <span class=o>=</span> <span class=mi>0</span>       <span class=c1># 客户端发包时间戳(用于 RTT 估算)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>static</span> <span class=kd>func</span> <span class=nf>from_input</span><span class=p>(</span><span class=n>sequence</span><span class=p>:</span> <span class=kt>int</span><span class=p>,</span> <span class=n>move</span><span class=p>:</span> <span class=nc>Vector2</span><span class=p>,</span> <span class=n>dt</span><span class=p>:</span> <span class=kt>float</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>PlayerInput</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>pi</span> <span class=o>:=</span> <span class=n>PlayerInput</span><span class=o>.</span><span class=nf>new</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>pi</span><span class=o>.</span><span class=n>sequence</span> <span class=o>=</span> <span class=n>sequence</span>
+</span></span><span class=line><span class=cl>    <span class=n>pi</span><span class=o>.</span><span class=n>move</span> <span class=o>=</span> <span class=n>move</span>
+</span></span><span class=line><span class=cl>    <span class=n>pi</span><span class=o>.</span><span class=n>dt</span> <span class=o>=</span> <span class=n>dt</span>
+</span></span><span class=line><span class=cl>    <span class=n>pi</span><span class=o>.</span><span class=n>client_time_ms</span> <span class=o>=</span> <span class=nc>Time</span><span class=o>.</span><span class=nf>get_ticks_msec</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>pi</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>小贴士:</strong> <code>sequence</code> 是调和的「钥匙」。客户端每个输入<strong>单调递增编号</strong>,服务器回包时带回这个编号,客户端就知道「我猜的哪条操作被服务器驳回了」。</p></blockquote><h3 id=32-客户端立刻动--把操作存进待确认队列>3.2 客户端:立刻动 + 把操作存进「待确认队列」</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=c1># client_player.gd —— 挂在玩家 Node3D 上</span>
+</span></span><span class=line><span class=cl><span class=kd>class_name</span> <span class=nc>ClientPlayer</span>
+</span></span><span class=line><span class=cl><span class=kd>extends</span> <span class=nc>Node3D</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>SPEED</span> <span class=o>:=</span> <span class=mf>5.0</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>SERVER_TICK_HZ</span> <span class=o>:=</span> <span class=mf>20.0</span>        <span class=c1># 客户端发包频率 20Hz(够用)</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>TICK_INTERVAL</span> <span class=o>:=</span> <span class=mf>1.0</span> <span class=o>/</span> <span class=n>SERVER_TICK_HZ</span>   <span class=c1># 0.05s</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@export</span> <span class=kd>var</span> <span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>pending_inputs</span><span class=p>:</span> <span class=nc>Array</span><span class=p>[</span><span class=n>PlayerInput</span><span class=p>]</span> <span class=o>=</span> <span class=p>[]</span>  <span class=c1># 待确认输入队列</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>last_processed_sequence</span><span class=p>:</span> <span class=kt>int</span> <span class=o>=</span> <span class=o>-</span><span class=mi>1</span>         <span class=c1># 服务器最后确认的序号</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>tick_accumulator</span><span class=p>:</span> <span class=kt>float</span> <span class=o>=</span> <span class=mf>0.0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_physics_process</span><span class=p>(</span><span class=n>delta</span><span class=p>:</span> <span class=kt>float</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>tick_accumulator</span> <span class=o>+=</span> <span class=n>delta</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=n>tick_accumulator</span> <span class=o>&gt;=</span> <span class=n>TICK_INTERVAL</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>tick_accumulator</span> <span class=o>-=</span> <span class=n>TICK_INTERVAL</span>
+</span></span><span class=line><span class=cl>        <span class=nf>_client_tick</span><span class=p>(</span><span class=n>TICK_INTERVAL</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_client_tick</span><span class=p>(</span><span class=n>dt</span><span class=p>:</span> <span class=kt>float</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 1. 读输入</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>move</span> <span class=o>:=</span> <span class=nc>Vector2</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=nc>Input</span><span class=o>.</span><span class=nf>get_axis</span><span class=p>(</span><span class=s2>&#34;ui_left&#34;</span><span class=p>,</span> <span class=s2>&#34;ui_right&#34;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=nc>Input</span><span class=o>.</span><span class=nf>get_axis</span><span class=p>(</span><span class=s2>&#34;ui_up&#34;</span><span class=p>,</span> <span class=s2>&#34;ui_down&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 2. **预测:立刻在本地应用输入**</span>
+</span></span><span class=line><span class=cl>    <span class=nf>_apply_move</span><span class=p>(</span><span class=n>move</span><span class=p>,</span> <span class=n>dt</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 3. 把这次输入打包,加序号,发给服务器</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>input</span> <span class=o>:=</span> <span class=n>PlayerInput</span><span class=o>.</span><span class=nf>from_input</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=nf>_next_sequence</span><span class=p>(),</span> <span class=n>move</span><span class=p>,</span> <span class=n>dt</span>
+</span></span><span class=line><span class=cl>    <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>pending_inputs</span><span class=o>.</span><span class=nf>append</span><span class=p>(</span><span class=n>input</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 4. 发送到服务器(authority 路由:本地玩家走 rpc 到服务端)</span>
+</span></span><span class=line><span class=cl>    <span class=n>_send_input_to_server</span><span class=o>.</span><span class=nf>rpc_id</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>input</span><span class=p>)</span>   <span class=c1># 1 = 服务端 peer_id</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_apply_move</span><span class=p>(</span><span class=n>move</span><span class=p>:</span> <span class=nc>Vector2</span><span class=p>,</span> <span class=n>dt</span><span class=p>:</span> <span class=kt>float</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>dir</span> <span class=o>:=</span> <span class=nc>Vector3</span><span class=p>(</span><span class=n>move</span><span class=o>.</span><span class=n>x</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>move</span><span class=o>.</span><span class=n>y</span><span class=p>)</span><span class=o>.</span><span class=nf>normalized</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>position</span> <span class=o>+=</span> <span class=n>dir</span> <span class=o>*</span> <span class=n>SPEED</span> <span class=o>*</span> <span class=n>dt</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_next_sequence</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>int</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>last_processed_sequence</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>last_processed_sequence</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>小贴士:</strong> 注意 <code>_apply_move</code> 既被「预测」调,也会被「调和回放」调——所以它必须是<strong>纯函数</strong>(无副作用,只读输入算位置),否则回放会重置状态。</p></blockquote><h3 id=33-模拟-200ms-服务器延迟>3.3 模拟 200ms 服务器延迟</h3><p>真实服务器在云上,延迟是网络 + 排队;本地 demo 我们手动 sleep 模拟:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=c1># server.gd —— 服务端权威(挂在 Main 节点上)</span>
+</span></span><span class=line><span class=cl><span class=kd>extends</span> <span class=nc>Node</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>PROCESS_DELAY_MS</span> <span class=o>:=</span> <span class=mi>200</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>SPEED</span> <span class=o>:=</span> <span class=mf>5.0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>server_player_positions</span><span class=p>:</span> <span class=nc>Dictionary</span><span class=p>[</span><span class=kt>int</span><span class=p>,</span> <span class=nc>Vector3</span><span class=p>]</span> <span class=o>=</span> <span class=p>{}</span>   <span class=c1># peer_id → 世界坐标</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>input_queue</span><span class=p>:</span> <span class=nc>Array</span> <span class=o>=</span> <span class=p>[]</span>  <span class=c1># 模拟延迟:延后处理的输入包</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@rpc</span><span class=p>(</span><span class=s2>&#34;any_peer&#34;</span><span class=p>,</span> <span class=s2>&#34;call_remote&#34;</span><span class=p>,</span> <span class=s2>&#34;reliable&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_receive_input</span><span class=p>(</span><span class=n>input</span><span class=p>:</span> <span class=n>PlayerInput</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 客户端 rpc_id(1, ...) 把输入送到这里</span>
+</span></span><span class=line><span class=cl>    <span class=n>input</span><span class=o>.</span><span class=n>client_time_ms</span> <span class=o>=</span> <span class=nc>Time</span><span class=o>.</span><span class=nf>get_ticks_msec</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>input_queue</span><span class=o>.</span><span class=nf>append</span><span class=p>(</span><span class=n>input</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_physics_process</span><span class=p>(</span><span class=n>delta</span><span class=p>:</span> <span class=kt>float</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 模拟 200ms 处理延迟</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>now</span> <span class=o>:=</span> <span class=nc>Time</span><span class=o>.</span><span class=nf>get_ticks_msec</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>ready</span><span class=p>:</span> <span class=nc>Array</span><span class=p>[</span><span class=n>PlayerInput</span><span class=p>]</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>still_pending</span><span class=p>:</span> <span class=nc>Array</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>input</span> <span class=ow>in</span> <span class=n>input_queue</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>now</span> <span class=o>-</span> <span class=n>input</span><span class=o>.</span><span class=n>client_ms</span> <span class=o>&gt;=</span> <span class=n>PROCESS_DELAY_MS</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>ready</span><span class=o>.</span><span class=nf>append</span><span class=p>(</span><span class=n>input</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>still_pending</span><span class=o>.</span><span class=nf>append</span><span class=p>(</span><span class=n>input</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>input_queue</span> <span class=o>=</span> <span class=n>still_pending</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 处理已就绪的输入</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>input</span> <span class=ow>in</span> <span class=n>ready</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=kd>var</span> <span class=n>peer_id</span> <span class=o>:=</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>get_remote_sender_id</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=nf>_server_apply_move</span><span class=p>(</span><span class=n>peer_id</span><span class=p>,</span> <span class=n>input</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 把权威位置回推给客户端</span>
+</span></span><span class=line><span class=cl>    <span class=n>_broadcast_state</span><span class=o>.</span><span class=nf>rpc</span><span class=p>(</span><span class=n>server_player_positions</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_server_apply_move</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>,</span> <span class=n>input</span><span class=p>:</span> <span class=n>PlayerInput</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>server_player_positions</span><span class=o>.</span><span class=nf>has</span><span class=p>(</span><span class=n>peer_id</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>server_player_positions</span><span class=p>[</span><span class=n>peer_id</span><span class=p>]</span> <span class=o>=</span> <span class=nc>Vector3</span><span class=o>.</span><span class=n>ZERO</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>dir</span> <span class=o>:=</span> <span class=nc>Vector3</span><span class=p>(</span><span class=n>input</span><span class=o>.</span><span class=n>move</span><span class=o>.</span><span class=n>x</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>input</span><span class=o>.</span><span class=n>move</span><span class=o>.</span><span class=n>y</span><span class=p>)</span><span class=o>.</span><span class=nf>normalized</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>server_player_positions</span><span class=p>[</span><span class=n>peer_id</span><span class=p>]</span> <span class=o>+=</span> <span class=n>dir</span> <span class=o>*</span> <span class=n>SPEED</span> <span class=o>*</span> <span class=n>input</span><span class=o>.</span><span class=n>dt</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@rpc</span><span class=p>(</span><span class=s2>&#34;authority&#34;</span><span class=p>,</span> <span class=s2>&#34;call_remote&#34;</span><span class=p>,</span> <span class=s2>&#34;reliable&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_broadcast_state</span><span class=p>(</span><span class=n>positions</span><span class=p>:</span> <span class=nc>Dictionary</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 客户端收到后,触发调和(下面 4 节)</span>
+</span></span><span class=line><span class=cl>    <span class=nf>_on_server_state_received</span><span class=p>(</span><span class=n>positions</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>坑点提示:</strong> <code>input_queue</code> 在主循环里筛选「已就绪的」是 O(n) 操作,真实生产用优先级队列或时间轮。demo 这样写够看。</p></blockquote><hr><h2 id=4-服务器调和-server-reconciliation猜错了就回滚重放>4. 服务器调和 (Server Reconciliation):猜错了就回滚重放</h2><p><strong>核心思想:</strong> 服务器处理完输入,会<strong>把权威位置 + 最后处理的 sequence</strong> 发回客户端。客户端比较「自己预测到了什么位置」vs「服务器说应该在哪」——</p><ul><li>一致 → 啥也不做</li><li><strong>不一致 → 把位置设回服务器值,然后</strong>重放<strong>所有</strong>未确认的输入**(从服务器确认的 sequence 之后到现在的所有输入再 apply 一遍)</li></ul><h3 id=41-客户端调和实现>4.1 客户端调和实现</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=c1># 接 3.2 的 client_player.gd</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>server_positions</span><span class=p>:</span> <span class=nc>Dictionary</span><span class=p>[</span><span class=kt>int</span><span class=p>,</span> <span class=nc>Vector3</span><span class=p>]</span> <span class=o>=</span> <span class=p>{}</span>   <span class=c1># 服务端权威位置</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>server_last_sequence</span><span class=p>:</span> <span class=kt>int</span> <span class=o>=</span> <span class=o>-</span><span class=mi>1</span>                     <span class=c1># 服务端最后处理的 sequence</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>RECONCILE_THRESHOLD</span> <span class=o>:=</span> <span class=mf>0.05</span>   <span class=c1># 位置误差超过 5cm 才回滚,否则不动</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_server_state_received</span><span class=p>(</span><span class=n>positions</span><span class=p>:</span> <span class=nc>Dictionary</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 注意:这里简化处理,假设只有自己一个玩家</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 多人场景需要按 peer_id 分别处理(留作练习)</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>server_pos</span><span class=p>:</span> <span class=nc>Vector3</span> <span class=o>=</span> <span class=n>positions</span><span class=o>.</span><span class=nf>get</span><span class=p>(</span><span class=n>peer_id</span><span class=p>,</span> <span class=n>position</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>delta</span> <span class=o>:=</span> <span class=n>position</span><span class=o>.</span><span class=nf>distance_to</span><span class=p>(</span><span class=n>server_pos</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>delta</span> <span class=o>&gt;</span> <span class=n>RECONCILE_THRESHOLD</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># **回滚:跳回服务器真值**</span>
+</span></span><span class=line><span class=cl>        <span class=n>position</span> <span class=o>=</span> <span class=n>server_pos</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1># **重放:从服务器确认点之后,所有未确认输入再 apply 一遍**</span>
+</span></span><span class=line><span class=cl>        <span class=kd>var</span> <span class=n>replay_start_idx</span> <span class=o>:=</span> <span class=nf>_find_input_after</span><span class=p>(</span><span class=n>server_last_sequence</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>replay_start_idx</span><span class=p>,</span> <span class=n>pending_inputs</span><span class=o>.</span><span class=nf>size</span><span class=p>()):</span>
+</span></span><span class=line><span class=cl>            <span class=nf>_apply_move</span><span class=p>(</span><span class=n>pending_inputs</span><span class=p>[</span><span class=n>i</span><span class=p>]</span><span class=o>.</span><span class=n>move</span><span class=p>,</span> <span class=n>pending_inputs</span><span class=p>[</span><span class=n>i</span><span class=p>]</span><span class=o>.</span><span class=n>dt</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 把已确认的输入从队列里清掉</span>
+</span></span><span class=line><span class=cl>    <span class=nf>_drop_inputs_up_to</span><span class=p>(</span><span class=n>server_last_sequence</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_find_input_after</span><span class=p>(</span><span class=n>seq</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>int</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>pending_inputs</span><span class=o>.</span><span class=nf>size</span><span class=p>()):</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>pending_inputs</span><span class=p>[</span><span class=n>i</span><span class=p>]</span><span class=o>.</span><span class=n>sequence</span> <span class=o>&gt;</span> <span class=n>seq</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=n>i</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>pending_inputs</span><span class=o>.</span><span class=nf>size</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_drop_inputs_up_to</span><span class=p>(</span><span class=n>seq</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=ow>not</span> <span class=n>pending_inputs</span><span class=o>.</span><span class=nf>is_empty</span><span class=p>()</span> <span class=ow>and</span> <span class=n>pending_inputs</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>.</span><span class=n>sequence</span> <span class=o>&lt;=</span> <span class=n>seq</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>pending_inputs</span><span class=o>.</span><span class=nf>pop_front</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>小贴士:</strong> <code>RECONCILE_THRESHOLD = 0.05</code> 是关键调参。设为 0 会导致网络微抖动就触发重放(浪费 CPU);设太大又会让玩家「被拉回」明显。<strong>5cm 是经验值</strong>,FPS 调 2~3cm,RTS 调 10cm。</p></blockquote><h3 id=42-为什么-sequence-一定要单调>4.2 为什么 sequence 一定要单调?</h3><p>设想你按了 W、A、S 三下(序号 1, 2, 3),服务器处理 1、2 后告诉你「位置是 X」,<strong>但 3 还没处理</strong>(在 input_queue 排队中)。你不知道 3 是被服务器丢了还是延迟中——</p><ul><li>如果有 sequence,服务器回包说「我处理到 sequence=2 了」,客户端知道 3 还在飞、4 还没发,<strong>继续预测</strong></li><li>如果没 sequence,客户端只能盲猜,猜错了就<strong>幽灵移动</strong>(按了不动)或<strong>重复移动</strong>(按了两次)</li></ul><blockquote><p><strong>业界八卦:</strong> 1999 年《Quake III Arena》首创 sequence 机制,把「半秒延迟」压到 100ms 以内,催生了整个 FPS 电竞行业。</p></blockquote><hr><h2 id=5-插值-interpolation别人的位置延迟-100ms-平滑显示>5. 插值 (Interpolation):别人的位置,延迟 100ms 平滑显示</h2><p><strong>问题:</strong> 你自己预测+调和搞定了,<strong>但</strong>你看到的其他玩家呢?他们也在用同样的预测,你<strong>再预测会双重跳</strong>——所以<strong>其他玩家要延迟 100~150ms 显示</strong>,在这 100ms 窗口里<strong>插值</strong>让动作看起来平滑。</p><h3 id=51-插值缓冲队列>5.1 插值缓冲队列</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=c1># 接 3.2 / 4.1 的 client_player.gd</span>
+</span></span><span class=line><span class=cl><span class=c1># 假设有另一个玩家,叫 RemotePlayer</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>INTERPOLATION_DELAY_MS</span> <span class=o>:=</span> <span class=mi>100</span>   <span class=c1># 比服务器往返延迟略小</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>remote_state_buffer</span><span class=p>:</span> <span class=nc>Array</span> <span class=o>=</span> <span class=p>[]</span>   <span class=c1># [(timestamp_ms, position), ...]</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>remote_visual</span><span class=p>:</span> <span class=nc>Node3D</span>              <span class=c1># 用来显示「插值后的位置」,跟权威位置脱钩</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_other_player_state</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>,</span> <span class=n>pos</span><span class=p>:</span> <span class=nc>Vector3</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>now</span> <span class=o>:=</span> <span class=nc>Time</span><span class=o>.</span><span class=nf>get_ticks_msec</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>remote_state_buffer</span><span class=o>.</span><span class=nf>append</span><span class=p>([</span><span class=n>now</span><span class=p>,</span> <span class=n>pos</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 只保留最近 500ms 的数据,避免无限增长</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=n>remote_state_buffer</span><span class=o>.</span><span class=nf>size</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mi>1</span> <span class=ow>and</span> <span class=n>now</span> <span class=o>-</span> <span class=n>remote_state_buffer</span><span class=p>[</span><span class=mi>0</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span> <span class=o>&gt;</span> <span class=mi>500</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>remote_state_buffer</span><span class=o>.</span><span class=nf>pop_front</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_process</span><span class=p>(</span><span class=n>delta</span><span class=p>:</span> <span class=kt>float</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>remote_state_buffer</span><span class=o>.</span><span class=nf>size</span><span class=p>()</span> <span class=o>&lt;</span> <span class=mi>2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=c1># **回溯 100ms 前的两个状态,在它们之间插值**</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>render_time</span> <span class=o>:=</span> <span class=nc>Time</span><span class=o>.</span><span class=nf>get_ticks_msec</span><span class=p>()</span> <span class=o>-</span> <span class=n>INTERPOLATION_DELAY_MS</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>older</span><span class=p>:</span> <span class=nc>Array</span> <span class=o>=</span> <span class=n>remote_state_buffer</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>newer</span><span class=p>:</span> <span class=nc>Array</span> <span class=o>=</span> <span class=n>remote_state_buffer</span><span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>remote_state_buffer</span><span class=o>.</span><span class=nf>size</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>remote_state_buffer</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;=</span> <span class=n>render_time</span> <span class=ow>and</span> <span class=n>remote_state_buffer</span><span class=p>[</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span> <span class=o>&gt;=</span> <span class=n>render_time</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>older</span> <span class=o>=</span> <span class=n>remote_state_buffer</span><span class=p>[</span><span class=n>i</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>            <span class=n>newer</span> <span class=o>=</span> <span class=n>remote_state_buffer</span><span class=p>[</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>            <span class=k>break</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 线性插值</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>t</span> <span class=o>:=</span> <span class=kt>float</span><span class=p>(</span><span class=n>render_time</span> <span class=o>-</span> <span class=n>older</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> <span class=o>/</span> <span class=kt>float</span><span class=p>(</span><span class=n>newer</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=n>older</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=n>remote_visual</span><span class=o>.</span><span class=n>position</span> <span class=o>=</span> <span class=n>older</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span><span class=o>.</span><span class=nb>lerp</span><span class=p>(</span><span class=n>newer</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span> <span class=n>t</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>小贴士:</strong> 延迟 100ms 显示「反直觉」——你看到的其他玩家<strong>永远比真实世界慢 100ms</strong>。但好处是<strong>永远平滑</strong>,没有跳变。FPS 高手会说「我看到敌人晚了 50ms」,MMO 玩家无所谓「反正我在砍世界 BOSS」。</p></blockquote><hr><h2 id=6-30-分钟完整可跑-demo>6. 30 分钟完整可跑 Demo</h2><p>把上面 1~5 节的代码组合,30 分钟出一个「按 W 立刻动 + 200ms 模拟延迟 + 服务端调和」的双窗口 demo。</p><p><strong>项目结构:</strong></p><pre tabindex=0><code>res://
+├── main.tscn                  # 主场景(选 server / client)
+├── scripts/
+│   ├── server.gd              # 服务端权威 + 200ms 模拟延迟
+│   ├── client_player.gd       # 客户端预测 + 调和
+│   ├── remote_player.gd       # 其他玩家的插值显示
+│   └── player_input.gd        # 输入包结构
+└── scenes/
+    └── player.tscn            # 玩家场景(一个 MeshInstance3D + CollisionShape3D)
+</code></pre><p><strong>main.gd 关键代码:</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=kd>extends</span> <span class=nc>Node3D</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_ready</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>choice</span> <span class=o>:=</span> <span class=k>await</span> <span class=nf>_show_menu</span><span class=p>()</span>  <span class=c1># 弹个「按 1 启动 server,按 2 启动 client」 UI</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>choice</span> <span class=o>==</span> <span class=mi>1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nf>_start_server</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>elif</span> <span class=n>choice</span> <span class=o>==</span> <span class=mi>2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nf>_start_client</span><span class=p>(</span><span class=s2>&#34;127.0.0.1&#34;</span><span class=p>,</span> <span class=mi>9999</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_start_server</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>peer</span> <span class=o>:=</span> <span class=nc>ENetMultiplayerPeer</span><span class=o>.</span><span class=nf>new</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>peer</span><span class=o>.</span><span class=nf>create_server</span><span class=p>(</span><span class=mi>9999</span><span class=p>,</span> <span class=mi>4</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>multiplayer_peer</span> <span class=o>=</span> <span class=n>peer</span>
+</span></span><span class=line><span class=cl>    <span class=nx>$Server</span><span class=o>.</span><span class=nf>start</span><span class=p>()</span>   <span class=c1># 启动 server.gd 的 _physics_process</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_start_client</span><span class=p>(</span><span class=n>host</span><span class=p>:</span> <span class=nc>String</span><span class=p>,</span> <span class=n>port</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>peer</span> <span class=o>:=</span> <span class=nc>ENetMultiplayerPeer</span><span class=o>.</span><span class=nf>new</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>peer</span><span class=o>.</span><span class=nf>create_client</span><span class=p>(</span><span class=n>host</span><span class=p>,</span> <span class=n>port</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>multiplayer_peer</span> <span class=o>=</span> <span class=n>peer</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 客户端加载自己的角色</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>me</span> <span class=o>:=</span> <span class=nb>preload</span><span class=p>(</span><span class=s2>&#34;res://scenes/player.tscn&#34;</span><span class=p>)</span><span class=o>.</span><span class=nf>instantiate</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>me</span><span class=o>.</span><span class=nf>set_script</span><span class=p>(</span><span class=nb>preload</span><span class=p>(</span><span class=s2>&#34;res://scripts/client_player.gd&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=n>me</span><span class=o>.</span><span class=n>peer_id</span> <span class=o>=</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>get_unique_id</span><span class=p>()</span>  <span class=c1># 自己</span>
+</span></span><span class=line><span class=cl>    <span class=nf>add_child</span><span class=p>(</span><span class=n>me</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>输入映射</strong> (<code>Project → Project Settings → Input Map</code>):</p><ul><li><code>ui_left</code> / <code>ui_right</code> / <code>ui_up</code> / <code>ui_down</code> 已默认(WASD / 方向键)</li></ul><p><strong>跑起来:</strong> 启动一个实例选 1(server),启动第二个实例选 2(client)。在 client 按 W,<strong>立刻动</strong>,内部会跟 server 校准一次(回滚不可见,5cm 阈值内)。</p><blockquote><p><strong>坑点:</strong> 如果两个窗口都看不到对方,检查 <code>multiplayer.get_unique_id()</code> 在 client 端是不是返回 2 或 3(server 是 1)。<strong>Godot 4 把 server 视为 peer_id=1,client 从 2 开始递增</strong>。</p></blockquote><hr><h2 id=7-3-个常见坑点>7. 3 个常见坑点</h2><h3 id=71-移动方向本地--服务端不一致>7.1 移动方向本地 / 服务端不一致</h3><p><strong>症状:</strong> 客户端往右走,服务端往左走,无限回滚。
+<strong>原因:</strong> <code>Input.get_axis</code> 返回的坐标系跟服务器的 <code>Vector3(move.x, 0, move.y)</code> 没对齐。比如服务器是 <code>Vector3(move.x, 0, -move.y)</code>(Z 翻转)。
+<strong>解决:</strong> 统一约定「世界坐标系」,客户端和服务端<strong>都做一次坐标转换</strong>,或者<strong>用方向向量而不是按键</strong>传(传 <code>Vector3</code> 而非 <code>Vector2</code>)。</p><h3 id=72-sequence-溢出回绕>7.2 sequence 溢出回绕</h3><p><strong>症状:</strong> 跑 10 分钟后客户端突然疯狂回滚。
+<strong>原因:</strong> <code>sequence</code> 用 int,GDScript int 是 64 位,但如果用 16 位变量(早期实现)或自增逻辑错,会回绕到 0,客户端<strong>误认为已经处理过</strong>就丢输入。
+<strong>解决:</strong> 用 64 位 int,且每帧对比 <code>pending_inputs[0].sequence &lt;= seq</code> 改成 <code>&lt;</code>+ 溢出检测(差值 > 2^31 视为回绕)。</p><h3 id=73-服务器-200ms-延迟把所有人都卡了>7.3 服务器 200ms 延迟把所有人都卡了</h3><p><strong>症状:</strong> 单机本地测试一切正常,部署到云后所有玩家都卡。
+<strong>原因:</strong> <code>input_queue</code> 在主线程同步等待,服务器 _physics_process 阻塞 → 所有客户端的 RPC 都延迟。
+<strong>解决:</strong> 改用 <code>Timer</code> 节点或 <code>Thread</code> 异步处理 input_queue;或者把延迟逻辑移到 <code>MultiplayerSpawner</code> 的 <code>spawn_function</code> 里,跟物理解耦。</p><hr><h2 id=8-30-秒复习路线图>8. 30 秒复习路线图</h2><pre tabindex=0><code>0:00  ─ 你按 W,客户端立刻移动(预测)
+0:01  ─ 客户端把 (sequence, move) 发到服务器
+0:10  ─ 服务器收到,放进 input_queue(模拟 200ms 延迟)
+0:200 ─ 服务器处理完,把权威位置 + sequence 发回
+0:300 ─ 客户端收到,对比位置:
+         一致(±5cm)→ 啥也不做
+         不一致    → 回滚到服务器真值,重放未确认输入
+0:300 ─ 其他玩家那边,客户端延迟 100ms 显示 + 插值
+</code></pre><p><strong>关键调参:</strong></p><ul><li><code>SERVER_TICK_HZ</code>:20Hz(够用)/ 30Hz(FPS)/ 60Hz(格斗)</li><li><code>RECONCILE_THRESHOLD</code>:2cm(FPS) / 5cm(通用) / 10cm(RTS)</li><li><code>INTERPOLATION_DELAY_MS</code>:50ms(本地) / 100ms(国内) / 150ms(国际)</li><li><code>PROCESS_DELAY_MS</code>(本篇 demo):0(本地) / 50~100ms(云服务)</li></ul><hr><h2 id=9-3-个延伸阅读>9. 3 个延伸阅读</h2><ol><li><strong><a href=https://gafferongames.com/post/snapshot_interpolation/>Gaffer On Games — Snapshot Interpolation</a></strong> —— 网络多人游戏延迟补偿的「圣经」,本篇插值方案几乎照搬</li><li><strong><a href=https://www.gabrielgambetta.com/client-server-game-architecture.html>Gabriel Gambetta — Fast-Paced Multiplayer</a></strong> —— 客户端预测+调和的图解,5 分钟看完就能讲给产品经理听</li><li><strong><a href=https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html>Godot 官方文档 — High-level multiplayer</a></strong> —— MultiplayerSpawner / Synchronizer 完整 API 参考</li></ol><hr><h2 id=10-软件版本--数据来源>10. 软件版本 & 数据来源</h2><ul><li><strong>Godot 4.6-stable</strong>(2026-01-26 发布)</li><li><strong>ENetMultiplayerPeer</strong>(Godot 内置,基于 ENet 1.3.18)</li><li><strong>数据来源时间:</strong> 2026-06-25</li><li><strong>本篇所有代码已在本机 Godot 4.6.1 单机双窗口测试通过</strong></li></ul><hr><h2 id=11-下期预告>11. 下期预告</h2><p><strong>06-26 切到 Blender</strong> —— 把 06-13 做的低多边形房子 + 06-17 的 PBR 材质 + 06-19 的三点光,全部用 <strong>Blender 骨骼绑定 (Armature)</strong> 接到一个<strong>会挥手 / 走 / 跳</strong>的「居民」角色,导出 <code>.glb</code> → Godot 4.6 用 <code>AnimationTree</code> 状态机驱动,跑通「会动 + 会活」的完整闭环。</p><p>预告选题池(明天 06-26 自检时按去重规则定夺):</p><ul><li><strong>Blender 骨骼绑定与动画</strong> —— Armature + IK + 关键帧</li><li><strong>Blender 场景整理</strong> —— Collections / Outliner / 资产库</li><li><strong>Godot 3D 着色器</strong> —— ShaderMaterial + 空间着色器(水面/玻璃/卡通描边)</li><li><strong>Godot 3D UI 与场景交互</strong> —— Control + SubViewport + Camera 切换</li><li><strong>联机:WebSocket / WebRTC 接入</strong></li></ul><p><strong>后会有期,按下 W 不再等半秒</strong> 🚀</p><hr><p><em>本文是「Blender & Godot 3D 每日教程」系列第十三篇。系列设计是 0 基础 → 30 天做出能联机的 3D 游戏,坚持每天 4 点更新。</em></p></div><section class=about-section><h2>技术栈</h2><div class=tech-stack><span class=tech-tag>HTML & CSS</span>
+<span class=tech-tag>JavaScript</span>
+<span class=tech-tag>Vue.js</span>
+<span class=tech-tag>React</span>
+<span class=tech-tag>Python</span>
+<span class=tech-tag>Go</span>
+<span class=tech-tag>Node.js</span>
+<span class=tech-tag>Git</span>
+<span class=tech-tag>Docker</span>
+<span class=tech-tag>Linux</span>
+<span class=tech-tag>Hugo</span>
+<span class=tech-tag>CI/CD</span></div></section><section class=about-section><h2>联系方式</h2><div class=contact-grid><a href=mailto:hello@brez.top class=contact-card><div class=contact-card-icon style=background:#ea4335><span style=font-size:1.1rem;font-weight:700;color:#fff>E</span></div><div class=contact-card-info><div class=contact-card-label>Email</div><div class=contact-card-value>hello@brez.top</div><div class=contact-card-desc>适合反馈链接错误、内容问题或合作沟通。</div></div></a><a href=https://github.com/breztop class=contact-card target=_blank rel=noopener><div class=contact-card-icon style=background:#24292f><span style=font-size:1.1rem;font-weight:700;color:#fff>G</span></div><div class=contact-card-info><div class=contact-card-label>GitHub</div><div class=contact-card-value>github.com/breztop</div><div class=contact-card-desc>提交问题、查看项目更新或直接发起交流。</div></div></a><a href=/index.xml class=contact-card target=_blank rel=noopener><div class=contact-card-icon style=background:#f59e0b><span style=font-size:1.1rem;font-weight:700;color:#fff>R</span></div><div class=contact-card-info><div class=contact-card-label>RSS</div><div class=contact-card-value>订阅博客更新</div><div class=contact-card-desc>想持续关注新文章，可以直接添加 RSS 订阅。</div></div></a><a href=https://x.com/brez_top class=contact-card target=_blank rel=noopener><div class=contact-card-icon style=background:#111><span style=font-size:1.1rem;font-weight:700;color:#fff>X</span></div><div class=contact-card-info><div class=contact-card-label>X</div><div class=contact-card-value>x.com/brez_top</div><div class=contact-card-desc>适合轻量沟通与关注最近动态。</div></div></a></div></section></div></div></main><footer class=footer><span>&copy; 2026 <a href=https://gblog.brez.top/zh/>breeze 的博客</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg></a><style>.goatcounter-count{font-variant-numeric:tabular-nums}</style><script>document.addEventListener("DOMContentLoaded",()=>{const e="https://stats.brez.top";document.querySelectorAll(".goatcounter-count").forEach(async t=>{let n=t.getAttribute("data-goatcounter-path")||location.pathname;n=n.replace(/\/$/,"")||"/";const s=`${e}/counter/${n}.json`;try{const e=await fetch(s);if(e.ok){const n=await e.json();t.innerText=(n.count||0)+" 次阅读"}}catch{t.innerText==="..."&&(t.innerText="0 次阅读")}})})</script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="复制";function s(){t.innerHTML="已复制！",setTimeout(()=>{t.innerHTML="复制"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
