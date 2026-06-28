@@ -1,0 +1,388 @@
+<!doctype html><html lang=zh dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>每日开源速递 - 2026-06-28 | breeze 的博客</title><meta name=keywords content="daily,github,trending"><meta name=description content="GitHub Trending 项目的深度解读与推荐"><meta name=author content="breeze"><link rel=canonical href=https://blog.brez.top/zh/posts/daily-digest-2026-06-28/><link crossorigin=anonymous href=/assets/css/stylesheet.e0ba212d7b4ed74021489f5eb5c01895cc96ff298035a781633788fd72e6333c.css integrity="sha256-4LohLXtO10AhSJ9etcAYlcyW/ymANaeBYzeI/XLmMzw=" rel="preload stylesheet" as=style><link rel=icon href=https://blog.brez.top/favicon.svg><link rel=icon type=image/png sizes=16x16 href=https://blog.brez.top/favicon.svg><link rel=icon type=image/png sizes=32x32 href=https://blog.brez.top/favicon.svg><link rel=apple-touch-icon href=https://blog.brez.top/favicon.svg><link rel=mask-icon href=https://blog.brez.top/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh href=https://blog.brez.top/zh/posts/daily-digest-2026-06-28/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><script data-goatcounter=https://stats.brez.top/count async src=//stats.brez.top/count.js></script><meta property="og:url" content="https://blog.brez.top/zh/posts/daily-digest-2026-06-28/"><meta property="og:site_name" content="breeze 的博客"><meta property="og:title" content="每日开源速递 - 2026-06-28"><meta property="og:description" content="GitHub Trending 项目的深度解读与推荐"><meta property="og:locale" content="zh"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-06-28T00:00:00+08:00"><meta property="article:modified_time" content="2026-06-28T00:00:00+08:00"><meta property="article:tag" content="Daily"><meta property="article:tag" content="Github"><meta property="article:tag" content="Trending"><meta name=twitter:card content="summary"><meta name=twitter:title content="每日开源速递 - 2026-06-28"><meta name=twitter:description content="GitHub Trending 项目的深度解读与推荐"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"杂项","item":"https://blog.brez.top/zh/posts/"},{"@type":"ListItem","position":2,"name":"每日开源速递 - 2026-06-28","item":"https://blog.brez.top/zh/posts/daily-digest-2026-06-28/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"每日开源速递 - 2026-06-28","name":"每日开源速递 - 2026-06-28","description":"GitHub Trending 项目的深度解读与推荐","keywords":["daily","github","trending"],"articleBody":"每日开源速递 - 2026年6月28日 今日 GitHub Trending 出现一个有意思的信号：个人云 + 桌面增强 + Agent 工具链 三条线同时冲榜。IceWhaleTech/CasaOS 用 “100 美元以下打造个人云” 的口号重新激活了 NAS 圈；microsoft/PowerToys 作为 Windows 桌面增强的事实标准再次被 AI 工作流带火；hugohe3/ppt-master 则用\"真可编辑 .pptx\"精准切入 AI 演示工具最大的痛点；garrytan/gstack（YC 现任 CEO 亲推）把 “Claude Code 团队化” 做成 23 个 slash 命令；持续高热的还有 simplex-chat、xbtlin/ai-berkshire、commaai/openpilot、google-labs-code/design.md、ripienaar/free-for-dev、JCodesMore/ai-website-cloner-template。下面逐个深入。\n数据来源：github.com/trending（每日 UTC 榜单） 抓取时间：2026-06-28 13:02 (Asia/Shanghai) / 2026-06-28 05:02 (UTC)\n1. simplex-chat/simplex-chat — 第一款\"无用户标识符\"的隐私通讯网络（连续两日霸榜） 核心功能 SimpleX Chat 是当前唯一一个在协议层完全去用户标识符的开源即时通讯网络：没有手机号、没有用户名、没有随机 ID、没有密钥可见的 userID——既不在消息中也不在元数据里。它基于 Double Ratchet 算法做端到端加密，并额外加一层 per-message 独立密钥协商。即便是服务器被攻破，攻击者也只能拿到无法关联到任何\"用户\"的密文块。\n平台覆盖极其完整：\niOS / Android 移动 App（App Store + Google Play + APK） macOS / Windows / Linux 桌面客户端 Haskell 编写的 CLI（开发者首选） TestFlight 预览通道 可自托管的 SMP 服务器（Docker 一行启动） SimpleX Directory 群组目录 + 一次性 SimpleX Address 适用场景 记者、律师、医生等高敏职业通讯 自托管 SMP 后做企业内部高保密对话 跨境通讯 + 规避审查/封锁 厌倦\"绑定手机号\"的所有人 安装方式 1 2 3 4 5 6 7 8 # 移动端：App Store / Google Play 搜 \"SimpleX Chat\" # 桌面端：从 GitHub Releases 下载 .dmg / .exe / .AppImage # 终端版（开发者首选） curl -fsSL https://raw.githubusercontent.com/simplex-chat/simplex-chat/stable/scripts/cmd-zap.sh | sh # 自托管 SMP 服务器 docker run -d --name smp-server -p 5223:5223 simplexchat/smp-server 代码示例 1 2 3 4 5 6 7 8 9 10 # A 用户的终端 $ simplex-chat \u003e /connect # 输出：https://smp4.simplex.im/a#\u003c一次性密钥串\u003e # 把链接发给 B # B 的终端粘贴 \u003e /connect https://smp4.simplex.im/a#\u003c一次性密钥串\u003e # 连接建立，所有消息走 E2E 加密 \u003e /help 评价 优点：\n唯一真正做到\"协议层零用户标识符\"的成熟方案（Signal/Matrix/Wire 仍有某种 ID） 客户端 + 服务器 + 协议全部开源，可独立审计 双层 E2E 加密 + 每条消息独立密钥 平台覆盖广，CLI + 桌面 + 移动 + Web 五端齐全 缺点：\n用户基数仍远小于 Signal/Telegram，“朋友也在用\"是当前最大门槛 Haskell 实现的自托管对中小团队仍有门槛 “完全隐私” = “无找回机制” 推荐指数：⭐⭐⭐⭐⭐（认真在乎元数据隐私的唯一成熟开源选择）\n2. xbtlin/ai-berkshire — AI 时代的伯克希尔：四大师方法论 + 多 Agent 对抗（昨日第 10 → 今日第 2） 核心功能 ai-berkshire 是一个把\"价值投资四大师方法论\"做成 Claude Code / Codex 可执行 Skill 的研究框架。它把巴菲特、芒格、段永平、李录四位大师的核心方法论拆解成结构化 prompt + 工作流，让多个 Agent 并行做研究并互相挑战。\n方法论即代码：每位大师的护城河、估值原则、决策模型都有独立 Skill 多 Agent 对抗：让多套方法论同时跑一份研报，输出\"共识\"与\"分歧” Claude Code / Codex 双兼容：直接放进 AI IDE 就能用 适用场景 A 股 / 港股 / 美股长期价值投资者的研究提速 AI 投研教学（把\"四大师\"具象化为可操作 prompt） 卖方/买方研究员做观点交叉验证 个人投资者做\"自上而下 + 自下而上\"快速框架搭建 安装方式 1 2 3 4 git clone https://github.com/xbtlin/ai-berkshire.git cd ai-berkshire # 在 Claude Code / Codex 中打开，skills/ 目录即为可调用 Skill claude # 或 codex 代码示例 1 2 3 4 5 6 # 让\"芒格 + 巴菲特\"双 Agent 跑同一份财报 \u003e /buffett-analyze 600519.SH --vs-methodology=buffett,munger # 输出： # - 共识：强护城河、ROE 持续 \u003e 20%、自由现金流稳健 # - 分歧：芒格认为当前估值已透支 3-5 年成长；巴菲特认为长期仍可持有 # - 建议持仓区间：\u003c 1500 元 评价 优点：\n把\"四大师\"从\"心法\"升级为\"可执行 prompt\"，对个人投资者极其实用 多 Agent 对抗 = 把\"信息盲区\"显式化 与 Claude Code / Codex 原生集成，零额外配置 缺点：\n框架本身不输出投资建议，结果仍需人判断 “方法论\"在不同市场有效性差异大，A股/港股需自行调参 依赖 LLM 模型的\"理解深度”，便宜模型效果明显打折 推荐指数：⭐⭐⭐⭐（投资研究框架的范式跃迁）\n3. commaai/openpilot — 300+ 车型的开源机器人操作系统 核心功能 openpilot 是 commaai 出品的开源驾驶辅助操作系统。它不是一个 App，而是一套完整的 robot 操作系统，替换原车 ADAS 后可解锁 300+ 款车型的自适应巡航、车道居中、车道保持等功能。\n硬件载体：comma 3X（一个小型吸顶式设备，OBD-II + 双 CAN + 摄像头） 跨车型支持：丰田 / 本田 / 福特 / 大众 / 现代 / 特斯拉（部分）等 openpilot upstream：官方持续维护的高质量代码库 社区 fork：sunnyhaibin/openpilot-fork（中文社区优化版）等 适用场景 通勤 + 高速场景的\"半自动驾驶\"刚需 自动驾驶研究者（最易入手的开源端到端 ADAS 平台） 改装 / 极客车主 安装方式 1 2 3 4 5 # 硬件：购买 comma 3X（约 $1250） # 软件：插入设备，按提示完成车型选择 + 校准 git clone https://github.com/commaai/openpilot.git cd openpilot # 进入 tools/ 目录做模拟器或开发 代码示例 1 2 3 4 5 6 7 8 9 10 11 12 # openpilot 的消息总线示例（简化） from cereal import messaging msg = messaging.new_message('carState') msg.carState.vEgo = 25.0 # 当前车速 m/s msg.carState.steerAngleDeg = 2.0 pub = messaging.pub_sock('carState') pub.send(msg.to_bytes()) # 在另一进程中订阅 sub = messaging.sub_sock('carState') for m in sub: print(m.carState.vEgo) 评价 优点：\n唯一对消费级硬件做完整开源 ADAS 的项目 真车实跑数据 + 大量 corner case 测试 模型迭代频率比车企快一个数量级 缺点：\n不是 L4 自动驾驶，仍是\"辅助\"范畴 硬件不便宜，地区法规风险 出现事故时责任界定模糊 推荐指数：⭐⭐⭐⭐（汽车 + 机器人方向必看）\n4. IceWhaleTech/CasaOS — 把任意旧电脑变成\"个人云\" 核心功能 CasaOS 是一个面向家庭场景的开源 Personal Cloud 系统。IceWhale 团队在 2020 年发现：算力和存储成本持续下降、云计算向边缘迁移、消费级数据资产归属长期被忽略——于是提出\"5 年内 100 美元以下就能搭一台个人云\"的愿景。\n核心特性：\n零代码、零表单的友好 UI：为非技术家庭用户设计 多硬件支持：ZimaBoard、Intel NUC、Raspberry Pi、旧电脑 精选 App Store 一键安装：Nextcloud、HomeAssistant、AdGuard、Jellyfin、*arr 全家桶 10 万+ Docker 应用：生态直接复用 Docker Hub 驱动器与文件管理所见即所得 适用场景 家用 NAS 入门（比 TrueNAS / UnRAID 友好 10 倍） 极客 / 创作者自建数据中台 家庭智能化中心（HomeAssistant + 各种 Docker 服务） 小型工作室 / 团队的\"低预算自托管\" 安装方式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 # 一行命令安装 wget -qO- https://get.casaos.io | sudo bash # 或 curl -fsSL https://get.casaos.io | sudo bash # 升级 wget -qO- https://get.casaos.io/update | sudo bash # 查看版本 casaos -v # 卸载 casaos-uninstall 支持的官方系统：Debian 12 ✅、Ubuntu Server 20.04 ✅、Raspberry Pi OS ✅。社区还测过 Elementary、Armbian、Alpine、OpenWrt、ArchLinux。\n代码示例 CasaOS 的 App Store 部署基本是\"点一下\"：\n1 2 3 4 # 浏览器打开 http://your-server-ip # App Store -\u003e 搜 \"Jellyfin\" -\u003e Install # 30 秒后访问 http://your-server-ip:8096 # 完成家庭媒体中心搭建 对于需要自定部署的进阶用户，CasaOS 底层用的就是标准 Docker Compose：\n1 2 3 4 5 6 7 8 9 10 11 # /var/lib/casaos/apps/jellyfin/docker-compose.yml version: \"3\" services: jellyfin: image: jellyfin/jellyfin container_name: jellyfin network_mode: host volumes: - ./config:/config - /mnt/media:/media restart: unless-stopped 评价 优点：\n真正意义上的\"家用 NAS 入门 OS\"——比 TrueNAS 易用 10 倍 Docker 生态零成本接入，10 万+ 应用任选 ZimaBoard 等硬件 + CasaOS 形成完整软硬一体体验 社区驱动更新活跃 缺点：\n大规模商用场景仍建议用 UnRAID / TrueNAS 没有 ZFS 原生支持（用 MergerFS + SnapRAID 代替） 高级配置仍需 SSH 改配置文件 推荐指数：⭐⭐⭐⭐⭐（家庭自托管的首选，没有之一）\n5. ripienaar/free-for-dev — DevOps 人的\"免费羊毛目录\"（连续两日上榜） 核心功能 free-for-dev 是一份专门给 DevOps / infradev 工程师整理的\"免费 SaaS/PaaS/IaaS 羊毛清单\"。所有条目都是\"有免费层 (free tier) 且对工程/运维实际有用\"的服务，覆盖：\n源代码托管 / CI/CD 监控 / 日志 / 告警 数据库 / 缓存 / 消息队列 CDN / DNS / 域名 邮件 / SMS / 推送 AI / ML API 安全 / 身份认证 等等 50+ 类别、数百个服务 每个条目都标注：免费层限制、是否需信用卡、官方文档链接。\n适用场景 个人项目 / Side Project 选型（白嫖 + 合法） 创业公司 MVP 阶段降本 DevOps 选型对比 “这服务还有免费层？“的冷知识补给 安装方式 1 2 3 4 5 6 # 本质是 Markdown 文档，clone / 浏览 / 搜索即可 git clone https://github.com/ripienaar/free-for-dev.git cd free-for-dev # 或直接访问 # https://free-for.dev 代码示例 没有代码，但格式高度结构化，方便脚本化使用：\n1 2 3 4 5 6 7 # 比如你想找一个\"免费的对象存储\" \u003e grep -A 3 \"S3-compatible\" README.md # 输出： # - Backblaze B2 — 10 GB 存储 + 每日 1 GB 下载 # - Cloudflare R2 — 10 GB 存储 + 1000 万次读操作 # - Wasabi — 5 GB 试用 评价 优点：\n全网最全的\"免费层\"清单，更新极频繁 标注清晰：是否需信用卡、有无时间限制、是否需域名 社区驱动，PR 友好 缺点：\n免费层政策变化快，部分条目可能已失效（需自己验证） 没有自动化检测机制 推荐指数：⭐⭐⭐⭐⭐（DevOps / 个人开发者必 star）\n6. google-labs-code/design.md — 让 Agent 真正\"读懂\"你的设计系统 核心功能 DESIGN.md 是 Google Labs 推出的面向编码 Agent 的视觉规范格式标准。一份 DESIGN.md 让 Agent 在生成 UI 时，不再靠截图\"猜\"设计意图，而是从结构化契约里读到颜色、字号、间距、组件层级、交互态、动效曲线等\"机器可消费\"的规范。\n结构化契约：YAML/JSON 描述 design tokens + 组件元数据 Agent-friendly：能 lint、能 diff、能持续消费 多 IDE 兼容：Claude Code、Cursor、Windsurf、Cody 等 适用场景 Design System 团队向 AI 工作流迁移 跨团队设计一致性（Agent 在 PR 中自动校验设计 token） 老项目\"AI 化”：把设计规范从 Figma 导出成 DESIGN.md 安装方式 1 2 3 4 # 把 design.md 仓库 clone 到项目里 git clone https://github.com/google-labs-code/design.md.git .design-md # 在 AGENTS.md / CLAUDE.md 中指引 Agent 加载 echo \"Read .design-md/DESIGN.md before generating UI\" \u003e\u003e AGENTS.md 代码示例 1 2 3 4 5 6 7 8 9 10 11 12 13 14 # DESIGN.md 节选 tokens: color: primary: \"#2563eb\" surface: \"#ffffff\" radius: sm: \"4px\" md: \"8px\" components: button: base: \"h-10 px-4 rounded-md font-medium\" variants: primary: \"bg-primary text-white\" ghost: \"bg-transparent text-primary\" 评价 优点：\n把\"设计系统\"从\"人看\"升级到\"Agent 看” 与主流 AI IDE 兼容 格式简单，迁移成本低 缺点：\n仍处早期，生态工具链不丰富 与 Figma Tokens / Style Dictionary 的边界仍模糊 推荐指数：⭐⭐⭐⭐（Design System + AI 团队的标配）\n7. microsoft/PowerToys — Windows 桌面的\"瑞士军刀\"（30+ 工具集） 核心功能 PowerToys 是微软官方维护的Windows 桌面增强工具集，包含 30+ 实用工具，覆盖效率提升、系统定制、键盘鼠标、文件管理等高频场景。代表成员：\nPowerToys Run（Alt+Space 启动器，比 macOS Spotlight 更强） FancyZones（多窗口分屏，超越 Windows 自带分屏） Command Palette（Ctrl+Shift+P，类 VS Code 的命令面板） Mouse Without Borders（多电脑共用一套键鼠） Advanced Paste（剪贴板增强，支持格式转换） Color Picker / Screen Ruler / Image Resizer / PowerRename Always on Top / Awake / Quick Accent / Text Extractor / ZoomIt 以及 20+ 其他工具 适用场景 任何想\"榨干 Windows 效率\"的用户 开发者（PowerToys Run + Keyboard Manager 几乎可以替换掉一半 AutoHotkey 脚本） 设计师 / 内容创作者（Color Picker、Image Resizer、Screen Ruler） 安装方式 1 2 3 4 5 6 7 8 # 方式 1：WinGet（推荐） winget install Microsoft.PowerToys -s winget # 方式 2：Microsoft Store # https://aka.ms/getPowertoys # 方式 3：GitHub Releases # https://aka.ms/installPowerToys 代码示例 PowerToys 本身是 GUI 工具，但它的\"Keyboard Manager\"可以零代码做\"键位重映射\"：\n1 2 3 4 # 场景：把 CapsLock 改成 Ctrl（macOS 习惯） # 1. 打开 PowerToys Settings -\u003e Keyboard Manager -\u003e Remap a key # 2. 选 CapsLock -\u003e Ctrl # 3. 点 OK，立即生效 进阶用户可以用 Keyboard Manager 的\"快捷键重映射\"做\"一键启动 PowerToys Run\"等。\n评价 优点：\n微软官方维护，质量稳定 30+ 工具的\"套件\"价值，远超任何单一工具 100% 免费 + 开源 与 AI 工作流配合极好（Command Palette 启动 Claude Code 等） 缺点：\n仅 Windows 平台 偶尔会因为系统更新引入 bug 部分工具需要\"再点一下\"才会用 推荐指数：⭐⭐⭐⭐⭐（Windows 用户必装）\n8. hugohe3/ppt-master — AI 生成\"真可编辑\"的 .pptx，而不是\"一坨图片\" 核心功能 PPT Master 是一个运行在 AI IDE 里的\"工作流 Skill\"（不是完整 Agent），目标是让 AI 把任意文档（PDF、Word、Markdown）变成真可编辑的 PowerPoint——不是\"一张大图塞进 .pptx\"，而是真正的 DrawingML 形状 + 文字框 + 动画 + 演讲者备注。\n核心差异化：\nReal DrawingML：每个元素在 PowerPoint 里都能点击修改 支持母版 / 模板：可以基于你自己的 .pptx 模板生成 演讲者备注可配音：用 TTS 转语音旁白 完全本地化运行：除 AI 模型调用外，所有步骤都在本机 跨 IDE 兼容：Claude Code、Cursor、VS Code + Copilot、Codebuddy 跨模型兼容：Claude、GPT、Gemini、Kimi、DeepSeek 适用场景 商务汇报、学术答辩、培训材料的\"AI 提速\" 已有 .pptx 模板但缺内容的场景（PPT Master 填内容 + 套模板） 想学\"AI Agent + 实际生产力\"的开发者 安装方式 1 2 3 4 5 6 7 # 1. 装 Python（3.10+）+ 一个 AI IDE（Claude Code 推荐） # 2. 准备源材料 ls ./source.pdf # 3. 启动 Claude Code claude # 4. 在 IDE 中调用 skill： # \"用 ppt-master 把 ./source.pdf 做成 .pptx\" 代码示例 PPT Master 的核心是\"对话式\"工作流：\n1 2 3 4 5 6 7 8 9 10 11 12 13 # 用户： \u003e 用 ppt-master 把 docs/whitepaper.pdf 做成 .pptx， 套 templates/company-template.pptx 的样式， 演讲者备注用英文，每页加旁白音频。 # Agent 输出： # - 解析 PDF（用 PyMuPDF） # - 提取章节大纲（22 页） # - 对每页写\"标题 + 关键 3 点 + 演讲者备注\" # - 套用 template 的母版样式（配色、字体） # - 生成 .pptx（python-pptx） # - 用 TTS 生成 22 段旁白音频 # - 交付：output/whitepaper-deck.pptx + output/narration/*.mp3 评价 优点：\n精准切入\"AI PPT 工具最大的痛点\"——能直接编辑 不依赖单一平台 / 模型，最大化灵活性 完全开源（MIT）+ 本地化 “透明成本”：不收订阅费，只付模型 token 费 缺点：\n“一次出完美\"不现实，作者明确说\"模型决定上限” 高质量结果需要 Claude Opus 4.7 + 1M 上下文 + gpt-image-2，便宜模型出片质量明显下降 学习曲线：对\"零 Python 基础\"用户偏陡 推荐指数：⭐⭐⭐⭐（AI PPT 工具的天花板级方案）\n9. JCodesMore/ai-website-cloner-template — 一键把任意网站反推成 Next.js 代码 核心功能 ai-website-cloner-template 是一个用 AI 编程 Agent 把任意网站反推成干净、现代的 Next.js 代码库的可复用模板。推荐 Claude Code + Opus 4.7（效果最佳），但 Codex / OpenCode / Copilot / Cursor / Windsurf / Gemini CLI / Cline / Roo Code / Continue / Amazon Q / Augment Code / Aider 也都支持。\n核心操作是 /clone-website 技能，背后是一套多阶段流水线：\nReconnaissance：截图 + 提取设计令牌 + 交互扫描（滚动 / 点击 / hover / 响应式） Foundation：更新字体、颜色、全局样式，下载所有资产 Component Specs：写详细规范文件（docs/research/components/），含精确的 getComputedStyle() 取值、状态、行为、内容 Parallel Build：在 git worktree 里派发并行 builder Agent，每 section/component 一个 Assembly \u0026 QA：合并 worktree，连接页面，对原站做 visual diff 技术栈：Next.js 16（App Router）+ React 19 + TypeScript strict + shadcn/ui（Radix + Tailwind v4）+ Tailwind v4 oklch tokens + Lucide React（克隆时替换为提取的 SVG）。\n适用场景 平台迁移：把 WordPress / Webflow / Squarespace 老站重建到现代 Next.js 失源找回：站点还在但仓库没了、开发者跑路了、栈太 legacy 学习参考：用真代码解构\"产品网站是怎么做出来的\" MVP 快速复用：拿一个做得好的设计当骨架，往里填自己的内容 安装方式 1 2 3 4 5 6 7 8 9 10 11 12 13 # 1. 在 GitHub 上点 \"Use this template\" 创建你自己的仓库 # 2. clone 到本地 git clone https://github.com/YOUR-USERNAME/YOUR-NEW-REPOSITORY.git cd YOUR-NEW-REPOSITORY # 3. 安装依赖 npm install # 4. 启动 AI 代理 claude --chrome # 5. 运行技能 \u003e /clone-website https://example.com 代码示例 1 2 3 4 5 6 7 \u003e /clone-website https://stripe.com # Agent 自动完成： # - 截图、提取 design token # - 写 12 个 component spec（hero, pricing, footer, ...） # - 派 5 个 builder Agent 并行实现 # - 合并、连接、跑 visual diff # - 输出可立即 npm run dev 的 Next.js 代码库 评价 优点：\n把\"克隆网站\"从\"玄学\"变成\"流水线\" 多 Agent 并行 + Component Spec 模板 = 几乎零猜测 完整工具链：Next.js 16 + React 19 + TS strict + Tailwind v4，不是玩具栈 支持 10+ AI 编程代理，不锁定单一供应商 缺点：\n严重依赖\"AI 编程代理 + 大模型\"，便宜模型会\"跑飞\" 反推出来的代码不一定\"无 bug\"，需要人工 review 对复杂 SPA / 鉴权站效果一般 推荐指数：⭐⭐⭐⭐（网站重建 / 学习的杀手锏工具）\n10. garrytan/gstack — Garry Tan 的\"Claude Code 团队化\"工作流（YC CEO 亲推） 核心功能 gstack 是 YC 现任 CEO Garry Tan 公开的**“23 个 opinionated 工具 + 8 个 power tools”** Claude Code 工作流集。它把 Claude Code 从\"一个 AI 助手\"变成\"一支虚拟工程团队\"——分别担任 CEO、设计师、工程经理、Release Manager、Doc Engineer、QA、Security Officer 等角色，全部以 slash 命令 + Markdown 实现，MIT 协议。\n/office-hours：产品问诊，6 个强制问题 /plan-ceo-review / /plan-eng-review / /plan-design-review / /plan-devex-review：多视角 review /design-consultation / /design-shotgun / /design-html：设计工作流 /review / /ship / /land-and-deploy / /canary：代码 review + 发布 /qa / /qa-only：QA 自动化（真打开浏览器） /cso：安全审计（OWASP + STRIDE） /browse / /connect-chrome：浏览器集成 /benchmark / /codex / /autoplan / /retro / /investigate 等：方法论工具 Garry 自己说：“过去 60 天我交付了 3 个生产服务、40+ feature，全程 Part-time，2026 年的逻辑代码产出量是 2013 年的 240 倍。”\n适用场景 单兵 founder / 技术 CEO 想\"以一打十\" Claude Code 第一次使用的小白（结构化角色 \u003e 空白 prompt） Tech Lead / Staff Engineer 想\"每次 PR 都过 QA + 安全 + 文档\" 团队用 gstack-team-init 一键把工作流同步给所有成员 安装方式 1 2 3 4 5 6 7 8 9 10 # 1. 一行命令安装 git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack cd ~/.claude/skills/gstack ./setup # 2. 在项目的 CLAUDE.md 中加入 gstack 段（Claude 自动发现） # 3. 团队版： (cd ~/.claude/skills/gstack \u0026\u0026 ./setup --team) \u0026\u0026 ~/.claude/skills/gstack/bin/gstack-team-init required git add .claude/ CLAUDE.md git commit -m \"require gstack for AI-assisted work\" 前置依赖：Claude Code + Git + Bun v1.0+（Windows 还需要 Node.js）\n代码示例 1 2 3 4 5 6 7 8 9 10 11 12 13 # 场景 1：第一次用它 \u003e /office-hours # \"我正在做一个帮独立开发者接外包的平台……\" # 6 个问题强制把\"模糊想法\"变成\"清晰 spec\" # 场景 2：每个 PR 必经流程 \u003e /plan-ceo-review # CEO 视角：这个功能值不值得做？ \u003e /plan-eng-review # 工程：架构、数据流、风险 \u003e /plan-design-review # 设计：UI / UX 一致性 \u003e /review # 代码 review \u003e /qa # 自动化 QA（真开浏览器） \u003e /cso # 安全审计 \u003e /ship # 发 PR OpenClaw 用户更省事——装 gstack-openclaw-* 系列 skill，直接在 OpenClaw agent 里跑，无需 Claude Code：\n1 2 3 4 # 在 OpenClaw 里： \u003e Load gstack. Run /office-hours then /autoplan. Save the plan, don't implement. \u003e Load gstack. Run /cso \u003e Load gstack. Run /qa https://staging.myapp.com 评价 优点：\n“把 YC 总裁的工作流开源”——视角独特，价值极高 23 个工具全部 Markdown + MIT，免费到不可思议 真打通了\"产品 → 架构 → 设计 → 代码 → QA → 安全 → 发布\"全链路 与 OpenClaw / Claude Code 双向集成 缺点：\n学习曲线：23 个 slash 命令全用上需要几天 强依赖 Claude Code（不是模型无关） 部分工具（/qa 的浏览器、/connect-chrome）在 Linux server 跑要配置 推荐指数：⭐⭐⭐⭐⭐（AI 工作流的\"操作系统级\"项目，必 star）\n今日趋势小结 对比昨日（2026-06-27），今天 Trending 名单的关键变化：\n新进 Top 10：IceWhaleTech/CasaOS（#4）、microsoft/PowerToys（#7）、hugohe3/ppt-master（#8）、garrytan/gstack（#10）\n排名上升：xbtlin/ai-berkshire（#10 → #2）\n继续在榜：simplex-chat（#1 不变）、commaai/openpilot（#3 不变）、ripienaar/free-for-dev（#6 → #5）、google-labs-code/design.md（#2 → #6）\n跌出 Top 10：kunchenguid/no-mistakes、grafana/grafana、opendatalab/MinerU、alchaincyf/zhangxuefeng-skill、mauriceboe/TREK\n今日信号：\n“个人云 + 桌面增强\"回归：CasaOS + PowerToys 同步上榜，说明开发者正在从\"云依赖\"回到\"本地 + 桌面\"的工作流 AI 工作流走向\"团队化”：gstack 出现 = 单兵 founder 的\"工程团队\"已经成为产品 “真可编辑\"成为 AI 工具新标尺：ppt-master 强调\"Real DrawingML”、design.md 强调\"Agent 看得懂\"——都在解决 AI 工具\"输出物不能直接用\"的老问题 数据来源：github.com/trending（每日 UTC 榜单） 抓取时间：2026-06-28 13:02 (Asia/Shanghai) / 2026-06-28 05:02 (UTC) 抓取方式：直接 HTTP GET + 解析 trending 页面\n","wordCount":"2056","inLanguage":"zh","datePublished":"2026-06-28T00:00:00+08:00","dateModified":"2026-06-28T00:00:00+08:00","author":{"@type":"Person","name":"breeze"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.brez.top/zh/posts/daily-digest-2026-06-28/"},"publisher":{"@type":"Organization","name":"breeze 的博客","logo":{"@type":"ImageObject","url":"https://blog.brez.top/favicon.svg"}}}</script><style>.about-header{text-align:center;padding:2.5rem 1rem;background:var(--entry);border-bottom:1px solid var(--border);margin-bottom:1.5rem}.about-avatar-icon{width:80px;height:80px;border-radius:50%;background:var(--primary);color:var(--theme);display:inline-grid;place-items:center;margin-bottom:1rem;box-shadow:0 4px 10px rgba(0,0,0,.1)}.about-avatar-icon svg{width:40px;height:40px}.about-header h1{font-size:2.2rem;margin:0 0 .4rem;font-weight:800;color:var(--primary)}.about-header .tagline{font-size:1.1rem;color:var(--secondary);margin:0;font-weight:300}.about-content{max-width:800px;margin:0 auto;padding:1rem 0 4rem}.about-section{background:var(--entry);border-radius:12px;padding:2rem;margin-bottom:2rem;border:1px solid var(--border)}.about-section h2{font-size:1.5rem;margin:0 0 1.5rem;color:var(--primary);display:flex;align-items:center;gap:.8rem}.about-section h2::before{content:'';width:4px;height:24px;background:var(--primary);border-radius:2px}.about-section p{line-height:1.8;color:var(--content);margin:0 0 1rem}.tech-stack{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}.tech-tag{display:inline-block;padding:.4rem 1rem;background:var(--tertiary);border-radius:8px;font-size:.85rem;color:var(--primary);transition:all .2s ease}.tech-tag:hover{background:var(--primary);color:var(--theme);transform:translateY(-2px)}.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.5rem}.contact-card{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--tertiary);border-radius:10px;text-decoration:none;color:var(--content);border:1px solid transparent;transition:all .2s ease}.contact-card:hover{border-color:var(--primary);background:var(--entry);transform:translateY(-2px)}.contact-card-icon{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;background:var(--primary);color:var(--theme);flex-shrink:0}.contact-card-icon svg{width:20px;height:20px}.contact-card-info{flex:1;min-width:0}.contact-card-label{font-size:.75rem;color:var(--secondary)}.contact-card-value{font-size:.9rem;font-weight:600;overflow:hidden;text-overflow:ellipsis}.contact-card-desc{font-size:.7rem;color:var(--secondary);margin-top:.2rem;line-height:1.3}.other-sites{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}.site-link{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;background:var(--tertiary);border-radius:8px;text-decoration:none;color:var(--primary);font-weight:600;font-size:.9rem;transition:all .2s}.site-link:hover{background:var(--primary);color:var(--theme)}@media(max-width:768px){.about-header{padding:3rem 1rem}.about-section{padding:1.5rem}}.fade-in{animation:fadeIn .5s ease-out}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}</style></head><body id=top><header class=header><nav class=nav><div class=logo><a href=https://blog.brez.top/zh/ accesskey=h title="breeze 的博客 (Alt + H)">breeze 的博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li><li><a href=https://blog.brez.top/en/ title=English aria-label=English>En</a></li></ul></div></div><ul id=menu><li><a href=https://blog.brez.top/zh/ title=首页><span>首页</span></a></li><li><a href=https://blog.brez.top/zh/posts/ title=分享><span>分享</span></a></li><li><a href=https://blog.brez.top/zh/life/ title=生活><span>生活</span></a></li><li><a href=https://blog.brez.top/zh/tech/ title=技术><span>技术</span></a></li><li><a href=https://blog.brez.top/zh/tags/ title=标签><span>标签</span></a></li><li><a href=https://blog.brez.top/zh/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><div class=container><header class="about-header fade-in"><div class=about-avatar-icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h1>每日开源速递 - 2026-06-28</h1><p class=tagline>GitHub Trending 项目的深度解读与推荐</p></header><div class="about-content fade-in"><div class=about-section><h1 id=每日开源速递---2026年6月28日>每日开源速递 - 2026年6月28日</h1><p>今日 GitHub Trending 出现一个有意思的信号：<strong>个人云 + 桌面增强 + Agent 工具链</strong> 三条线同时冲榜。<code>IceWhaleTech/CasaOS</code> 用 &ldquo;100 美元以下打造个人云&rdquo; 的口号重新激活了 NAS 圈；<code>microsoft/PowerToys</code> 作为 Windows 桌面增强的事实标准再次被 AI 工作流带火；<code>hugohe3/ppt-master</code> 则用"真可编辑 .pptx"精准切入 AI 演示工具最大的痛点；<code>garrytan/gstack</code>（YC 现任 CEO 亲推）把 &ldquo;Claude Code 团队化&rdquo; 做成 23 个 slash 命令；持续高热的还有 <code>simplex-chat</code>、<code>xbtlin/ai-berkshire</code>、<code>commaai/openpilot</code>、<code>google-labs-code/design.md</code>、<code>ripienaar/free-for-dev</code>、<code>JCodesMore/ai-website-cloner-template</code>。下面逐个深入。</p><blockquote><p>数据来源：<a href=https://github.com/trending>github.com/trending</a>（每日 UTC 榜单）
+抓取时间：2026-06-28 13:02 (Asia/Shanghai) / 2026-06-28 05:02 (UTC)</p></blockquote><hr><h2 id=1-simplex-chatsimplex-chat--第一款无用户标识符的隐私通讯网络连续两日霸榜>1. simplex-chat/simplex-chat — 第一款"无用户标识符"的隐私通讯网络（连续两日霸榜）</h2><h3 id=核心功能>核心功能</h3><p><code>SimpleX Chat</code> 是当前唯一一个<strong>在协议层完全去用户标识符</strong>的开源即时通讯网络：没有手机号、没有用户名、没有随机 ID、没有密钥可见的 userID——既不在消息中也不在元数据里。它基于 <strong>Double Ratchet</strong> 算法做端到端加密，并额外加一层 per-message 独立密钥协商。即便是服务器被攻破，攻击者也只能拿到无法关联到任何"用户"的密文块。</p><p>平台覆盖极其完整：</p><ul><li><strong>iOS / Android</strong> 移动 App（App Store + Google Play + APK）</li><li><strong>macOS / Windows / Linux</strong> 桌面客户端</li><li><strong>Haskell 编写的 CLI</strong>（开发者首选）</li><li><strong>TestFlight</strong> 预览通道</li><li><strong>可自托管的 SMP 服务器</strong>（Docker 一行启动）</li><li><strong>SimpleX Directory</strong> 群组目录 + 一次性 SimpleX Address</li></ul><h3 id=适用场景>适用场景</h3><ul><li>记者、律师、医生等高敏职业通讯</li><li>自托管 SMP 后做企业内部高保密对话</li><li>跨境通讯 + 规避审查/封锁</li><li>厌倦"绑定手机号"的所有人</li></ul><h3 id=安装方式>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 移动端：App Store / Google Play 搜 &#34;SimpleX Chat&#34;</span>
+</span></span><span class=line><span class=cl><span class=c1># 桌面端：从 GitHub Releases 下载 .dmg / .exe / .AppImage</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 终端版（开发者首选）</span>
+</span></span><span class=line><span class=cl>curl -fsSL https://raw.githubusercontent.com/simplex-chat/simplex-chat/stable/scripts/cmd-zap.sh <span class=p>|</span> sh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 自托管 SMP 服务器</span>
+</span></span><span class=line><span class=cl>docker run -d --name smp-server -p 5223:5223 simplexchat/smp-server
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl># A 用户的终端
+</span></span><span class=line><span class=cl>$ simplex-chat
+</span></span><span class=line><span class=cl>&gt; /connect
+</span></span><span class=line><span class=cl># 输出：https://smp4.simplex.im/a#&lt;一次性密钥串&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 把链接发给 B
+</span></span><span class=line><span class=cl># B 的终端粘贴
+</span></span><span class=line><span class=cl>&gt; /connect https://smp4.simplex.im/a#&lt;一次性密钥串&gt;
+</span></span><span class=line><span class=cl># 连接建立，所有消息走 E2E 加密
+</span></span><span class=line><span class=cl>&gt; /help
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价>评价</h3><p><strong>优点</strong>：</p><ul><li>唯一真正做到"协议层零用户标识符"的成熟方案（Signal/Matrix/Wire 仍有某种 ID）</li><li>客户端 + 服务器 + 协议全部开源，可独立审计</li><li>双层 E2E 加密 + 每条消息独立密钥</li><li>平台覆盖广，CLI + 桌面 + 移动 + Web 五端齐全</li></ul><p><strong>缺点</strong>：</p><ul><li>用户基数仍远小于 Signal/Telegram，&ldquo;朋友也在用"是当前最大门槛</li><li>Haskell 实现的自托管对中小团队仍有门槛</li><li>&ldquo;完全隐私&rdquo; = &ldquo;无找回机制&rdquo;</li></ul><p><strong>推荐指数</strong>：⭐⭐⭐⭐⭐（认真在乎元数据隐私的唯一成熟开源选择）</p><hr><h2 id=2-xbtlinai-berkshire--ai-时代的伯克希尔四大师方法论--多-agent-对抗昨日第-10--今日第-2>2. xbtlin/ai-berkshire — AI 时代的伯克希尔：四大师方法论 + 多 Agent 对抗（昨日第 10 → 今日第 2）</h2><h3 id=核心功能-1>核心功能</h3><p><code>ai-berkshire</code> 是一个<strong>把"价值投资四大师方法论"做成 Claude Code / Codex 可执行 Skill</strong> 的研究框架。它把巴菲特、芒格、段永平、李录四位大师的核心方法论拆解成结构化 prompt + 工作流，让多个 Agent <strong>并行</strong>做研究并互相挑战。</p><ul><li><strong>方法论即代码</strong>：每位大师的护城河、估值原则、决策模型都有独立 Skill</li><li><strong>多 Agent 对抗</strong>：让多套方法论同时跑一份研报，输出"共识"与"分歧&rdquo;</li><li><strong>Claude Code / Codex 双兼容</strong>：直接放进 AI IDE 就能用</li></ul><h3 id=适用场景-1>适用场景</h3><ul><li>A 股 / 港股 / 美股长期价值投资者的研究提速</li><li>AI 投研教学（把"四大师"具象化为可操作 prompt）</li><li>卖方/买方研究员做观点交叉验证</li><li>个人投资者做"自上而下 + 自下而上"快速框架搭建</li></ul><h3 id=安装方式-1>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git clone https://github.com/xbtlin/ai-berkshire.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> ai-berkshire
+</span></span><span class=line><span class=cl><span class=c1># 在 Claude Code / Codex 中打开，skills/ 目录即为可调用 Skill</span>
+</span></span><span class=line><span class=cl>claude  <span class=c1># 或 codex</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-1>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl># 让&#34;芒格 + 巴菲特&#34;双 Agent 跑同一份财报
+</span></span><span class=line><span class=cl>&gt; /buffett-analyze 600519.SH --vs-methodology=buffett,munger
+</span></span><span class=line><span class=cl># 输出：
+</span></span><span class=line><span class=cl># - 共识：强护城河、ROE 持续 &gt; 20%、自由现金流稳健
+</span></span><span class=line><span class=cl># - 分歧：芒格认为当前估值已透支 3-5 年成长；巴菲特认为长期仍可持有
+</span></span><span class=line><span class=cl># - 建议持仓区间：&lt; 1500 元
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-1>评价</h3><p><strong>优点</strong>：</p><ul><li>把"四大师"从"心法"升级为"可执行 prompt"，对个人投资者极其实用</li><li>多 Agent 对抗 = 把"信息盲区"显式化</li><li>与 Claude Code / Codex 原生集成，零额外配置</li></ul><p><strong>缺点</strong>：</p><ul><li>框架本身不输出投资建议，结果仍需人判断</li><li>&ldquo;方法论"在不同市场有效性差异大，A股/港股需自行调参</li><li>依赖 LLM 模型的"理解深度&rdquo;，便宜模型效果明显打折</li></ul><p><strong>推荐指数</strong>：⭐⭐⭐⭐（投资研究框架的范式跃迁）</p><hr><h2 id=3-commaaiopenpilot--300-车型的开源机器人操作系统>3. commaai/openpilot — 300+ 车型的开源机器人操作系统</h2><h3 id=核心功能-2>核心功能</h3><p><code>openpilot</code> 是 commaai 出品的<strong>开源驾驶辅助操作系统</strong>。它不是一个 App，而是一套完整的 robot 操作系统，替换原车 ADAS 后可解锁 300+ 款车型的自适应巡航、车道居中、车道保持等功能。</p><ul><li><strong>硬件载体</strong>：comma 3X（一个小型吸顶式设备，OBD-II + 双 CAN + 摄像头）</li><li><strong>跨车型支持</strong>：丰田 / 本田 / 福特 / 大众 / 现代 / 特斯拉（部分）等</li><li><strong>openpilot upstream</strong>：官方持续维护的高质量代码库</li><li><strong>社区 fork</strong>：<code>sunnyhaibin/openpilot-fork</code>（中文社区优化版）等</li></ul><h3 id=适用场景-2>适用场景</h3><ul><li>通勤 + 高速场景的"半自动驾驶"刚需</li><li>自动驾驶研究者（最易入手的开源端到端 ADAS 平台）</li><li>改装 / 极客车主</li></ul><h3 id=安装方式-2>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 硬件：购买 comma 3X（约 $1250）</span>
+</span></span><span class=line><span class=cl><span class=c1># 软件：插入设备，按提示完成车型选择 + 校准</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/commaai/openpilot.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> openpilot
+</span></span><span class=line><span class=cl><span class=c1># 进入 tools/ 目录做模拟器或开发</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-2>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl># openpilot 的消息总线示例（简化）
+</span></span><span class=line><span class=cl>from cereal import messaging
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>msg = messaging.new_message(&#39;carState&#39;)
+</span></span><span class=line><span class=cl>msg.carState.vEgo = 25.0        # 当前车速 m/s
+</span></span><span class=line><span class=cl>msg.carState.steerAngleDeg = 2.0
+</span></span><span class=line><span class=cl>pub = messaging.pub_sock(&#39;carState&#39;)
+</span></span><span class=line><span class=cl>pub.send(msg.to_bytes())
+</span></span><span class=line><span class=cl># 在另一进程中订阅
+</span></span><span class=line><span class=cl>sub = messaging.sub_sock(&#39;carState&#39;)
+</span></span><span class=line><span class=cl>for m in sub:
+</span></span><span class=line><span class=cl>    print(m.carState.vEgo)
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-2>评价</h3><p><strong>优点</strong>：</p><ul><li>唯一对消费级硬件做完整开源 ADAS 的项目</li><li>真车实跑数据 + 大量 corner case 测试</li><li>模型迭代频率比车企快一个数量级</li></ul><p><strong>缺点</strong>：</p><ul><li>不是 L4 自动驾驶，仍是"辅助"范畴</li><li>硬件不便宜，地区法规风险</li><li>出现事故时责任界定模糊</li></ul><p><strong>推荐指数</strong>：⭐⭐⭐⭐（汽车 + 机器人方向必看）</p><hr><h2 id=4-icewhaletechcasaos--把任意旧电脑变成个人云>4. IceWhaleTech/CasaOS — 把任意旧电脑变成"个人云"</h2><h3 id=核心功能-3>核心功能</h3><p><code>CasaOS</code> 是一个<strong>面向家庭场景的开源 Personal Cloud 系统</strong>。IceWhale 团队在 2020 年发现：算力和存储成本持续下降、云计算向边缘迁移、消费级数据资产归属长期被忽略——于是提出"5 年内 100 美元以下就能搭一台个人云"的愿景。</p><p>核心特性：</p><ul><li><strong>零代码、零表单的友好 UI</strong>：为非技术家庭用户设计</li><li><strong>多硬件支持</strong>：ZimaBoard、Intel NUC、Raspberry Pi、旧电脑</li><li><strong>精选 App Store 一键安装</strong>：Nextcloud、HomeAssistant、AdGuard、Jellyfin、*arr 全家桶</li><li><strong>10 万+ Docker 应用</strong>：生态直接复用 Docker Hub</li><li><strong>驱动器与文件管理所见即所得</strong></li></ul><h3 id=适用场景-3>适用场景</h3><ul><li>家用 NAS 入门（比 TrueNAS / UnRAID 友好 10 倍）</li><li>极客 / 创作者自建数据中台</li><li>家庭智能化中心（HomeAssistant + 各种 Docker 服务）</li><li>小型工作室 / 团队的"低预算自托管"</li></ul><h3 id=安装方式-3>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 一行命令安装</span>
+</span></span><span class=line><span class=cl>wget -qO- https://get.casaos.io <span class=p>|</span> sudo bash
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 或</span>
+</span></span><span class=line><span class=cl>curl -fsSL https://get.casaos.io <span class=p>|</span> sudo bash
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 升级</span>
+</span></span><span class=line><span class=cl>wget -qO- https://get.casaos.io/update <span class=p>|</span> sudo bash
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看版本</span>
+</span></span><span class=line><span class=cl>casaos -v
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 卸载</span>
+</span></span><span class=line><span class=cl>casaos-uninstall
+</span></span></code></pre></td></tr></table></div></div><p>支持的官方系统：Debian 12 ✅、Ubuntu Server 20.04 ✅、Raspberry Pi OS ✅。社区还测过 Elementary、Armbian、Alpine、OpenWrt、ArchLinux。</p><h3 id=代码示例-3>代码示例</h3><p>CasaOS 的 App Store 部署基本是"点一下"：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl># 浏览器打开 http://your-server-ip
+</span></span><span class=line><span class=cl># App Store -&gt; 搜 &#34;Jellyfin&#34; -&gt; Install
+</span></span><span class=line><span class=cl># 30 秒后访问 http://your-server-ip:8096
+</span></span><span class=line><span class=cl># 完成家庭媒体中心搭建
+</span></span></code></pre></td></tr></table></div></div><p>对于需要自定部署的进阶用户，CasaOS 底层用的就是标准 Docker Compose：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c># /var/lib/casaos/apps/jellyfin/docker-compose.yml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;3&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>services</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>jellyfin</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>jellyfin/jellyfin</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>container_name</span><span class=p>:</span><span class=w> </span><span class=l>jellyfin</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>network_mode</span><span class=p>:</span><span class=w> </span><span class=l>host</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./config:/config</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/mnt/media:/media</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restart</span><span class=p>:</span><span class=w> </span><span class=l>unless-stopped</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=评价-3>评价</h3><p><strong>优点</strong>：</p><ul><li>真正意义上的"家用 NAS 入门 OS"——比 TrueNAS 易用 10 倍</li><li>Docker 生态零成本接入，10 万+ 应用任选</li><li>ZimaBoard 等硬件 + CasaOS 形成完整软硬一体体验</li><li>社区驱动更新活跃</li></ul><p><strong>缺点</strong>：</p><ul><li>大规模商用场景仍建议用 UnRAID / TrueNAS</li><li>没有 ZFS 原生支持（用 MergerFS + SnapRAID 代替）</li><li>高级配置仍需 SSH 改配置文件</li></ul><p><strong>推荐指数</strong>：⭐⭐⭐⭐⭐（家庭自托管的首选，没有之一）</p><hr><h2 id=5-ripienaarfree-for-dev--devops-人的免费羊毛目录连续两日上榜>5. ripienaar/free-for-dev — DevOps 人的"免费羊毛目录"（连续两日上榜）</h2><h3 id=核心功能-4>核心功能</h3><p><code>free-for-dev</code> 是一份<strong>专门给 DevOps / infradev 工程师整理的"免费 SaaS/PaaS/IaaS 羊毛清单"</strong>。所有条目都是"有免费层 (free tier) 且对工程/运维实际有用"的服务，覆盖：</p><ul><li>源代码托管 / CI/CD</li><li>监控 / 日志 / 告警</li><li>数据库 / 缓存 / 消息队列</li><li>CDN / DNS / 域名</li><li>邮件 / SMS / 推送</li><li>AI / ML API</li><li>安全 / 身份认证</li><li>等等 50+ 类别、数百个服务</li></ul><p>每个条目都标注：免费层限制、是否需信用卡、官方文档链接。</p><h3 id=适用场景-4>适用场景</h3><ul><li>个人项目 / Side Project 选型（白嫖 + 合法）</li><li>创业公司 MVP 阶段降本</li><li>DevOps 选型对比</li><li>&ldquo;这服务还有免费层？&ldquo;的冷知识补给</li></ul><h3 id=安装方式-4>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 本质是 Markdown 文档，clone / 浏览 / 搜索即可</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/ripienaar/free-for-dev.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> free-for-dev
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 或直接访问</span>
+</span></span><span class=line><span class=cl><span class=c1># https://free-for.dev</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-4>代码示例</h3><p>没有代码，但格式高度结构化，方便脚本化使用：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl># 比如你想找一个&#34;免费的对象存储&#34;
+</span></span><span class=line><span class=cl>&gt; grep -A 3 &#34;S3-compatible&#34; README.md
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 输出：
+</span></span><span class=line><span class=cl># - Backblaze B2 — 10 GB 存储 + 每日 1 GB 下载
+</span></span><span class=line><span class=cl># - Cloudflare R2 — 10 GB 存储 + 1000 万次读操作
+</span></span><span class=line><span class=cl># - Wasabi — 5 GB 试用
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-4>评价</h3><p><strong>优点</strong>：</p><ul><li>全网最全的"免费层"清单，更新极频繁</li><li>标注清晰：是否需信用卡、有无时间限制、是否需域名</li><li>社区驱动，PR 友好</li></ul><p><strong>缺点</strong>：</p><ul><li>免费层政策变化快，部分条目可能已失效（需自己验证）</li><li>没有自动化检测机制</li></ul><p><strong>推荐指数</strong>：⭐⭐⭐⭐⭐（DevOps / 个人开发者必 star）</p><hr><h2 id=6-google-labs-codedesignmd--让-agent-真正读懂你的设计系统>6. google-labs-code/design.md — 让 Agent 真正"读懂"你的设计系统</h2><h3 id=核心功能-5>核心功能</h3><p><code>DESIGN.md</code> 是 Google Labs 推出的<strong>面向编码 Agent 的视觉规范格式标准</strong>。一份 <code>DESIGN.md</code> 让 Agent 在生成 UI 时，<strong>不再靠截图"猜"设计意图</strong>，而是从结构化契约里读到颜色、字号、间距、组件层级、交互态、动效曲线等"机器可消费"的规范。</p><ul><li><strong>结构化契约</strong>：YAML/JSON 描述 design tokens + 组件元数据</li><li><strong>Agent-friendly</strong>：能 lint、能 diff、能持续消费</li><li><strong>多 IDE 兼容</strong>：Claude Code、Cursor、Windsurf、Cody 等</li></ul><h3 id=适用场景-5>适用场景</h3><ul><li>Design System 团队向 AI 工作流迁移</li><li>跨团队设计一致性（Agent 在 PR 中自动校验设计 token）</li><li>老项目"AI 化&rdquo;：把设计规范从 Figma 导出成 <code>DESIGN.md</code></li></ul><h3 id=安装方式-5>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 把 design.md 仓库 clone 到项目里</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/google-labs-code/design.md.git .design-md
+</span></span><span class=line><span class=cl><span class=c1># 在 AGENTS.md / CLAUDE.md 中指引 Agent 加载</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Read .design-md/DESIGN.md before generating UI&#34;</span> &gt;&gt; AGENTS.md
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-5>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c># DESIGN.md 节选</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>tokens</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>color</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>primary</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;#2563eb&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>surface</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;#ffffff&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>radius</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>sm</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;4px&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>md</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;8px&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>components</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>button</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>base</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;h-10 px-4 rounded-md font-medium&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>variants</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>primary</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;bg-primary text-white&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>ghost</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;bg-transparent text-primary&#34;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=评价-5>评价</h3><p><strong>优点</strong>：</p><ul><li>把"设计系统"从"人看"升级到"Agent 看&rdquo;</li><li>与主流 AI IDE 兼容</li><li>格式简单，迁移成本低</li></ul><p><strong>缺点</strong>：</p><ul><li>仍处早期，生态工具链不丰富</li><li>与 Figma Tokens / Style Dictionary 的边界仍模糊</li></ul><p><strong>推荐指数</strong>：⭐⭐⭐⭐（Design System + AI 团队的标配）</p><hr><h2 id=7-microsoftpowertoys--windows-桌面的瑞士军刀30-工具集>7. microsoft/PowerToys — Windows 桌面的"瑞士军刀"（30+ 工具集）</h2><h3 id=核心功能-6>核心功能</h3><p><code>PowerToys</code> 是微软官方维护的<strong>Windows 桌面增强工具集</strong>，包含 30+ 实用工具，覆盖效率提升、系统定制、键盘鼠标、文件管理等高频场景。代表成员：</p><ul><li><strong>PowerToys Run</strong>（<code>Alt+Space</code> 启动器，比 macOS Spotlight 更强）</li><li><strong>FancyZones</strong>（多窗口分屏，超越 Windows 自带分屏）</li><li><strong>Command Palette</strong>（<code>Ctrl+Shift+P</code>，类 VS Code 的命令面板）</li><li><strong>Mouse Without Borders</strong>（多电脑共用一套键鼠）</li><li><strong>Advanced Paste</strong>（剪贴板增强，支持格式转换）</li><li><strong>Color Picker / Screen Ruler / Image Resizer / PowerRename</strong></li><li><strong>Always on Top / Awake / Quick Accent / Text Extractor / ZoomIt</strong></li><li>以及 20+ 其他工具</li></ul><h3 id=适用场景-6>适用场景</h3><ul><li>任何想"榨干 Windows 效率"的用户</li><li>开发者（PowerToys Run + Keyboard Manager 几乎可以替换掉一半 AutoHotkey 脚本）</li><li>设计师 / 内容创作者（Color Picker、Image Resizer、Screen Ruler）</li></ul><h3 id=安装方式-6>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=line><span class=cl><span class=c># 方式 1：WinGet（推荐）</span>
+</span></span><span class=line><span class=cl><span class=n>winget</span> <span class=n>install</span> <span class=n>Microsoft</span><span class=p>.</span><span class=py>PowerToys</span> <span class=n>-s</span> <span class=n>winget</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># 方式 2：Microsoft Store</span>
+</span></span><span class=line><span class=cl><span class=c># https://aka.ms/getPowertoys</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># 方式 3：GitHub Releases</span>
+</span></span><span class=line><span class=cl><span class=c># https://aka.ms/installPowerToys</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-6>代码示例</h3><p>PowerToys 本身是 GUI 工具，但它的"Keyboard Manager"可以零代码做"键位重映射"：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl># 场景：把 CapsLock 改成 Ctrl（macOS 习惯）
+</span></span><span class=line><span class=cl># 1. 打开 PowerToys Settings -&gt; Keyboard Manager -&gt; Remap a key
+</span></span><span class=line><span class=cl># 2. 选 CapsLock -&gt; Ctrl
+</span></span><span class=line><span class=cl># 3. 点 OK，立即生效
+</span></span></code></pre></td></tr></table></div></div><p>进阶用户可以用 <code>Keyboard Manager</code> 的"快捷键重映射"做"一键启动 PowerToys Run"等。</p><h3 id=评价-6>评价</h3><p><strong>优点</strong>：</p><ul><li>微软官方维护，质量稳定</li><li>30+ 工具的"套件"价值，远超任何单一工具</li><li>100% 免费 + 开源</li><li>与 AI 工作流配合极好（Command Palette 启动 Claude Code 等）</li></ul><p><strong>缺点</strong>：</p><ul><li>仅 Windows 平台</li><li>偶尔会因为系统更新引入 bug</li><li>部分工具需要"再点一下"才会用</li></ul><p><strong>推荐指数</strong>：⭐⭐⭐⭐⭐（Windows 用户必装）</p><hr><h2 id=8-hugohe3ppt-master--ai-生成真可编辑的-pptx而不是一坨图片>8. hugohe3/ppt-master — AI 生成"真可编辑"的 .pptx，而不是"一坨图片"</h2><h3 id=核心功能-7>核心功能</h3><p><code>PPT Master</code> 是一个<strong>运行在 AI IDE 里的"工作流 Skill"</strong>（不是完整 Agent），目标是让 AI 把任意文档（PDF、Word、Markdown）变成<strong>真可编辑的 PowerPoint</strong>——不是"一张大图塞进 .pptx"，而是<strong>真正的 DrawingML 形状 + 文字框 + 动画 + 演讲者备注</strong>。</p><p>核心差异化：</p><ul><li><strong>Real DrawingML</strong>：每个元素在 PowerPoint 里都能点击修改</li><li><strong>支持母版 / 模板</strong>：可以基于你自己的 .pptx 模板生成</li><li><strong>演讲者备注可配音</strong>：用 TTS 转语音旁白</li><li><strong>完全本地化运行</strong>：除 AI 模型调用外，所有步骤都在本机</li><li><strong>跨 IDE 兼容</strong>：Claude Code、Cursor、VS Code + Copilot、Codebuddy</li><li><strong>跨模型兼容</strong>：Claude、GPT、Gemini、Kimi、DeepSeek</li></ul><h3 id=适用场景-7>适用场景</h3><ul><li>商务汇报、学术答辩、培训材料的"AI 提速"</li><li>已有 .pptx 模板但缺内容的场景（PPT Master 填内容 + 套模板）</li><li>想学"AI Agent + 实际生产力"的开发者</li></ul><h3 id=安装方式-7>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 1. 装 Python（3.10+）+ 一个 AI IDE（Claude Code 推荐）</span>
+</span></span><span class=line><span class=cl><span class=c1># 2. 准备源材料</span>
+</span></span><span class=line><span class=cl>ls ./source.pdf
+</span></span><span class=line><span class=cl><span class=c1># 3. 启动 Claude Code</span>
+</span></span><span class=line><span class=cl>claude
+</span></span><span class=line><span class=cl><span class=c1># 4. 在 IDE 中调用 skill：</span>
+</span></span><span class=line><span class=cl><span class=c1># &#34;用 ppt-master 把 ./source.pdf 做成 .pptx&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-7>代码示例</h3><p>PPT Master 的核心是"对话式"工作流：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl># 用户：
+</span></span><span class=line><span class=cl>&gt; 用 ppt-master 把 docs/whitepaper.pdf 做成 .pptx，
+</span></span><span class=line><span class=cl>  套 templates/company-template.pptx 的样式，
+</span></span><span class=line><span class=cl>  演讲者备注用英文，每页加旁白音频。
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># Agent 输出：
+</span></span><span class=line><span class=cl># - 解析 PDF（用 PyMuPDF）
+</span></span><span class=line><span class=cl># - 提取章节大纲（22 页）
+</span></span><span class=line><span class=cl># - 对每页写&#34;标题 + 关键 3 点 + 演讲者备注&#34;
+</span></span><span class=line><span class=cl># - 套用 template 的母版样式（配色、字体）
+</span></span><span class=line><span class=cl># - 生成 .pptx（python-pptx）
+</span></span><span class=line><span class=cl># - 用 TTS 生成 22 段旁白音频
+</span></span><span class=line><span class=cl># - 交付：output/whitepaper-deck.pptx + output/narration/*.mp3
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-7>评价</h3><p><strong>优点</strong>：</p><ul><li>精准切入"AI PPT 工具最大的痛点"——能直接编辑</li><li>不依赖单一平台 / 模型，最大化灵活性</li><li>完全开源（MIT）+ 本地化</li><li>&ldquo;透明成本&rdquo;：不收订阅费，只付模型 token 费</li></ul><p><strong>缺点</strong>：</p><ul><li>&ldquo;一次出完美"不现实，作者明确说"模型决定上限&rdquo;</li><li>高质量结果需要 Claude Opus 4.7 + 1M 上下文 + gpt-image-2，便宜模型出片质量明显下降</li><li>学习曲线：对"零 Python 基础"用户偏陡</li></ul><p><strong>推荐指数</strong>：⭐⭐⭐⭐（AI PPT 工具的天花板级方案）</p><hr><h2 id=9-jcodesmoreai-website-cloner-template--一键把任意网站反推成-nextjs-代码>9. JCodesMore/ai-website-cloner-template — 一键把任意网站反推成 Next.js 代码</h2><h3 id=核心功能-8>核心功能</h3><p><code>ai-website-cloner-template</code> 是一个<strong>用 AI 编程 Agent 把任意网站反推成干净、现代的 Next.js 代码库</strong>的可复用模板。推荐 Claude Code + Opus 4.7（效果最佳），但 Codex / OpenCode / Copilot / Cursor / Windsurf / Gemini CLI / Cline / Roo Code / Continue / Amazon Q / Augment Code / Aider 也都支持。</p><p>核心操作是 <code>/clone-website</code> 技能，背后是一套多阶段流水线：</p><ol><li><strong>Reconnaissance</strong>：截图 + 提取设计令牌 + 交互扫描（滚动 / 点击 / hover / 响应式）</li><li><strong>Foundation</strong>：更新字体、颜色、全局样式，下载所有资产</li><li><strong>Component Specs</strong>：写详细规范文件（<code>docs/research/components/</code>），含精确的 <code>getComputedStyle()</code> 取值、状态、行为、内容</li><li><strong>Parallel Build</strong>：在 git worktree 里派发并行 builder Agent，每 section/component 一个</li><li><strong>Assembly & QA</strong>：合并 worktree，连接页面，对原站做 visual diff</li></ol><p>技术栈：Next.js 16（App Router）+ React 19 + TypeScript strict + shadcn/ui（Radix + Tailwind v4）+ Tailwind v4 oklch tokens + Lucide React（克隆时替换为提取的 SVG）。</p><h3 id=适用场景-8>适用场景</h3><ul><li><strong>平台迁移</strong>：把 WordPress / Webflow / Squarespace 老站重建到现代 Next.js</li><li><strong>失源找回</strong>：站点还在但仓库没了、开发者跑路了、栈太 legacy</li><li><strong>学习参考</strong>：用真代码解构"产品网站是怎么做出来的"</li><li><strong>MVP 快速复用</strong>：拿一个做得好的设计当骨架，往里填自己的内容</li></ul><h3 id=安装方式-8>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 1. 在 GitHub 上点 &#34;Use this template&#34; 创建你自己的仓库</span>
+</span></span><span class=line><span class=cl><span class=c1># 2. clone 到本地</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/YOUR-USERNAME/YOUR-NEW-REPOSITORY.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> YOUR-NEW-REPOSITORY
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 3. 安装依赖</span>
+</span></span><span class=line><span class=cl>npm install
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 4. 启动 AI 代理</span>
+</span></span><span class=line><span class=cl>claude --chrome
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 5. 运行技能</span>
+</span></span><span class=line><span class=cl>&gt; /clone-website https://example.com
+</span></span></code></pre></td></tr></table></div></div><h3 id=代码示例-8>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>&gt; /clone-website https://stripe.com
+</span></span><span class=line><span class=cl># Agent 自动完成：
+</span></span><span class=line><span class=cl># - 截图、提取 design token
+</span></span><span class=line><span class=cl># - 写 12 个 component spec（hero, pricing, footer, ...）
+</span></span><span class=line><span class=cl># - 派 5 个 builder Agent 并行实现
+</span></span><span class=line><span class=cl># - 合并、连接、跑 visual diff
+</span></span><span class=line><span class=cl># - 输出可立即 npm run dev 的 Next.js 代码库
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-8>评价</h3><p><strong>优点</strong>：</p><ul><li>把"克隆网站"从"玄学"变成"流水线"</li><li>多 Agent 并行 + Component Spec 模板 = 几乎零猜测</li><li>完整工具链：Next.js 16 + React 19 + TS strict + Tailwind v4，<strong>不是玩具栈</strong></li><li>支持 10+ AI 编程代理，不锁定单一供应商</li></ul><p><strong>缺点</strong>：</p><ul><li>严重依赖"AI 编程代理 + 大模型"，便宜模型会"跑飞"</li><li>反推出来的代码不一定"无 bug"，需要人工 review</li><li>对复杂 SPA / 鉴权站效果一般</li></ul><p><strong>推荐指数</strong>：⭐⭐⭐⭐（网站重建 / 学习的杀手锏工具）</p><hr><h2 id=10-garrytangstack--garry-tan-的claude-code-团队化工作流yc-ceo-亲推>10. garrytan/gstack — Garry Tan 的"Claude Code 团队化"工作流（YC CEO 亲推）</h2><h3 id=核心功能-9>核心功能</h3><p><code>gstack</code> 是 YC 现任 CEO Garry Tan 公开的**&ldquo;23 个 opinionated 工具 + 8 个 power tools&rdquo;** Claude Code 工作流集。它把 Claude Code 从"一个 AI 助手"变成"一支虚拟工程团队"——分别担任 CEO、设计师、工程经理、Release Manager、Doc Engineer、QA、Security Officer 等角色，全部以 <strong>slash 命令 + Markdown</strong> 实现，MIT 协议。</p><ul><li><strong><code>/office-hours</code></strong>：产品问诊，6 个强制问题</li><li><strong><code>/plan-ceo-review</code> / <code>/plan-eng-review</code> / <code>/plan-design-review</code> / <code>/plan-devex-review</code></strong>：多视角 review</li><li><strong><code>/design-consultation</code> / <code>/design-shotgun</code> / <code>/design-html</code></strong>：设计工作流</li><li><strong><code>/review</code> / <code>/ship</code> / <code>/land-and-deploy</code> / <code>/canary</code></strong>：代码 review + 发布</li><li><strong><code>/qa</code> / <code>/qa-only</code></strong>：QA 自动化（<strong>真打开浏览器</strong>）</li><li><strong><code>/cso</code></strong>：安全审计（OWASP + STRIDE）</li><li><strong><code>/browse</code> / <code>/connect-chrome</code></strong>：浏览器集成</li><li><strong><code>/benchmark</code> / <code>/codex</code> / <code>/autoplan</code> / <code>/retro</code> / <code>/investigate</code> 等</strong>：方法论工具</li></ul><blockquote><p>Garry 自己说：&ldquo;过去 60 天我交付了 3 个生产服务、40+ feature，全程 Part-time，2026 年的逻辑代码产出量是 2013 年的 240 倍。&rdquo;</p></blockquote><h3 id=适用场景-9>适用场景</h3><ul><li>单兵 founder / 技术 CEO 想"以一打十"</li><li>Claude Code 第一次使用的小白（结构化角色 > 空白 prompt）</li><li>Tech Lead / Staff Engineer 想"每次 PR 都过 QA + 安全 + 文档"</li><li>团队用 <code>gstack-team-init</code> 一键把工作流同步给所有成员</li></ul><h3 id=安装方式-9>安装方式</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 1. 一行命令安装</span>
+</span></span><span class=line><span class=cl>git clone --single-branch --depth <span class=m>1</span> https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
+</span></span><span class=line><span class=cl><span class=nb>cd</span> ~/.claude/skills/gstack
+</span></span><span class=line><span class=cl>./setup
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2. 在项目的 CLAUDE.md 中加入 gstack 段（Claude 自动发现）</span>
+</span></span><span class=line><span class=cl><span class=c1># 3. 团队版：</span>
+</span></span><span class=line><span class=cl><span class=o>(</span><span class=nb>cd</span> ~/.claude/skills/gstack <span class=o>&amp;&amp;</span> ./setup --team<span class=o>)</span> <span class=o>&amp;&amp;</span> ~/.claude/skills/gstack/bin/gstack-team-init required
+</span></span><span class=line><span class=cl>git add .claude/ CLAUDE.md
+</span></span><span class=line><span class=cl>git commit -m <span class=s2>&#34;require gstack for AI-assisted work&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>前置依赖：Claude Code + Git + Bun v1.0+（Windows 还需要 Node.js）</p><h3 id=代码示例-9>代码示例</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl># 场景 1：第一次用它
+</span></span><span class=line><span class=cl>&gt; /office-hours
+</span></span><span class=line><span class=cl># &#34;我正在做一个帮独立开发者接外包的平台……&#34;
+</span></span><span class=line><span class=cl># 6 个问题强制把&#34;模糊想法&#34;变成&#34;清晰 spec&#34;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 场景 2：每个 PR 必经流程
+</span></span><span class=line><span class=cl>&gt; /plan-ceo-review   # CEO 视角：这个功能值不值得做？
+</span></span><span class=line><span class=cl>&gt; /plan-eng-review   # 工程：架构、数据流、风险
+</span></span><span class=line><span class=cl>&gt; /plan-design-review # 设计：UI / UX 一致性
+</span></span><span class=line><span class=cl>&gt; /review            # 代码 review
+</span></span><span class=line><span class=cl>&gt; /qa                # 自动化 QA（真开浏览器）
+</span></span><span class=line><span class=cl>&gt; /cso               # 安全审计
+</span></span><span class=line><span class=cl>&gt; /ship              # 发 PR
+</span></span></code></pre></td></tr></table></div></div><p>OpenClaw 用户更省事——装 <code>gstack-openclaw-*</code> 系列 skill，<strong>直接在 OpenClaw agent 里跑</strong>，无需 Claude Code：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl># 在 OpenClaw 里：
+</span></span><span class=line><span class=cl>&gt; Load gstack. Run /office-hours then /autoplan. Save the plan, don&#39;t implement.
+</span></span><span class=line><span class=cl>&gt; Load gstack. Run /cso
+</span></span><span class=line><span class=cl>&gt; Load gstack. Run /qa https://staging.myapp.com
+</span></span></code></pre></td></tr></table></div></div><h3 id=评价-9>评价</h3><p><strong>优点</strong>：</p><ul><li>&ldquo;把 YC 总裁的工作流开源&rdquo;——视角独特，价值极高</li><li>23 个工具全部 Markdown + MIT，免费到不可思议</li><li>真打通了"产品 → 架构 → 设计 → 代码 → QA → 安全 → 发布"全链路</li><li>与 OpenClaw / Claude Code 双向集成</li></ul><p><strong>缺点</strong>：</p><ul><li>学习曲线：23 个 slash 命令全用上需要几天</li><li>强依赖 Claude Code（不是模型无关）</li><li>部分工具（<code>/qa</code> 的浏览器、<code>/connect-chrome</code>）在 Linux server 跑要配置</li></ul><p><strong>推荐指数</strong>：⭐⭐⭐⭐⭐（AI 工作流的"操作系统级"项目，必 star）</p><hr><h2 id=今日趋势小结>今日趋势小结</h2><p>对比昨日（2026-06-27），今天 Trending 名单的关键变化：</p><p><strong>新进 Top 10</strong>：<code>IceWhaleTech/CasaOS</code>（#4）、<code>microsoft/PowerToys</code>（#7）、<code>hugohe3/ppt-master</code>（#8）、<code>garrytan/gstack</code>（#10）</p><p><strong>排名上升</strong>：<code>xbtlin/ai-berkshire</code>（#10 → #2）</p><p><strong>继续在榜</strong>：<code>simplex-chat</code>（#1 不变）、<code>commaai/openpilot</code>（#3 不变）、<code>ripienaar/free-for-dev</code>（#6 → #5）、<code>google-labs-code/design.md</code>（#2 → #6）</p><p><strong>跌出 Top 10</strong>：<code>kunchenguid/no-mistakes</code>、<code>grafana/grafana</code>、<code>opendatalab/MinerU</code>、<code>alchaincyf/zhangxuefeng-skill</code>、<code>mauriceboe/TREK</code></p><p><strong>今日信号</strong>：</p><ol><li><strong>&ldquo;个人云 + 桌面增强"回归</strong>：CasaOS + PowerToys 同步上榜，说明开发者正在从"云依赖"回到"本地 + 桌面"的工作流</li><li><strong>AI 工作流走向"团队化&rdquo;</strong>：gstack 出现 = 单兵 founder 的"工程团队"已经成为产品</li><li><strong>&ldquo;真可编辑"成为 AI 工具新标尺</strong>：ppt-master 强调"Real DrawingML&rdquo;、design.md 强调"Agent 看得懂"——都在解决 AI 工具"输出物不能直接用"的老问题</li></ol><blockquote><p>数据来源：<a href=https://github.com/trending>github.com/trending</a>（每日 UTC 榜单）
+抓取时间：2026-06-28 13:02 (Asia/Shanghai) / 2026-06-28 05:02 (UTC)
+抓取方式：直接 HTTP GET + 解析 trending 页面</p></blockquote></div><section class=about-section><h2>技术栈</h2><div class=tech-stack><span class=tech-tag>HTML & CSS</span>
+<span class=tech-tag>JavaScript</span>
+<span class=tech-tag>Vue.js</span>
+<span class=tech-tag>React</span>
+<span class=tech-tag>Python</span>
+<span class=tech-tag>Go</span>
+<span class=tech-tag>Node.js</span>
+<span class=tech-tag>Git</span>
+<span class=tech-tag>Docker</span>
+<span class=tech-tag>Linux</span>
+<span class=tech-tag>Hugo</span>
+<span class=tech-tag>CI/CD</span></div></section><section class=about-section><h2>联系方式</h2><div class=contact-grid><a href=mailto:hello@brez.top class=contact-card><div class=contact-card-icon style=background:#ea4335><span style=font-size:1.1rem;font-weight:700;color:#fff>E</span></div><div class=contact-card-info><div class=contact-card-label>Email</div><div class=contact-card-value>hello@brez.top</div><div class=contact-card-desc>适合反馈链接错误、内容问题或合作沟通。</div></div></a><a href=https://github.com/breztop class=contact-card target=_blank rel=noopener><div class=contact-card-icon style=background:#24292f><span style=font-size:1.1rem;font-weight:700;color:#fff>G</span></div><div class=contact-card-info><div class=contact-card-label>GitHub</div><div class=contact-card-value>github.com/breztop</div><div class=contact-card-desc>提交问题、查看项目更新或直接发起交流。</div></div></a><a href=/index.xml class=contact-card target=_blank rel=noopener><div class=contact-card-icon style=background:#f59e0b><span style=font-size:1.1rem;font-weight:700;color:#fff>R</span></div><div class=contact-card-info><div class=contact-card-label>RSS</div><div class=contact-card-value>订阅博客更新</div><div class=contact-card-desc>想持续关注新文章，可以直接添加 RSS 订阅。</div></div></a><a href=https://x.com/brez_top class=contact-card target=_blank rel=noopener><div class=contact-card-icon style=background:#111><span style=font-size:1.1rem;font-weight:700;color:#fff>X</span></div><div class=contact-card-info><div class=contact-card-label>X</div><div class=contact-card-value>x.com/brez_top</div><div class=contact-card-desc>适合轻量沟通与关注最近动态。</div></div></a></div></section></div></div></main><footer class=footer><span>&copy; 2026 <a href=https://blog.brez.top/zh/>breeze 的博客</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg></a><style>.goatcounter-count{font-variant-numeric:tabular-nums}</style><script>document.addEventListener("DOMContentLoaded",()=>{const e="https://stats.brez.top";document.querySelectorAll(".goatcounter-count").forEach(async t=>{let n=t.getAttribute("data-goatcounter-path")||location.pathname;n=n.replace(/\/$/,"")||"/";const s=`${e}/counter/${n}.json`;try{const e=await fetch(s);if(e.ok){const n=await e.json();t.innerText=(n.count||0)+" 次阅读"}}catch{t.innerText==="..."&&(t.innerText="0 次阅读")}})})</script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="复制";function s(){t.innerHTML="已复制！",setTimeout(()=>{t.innerHTML="复制"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
