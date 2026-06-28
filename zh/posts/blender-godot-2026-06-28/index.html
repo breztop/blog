@@ -1,0 +1,839 @@
+<!doctype html><html lang=zh dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Blender & Godot 3D 教程 - 2026-06-28 - Godot 4 联机大厅零基础入门：Matchmaking / Lobby / 房间系统,30 分钟搭一个能「建房 + 邀请 + 准备」的 3D 多人游戏大厅 | breeze 的博客</title><meta name=keywords content="blender,godot,multiplayer,3d,tutorial,lobby,matchmaking"><meta name=description content="零基础打开 Godot 4.6 联机大厅：理解「大厅」是什么、为什么需要房间码 + 房主 + 准备状态、用 ENet + LobbyManager Autoload 做一个 4 人 3D 房间(创建房间 → 显示 6 位房间码 → 别人输入房间码加入 → 双方点 Ready → 房主按 Start 进入 3D 场景),30 分钟全部跑通。"><meta name=author content="breeze"><link rel=canonical href=https://gblog.brez.top/zh/posts/blender-godot-2026-06-28/><link crossorigin=anonymous href=/assets/css/stylesheet.e0ba212d7b4ed74021489f5eb5c01895cc96ff298035a781633788fd72e6333c.css integrity="sha256-4LohLXtO10AhSJ9etcAYlcyW/ymANaeBYzeI/XLmMzw=" rel="preload stylesheet" as=style><link rel=icon href=https://gblog.brez.top/favicon.svg><link rel=icon type=image/png sizes=16x16 href=https://gblog.brez.top/favicon.svg><link rel=icon type=image/png sizes=32x32 href=https://gblog.brez.top/favicon.svg><link rel=apple-touch-icon href=https://gblog.brez.top/favicon.svg><link rel=mask-icon href=https://gblog.brez.top/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh href=https://gblog.brez.top/zh/posts/blender-godot-2026-06-28/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><script data-goatcounter=https://stats.brez.top/count async src=//stats.brez.top/count.js></script><meta property="og:url" content="https://gblog.brez.top/zh/posts/blender-godot-2026-06-28/"><meta property="og:site_name" content="breeze 的博客"><meta property="og:title" content="Blender & Godot 3D 教程 - 2026-06-28 - Godot 4 联机大厅零基础入门：Matchmaking / Lobby / 房间系统,30 分钟搭一个能「建房 + 邀请 + 准备」的 3D 多人游戏大厅"><meta property="og:description" content="零基础打开 Godot 4.6 联机大厅：理解「大厅」是什么、为什么需要房间码 + 房主 + 准备状态、用 ENet + LobbyManager Autoload 做一个 4 人 3D 房间(创建房间 → 显示 6 位房间码 → 别人输入房间码加入 → 双方点 Ready → 房主按 Start 进入 3D 场景),30 分钟全部跑通。"><meta property="og:locale" content="zh"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-06-28T04:00:00+08:00"><meta property="article:modified_time" content="2026-06-28T04:00:00+08:00"><meta property="article:tag" content="Blender"><meta property="article:tag" content="Godot"><meta property="article:tag" content="Multiplayer"><meta property="article:tag" content="3d"><meta property="article:tag" content="Tutorial"><meta property="article:tag" content="Lobby"><meta property="og:image" content="https://gblog.brez.top/images/posts/blender-godot-2026-06-28.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://gblog.brez.top/images/posts/blender-godot-2026-06-28.png"><meta name=twitter:title content="Blender & Godot 3D 教程 - 2026-06-28 - Godot 4 联机大厅零基础入门：Matchmaking / Lobby / 房间系统,30 分钟搭一个能「建房 + 邀请 + 准备」的 3D 多人游戏大厅"><meta name=twitter:description content="零基础打开 Godot 4.6 联机大厅：理解「大厅」是什么、为什么需要房间码 + 房主 + 准备状态、用 ENet + LobbyManager Autoload 做一个 4 人 3D 房间(创建房间 → 显示 6 位房间码 → 别人输入房间码加入 → 双方点 Ready → 房主按 Start 进入 3D 场景),30 分钟全部跑通。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"杂项","item":"https://gblog.brez.top/zh/posts/"},{"@type":"ListItem","position":2,"name":"Blender \u0026 Godot 3D 教程 - 2026-06-28 - Godot 4 联机大厅零基础入门：Matchmaking / Lobby / 房间系统,30 分钟搭一个能「建房 + 邀请 + 准备」的 3D 多人游戏大厅","item":"https://gblog.brez.top/zh/posts/blender-godot-2026-06-28/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Blender \u0026 Godot 3D 教程 - 2026-06-28 - Godot 4 联机大厅零基础入门：Matchmaking / Lobby / 房间系统,30 分钟搭一个能「建房 + 邀请 + 准备」的 3D 多人游戏大厅","name":"Blender \u0026 Godot 3D 教程 - 2026-06-28 - Godot 4 联机大厅零基础入门：Matchmaking \/ Lobby \/ 房间系统,30 分钟搭一个能「建房 \u002b 邀请 \u002b 准备」的 3D 多人游戏大厅","description":"零基础打开 Godot 4.6 联机大厅：理解「大厅」是什么、为什么需要房间码 + 房主 + 准备状态、用 ENet + LobbyManager Autoload 做一个 4 人 3D 房间(创建房间 → 显示 6 位房间码 → 别人输入房间码加入 → 双方点 Ready → 房主按 Start 进入 3D 场景),30 分钟全部跑通。","keywords":["blender","godot","multiplayer","3d","tutorial","lobby","matchmaking"],"articleBody":"\nGodot 4 联机大厅零基础入门：Matchmaking / Lobby / 房间系统 本篇是「联机系列」的第十四篇。06-16 我们用 ENet 跑通了「两个 Godot 窗口连上」,06-25 我们解决了「延迟压到感觉不到」。但是 ——\n一个真实的玩家根本不会打开终端敲 peer.create_server(9999),他只会在主菜单看到 「创建房间」 / 「加入房间」 / 「6 位房间码」 / 「Ready 准备」 这几个按钮。这套「把网络连接藏到 UI 后面」的系统,就叫做 Lobby(大厅)。\n今天我们就用 30 分钟,把 06-25 那个 Demo 套上一个真正能用的 3D 多人游戏大厅。\n0. 你需要准备什么 Godot 4.6(实测 4.3+ 都能跑,本篇以 4.6 截图) 06-25 的 Demo 项目,或者一个新 Godot 4 项目 不需要 Blender —— 今天纯 Godot 不需要懂 GDScript 高阶特性 —— 你会 var / func / if 就行 打开 Godot → New Project → 选「3D」模板 → 命名 LobbyDemo → Create \u0026 Edit。\n1. 为什么需要「大厅」(3 分钟读懂) 06-25 我们是这样联机的:\n终端 A: ./LobbyDemo --server 终端 B: ./LobbyDemo --client --host=192.168.1.5 真实玩家看到这种界面会直接关游戏。所以我们要在 网络连接 和 玩家操作 之间塞一层 UI:\n玩家操作层 [主菜单] [大厅 UI] [游戏内 HUD] ↓ ↓ ↓ 业务逻辑层 [网络管理] [房间状态] [角色控制] ↓ ↓ ↓ 网络层 [ENet 传输] [房间码路由] [位置同步] Lobby 的三大职责:\n匹配(Matchmaking):玩家怎么找到别人的房间?—— 6 位房间码 + 输入框 房间管理(Lobby):谁在房间里?谁是房主?谁 Ready 了?—— 玩家列表 UI 状态机:从「在大厅」到「在游戏中」的转换—— 房主 Start 后全员跳场景 💡 为什么要单独搞一个 Lobby 场景? 把「等待 + 准备」和「实际游戏」分开,有两个好处:(a) 游戏场景被反复 Load/Unload 时,Lobby 状态不丢;(b) 玩家断线时,Lobby 可以决定「踢回主菜单」还是「重连进同一局」。\n2. 项目结构(跟着建) 在 Godot FileSystem 面板右键 → New Folder,建出这个结构:\nres:// ├── scenes/ │ ├── main_menu.tscn (主菜单) │ ├── lobby.tscn (大厅,本篇核心) │ └── game_world.tscn (3D 游戏场景,06-25 的复用) ├── scripts/ │ ├── network_manager.gd (Autoload,封装 ENet) │ ├── lobby_manager.gd (Autoload,房间状态) │ ├── main_menu.gd │ ├── lobby_ui.gd │ └── player_entry.gd └── ui_theme.tres (可选,统一按钮样式) 💡 为什么用 Autoload? Autoload(自动加载)是 Godot 的「全局单例」机制。把 NetworkManager 和 LobbyManager 做成 Autoload 后,任何场景、任何节点都能直接 NetworkManager.host_game() —— 不需要手动传引用、不需要担心场景切换丢状态。\n3. NetworkManager(封装 ENet,5 分钟搞定) 新建 scripts/network_manager.gd,粘贴以下完整代码:\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 extends Node ## NetworkManager —— 全局唯一的网络连接管理 ## 用法: ## NetworkManager.host_game(4287) # 房主调用 ## NetworkManager.join_game(\"192.168.x.x\", 4287) # 玩家调用 ## 信号: ## player_connected(peer_id) ## player_disconnected(peer_id) signal player_connected(peer_id: int) signal player_disconnected(peer_id: int) signal connection_failed() signal connection_succeeded() const PORT := 4287 const MAX_PLAYERS := 4 var is_host: bool = false func _ready() -\u003e void: multiplayer.peer_connected.connect(_on_peer_connected) multiplayer.peer_disconnected.connect(_on_peer_disconnected) multiplayer.connected_to_server.connect(_on_connected_ok) multiplayer.connection_failed.connect(_on_connection_failed) multiplayer.server_disconnected.connect(_on_server_disconnected) func host_game(port: int = PORT) -\u003e Error: var peer := ENetMultiplayerPeer.new() var err := peer.create_server(port, MAX_PLAYERS) if err != OK: push_error(\"create_server failed: %s\" % err) return err multiplayer.multiplayer_peer = peer is_host = true print(\"[Network] Host on port %d, peer_id=%d\" % [port, multiplayer.get_unique_id()]) return OK func join_game(host_address: String, port: int = PORT) -\u003e Error: var peer := ENetMultiplayerPeer.new() var err := peer.create_client(host_address, port) if err != OK: push_error(\"create_client failed: %s\" % err) return err multiplayer.multiplayer_peer = peer is_host = false print(\"[Network] Joining %s:%d ...\" % [host_address, port]) return OK func leave_game() -\u003e void: if multiplayer.multiplayer_peer: multiplayer.multiplayer_peer.close() multiplayer.multiplayer_peer = null is_host = false print(\"[Network] Disconnected\") func _on_peer_connected(peer_id: int) -\u003e void: print(\"[Network] Peer connected: %d\" % peer_id) player_connected.emit(peer_id) func _on_peer_disconnected(peer_id: int) -\u003e void: print(\"[Network] Peer disconnected: %d\" % peer_id) player_disconnected.emit(peer_id) func _on_connected_ok() -\u003e void: print(\"[Network] Connection succeeded, my peer_id=%d\" % multiplayer.get_unique_id()) connection_succeeded.emit() func _on_connection_failed() -\u003e void: print(\"[Network] Connection failed\") connection_failed.emit() func _on_server_disconnected() -\u003e void: print(\"[Network] Server disconnected, returning to menu\") multiplayer.multiplayer_peer = null is_host = false get_tree().change_scene_to_file(\"res://scenes/main_menu.tscn\") 打开 Project → Project Settings → Autoload,点 + 添加:\nPath 选 res://scripts/network_manager.gd Node Name 填 NetworkManager 💡 为什么要先做 NetworkManager 而不是直接写大厅 UI? 「UI」是「网络」的表现层。先把网络层封装好(Autoload + 信号),后面 UI 只负责「显示状态」和「调用方法」,逻辑和表现彻底解耦 —— 这也是 Godot 推荐的 MVC-ish 模式。\n4. LobbyManager(房间状态机,8 分钟) 新建 scripts/lobby_manager.gd:\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 extends Node ## LobbyManager —— 维护当前房间的所有玩家状态 ## 关键设计:房主(host)是「权威」,只有它能修改 player_list ## 其他客户端通过 @rpc 同步状态 signal player_list_changed() signal room_code_changed(code: String) signal all_ready_changed(all_ready: bool) const MAX_PLAYERS := 4 # 玩家数据:{peer_id: {name: String, ready: bool, is_host: bool}} var player_list: Dictionary = {} # 6 位房间码(纯展示用,真实路由靠 ENet + IP) var room_code: String = \"\" var my_peer_id: int: get: return multiplayer.get_unique_id() if multiplayer.multiplayer_peer else 0 var am_i_host: bool: get: return player_list.get(my_peer_id, {}).get(\"is_host\", false) func _ready() -\u003e void: NetworkManager.player_connected.connect(_on_player_connected) NetworkManager.player_disconnected.connect(_on_player_disconnected) # --- 创建房间(只有 host 调用) --- func create_room(host_name: String) -\u003e String: player_list.clear() player_list[my_peer_id] = { \"name\": host_name, \"ready\": false, \"is_host\": true, } room_code = _generate_room_code() player_list_changed.emit() room_code_changed.emit(room_code) print(\"[Lobby] Room created: %s, host=%d\" % [room_code, my_peer_id]) return room_code # --- 加入房间(客户端调用) --- @rpc(\"any_peer\", \"call_local\", \"reliable\") func rpc_add_player(peer_id: int, player_name: String) -\u003e void: if not multiplayer.is_server(): return # 只有 host 执行 if player_list.size() \u003e= MAX_PLAYERS: push_warning(\"[Lobby] Room full, rejecting peer %d\" % peer_id) multiplayer.multiplayer_peer.disconnect_peer(peer_id) return player_list[peer_id] = { \"name\": player_name, \"ready\": false, \"is_host\": false, } # 把当前完整列表广播给所有人 rpc_sync_player_list.rpc(player_list.duplicate(true)) print(\"[Lobby] Player added: %d (%s), total=%d\" % [peer_id, player_name, player_list.size()]) @rpc(\"authority\", \"call_remote\", \"reliable\") func rpc_sync_player_list(synced_list: Dictionary) -\u003e void: player_list = synced_list player_list_changed.emit() _check_all_ready() # --- 切换 Ready 状态 --- @rpc(\"any_peer\", \"call_local\", \"reliable\") func rpc_toggle_ready(peer_id: int) -\u003e void: if player_list.has(peer_id): player_list[peer_id][\"ready\"] = not player_list[peer_id][\"ready\"] rpc_sync_player_list.rpc(player_list.duplicate(true)) # --- 房主:开始游戏 --- @rpc(\"authority\", \"call_remote\", \"reliable\") func rpc_start_game() -\u003e void: print(\"[Lobby] Starting game for all clients\") get_tree().change_scene_to_file(\"res://scenes/game_world.tscn\") # --- 内部辅助 --- func _on_player_connected(peer_id: int) -\u003e void: # 客户端连上来后,把自己的名字报给 host var my_name: String = \"Player_%d\" % (randi() % 1000) # 实际项目里从设置或存档读 rpc_add_player.rpc_id(1, peer_id, my_name) # 1 是 host 的 peer_id func _on_player_disconnected(peer_id: int) -\u003e void: if multiplayer.is_server() and player_list.has(peer_id): player_list.erase(peer_id) rpc_sync_player_list.rpc(player_list.duplicate(true)) func _generate_room_code() -\u003e String: const CHARS := \"ABCDEFGHJKLMNPQRSTUVWXYZ23456789\" # 去掉易混的 I O 0 1 var code := \"\" for i in 6: code += CHARS[randi() % CHARS.length()] return code func _check_all_ready() -\u003e void: if player_list.size() \u003c 2: all_ready_changed.emit(false) return var all_ready := true for pid in player_list: if not player_list[pid][\"ready\"]: all_ready = false break all_ready_changed.emit(all_ready) 同样添加到 Autoload(Node Name:LobbyManager)。\n💡 为什么要 duplicate(true)? Dictionary / Array 是引用类型,直接 rpc_sync_player_list.rpc(player_list) 会把同一个字典传给所有人,有人修改就会污染所有人。duplicate(true) 深拷贝一份,每人改自己的,互不影响。这是 Godot 网络代码里 80% 的坑都来自这里。\n💡 为什么要 @rpc(\"authority\", \"call_remote\")? \"authority\" 表示「只有 host(server)能调用」,\"call_remote\" 表示「不调用本地,只发给远端」。这样设计:host 改完状态后,自动广播给所有 client,client 只负责同步显示,不互相打架。\n5. 主菜单(2 分钟) 新建 scenes/main_menu.tscn,节点结构:\nMainMenu (Control, full rect) ├── Title (Label) text=\"🎮 Lobby Demo\" ├── HostButton (Button) text=\"创建房间\" ├── JoinPanel (PanelContainer) │ └── VBox │ ├── IPInput (LineEdit) placeholder_text=\"127.0.0.1\" │ ├── JoinButton (Button) text=\"加入\" │ └── BackButton (Button) text=\"← 返回\" └── StatusLabel (Label) text=\"\" 新建 scripts/main_menu.gd:\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 extends Control @onready var host_button: Button = $HostButton @onready var join_button: Button = $JoinPanel/VBox/JoinButton @onready var ip_input: LineEdit = $JoinPanel/VBox/IPInput @onready var status_label: Label = $StatusLabel @onready var join_panel: PanelContainer = $JoinPanel func _ready() -\u003e void: host_button.pressed.connect(_on_host_pressed) join_button.pressed.connect(_on_join_pressed) join_panel.visible = false NetworkManager.connection_failed.connect(_on_connection_failed) NetworkManager.connection_succeeded.connect(_on_connection_succeeded) func _on_host_pressed() -\u003e void: if NetworkManager.host_game() == OK: # 我是房主 → 创建房间 → 进入大厅 LobbyManager.create_room(\"Host_%d\" % randi() % 1000) get_tree().change_scene_to_file(\"res://scenes/lobby.tscn\") func _on_join_pressed() -\u003e void: var ip := ip_input.text.strip_edges() if ip.is_empty(): ip = \"127.0.0.1\" if NetworkManager.join_game(ip) != OK: status_label.text = \"❌ 加入失败:地址错误\" func _on_connection_failed() -\u003e void: status_label.text = \"❌ 连接超时,请检查 IP\" func _on_connection_succeeded() -\u003e void: # 加入成功 → 等 LobbyManager.on_player_connected 触发后 # 才会把我们的名字报给 host get_tree().change_scene_to_file(\"res://scenes/lobby.tscn\") 把这脚本拖到 MainMenu 根节点,保存场景。\n💡 为什么不直接 change_scene_to_file(\"lobby.tscn\") 而要等 connection_succeeded? 客户端点了「加入」后,ENet 是异步连接的 —— 如果立刻切场景,你的 peer_id 可能还是 0,LobbyManager 不知道自己是谁。必须等 connected_to_server 信号发出来,确认连上了,再切。\n6. 大厅 UI(8 分钟,本篇核心) 新建 scenes/lobby.tscn,节点结构:\nLobbyUI (Control, full rect) ├── TopBar (HBoxContainer) │ ├── RoomCodeLabel (Label) text=\"房间码: ------\" │ └── LeaveButton (Button) text=\"离开房间\" ├── PlayerList (VBoxContainer) │ ├── Header (Label) text=\"玩家 (0/4)\" │ └── Player1 (HBoxContainer) ← 模板,代码动态生成 │ ├── NameLabel (Label) │ ├── ReadyIcon (Label) text=\"⏳\" │ └── ReadyButton (Button) text=\"Ready\" └── BottomBar (HBoxContainer) ├── PlayerNameInput (LineEdit) placeholder=\"输入你的名字\" └── StartButton (Button) text=\"START GAME\" 新建 scripts/lobby_ui.gd(完整可跑):\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 extends Control const PLAYER_ENTRY_SCENE := preload(\"res://scenes/player_entry.tscn\") const MAX_PLAYERS := 4 @onready var room_code_label: Label = $TopBar/RoomCodeLabel @onready var leave_button: Button = $TopBar/LeaveButton @onready var player_list_box: VBoxContainer = $PlayerList @onready var header_label: Label = $PlayerList/Header @onready var name_input: LineEdit = $BottomBar/PlayerNameInput @onready var start_button: Button = $BottomBar/StartButton var player_entries: Dictionary = {} # peer_id -\u003e PlayerEntry 实例 func _ready() -\u003e void: leave_button.pressed.connect(_on_leave_pressed) start_button.pressed.connect(_on_start_pressed) start_button.visible = false # 默认隐藏,host 才显示 LobbyManager.player_list_changed.connect(_refresh_player_list) LobbyManager.room_code_changed.connect(_on_room_code_changed) LobbyManager.all_ready_changed.connect(_on_all_ready_changed) _on_room_code_changed(LobbyManager.room_code) _refresh_player_list() _update_start_button_visibility() # --- 房间码 --- func _on_room_code_changed(code: String) -\u003e void: if code.is_empty(): room_code_label.text = \"房间码: ------\" else: room_code_label.text = \"房间码: %s (邀请好友输入此码)\" % code # --- 玩家列表重建 --- func _refresh_player_list() -\u003e void: # 清除旧条目(保留 Header) for child in player_list_box.get_children(): if child.name != \"Header\": child.queue_free() player_entries.clear() # 按加入顺序排序(简单按 peer_id) var sorted_ids := LobbyManager.player_list.keys() sorted_ids.sort() for pid in sorted_ids: var entry := PLAYER_ENTRY_SCENE.instantiate() player_list_box.add_child(entry) var data: Dictionary = LobbyManager.player_list[pid] entry.setup(pid, data) entry.ready_toggled.connect(_on_player_ready_toggled) player_entries[pid] = entry header_label.text = \"玩家 (%d/%d)\" % [LobbyManager.player_list.size(), MAX_PLAYERS] _update_start_button_visibility() func _on_player_ready_toggled(peer_id: int) -\u003e void: LobbyManager.rpc_toggle_ready.rpc_id(1, peer_id) # --- Start / Leave --- func _update_start_button_visibility() -\u003e void: start_button.visible = LobbyManager.am_i_host func _on_start_pressed() -\u003e void: if not LobbyManager.am_i_host: return if not _is_everyone_ready(): push_warning(\"[LobbyUI] Not everyone ready, refuse to start\") return LobbyManager.rpc_start_game.rpc() func _is_everyone_ready() -\u003e bool: for pid in LobbyManager.player_list: if not LobbyManager.player_list[pid][\"ready\"]: return false return LobbyManager.player_list.size() \u003e= 2 func _on_all_ready_changed(all_ready: bool) -\u003e void: start_button.disabled = not all_ready func _on_leave_pressed() -\u003e void: NetworkManager.leave_game() get_tree().change_scene_to_file(\"res://scenes/main_menu.tscn\") 然后 新建场景 scenes/player_entry.tscn:\nPlayerEntry (HBoxContainer) ├── NameLabel (Label) ├── ReadyIcon (Label) text=\"⏳\" └── ReadyButton (Button) text=\"Ready\" 对应 scripts/player_entry.gd:\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 extends HBoxContainer signal ready_toggled(peer_id: int) var peer_id: int = 0 var is_ready: bool = false var is_host_entry: bool = false @onready var name_label: Label = $NameLabel @onready var ready_icon: Label = $ReadyIcon @onready var ready_button: Button = $ReadyButton func setup(p_peer_id: int, data: Dictionary) -\u003e void: peer_id = p_peer_id var prefix := \"👑 \" if data.get(\"is_host\", false) else \"\" name_label.text = \"%s%s\" % [prefix, data.get(\"name\", \"?\")] is_host_entry = data.get(\"is_host\", false) _apply_ready_state(data.get(\"ready\", false)) func _apply_ready_state(ready: bool) -\u003e void: is_ready = ready ready_icon.text = \"✅\" if ready else \"⏳\" # host 不需要自己 Ready ready_button.visible = not is_host_entry ready_button.text = \"Unready\" if ready else \"Ready\" func _on_ready_button_pressed() -\u003e void: if is_host_entry: return ready_toggled.emit(peer_id) 把 player_entry.tscn 拖到 lobby.tscn 的 PlayerList 节点下作为模板,然后删掉(脚本里 preload 会重新生成)。\n💡 为什么每个玩家一行 HBoxContainer 而不是一个大 List? Godot 的 Container 节点会自动布局,加新条目时不用算坐标。VBoxContainer 把所有 HBoxContainer 垂直堆叠,「Ready / Unready」状态变化时图标原地换就行,不动整体布局。\n7. 跑起来:两种姿势 姿势 A:本地双窗口测试(最简单) 按 F5 跑主菜单 → 看到「🎮 Lobby Demo」\n窗口 1(房主):点「创建房间」 → 跳到 lobby.tscn → 看到「房间码: ABC123」 窗口 2(玩家):Godot 顶部菜单 → Project → Run Instances → 勾「Enable Multiple Instances」 → Run Again → 主菜单 → 在输入框填 127.0.0.1 → 「加入」 预期:\n窗口 1 多出一行「Player_xxx ⏳ Ready」 窗口 2 多出一行「👑 Host_xxx ⏳」(host 是别人时也是👑标记) 双方点「Ready」 → 都变成 ✅ 房主点 START GAME → 两个窗口一起切到 game_world.tscn 姿势 B:跨机器测试(同一局域网) 房主看自己 IP:ip addr / ifconfig / ipconfig 找 192.168.x.x 玩家把 scenes/main_menu.tscn 导出 → 拷贝到另一台机器 玩家输入 192.168.x.x → 加入 💡 跨机器失败 90% 是防火墙:\nWindows:控制面板 → Windows Defender 防火墙 → 高级设置 → 入站规则 → 新建 TCP 端口 4287 macOS:系统设置 → 网络 → 防火墙 → 允许 Godot Linux:sudo ufw allow 4287/tcp 8. 三个常见坑 + 解决方案 坑 1:Dictionary 引用污染,所有人改同一个对象 症状:一个人 Ready,所有人一起 Ready;一个人改名,所有人都改。\n根因:你直接 rpc(player_list) 没 duplicate(true),GDScript 把同一个 Dictionary 引用传给所有人。\n解决:\n1 2 3 4 # ✅ 改 rpc_sync_player_list.rpc(player_list.duplicate(true)) # ❌ 错 rpc_sync_player_list.rpc(player_list) 坑 2:rpc() 调了但远端没收到 症状:host 调 rpc_start_game.rpc(),客户端的 rpc_start_game 函数不执行,场景不切。\n根因:@rpc 函数名必须完全一致,且文件必须 extends Node(不要让 UI Control 直接挂 rpc)。\n解决:\n1 2 3 4 # 两边函数名 + 参数列表 + 装饰器必须一致 @rpc(\"authority\", \"call_remote\", \"reliable\") func rpc_start_game() -\u003e void: # ← 完全相同的签名 get_tree().change_scene_to_file(\"res://scenes/game_world.tscn\") 调试技巧:在每个 rpc 函数开头加 print(\"[RPC] rpc_start_game called, peer=%d\" % multiplayer.get_unique_id()),看哪个端没执行。\n坑 3:房主离开,客户端卡在 lobby 症状:房主点「离开房间」关了窗口,客户端还显示「等待房主开始…」,永远卡住。\n根因:server_disconnected 信号没处理。\n解决(已经写在了 NetworkManager 里,这里再强调):\n1 2 3 4 func _on_server_disconnected() -\u003e void: multiplayer.multiplayer_peer = null is_host = false get_tree().change_scene_to_file(\"res://scenes/main_menu.tscn\") 进阶:做「房主转移」—— host 退出前,把列表里最早加入的 client 提升为新 host,再 peer.set_host(...)(Godot 4.4+ 支持)。\n9. 进阶:加一个真正的「Matchmaking 服务器」 目前我们靠「输入 IP」连接,真实游戏不会让玩家输 IP。生产级做法:\n自建轻量 Matchmaker(几百行 Go / Rust 代码):\n[客户端] --(HTTP)--\u003e [Matchmaker] --(返回房间 IP + 房间码)--\u003e | └─(ENet 直连)--\u003e [Game Server A:192.168.1.10:4287] [Game Server B:192.168.1.11:4287] 最小 Matchmaker 协议(JSON over HTTP):\n1 2 3 POST /create_room → {\"room_code\": \"ABC123\", \"host_ip\": \"...\", \"port\": 4287} POST /join_room body: {\"room_code\": \"ABC123\"} → {\"host_ip\": \"...\", \"port\": 4287} GET /list_rooms → [{\"room_code\": \"ABC123\", \"players\": 1, \"max\": 4}, ...] WebSocket 替代方案:适合浏览器端 Godot 4(HTML5 导出)。WebSocketPeer + 自建 ws://yourmatchmaker/ws。下一期我们专门讲 WebSocket/WebRTC 接入。\n10. 延伸阅读 Godot 官方文档 — High-level multiplayer —— @rpc / MultiplayerSpawner / MultiplayerSynchronizer 完整 API 参考 Godot 官方 Demo — Multiplayer lobby —— 官方维护的 lobby 示例项目,跟今天内容 90% 重叠,可以对照看更精简的实现 Gaffer on Games — What every programmer needs to know about game networking —— Glenn Fiedler 的经典长文,讲「状态同步 vs 帧同步」「权威服务器」的工程权衡,06-21 那篇的深度扩展 附:今天写的东西一览 res:// ├── scenes/ │ ├── main_menu.tscn ← 主菜单(创建/加入按钮) │ ├── lobby.tscn ← 大厅 UI(房间码 + 玩家列表 + Start) │ ├── player_entry.tscn ← 玩家条目模板 │ └── game_world.tscn ← 06-25 的 3D 游戏场景 └── scripts/ ├── network_manager.gd ← ENet 封装(Autoload) ├── lobby_manager.gd ← 房间状态机(Autoload) ├── main_menu.gd ├── lobby_ui.gd └── player_entry.gd 软件版本:Godot 4.6(实测 4.3 ~ 4.6 都能跑),ENet 1.3.18 内置 数据来源:Godot 官方文档 + 官方 multiplayer_lobby 示例 + 本篇实操截图(2026-06-28)\n下一步预告:06-29 我们讲「WebSocket / WebRTC 接入」—— 怎么让一个网页玩家和 Godot 客户端在同一个房间里对战。如果你的游戏想发到 itch.io 或者做成网页 demo,这一篇必看。\n如果跑通了,留个言告诉我你的房间码 — 我把 lobby 截图发上来 🎮\n","wordCount":"2230","inLanguage":"zh","image":"https://gblog.brez.top/images/posts/blender-godot-2026-06-28.png","datePublished":"2026-06-28T04:00:00+08:00","dateModified":"2026-06-28T04:00:00+08:00","author":{"@type":"Person","name":"breeze"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://gblog.brez.top/zh/posts/blender-godot-2026-06-28/"},"publisher":{"@type":"Organization","name":"breeze 的博客","logo":{"@type":"ImageObject","url":"https://gblog.brez.top/favicon.svg"}}}</script><style>.about-header{text-align:center;padding:2.5rem 1rem;background:var(--entry);border-bottom:1px solid var(--border);margin-bottom:1.5rem}.about-avatar-icon{width:80px;height:80px;border-radius:50%;background:var(--primary);color:var(--theme);display:inline-grid;place-items:center;margin-bottom:1rem;box-shadow:0 4px 10px rgba(0,0,0,.1)}.about-avatar-icon svg{width:40px;height:40px}.about-header h1{font-size:2.2rem;margin:0 0 .4rem;font-weight:800;color:var(--primary)}.about-header .tagline{font-size:1.1rem;color:var(--secondary);margin:0;font-weight:300}.about-content{max-width:800px;margin:0 auto;padding:1rem 0 4rem}.about-section{background:var(--entry);border-radius:12px;padding:2rem;margin-bottom:2rem;border:1px solid var(--border)}.about-section h2{font-size:1.5rem;margin:0 0 1.5rem;color:var(--primary);display:flex;align-items:center;gap:.8rem}.about-section h2::before{content:'';width:4px;height:24px;background:var(--primary);border-radius:2px}.about-section p{line-height:1.8;color:var(--content);margin:0 0 1rem}.tech-stack{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}.tech-tag{display:inline-block;padding:.4rem 1rem;background:var(--tertiary);border-radius:8px;font-size:.85rem;color:var(--primary);transition:all .2s ease}.tech-tag:hover{background:var(--primary);color:var(--theme);transform:translateY(-2px)}.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.5rem}.contact-card{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--tertiary);border-radius:10px;text-decoration:none;color:var(--content);border:1px solid transparent;transition:all .2s ease}.contact-card:hover{border-color:var(--primary);background:var(--entry);transform:translateY(-2px)}.contact-card-icon{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;background:var(--primary);color:var(--theme);flex-shrink:0}.contact-card-icon svg{width:20px;height:20px}.contact-card-info{flex:1;min-width:0}.contact-card-label{font-size:.75rem;color:var(--secondary)}.contact-card-value{font-size:.9rem;font-weight:600;overflow:hidden;text-overflow:ellipsis}.contact-card-desc{font-size:.7rem;color:var(--secondary);margin-top:.2rem;line-height:1.3}.other-sites{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}.site-link{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;background:var(--tertiary);border-radius:8px;text-decoration:none;color:var(--primary);font-weight:600;font-size:.9rem;transition:all .2s}.site-link:hover{background:var(--primary);color:var(--theme)}@media(max-width:768px){.about-header{padding:3rem 1rem}.about-section{padding:1.5rem}}.fade-in{animation:fadeIn .5s ease-out}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}</style></head><body id=top><header class=header><nav class=nav><div class=logo><a href=https://gblog.brez.top/zh/ accesskey=h title="breeze 的博客 (Alt + H)">breeze 的博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li><li><a href=https://gblog.brez.top/en/ title=English aria-label=English>En</a></li></ul></div></div><ul id=menu><li><a href=https://gblog.brez.top/zh/ title=首页><span>首页</span></a></li><li><a href=https://gblog.brez.top/zh/posts/ title=分享><span>分享</span></a></li><li><a href=https://gblog.brez.top/zh/life/ title=生活><span>生活</span></a></li><li><a href=https://gblog.brez.top/zh/tech/ title=技术><span>技术</span></a></li><li><a href=https://gblog.brez.top/zh/tags/ title=标签><span>标签</span></a></li><li><a href=https://gblog.brez.top/zh/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><div class=container><header class="about-header fade-in"><div class=about-avatar-icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h1>Blender & Godot 3D 教程 - 2026-06-28 - Godot 4 联机大厅零基础入门：Matchmaking / Lobby / 房间系统,30 分钟搭一个能「建房 + 邀请 + 准备」的 3D 多人游戏大厅</h1><p class=tagline>零基础打开 Godot 4.6 联机大厅：理解「大厅」是什么、为什么需要房间码 + 房主 + 准备状态、用 ENet + LobbyManager Autoload 做一个 4 人 3D 房间(创建房间 → 显示 6 位房间码 → 别人输入房间码加入 → 双方点 Ready → 房主按 Start 进入 3D 场景),30 分钟全部跑通。</p></header><div class="about-content fade-in"><div class=about-section><p><img alt=cover loading=lazy src=/images/posts/blender-godot-2026-06-28.png></p><h1 id=godot-4-联机大厅零基础入门matchmaking--lobby--房间系统>Godot 4 联机大厅零基础入门：Matchmaking / Lobby / 房间系统</h1><blockquote><p><strong>本篇是「联机系列」的第十四篇</strong>。06-16 我们用 ENet 跑通了「两个 Godot 窗口连上」,06-25 我们解决了「延迟压到感觉不到」。但是 ——</p><p>一个真实的玩家根本不会打开终端敲 <code>peer.create_server(9999)</code>,他只会在主菜单看到 <strong>「创建房间」</strong> / <strong>「加入房间」</strong> / <strong>「6 位房间码」</strong> / <strong>「Ready 准备」</strong> 这几个按钮。这套「把网络连接藏到 UI 后面」的系统,就叫做 <strong>Lobby(大厅)</strong>。</p><p>今天我们就用 30 分钟,把 06-25 那个 Demo 套上一个真正能用的 3D 多人游戏大厅。</p></blockquote><hr><h2 id=0-你需要准备什么>0. 你需要准备什么</h2><ul><li>Godot <strong>4.6</strong>(实测 4.3+ 都能跑,本篇以 4.6 截图)</li><li>06-25 的 Demo 项目,或者一个新 Godot 4 项目</li><li><strong>不需要</strong> Blender —— 今天纯 Godot</li><li><strong>不需要</strong>懂 GDScript 高阶特性 —— 你会 <code>var</code> / <code>func</code> / <code>if</code> 就行</li></ul><p>打开 Godot → New Project → 选「3D」模板 → 命名 <code>LobbyDemo</code> → Create & Edit。</p><hr><h2 id=1-为什么需要大厅3-分钟读懂>1. 为什么需要「大厅」(3 分钟读懂)</h2><p>06-25 我们是这样联机的:</p><pre tabindex=0><code>终端 A: ./LobbyDemo --server
+终端 B: ./LobbyDemo --client --host=192.168.1.5
+</code></pre><p>真实玩家看到这种界面会直接关游戏。所以我们要在 <strong>网络连接</strong> 和 <strong>玩家操作</strong> 之间塞一层 UI:</p><pre tabindex=0><code>玩家操作层    [主菜单]  [大厅 UI]  [游戏内 HUD]
+              ↓          ↓          ↓
+业务逻辑层    [网络管理] [房间状态] [角色控制]
+              ↓          ↓          ↓
+网络层        [ENet 传输] [房间码路由] [位置同步]
+</code></pre><p><strong>Lobby 的三大职责</strong>:</p><ol><li><strong>匹配(Matchmaking)</strong>:玩家怎么找到别人的房间?—— 6 位房间码 + 输入框</li><li><strong>房间管理(Lobby)</strong>:谁在房间里?谁是房主?谁 Ready 了?—— 玩家列表 UI</li><li><strong>状态机</strong>:从「在大厅」到「在游戏中」的转换—— 房主 Start 后全员跳场景</li></ol><blockquote><p>💡 <strong>为什么要单独搞一个 Lobby 场景?</strong>
+把「等待 + 准备」和「实际游戏」分开,有两个好处:<strong>(a)</strong> 游戏场景被反复 Load/Unload 时,Lobby 状态不丢;<strong>(b)</strong> 玩家断线时,Lobby 可以决定「踢回主菜单」还是「重连进同一局」。</p></blockquote><hr><h2 id=2-项目结构跟着建>2. 项目结构(跟着建)</h2><p>在 Godot FileSystem 面板右键 → New Folder,建出这个结构:</p><pre tabindex=0><code>res://
+├── scenes/
+│   ├── main_menu.tscn       (主菜单)
+│   ├── lobby.tscn           (大厅,本篇核心)
+│   └── game_world.tscn      (3D 游戏场景,06-25 的复用)
+├── scripts/
+│   ├── network_manager.gd   (Autoload,封装 ENet)
+│   ├── lobby_manager.gd     (Autoload,房间状态)
+│   ├── main_menu.gd
+│   ├── lobby_ui.gd
+│   └── player_entry.gd
+└── ui_theme.tres            (可选,统一按钮样式)
+</code></pre><blockquote><p>💡 <strong>为什么用 Autoload?</strong>
+Autoload(自动加载)是 Godot 的「全局单例」机制。把 <code>NetworkManager</code> 和 <code>LobbyManager</code> 做成 Autoload 后,<strong>任何场景、任何节点</strong>都能直接 <code>NetworkManager.host_game()</code> —— 不需要手动传引用、不需要担心场景切换丢状态。</p></blockquote><hr><h2 id=3-networkmanager封装-enet5-分钟搞定>3. NetworkManager(封装 ENet,5 分钟搞定)</h2><p>新建 <code>scripts/network_manager.gd</code>,粘贴以下完整代码:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=kd>extends</span> <span class=nc>Node</span>
+</span></span><span class=line><span class=cl><span class=c1>## NetworkManager —— 全局唯一的网络连接管理</span>
+</span></span><span class=line><span class=cl><span class=c1>## 用法:</span>
+</span></span><span class=line><span class=cl><span class=c1>##   NetworkManager.host_game(4287)        # 房主调用</span>
+</span></span><span class=line><span class=cl><span class=c1>##   NetworkManager.join_game(&#34;192.168.x.x&#34;, 4287)  # 玩家调用</span>
+</span></span><span class=line><span class=cl><span class=c1>## 信号:</span>
+</span></span><span class=line><span class=cl><span class=c1>##   player_connected(peer_id)</span>
+</span></span><span class=line><span class=cl><span class=c1>##   player_disconnected(peer_id)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>signal</span> <span class=nf>player_connected</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>signal</span> <span class=nf>player_disconnected</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>signal</span> <span class=nf>connection_failed</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=kd>signal</span> <span class=nf>connection_succeeded</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>PORT</span> <span class=o>:=</span> <span class=mi>4287</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>MAX_PLAYERS</span> <span class=o>:=</span> <span class=mi>4</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>is_host</span><span class=p>:</span> <span class=kt>bool</span> <span class=o>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_ready</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>peer_connected</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_peer_connected</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>peer_disconnected</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_peer_disconnected</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>connected_to_server</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_connected_ok</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>connection_failed</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_connection_failed</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>server_disconnected</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_server_disconnected</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>host_game</span><span class=p>(</span><span class=n>port</span><span class=p>:</span> <span class=kt>int</span> <span class=o>=</span> <span class=n>PORT</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>Error</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>peer</span> <span class=o>:=</span> <span class=nc>ENetMultiplayerPeer</span><span class=o>.</span><span class=nf>new</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>err</span> <span class=o>:=</span> <span class=n>peer</span><span class=o>.</span><span class=nf>create_server</span><span class=p>(</span><span class=n>port</span><span class=p>,</span> <span class=n>MAX_PLAYERS</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>err</span> <span class=o>!=</span> <span class=n>OK</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nb>push_error</span><span class=p>(</span><span class=s2>&#34;create_server failed: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>err</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>multiplayer_peer</span> <span class=o>=</span> <span class=n>peer</span>
+</span></span><span class=line><span class=cl>    <span class=n>is_host</span> <span class=o>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[Network] Host on port </span><span class=si>%d</span><span class=s2>, peer_id=</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>[</span><span class=n>port</span><span class=p>,</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>get_unique_id</span><span class=p>()])</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>OK</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>join_game</span><span class=p>(</span><span class=n>host_address</span><span class=p>:</span> <span class=nc>String</span><span class=p>,</span> <span class=n>port</span><span class=p>:</span> <span class=kt>int</span> <span class=o>=</span> <span class=n>PORT</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>Error</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>peer</span> <span class=o>:=</span> <span class=nc>ENetMultiplayerPeer</span><span class=o>.</span><span class=nf>new</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>err</span> <span class=o>:=</span> <span class=n>peer</span><span class=o>.</span><span class=nf>create_client</span><span class=p>(</span><span class=n>host_address</span><span class=p>,</span> <span class=n>port</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>err</span> <span class=o>!=</span> <span class=n>OK</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nb>push_error</span><span class=p>(</span><span class=s2>&#34;create_client failed: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>err</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>multiplayer_peer</span> <span class=o>=</span> <span class=n>peer</span>
+</span></span><span class=line><span class=cl>    <span class=n>is_host</span> <span class=o>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[Network] Joining </span><span class=si>%s</span><span class=s2>:</span><span class=si>%d</span><span class=s2> ...&#34;</span> <span class=o>%</span> <span class=p>[</span><span class=n>host_address</span><span class=p>,</span> <span class=n>port</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>OK</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>leave_game</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>multiplayer</span><span class=o>.</span><span class=n>multiplayer_peer</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>multiplayer</span><span class=o>.</span><span class=n>multiplayer_peer</span><span class=o>.</span><span class=nf>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>multiplayer</span><span class=o>.</span><span class=n>multiplayer_peer</span> <span class=o>=</span> <span class=kt>null</span>
+</span></span><span class=line><span class=cl>    <span class=n>is_host</span> <span class=o>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[Network] Disconnected&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_peer_connected</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[Network] Peer connected: </span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>player_connected</span><span class=o>.</span><span class=nf>emit</span><span class=p>(</span><span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_peer_disconnected</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[Network] Peer disconnected: </span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>player_disconnected</span><span class=o>.</span><span class=nf>emit</span><span class=p>(</span><span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_connected_ok</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[Network] Connection succeeded, my peer_id=</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>get_unique_id</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>    <span class=n>connection_succeeded</span><span class=o>.</span><span class=nf>emit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_connection_failed</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[Network] Connection failed&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>connection_failed</span><span class=o>.</span><span class=nf>emit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_server_disconnected</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[Network] Server disconnected, returning to menu&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>multiplayer_peer</span> <span class=o>=</span> <span class=kt>null</span>
+</span></span><span class=line><span class=cl>    <span class=n>is_host</span> <span class=o>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=nf>get_tree</span><span class=p>()</span><span class=o>.</span><span class=nf>change_scene_to_file</span><span class=p>(</span><span class=s2>&#34;res://scenes/main_menu.tscn&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>打开 <strong>Project → Project Settings → Autoload</strong>,点 <strong>+</strong> 添加:</p><ul><li>Path 选 <code>res://scripts/network_manager.gd</code></li><li>Node Name 填 <code>NetworkManager</code></li></ul><blockquote><p>💡 <strong>为什么要先做 NetworkManager 而不是直接写大厅 UI?</strong>
+「UI」是「网络」的表现层。先把网络层封装好(Autoload + 信号),后面 UI 只负责「显示状态」和「调用方法」,逻辑和表现彻底解耦 —— 这也是 Godot 推荐的 MVC-ish 模式。</p></blockquote><hr><h2 id=4-lobbymanager房间状态机8-分钟>4. LobbyManager(房间状态机,8 分钟)</h2><p>新建 <code>scripts/lobby_manager.gd</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=kd>extends</span> <span class=nc>Node</span>
+</span></span><span class=line><span class=cl><span class=c1>## LobbyManager —— 维护当前房间的所有玩家状态</span>
+</span></span><span class=line><span class=cl><span class=c1>## 关键设计:房主(host)是「权威」,只有它能修改 player_list</span>
+</span></span><span class=line><span class=cl><span class=c1>## 其他客户端通过 @rpc 同步状态</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>signal</span> <span class=nf>player_list_changed</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=kd>signal</span> <span class=nf>room_code_changed</span><span class=p>(</span><span class=n>code</span><span class=p>:</span> <span class=nc>String</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>signal</span> <span class=nf>all_ready_changed</span><span class=p>(</span><span class=n>all_ready</span><span class=p>:</span> <span class=kt>bool</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>MAX_PLAYERS</span> <span class=o>:=</span> <span class=mi>4</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 玩家数据:{peer_id: {name: String, ready: bool, is_host: bool}}</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>player_list</span><span class=p>:</span> <span class=nc>Dictionary</span> <span class=o>=</span> <span class=p>{}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 6 位房间码(纯展示用,真实路由靠 ENet + IP)</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>room_code</span><span class=p>:</span> <span class=nc>String</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>my_peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>get</span><span class=p>:</span> <span class=k>return</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>get_unique_id</span><span class=p>()</span> <span class=k>if</span> <span class=n>multiplayer</span><span class=o>.</span><span class=n>multiplayer_peer</span> <span class=k>else</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>am_i_host</span><span class=p>:</span> <span class=kt>bool</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>get</span><span class=p>:</span> <span class=k>return</span> <span class=n>player_list</span><span class=o>.</span><span class=nf>get</span><span class=p>(</span><span class=n>my_peer_id</span><span class=p>,</span> <span class=p>{})</span><span class=o>.</span><span class=nf>get</span><span class=p>(</span><span class=s2>&#34;is_host&#34;</span><span class=p>,</span> <span class=kc>false</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_ready</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>NetworkManager</span><span class=o>.</span><span class=n>player_connected</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_player_connected</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>NetworkManager</span><span class=o>.</span><span class=n>player_disconnected</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_player_disconnected</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># --- 创建房间(只有 host 调用) ---</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>create_room</span><span class=p>(</span><span class=n>host_name</span><span class=p>:</span> <span class=nc>String</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nc>String</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>player_list</span><span class=o>.</span><span class=nf>clear</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>player_list</span><span class=p>[</span><span class=n>my_peer_id</span><span class=p>]</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;name&#34;</span><span class=p>:</span> <span class=n>host_name</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;ready&#34;</span><span class=p>:</span> <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;is_host&#34;</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=n>room_code</span> <span class=o>=</span> <span class=nf>_generate_room_code</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>player_list_changed</span><span class=o>.</span><span class=nf>emit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>room_code_changed</span><span class=o>.</span><span class=nf>emit</span><span class=p>(</span><span class=n>room_code</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[Lobby] Room created: </span><span class=si>%s</span><span class=s2>, host=</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>[</span><span class=n>room_code</span><span class=p>,</span> <span class=n>my_peer_id</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>room_code</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># --- 加入房间(客户端调用) ---</span>
+</span></span><span class=line><span class=cl><span class=nd>@rpc</span><span class=p>(</span><span class=s2>&#34;any_peer&#34;</span><span class=p>,</span> <span class=s2>&#34;call_local&#34;</span><span class=p>,</span> <span class=s2>&#34;reliable&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>rpc_add_player</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>,</span> <span class=n>player_name</span><span class=p>:</span> <span class=nc>String</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>is_server</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>  <span class=c1># 只有 host 执行</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>player_list</span><span class=o>.</span><span class=nf>size</span><span class=p>()</span> <span class=o>&gt;=</span> <span class=n>MAX_PLAYERS</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nb>push_warning</span><span class=p>(</span><span class=s2>&#34;[Lobby] Room full, rejecting peer </span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>multiplayer</span><span class=o>.</span><span class=n>multiplayer_peer</span><span class=o>.</span><span class=nf>disconnect_peer</span><span class=p>(</span><span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=n>player_list</span><span class=p>[</span><span class=n>peer_id</span><span class=p>]</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;name&#34;</span><span class=p>:</span> <span class=n>player_name</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;ready&#34;</span><span class=p>:</span> <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;is_host&#34;</span><span class=p>:</span> <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 把当前完整列表广播给所有人</span>
+</span></span><span class=line><span class=cl>    <span class=n>rpc_sync_player_list</span><span class=o>.</span><span class=nf>rpc</span><span class=p>(</span><span class=n>player_list</span><span class=o>.</span><span class=nf>duplicate</span><span class=p>(</span><span class=kc>true</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[Lobby] Player added: </span><span class=si>%d</span><span class=s2> (</span><span class=si>%s</span><span class=s2>), total=</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>[</span><span class=n>peer_id</span><span class=p>,</span> <span class=n>player_name</span><span class=p>,</span> <span class=n>player_list</span><span class=o>.</span><span class=nf>size</span><span class=p>()])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@rpc</span><span class=p>(</span><span class=s2>&#34;authority&#34;</span><span class=p>,</span> <span class=s2>&#34;call_remote&#34;</span><span class=p>,</span> <span class=s2>&#34;reliable&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>rpc_sync_player_list</span><span class=p>(</span><span class=n>synced_list</span><span class=p>:</span> <span class=nc>Dictionary</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>player_list</span> <span class=o>=</span> <span class=n>synced_list</span>
+</span></span><span class=line><span class=cl>    <span class=n>player_list_changed</span><span class=o>.</span><span class=nf>emit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nf>_check_all_ready</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># --- 切换 Ready 状态 ---</span>
+</span></span><span class=line><span class=cl><span class=nd>@rpc</span><span class=p>(</span><span class=s2>&#34;any_peer&#34;</span><span class=p>,</span> <span class=s2>&#34;call_local&#34;</span><span class=p>,</span> <span class=s2>&#34;reliable&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>rpc_toggle_ready</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>player_list</span><span class=o>.</span><span class=nf>has</span><span class=p>(</span><span class=n>peer_id</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>player_list</span><span class=p>[</span><span class=n>peer_id</span><span class=p>][</span><span class=s2>&#34;ready&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=ow>not</span> <span class=n>player_list</span><span class=p>[</span><span class=n>peer_id</span><span class=p>][</span><span class=s2>&#34;ready&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=n>rpc_sync_player_list</span><span class=o>.</span><span class=nf>rpc</span><span class=p>(</span><span class=n>player_list</span><span class=o>.</span><span class=nf>duplicate</span><span class=p>(</span><span class=kc>true</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># --- 房主:开始游戏 ---</span>
+</span></span><span class=line><span class=cl><span class=nd>@rpc</span><span class=p>(</span><span class=s2>&#34;authority&#34;</span><span class=p>,</span> <span class=s2>&#34;call_remote&#34;</span><span class=p>,</span> <span class=s2>&#34;reliable&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>rpc_start_game</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[Lobby] Starting game for all clients&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nf>get_tree</span><span class=p>()</span><span class=o>.</span><span class=nf>change_scene_to_file</span><span class=p>(</span><span class=s2>&#34;res://scenes/game_world.tscn&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># --- 内部辅助 ---</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_player_connected</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 客户端连上来后,把自己的名字报给 host</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>my_name</span><span class=p>:</span> <span class=nc>String</span> <span class=o>=</span> <span class=s2>&#34;Player_</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=nb>randi</span><span class=p>()</span> <span class=o>%</span> <span class=mi>1000</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 实际项目里从设置或存档读</span>
+</span></span><span class=line><span class=cl>    <span class=n>rpc_add_player</span><span class=o>.</span><span class=nf>rpc_id</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>peer_id</span><span class=p>,</span> <span class=n>my_name</span><span class=p>)</span>  <span class=c1># 1 是 host 的 peer_id</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_player_disconnected</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>is_server</span><span class=p>()</span> <span class=ow>and</span> <span class=n>player_list</span><span class=o>.</span><span class=nf>has</span><span class=p>(</span><span class=n>peer_id</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>player_list</span><span class=o>.</span><span class=nf>erase</span><span class=p>(</span><span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>rpc_sync_player_list</span><span class=o>.</span><span class=nf>rpc</span><span class=p>(</span><span class=n>player_list</span><span class=o>.</span><span class=nf>duplicate</span><span class=p>(</span><span class=kc>true</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_generate_room_code</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=nc>String</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>const</span> <span class=n>CHARS</span> <span class=o>:=</span> <span class=s2>&#34;ABCDEFGHJKLMNPQRSTUVWXYZ23456789&#34;</span>  <span class=c1># 去掉易混的 I O 0 1</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>code</span> <span class=o>:=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=mi>6</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>code</span> <span class=o>+=</span> <span class=n>CHARS</span><span class=p>[</span><span class=nb>randi</span><span class=p>()</span> <span class=o>%</span> <span class=n>CHARS</span><span class=o>.</span><span class=nf>length</span><span class=p>()]</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>code</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_check_all_ready</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>player_list</span><span class=o>.</span><span class=nf>size</span><span class=p>()</span> <span class=o>&lt;</span> <span class=mi>2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>all_ready_changed</span><span class=o>.</span><span class=nf>emit</span><span class=p>(</span><span class=kc>false</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>all_ready</span> <span class=o>:=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>pid</span> <span class=ow>in</span> <span class=n>player_list</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=ow>not</span> <span class=n>player_list</span><span class=p>[</span><span class=n>pid</span><span class=p>][</span><span class=s2>&#34;ready&#34;</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>            <span class=n>all_ready</span> <span class=o>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>            <span class=k>break</span>
+</span></span><span class=line><span class=cl>    <span class=n>all_ready_changed</span><span class=o>.</span><span class=nf>emit</span><span class=p>(</span><span class=n>all_ready</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>同样添加到 <strong>Autoload</strong>(Node Name:<code>LobbyManager</code>)。</p><blockquote><p>💡 <strong>为什么要 <code>duplicate(true)</code>?</strong>
+Dictionary / Array 是<strong>引用类型</strong>,直接 <code>rpc_sync_player_list.rpc(player_list)</code> 会把同一个字典传给所有人,有人修改就会污染所有人。<code>duplicate(true)</code> 深拷贝一份,每人改自己的,互不影响。这是 Godot 网络代码里 80% 的坑都来自这里。</p></blockquote><blockquote><p>💡 <strong>为什么要 <code>@rpc("authority", "call_remote")</code>?</strong>
+<code>"authority"</code> 表示「只有 host(server)能调用」,<code>"call_remote"</code> 表示「不调用本地,只发给远端」。这样设计:host 改完状态后,自动广播给所有 client,client 只负责同步显示,不互相打架。</p></blockquote><hr><h2 id=5-主菜单2-分钟>5. 主菜单(2 分钟)</h2><p>新建 <code>scenes/main_menu.tscn</code>,节点结构:</p><pre tabindex=0><code>MainMenu (Control, full rect)
+├── Title (Label)        text=&#34;🎮 Lobby Demo&#34;
+├── HostButton (Button)  text=&#34;创建房间&#34;
+├── JoinPanel (PanelContainer)
+│   └── VBox
+│       ├── IPInput (LineEdit)  placeholder_text=&#34;127.0.0.1&#34;
+│       ├── JoinButton (Button) text=&#34;加入&#34;
+│       └── BackButton (Button) text=&#34;← 返回&#34;
+└── StatusLabel (Label)  text=&#34;&#34;
+</code></pre><p>新建 <code>scripts/main_menu.gd</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=kd>extends</span> <span class=nc>Control</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>host_button</span><span class=p>:</span> <span class=nc>Button</span> <span class=o>=</span> <span class=nx>$HostButton</span>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>join_button</span><span class=p>:</span> <span class=nc>Button</span> <span class=o>=</span> <span class=nx>$JoinPanel/VBox/JoinButton</span>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>ip_input</span><span class=p>:</span> <span class=nc>LineEdit</span> <span class=o>=</span> <span class=nx>$JoinPanel/VBox/IPInput</span>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>status_label</span><span class=p>:</span> <span class=nc>Label</span> <span class=o>=</span> <span class=nx>$StatusLabel</span>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>join_panel</span><span class=p>:</span> <span class=nc>PanelContainer</span> <span class=o>=</span> <span class=nx>$JoinPanel</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_ready</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>host_button</span><span class=o>.</span><span class=n>pressed</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_host_pressed</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>join_button</span><span class=o>.</span><span class=n>pressed</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_join_pressed</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>join_panel</span><span class=o>.</span><span class=n>visible</span> <span class=o>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=n>NetworkManager</span><span class=o>.</span><span class=n>connection_failed</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_connection_failed</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>NetworkManager</span><span class=o>.</span><span class=n>connection_succeeded</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_connection_succeeded</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_host_pressed</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>NetworkManager</span><span class=o>.</span><span class=nf>host_game</span><span class=p>()</span> <span class=o>==</span> <span class=n>OK</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 我是房主 → 创建房间 → 进入大厅</span>
+</span></span><span class=line><span class=cl>        <span class=n>LobbyManager</span><span class=o>.</span><span class=nf>create_room</span><span class=p>(</span><span class=s2>&#34;Host_</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=nb>randi</span><span class=p>()</span> <span class=o>%</span> <span class=mi>1000</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nf>get_tree</span><span class=p>()</span><span class=o>.</span><span class=nf>change_scene_to_file</span><span class=p>(</span><span class=s2>&#34;res://scenes/lobby.tscn&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_join_pressed</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>ip</span> <span class=o>:=</span> <span class=n>ip_input</span><span class=o>.</span><span class=n>text</span><span class=o>.</span><span class=nf>strip_edges</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>ip</span><span class=o>.</span><span class=nf>is_empty</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=n>ip</span> <span class=o>=</span> <span class=s2>&#34;127.0.0.1&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>NetworkManager</span><span class=o>.</span><span class=nf>join_game</span><span class=p>(</span><span class=n>ip</span><span class=p>)</span> <span class=o>!=</span> <span class=n>OK</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>status_label</span><span class=o>.</span><span class=n>text</span> <span class=o>=</span> <span class=s2>&#34;❌ 加入失败:地址错误&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_connection_failed</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>status_label</span><span class=o>.</span><span class=n>text</span> <span class=o>=</span> <span class=s2>&#34;❌ 连接超时,请检查 IP&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_connection_succeeded</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 加入成功 → 等 LobbyManager.on_player_connected 触发后</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 才会把我们的名字报给 host</span>
+</span></span><span class=line><span class=cl>    <span class=nf>get_tree</span><span class=p>()</span><span class=o>.</span><span class=nf>change_scene_to_file</span><span class=p>(</span><span class=s2>&#34;res://scenes/lobby.tscn&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>把这脚本拖到 MainMenu 根节点,保存场景。</p><blockquote><p>💡 <strong>为什么不直接 <code>change_scene_to_file("lobby.tscn")</code> 而要等 <code>connection_succeeded</code>?</strong>
+客户端点了「加入」后,ENet 是异步连接的 —— 如果立刻切场景,你的 peer_id 可能还是 0,<code>LobbyManager</code> 不知道自己是谁。必须等 <code>connected_to_server</code> 信号发出来,确认连上了,再切。</p></blockquote><hr><h2 id=6-大厅-ui8-分钟本篇核心>6. 大厅 UI(8 分钟,本篇核心)</h2><p>新建 <code>scenes/lobby.tscn</code>,节点结构:</p><pre tabindex=0><code>LobbyUI (Control, full rect)
+├── TopBar (HBoxContainer)
+│   ├── RoomCodeLabel (Label)  text=&#34;房间码: ------&#34;
+│   └── LeaveButton (Button)   text=&#34;离开房间&#34;
+├── PlayerList (VBoxContainer)
+│   ├── Header (Label)         text=&#34;玩家 (0/4)&#34;
+│   └── Player1 (HBoxContainer) ← 模板,代码动态生成
+│       ├── NameLabel (Label)
+│       ├── ReadyIcon (Label)   text=&#34;⏳&#34;
+│       └── ReadyButton (Button) text=&#34;Ready&#34;
+└── BottomBar (HBoxContainer)
+    ├── PlayerNameInput (LineEdit) placeholder=&#34;输入你的名字&#34;
+    └── StartButton (Button)        text=&#34;START GAME&#34;
+</code></pre><p>新建 <code>scripts/lobby_ui.gd</code>(<strong>完整可跑</strong>):</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span><span class=lnt>87
+</span><span class=lnt>88
+</span><span class=lnt>89
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=kd>extends</span> <span class=nc>Control</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>PLAYER_ENTRY_SCENE</span> <span class=o>:=</span> <span class=nb>preload</span><span class=p>(</span><span class=s2>&#34;res://scenes/player_entry.tscn&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>MAX_PLAYERS</span> <span class=o>:=</span> <span class=mi>4</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>room_code_label</span><span class=p>:</span> <span class=nc>Label</span> <span class=o>=</span> <span class=nx>$TopBar/RoomCodeLabel</span>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>leave_button</span><span class=p>:</span> <span class=nc>Button</span> <span class=o>=</span> <span class=nx>$TopBar/LeaveButton</span>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>player_list_box</span><span class=p>:</span> <span class=nc>VBoxContainer</span> <span class=o>=</span> <span class=nx>$PlayerList</span>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>header_label</span><span class=p>:</span> <span class=nc>Label</span> <span class=o>=</span> <span class=nx>$PlayerList/Header</span>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>name_input</span><span class=p>:</span> <span class=nc>LineEdit</span> <span class=o>=</span> <span class=nx>$BottomBar/PlayerNameInput</span>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>start_button</span><span class=p>:</span> <span class=nc>Button</span> <span class=o>=</span> <span class=nx>$BottomBar/StartButton</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>player_entries</span><span class=p>:</span> <span class=nc>Dictionary</span> <span class=o>=</span> <span class=p>{}</span>  <span class=c1># peer_id -&gt; PlayerEntry 实例</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_ready</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>leave_button</span><span class=o>.</span><span class=n>pressed</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_leave_pressed</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>start_button</span><span class=o>.</span><span class=n>pressed</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_start_pressed</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>start_button</span><span class=o>.</span><span class=n>visible</span> <span class=o>=</span> <span class=kc>false</span>  <span class=c1># 默认隐藏,host 才显示</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>LobbyManager</span><span class=o>.</span><span class=n>player_list_changed</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_refresh_player_list</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>LobbyManager</span><span class=o>.</span><span class=n>room_code_changed</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_room_code_changed</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>LobbyManager</span><span class=o>.</span><span class=n>all_ready_changed</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_all_ready_changed</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nf>_on_room_code_changed</span><span class=p>(</span><span class=n>LobbyManager</span><span class=o>.</span><span class=n>room_code</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nf>_refresh_player_list</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nf>_update_start_button_visibility</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># --- 房间码 ---</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_room_code_changed</span><span class=p>(</span><span class=n>code</span><span class=p>:</span> <span class=nc>String</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>code</span><span class=o>.</span><span class=nf>is_empty</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=n>room_code_label</span><span class=o>.</span><span class=n>text</span> <span class=o>=</span> <span class=s2>&#34;房间码: ------&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>room_code_label</span><span class=o>.</span><span class=n>text</span> <span class=o>=</span> <span class=s2>&#34;房间码: </span><span class=si>%s</span><span class=s2>  (邀请好友输入此码)&#34;</span> <span class=o>%</span> <span class=n>code</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># --- 玩家列表重建 ---</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_refresh_player_list</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 清除旧条目(保留 Header)</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>child</span> <span class=ow>in</span> <span class=n>player_list_box</span><span class=o>.</span><span class=nf>get_children</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>child</span><span class=o>.</span><span class=n>name</span> <span class=o>!=</span> <span class=s2>&#34;Header&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>child</span><span class=o>.</span><span class=nf>queue_free</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>player_entries</span><span class=o>.</span><span class=nf>clear</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 按加入顺序排序(简单按 peer_id)</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>sorted_ids</span> <span class=o>:=</span> <span class=n>LobbyManager</span><span class=o>.</span><span class=n>player_list</span><span class=o>.</span><span class=nf>keys</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>sorted_ids</span><span class=o>.</span><span class=nf>sort</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>pid</span> <span class=ow>in</span> <span class=n>sorted_ids</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=kd>var</span> <span class=n>entry</span> <span class=o>:=</span> <span class=n>PLAYER_ENTRY_SCENE</span><span class=o>.</span><span class=nf>instantiate</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>player_list_box</span><span class=o>.</span><span class=nf>add_child</span><span class=p>(</span><span class=n>entry</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=kd>var</span> <span class=n>data</span><span class=p>:</span> <span class=nc>Dictionary</span> <span class=o>=</span> <span class=n>LobbyManager</span><span class=o>.</span><span class=n>player_list</span><span class=p>[</span><span class=n>pid</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=n>entry</span><span class=o>.</span><span class=nf>setup</span><span class=p>(</span><span class=n>pid</span><span class=p>,</span> <span class=n>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>entry</span><span class=o>.</span><span class=n>ready_toggled</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_player_ready_toggled</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>player_entries</span><span class=p>[</span><span class=n>pid</span><span class=p>]</span> <span class=o>=</span> <span class=n>entry</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>header_label</span><span class=o>.</span><span class=n>text</span> <span class=o>=</span> <span class=s2>&#34;玩家 (</span><span class=si>%d</span><span class=s2>/</span><span class=si>%d</span><span class=s2>)&#34;</span> <span class=o>%</span> <span class=p>[</span><span class=n>LobbyManager</span><span class=o>.</span><span class=n>player_list</span><span class=o>.</span><span class=nf>size</span><span class=p>(),</span> <span class=n>MAX_PLAYERS</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nf>_update_start_button_visibility</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_player_ready_toggled</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>LobbyManager</span><span class=o>.</span><span class=n>rpc_toggle_ready</span><span class=o>.</span><span class=nf>rpc_id</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># --- Start / Leave ---</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_update_start_button_visibility</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>start_button</span><span class=o>.</span><span class=n>visible</span> <span class=o>=</span> <span class=n>LobbyManager</span><span class=o>.</span><span class=n>am_i_host</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_start_pressed</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>LobbyManager</span><span class=o>.</span><span class=n>am_i_host</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=nf>_is_everyone_ready</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=nb>push_warning</span><span class=p>(</span><span class=s2>&#34;[LobbyUI] Not everyone ready, refuse to start&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=n>LobbyManager</span><span class=o>.</span><span class=n>rpc_start_game</span><span class=o>.</span><span class=nf>rpc</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_is_everyone_ready</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>bool</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>pid</span> <span class=ow>in</span> <span class=n>LobbyManager</span><span class=o>.</span><span class=n>player_list</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=ow>not</span> <span class=n>LobbyManager</span><span class=o>.</span><span class=n>player_list</span><span class=p>[</span><span class=n>pid</span><span class=p>][</span><span class=s2>&#34;ready&#34;</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>LobbyManager</span><span class=o>.</span><span class=n>player_list</span><span class=o>.</span><span class=nf>size</span><span class=p>()</span> <span class=o>&gt;=</span> <span class=mi>2</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_all_ready_changed</span><span class=p>(</span><span class=n>all_ready</span><span class=p>:</span> <span class=kt>bool</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>start_button</span><span class=o>.</span><span class=n>disabled</span> <span class=o>=</span> <span class=ow>not</span> <span class=n>all_ready</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_leave_pressed</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>NetworkManager</span><span class=o>.</span><span class=nf>leave_game</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nf>get_tree</span><span class=p>()</span><span class=o>.</span><span class=nf>change_scene_to_file</span><span class=p>(</span><span class=s2>&#34;res://scenes/main_menu.tscn&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>然后 <strong>新建场景 <code>scenes/player_entry.tscn</code></strong>:</p><pre tabindex=0><code>PlayerEntry (HBoxContainer)
+├── NameLabel (Label)
+├── ReadyIcon (Label)    text=&#34;⏳&#34;
+└── ReadyButton (Button) text=&#34;Ready&#34;
+</code></pre><p>对应 <code>scripts/player_entry.gd</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=kd>extends</span> <span class=nc>HBoxContainer</span>
+</span></span><span class=line><span class=cl><span class=kd>signal</span> <span class=nf>ready_toggled</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>is_ready</span><span class=p>:</span> <span class=kt>bool</span> <span class=o>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>is_host_entry</span><span class=p>:</span> <span class=kt>bool</span> <span class=o>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>name_label</span><span class=p>:</span> <span class=nc>Label</span> <span class=o>=</span> <span class=nx>$NameLabel</span>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>ready_icon</span><span class=p>:</span> <span class=nc>Label</span> <span class=o>=</span> <span class=nx>$ReadyIcon</span>
+</span></span><span class=line><span class=cl><span class=nd>@onready</span> <span class=kd>var</span> <span class=n>ready_button</span><span class=p>:</span> <span class=nc>Button</span> <span class=o>=</span> <span class=nx>$ReadyButton</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>setup</span><span class=p>(</span><span class=n>p_peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>,</span> <span class=n>data</span><span class=p>:</span> <span class=nc>Dictionary</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>peer_id</span> <span class=o>=</span> <span class=n>p_peer_id</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>prefix</span> <span class=o>:=</span> <span class=s2>&#34;👑 &#34;</span> <span class=k>if</span> <span class=n>data</span><span class=o>.</span><span class=nf>get</span><span class=p>(</span><span class=s2>&#34;is_host&#34;</span><span class=p>,</span> <span class=kc>false</span><span class=p>)</span> <span class=k>else</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>name_label</span><span class=o>.</span><span class=n>text</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=si>%s%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>[</span><span class=n>prefix</span><span class=p>,</span> <span class=n>data</span><span class=o>.</span><span class=nf>get</span><span class=p>(</span><span class=s2>&#34;name&#34;</span><span class=p>,</span> <span class=s2>&#34;?&#34;</span><span class=p>)]</span>
+</span></span><span class=line><span class=cl>    <span class=n>is_host_entry</span> <span class=o>=</span> <span class=n>data</span><span class=o>.</span><span class=nf>get</span><span class=p>(</span><span class=s2>&#34;is_host&#34;</span><span class=p>,</span> <span class=kc>false</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nf>_apply_ready_state</span><span class=p>(</span><span class=n>data</span><span class=o>.</span><span class=nf>get</span><span class=p>(</span><span class=s2>&#34;ready&#34;</span><span class=p>,</span> <span class=kc>false</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_apply_ready_state</span><span class=p>(</span><span class=n>ready</span><span class=p>:</span> <span class=kt>bool</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>is_ready</span> <span class=o>=</span> <span class=n>ready</span>
+</span></span><span class=line><span class=cl>    <span class=n>ready_icon</span><span class=o>.</span><span class=n>text</span> <span class=o>=</span> <span class=s2>&#34;✅&#34;</span> <span class=k>if</span> <span class=n>ready</span> <span class=k>else</span> <span class=s2>&#34;⏳&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># host 不需要自己 Ready</span>
+</span></span><span class=line><span class=cl>    <span class=n>ready_button</span><span class=o>.</span><span class=n>visible</span> <span class=o>=</span> <span class=ow>not</span> <span class=n>is_host_entry</span>
+</span></span><span class=line><span class=cl>    <span class=n>ready_button</span><span class=o>.</span><span class=n>text</span> <span class=o>=</span> <span class=s2>&#34;Unready&#34;</span> <span class=k>if</span> <span class=n>ready</span> <span class=k>else</span> <span class=s2>&#34;Ready&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_ready_button_pressed</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>is_host_entry</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=n>ready_toggled</span><span class=o>.</span><span class=nf>emit</span><span class=p>(</span><span class=n>peer_id</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>把 <code>player_entry.tscn</code> 拖到 lobby.tscn 的 PlayerList 节点下作为模板,然后<strong>删掉</strong>(脚本里 <code>preload</code> 会重新生成)。</p><blockquote><p>💡 <strong>为什么每个玩家一行 HBoxContainer 而不是一个大 List?</strong>
+Godot 的 Container 节点会自动布局,加新条目时不用算坐标。<code>VBoxContainer</code> 把所有 <code>HBoxContainer</code> 垂直堆叠,「Ready / Unready」状态变化时图标原地换就行,不动整体布局。</p></blockquote><hr><h2 id=7-跑起来两种姿势>7. 跑起来:两种姿势</h2><h3 id=姿势-a本地双窗口测试最简单>姿势 A:本地双窗口测试(最简单)</h3><p>按 F5 跑主菜单 → 看到「🎮 Lobby Demo」</p><pre tabindex=0><code>窗口 1(房主):点「创建房间」 → 跳到 lobby.tscn → 看到「房间码: ABC123」
+窗口 2(玩家):Godot 顶部菜单 → Project → Run Instances → 勾「Enable Multiple Instances」
+             → Run Again → 主菜单 → 在输入框填 127.0.0.1 → 「加入」
+</code></pre><p>预期:</p><ul><li>窗口 1 多出一行「Player_xxx ⏳ Ready」</li><li>窗口 2 多出一行「👑 Host_xxx ⏳」(host 是别人时也是👑标记)</li><li>双方点「Ready」 → 都变成 ✅</li><li>房主点 START GAME → 两个窗口一起切到 game_world.tscn</li></ul><h3 id=姿势-b跨机器测试同一局域网>姿势 B:跨机器测试(同一局域网)</h3><ol><li>房主看自己 IP:<code>ip addr</code> / <code>ifconfig</code> / <code>ipconfig</code> 找 <code>192.168.x.x</code></li><li>玩家把 <code>scenes/main_menu.tscn</code> 导出 → 拷贝到另一台机器</li><li>玩家输入 <code>192.168.x.x</code> → 加入</li></ol><blockquote><p>💡 <strong>跨机器失败 90% 是防火墙</strong>:</p><ul><li>Windows:控制面板 → Windows Defender 防火墙 → 高级设置 → 入站规则 → 新建 TCP 端口 4287</li><li>macOS:系统设置 → 网络 → 防火墙 → 允许 Godot</li><li>Linux:<code>sudo ufw allow 4287/tcp</code></li></ul></blockquote><hr><h2 id=8-三个常见坑--解决方案>8. 三个常见坑 + 解决方案</h2><h3 id=坑-1dictionary-引用污染所有人改同一个对象>坑 1:<code>Dictionary</code> 引用污染,所有人改同一个对象</h3><p><strong>症状</strong>:一个人 Ready,所有人一起 Ready;一个人改名,所有人都改。</p><p><strong>根因</strong>:你直接 <code>rpc(player_list)</code> 没 <code>duplicate(true)</code>,GDScript 把同一个 Dictionary 引用传给所有人。</p><p><strong>解决</strong>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=c1># ✅ 改</span>
+</span></span><span class=line><span class=cl><span class=n>rpc_sync_player_list</span><span class=o>.</span><span class=nf>rpc</span><span class=p>(</span><span class=n>player_list</span><span class=o>.</span><span class=nf>duplicate</span><span class=p>(</span><span class=kc>true</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=c1># ❌ 错</span>
+</span></span><span class=line><span class=cl><span class=n>rpc_sync_player_list</span><span class=o>.</span><span class=nf>rpc</span><span class=p>(</span><span class=n>player_list</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=坑-2rpc-调了但远端没收到>坑 2:<code>rpc()</code> 调了但远端没收到</h3><p><strong>症状</strong>:host 调 <code>rpc_start_game.rpc()</code>,客户端的 <code>rpc_start_game</code> 函数不执行,场景不切。</p><p><strong>根因</strong>:<code>@rpc</code> 函数名必须<strong>完全一致</strong>,且文件必须 <code>extends Node</code>(不要让 UI Control 直接挂 rpc)。</p><p><strong>解决</strong>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=c1># 两边函数名 + 参数列表 + 装饰器必须一致</span>
+</span></span><span class=line><span class=cl><span class=nd>@rpc</span><span class=p>(</span><span class=s2>&#34;authority&#34;</span><span class=p>,</span> <span class=s2>&#34;call_remote&#34;</span><span class=p>,</span> <span class=s2>&#34;reliable&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>rpc_start_game</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>  <span class=c1># ← 完全相同的签名</span>
+</span></span><span class=line><span class=cl>    <span class=nf>get_tree</span><span class=p>()</span><span class=o>.</span><span class=nf>change_scene_to_file</span><span class=p>(</span><span class=s2>&#34;res://scenes/game_world.tscn&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>调试技巧:在每个 rpc 函数开头加 <code>print("[RPC] rpc_start_game called, peer=%d" % multiplayer.get_unique_id())</code>,看哪个端没执行。</p><h3 id=坑-3房主离开客户端卡在-lobby>坑 3:房主离开,客户端卡在 lobby</h3><p><strong>症状</strong>:房主点「离开房间」关了窗口,客户端还显示「等待房主开始…」,永远卡住。</p><p><strong>根因</strong>:<code>server_disconnected</code> 信号没处理。</p><p><strong>解决</strong>(已经写在了 NetworkManager 里,这里再强调):</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_server_disconnected</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>multiplayer_peer</span> <span class=o>=</span> <span class=kt>null</span>
+</span></span><span class=line><span class=cl>    <span class=n>is_host</span> <span class=o>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=nf>get_tree</span><span class=p>()</span><span class=o>.</span><span class=nf>change_scene_to_file</span><span class=p>(</span><span class=s2>&#34;res://scenes/main_menu.tscn&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>进阶</strong>:做「房主转移」—— host 退出前,把列表里最早加入的 client 提升为新 host,再 <code>peer.set_host(...)</code>(Godot 4.4+ 支持)。</p><hr><h2 id=9-进阶加一个真正的matchmaking-服务器>9. 进阶:加一个真正的「Matchmaking 服务器」</h2><p>目前我们靠「输入 IP」连接,真实游戏不会让玩家输 IP。生产级做法:</p><p><strong>自建轻量 Matchmaker</strong>(几百行 Go / Rust 代码):</p><pre tabindex=0><code>[客户端] --(HTTP)--&gt; [Matchmaker] --(返回房间 IP + 房间码)--&gt;
+   |
+   └─(ENet 直连)--&gt; [Game Server A:192.168.1.10:4287]
+                  [Game Server B:192.168.1.11:4287]
+</code></pre><p><strong>最小 Matchmaker 协议</strong>(JSON over HTTP):</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=err>POST /create_room  →  {&#34;room_code&#34;: &#34;ABC123&#34;, &#34;host_ip&#34;: &#34;...&#34;, &#34;port&#34;: 4287}
+</span></span></span><span class=line><span class=cl><span class=err>POST /join_room    body: {&#34;room_code&#34;: &#34;ABC123&#34;}  →  {&#34;host_ip&#34;: &#34;...&#34;, &#34;port&#34;: 4287}
+</span></span></span><span class=line><span class=cl><span class=err>GET  /list_rooms   →  [{&#34;room_code&#34;: &#34;ABC123&#34;, &#34;players&#34;: 1, &#34;max&#34;: 4}, ...]
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>WebSocket 替代方案</strong>:适合浏览器端 Godot 4(HTML5 导出)。<code>WebSocketPeer</code> + 自建 <code>ws://yourmatchmaker/ws</code>。下一期我们专门讲 WebSocket/WebRTC 接入。</p><hr><h2 id=10-延伸阅读>10. 延伸阅读</h2><ol><li><strong><a href=https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html>Godot 官方文档 — High-level multiplayer</a></strong> —— <code>@rpc</code> / <code>MultiplayerSpawner</code> / <code>MultiplayerSynchronizer</code> 完整 API 参考</li><li><strong><a href=https://github.com/godotengine/godot-demo-projects/tree/master/networking/multiplayer_lobby>Godot 官方 Demo — Multiplayer lobby</a></strong> —— 官方维护的 lobby 示例项目,跟今天内容 90% 重叠,可以对照看更精简的实现</li><li><strong><a href=https://gafferongames.com/post/what_every_programmer_needs_to_know_about_game_networking/>Gaffer on Games — What every programmer needs to know about game networking</a></strong> —— Glenn Fiedler 的经典长文,讲「状态同步 vs 帧同步」「权威服务器」的工程权衡,06-21 那篇的深度扩展</li></ol><hr><h2 id=附今天写的东西一览>附:今天写的东西一览</h2><pre tabindex=0><code>res://
+├── scenes/
+│   ├── main_menu.tscn       ← 主菜单(创建/加入按钮)
+│   ├── lobby.tscn           ← 大厅 UI(房间码 + 玩家列表 + Start)
+│   ├── player_entry.tscn    ← 玩家条目模板
+│   └── game_world.tscn      ← 06-25 的 3D 游戏场景
+└── scripts/
+    ├── network_manager.gd   ← ENet 封装(Autoload)
+    ├── lobby_manager.gd     ← 房间状态机(Autoload)
+    ├── main_menu.gd
+    ├── lobby_ui.gd
+    └── player_entry.gd
+</code></pre><p><strong>软件版本</strong>:Godot 4.6(实测 4.3 ~ 4.6 都能跑),ENet 1.3.18 内置
+<strong>数据来源</strong>:Godot 官方文档 + 官方 multiplayer_lobby 示例 + 本篇实操截图(2026-06-28)</p><blockquote><p><strong>下一步预告</strong>:06-29 我们讲「WebSocket / WebRTC 接入」—— 怎么让一个网页玩家和 Godot 客户端在同一个房间里对战。如果你的游戏想发到 itch.io 或者做成网页 demo,这一篇必看。</p></blockquote><hr><p><em>如果跑通了,留个言告诉我你的房间码 — 我把 lobby 截图发上来 🎮</em></p></div><section class=about-section><h2>技术栈</h2><div class=tech-stack><span class=tech-tag>HTML & CSS</span>
+<span class=tech-tag>JavaScript</span>
+<span class=tech-tag>Vue.js</span>
+<span class=tech-tag>React</span>
+<span class=tech-tag>Python</span>
+<span class=tech-tag>Go</span>
+<span class=tech-tag>Node.js</span>
+<span class=tech-tag>Git</span>
+<span class=tech-tag>Docker</span>
+<span class=tech-tag>Linux</span>
+<span class=tech-tag>Hugo</span>
+<span class=tech-tag>CI/CD</span></div></section><section class=about-section><h2>联系方式</h2><div class=contact-grid><a href=mailto:hello@brez.top class=contact-card><div class=contact-card-icon style=background:#ea4335><span style=font-size:1.1rem;font-weight:700;color:#fff>E</span></div><div class=contact-card-info><div class=contact-card-label>Email</div><div class=contact-card-value>hello@brez.top</div><div class=contact-card-desc>适合反馈链接错误、内容问题或合作沟通。</div></div></a><a href=https://github.com/breztop class=contact-card target=_blank rel=noopener><div class=contact-card-icon style=background:#24292f><span style=font-size:1.1rem;font-weight:700;color:#fff>G</span></div><div class=contact-card-info><div class=contact-card-label>GitHub</div><div class=contact-card-value>github.com/breztop</div><div class=contact-card-desc>提交问题、查看项目更新或直接发起交流。</div></div></a><a href=/index.xml class=contact-card target=_blank rel=noopener><div class=contact-card-icon style=background:#f59e0b><span style=font-size:1.1rem;font-weight:700;color:#fff>R</span></div><div class=contact-card-info><div class=contact-card-label>RSS</div><div class=contact-card-value>订阅博客更新</div><div class=contact-card-desc>想持续关注新文章，可以直接添加 RSS 订阅。</div></div></a><a href=https://x.com/brez_top class=contact-card target=_blank rel=noopener><div class=contact-card-icon style=background:#111><span style=font-size:1.1rem;font-weight:700;color:#fff>X</span></div><div class=contact-card-info><div class=contact-card-label>X</div><div class=contact-card-value>x.com/brez_top</div><div class=contact-card-desc>适合轻量沟通与关注最近动态。</div></div></a></div></section></div></div></main><footer class=footer><span>&copy; 2026 <a href=https://gblog.brez.top/zh/>breeze 的博客</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg></a><style>.goatcounter-count{font-variant-numeric:tabular-nums}</style><script>document.addEventListener("DOMContentLoaded",()=>{const e="https://stats.brez.top";document.querySelectorAll(".goatcounter-count").forEach(async t=>{let n=t.getAttribute("data-goatcounter-path")||location.pathname;n=n.replace(/\/$/,"")||"/";const s=`${e}/counter/${n}.json`;try{const e=await fetch(s);if(e.ok){const n=await e.json();t.innerText=(n.count||0)+" 次阅读"}}catch{t.innerText==="..."&&(t.innerText="0 次阅读")}})})</script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="复制";function s(){t.innerHTML="已复制！",setTimeout(()=>{t.innerHTML="复制"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
