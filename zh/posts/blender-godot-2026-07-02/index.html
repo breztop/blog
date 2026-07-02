@@ -1,0 +1,594 @@
+<!doctype html><html lang=zh dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Blender & Godot 3D 教程 - 2026-07-02 - Godot 4 联机反作弊零基础入门:服务端校验 + 速率限制,让你的多人游戏不被一秒飞天秒杀 | breeze 的博客</title><meta name=keywords content="blender,godot,multiplayer,3d,tutorial,anti-cheat,server-authoritative,rate-limit"><meta name=description content="零基础搞懂多人游戏反作弊:为什么客户端永远不可信、用 Godot 4.6 + ENet 写一个「权威服务器」(Authority Server)做服务端校验(位置/速度/血量 sanity check)和速率限制(移动/射击频率),30 分钟跑通一个会踢掉飞天挂 + 秒杀挂的 3D 联机 Demo。"><meta name=author content="breeze"><link rel=canonical href=https://gblog.brez.top/zh/posts/blender-godot-2026-07-02/><link crossorigin=anonymous href=/assets/css/stylesheet.e0ba212d7b4ed74021489f5eb5c01895cc96ff298035a781633788fd72e6333c.css integrity="sha256-4LohLXtO10AhSJ9etcAYlcyW/ymANaeBYzeI/XLmMzw=" rel="preload stylesheet" as=style><link rel=icon href=https://gblog.brez.top/favicon.svg><link rel=icon type=image/png sizes=16x16 href=https://gblog.brez.top/favicon.svg><link rel=icon type=image/png sizes=32x32 href=https://gblog.brez.top/favicon.svg><link rel=apple-touch-icon href=https://gblog.brez.top/favicon.svg><link rel=mask-icon href=https://gblog.brez.top/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh href=https://gblog.brez.top/zh/posts/blender-godot-2026-07-02/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><script data-goatcounter=https://stats.brez.top/count async src=//stats.brez.top/count.js></script><meta property="og:url" content="https://gblog.brez.top/zh/posts/blender-godot-2026-07-02/"><meta property="og:site_name" content="breeze 的博客"><meta property="og:title" content="Blender & Godot 3D 教程 - 2026-07-02 - Godot 4 联机反作弊零基础入门:服务端校验 + 速率限制,让你的多人游戏不被一秒飞天秒杀"><meta property="og:description" content="零基础搞懂多人游戏反作弊:为什么客户端永远不可信、用 Godot 4.6 + ENet 写一个「权威服务器」(Authority Server)做服务端校验(位置/速度/血量 sanity check)和速率限制(移动/射击频率),30 分钟跑通一个会踢掉飞天挂 + 秒杀挂的 3D 联机 Demo。"><meta property="og:locale" content="zh"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-07-02T04:00:00+08:00"><meta property="article:modified_time" content="2026-07-02T04:00:00+08:00"><meta property="article:tag" content="Blender"><meta property="article:tag" content="Godot"><meta property="article:tag" content="Multiplayer"><meta property="article:tag" content="3d"><meta property="article:tag" content="Tutorial"><meta property="article:tag" content="Anti-Cheat"><meta property="og:image" content="https://gblog.brez.top/images/posts/blender-godot-2026-07-02.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://gblog.brez.top/images/posts/blender-godot-2026-07-02.png"><meta name=twitter:title content="Blender & Godot 3D 教程 - 2026-07-02 - Godot 4 联机反作弊零基础入门:服务端校验 + 速率限制,让你的多人游戏不被一秒飞天秒杀"><meta name=twitter:description content="零基础搞懂多人游戏反作弊:为什么客户端永远不可信、用 Godot 4.6 + ENet 写一个「权威服务器」(Authority Server)做服务端校验(位置/速度/血量 sanity check)和速率限制(移动/射击频率),30 分钟跑通一个会踢掉飞天挂 + 秒杀挂的 3D 联机 Demo。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"杂项","item":"https://gblog.brez.top/zh/posts/"},{"@type":"ListItem","position":2,"name":"Blender \u0026 Godot 3D 教程 - 2026-07-02 - Godot 4 联机反作弊零基础入门:服务端校验 + 速率限制,让你的多人游戏不被一秒飞天秒杀","item":"https://gblog.brez.top/zh/posts/blender-godot-2026-07-02/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Blender \u0026 Godot 3D 教程 - 2026-07-02 - Godot 4 联机反作弊零基础入门:服务端校验 + 速率限制,让你的多人游戏不被一秒飞天秒杀","name":"Blender \u0026 Godot 3D 教程 - 2026-07-02 - Godot 4 联机反作弊零基础入门:服务端校验 \u002b 速率限制,让你的多人游戏不被一秒飞天秒杀","description":"零基础搞懂多人游戏反作弊:为什么客户端永远不可信、用 Godot 4.6 + ENet 写一个「权威服务器」(Authority Server)做服务端校验(位置/速度/血量 sanity check)和速率限制(移动/射击频率),30 分钟跑通一个会踢掉飞天挂 + 秒杀挂的 3D 联机 Demo。","keywords":["blender","godot","multiplayer","3d","tutorial","anti-cheat","server-authoritative","rate-limit"],"articleBody":"\n上一篇回顾:2026-06-28 我们用 Godot 4.6 搭了一个 4 人 3D 联机大厅 —— 创建房间 → 显示房间码 → 输入加入 → Ready → 房主按 Start。今天接着这间\"网吧\",继续往下推一步:\n联机跑起来了,但谁来防外挂?\n这一篇就专门讲这个:不靠任何\"反作弊驱动\",只用 Godot 自己的网络 API + 一两百行 GDScript,把\"飞天挂 / 秒杀挂 / 瞬移挂\"全部挡在服务端门外。学完你会在之前的大厅 Demo 基础上,加上「服务端校验」和「速率限制」两块盾牌。\n0. 本篇目标 \u0026 前置 学完你能做什么:\n理解为什么\"客户端就是骗子,服务端才是法官\" 在 Godot 4.6 里给玩家节点加 multiplayer_authority,把\"谁说了算\"理顺 写一个 ServerAuthority 脚本,对每个玩家的位置 / 速度 / 血量做 sanity check,作弊包直接丢弃 + 强制拉回 写一个 RateLimiter 工具类,对移动 / 射击等高频事件做 token bucket 限流 把这些套进 06-28 的大厅 Demo,跑起来两个窗口,自己开挂看自己被踢 前置知识:\n看完了 06-28 的 Lobby 大厅 那一篇(知道房间码 / Ready / Start 流程) 看过 06-16 的 ENet 高层 API 那一篇(知道 MultiplayerSpawner / MultiplayerSynchronizer 是什么) Godot 4.6 + GDScript 基础 版本说明:本文写于 2026-07-02,基于 Godot 4.6 stable + GDScript 2.0。GDScript 一行一行的代码全部能跑。Blender 在本篇不涉及(纯网络层),所以版本号无所谓。数据来源时间:2026-07-02 04:00 +08:00。\n一、为什么联机游戏必须反作弊? 先讲个故事,3 分钟。\n假设你做了一个 3D 对战小游戏:8 人房,每人 100 HP,拳头一击 20 伤害。玩家 A 打开 Cheat Engine 搜了搜自己的 HP,把内存里的 100 改成 99999。现在他一拳下去,全服 8 个人原地暴毙,房主 B 莫名其妙看到结算画面写着\"您已阵亡\"。\n你去找 A 投诉,A 微微一笑:“游戏就是这么设计的呀,你也可以改啊。”\n你把这个事件报给引擎厂商。引擎厂商说:“客户端的内存,玩家说了算;你做服务端的,必须自己做校验。”\n这就是联机游戏反作弊的第一性原理:\n客户端发出的任何数据,服务端都不能无条件信任。\n听起来很反直觉 —— 我自己电脑里的数据,我自己的代码在跑,为什么不信任?\n因为\"我的电脑\"在攻击者眼里不是\"我的\",是\"可以改的\":\n改内存:Cheat Engine 一搜就找到了 HP 100 改代码:把 GDScript 里的 damage = 20 改成 damage = 9999 改网络包:用 mitmproxy / Wireshark 拦截,改完重发 改 DLL/Module:在 Godot 二进制里 hook 一个函数,改返回值 所以 凡是\"只在客户端做的判断\"全是漏的。真正稳的做法只有一种 —— 服务端权威 (Server Authority):\n操作 客户端能不能做 服务端必须做 显示自己的血条 ✅ 随便显示 ❌ 不管 实际 HP 数值 ❌ 不算数 ✅ 唯一来源 计算伤害 ❌ 不算数 ✅ 唯一来源 决定谁死了 ❌ 不算数 ✅ 唯一来源 显示位置 ✅ 预测用 ❌ 不管 决定别人看到我在哪 ❌ 不算数 ✅ 唯一来源 两件具体的事今天要落地:服务端校验 + 速率限制。\n💡 为什么要这样做(小贴士 #1):你可能会想\"我就做个小游戏,没人会来开挂吧\"。错。作弊工具是全自动的 —— 你的游戏上线一周,bot 就开始扫描 24 小时找漏洞。哪怕只服务 10 个朋友的局域网联机,朋友开个玩笑改个内存你也会炸服。所以反作弊不是\"上规模才需要\",是\"开服就需要\"。\n二、本篇要做的最终效果 我们今天在 06-28 的大厅基础上加 3 个新东西:\nGameWorld (Node3D) ← 06-28 的玩法场景 ├── ServerAuthority (Node) ← NEW: 跑校验 ├── RateLimiter (Node) ← NEW: 跑限流 ├── Players (Node3D) │ ├── Player_1 (CharacterBody3D) │ │ ├── multi_player_authority = 1 ← 谁说了算 │ │ ├── multiplayer_synchronizer.visible = true │ └── Player_2 ... 正常玩家的体验:跟之前一模一样,服务器在背后偷偷校验,什么都不用做。\n作弊玩家的体验:\n作弊方式 结果 客户端把 HP 改到 99999 服务端 HP 表里还是 100,被别人一拳照常死 客户端每帧 RPC “我在 (-9999, 9999, 0)” 服务端算出\"这一帧位移 20000 米,显然挂\",丢弃 + 拉回 客户端每帧 RPC “我开火” 1000 次 速率限制拦到每秒最多 5 次,其余 RPC 直接拒收 OK,开干。\n三、第一步:搭一个干净的\"作弊实验场\" 我们不重写 06-28 的全部大厅代码,只把\"玩法世界\"那一层重做一个最小可复现的作弊 Demo。做完你就能 git diff 把它合进你 06-28 的项目。\n3.1 新建场景 CheatLab.tscn 在 Godot 编辑器顶部菜单点 Scene → New Scene → 选 Node3D 作为根 → 改名为 CheatLab → 保存为 res://scenes/CheatLab.tscn。\n加下面这些节点:\nCheatLab (Node3D) ├── Ground (MeshInstance3D + BoxShape3D StaticBody3D) ├── DirectionalLight3D ├── WorldEnvironment ├── SpawnPoints (Node3D) │ ├── P1 (Marker3D) 位置 (3, 0, 0) │ └── P2 (Marker3D) 位置 (-3, 0, 0) └── Players (Node3D) ├── Player (CharacterBody3D) │ ├── CollisionShape3D (CapsuleShape3D) │ ├── MeshInstance3D (CapsuleMesh) │ ├── MultiplayerSynchronizer ← 同步\"位置 / 旋转\" │ └── Camera3D ← 自己看自己 └── Player_2 ... (同结构) 为什么这么搭:每个 Player 就是一个联网的玩家。MultiplayerSynchronizer 会同步它身上的 position / rotation(视图层),但所有\"修改\"动作都先 RPC 到服务端,服务端校验后再回写。\n3.2 给 Player 挂脚本 Player.gd 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 # res://scenes/Player.gd extends CharacterBody3D const SPEED := 5.0 const JUMP_VELOCITY := 5.0 const MAX_HP := 100 const ATTACK_DAMAGE := 20 # 同步字段(被 MultiplayerSynchronizer 复制) @export var hp: int = MAX_HP @export var player_name: String = \"Player\" # 客户端预测用 var _server_pos: Vector3 = Vector3.ZERO func _ready() -\u003e void: # 只有\"自己\"才控制输入并显示摄像机 if not is_multiplayer_authority(): $Camera3D.queue_free() return Input.mouse_mode = Input.MOUSE_MODE_CAPTURED # 客户端的 HP 显示是\"预测\",权威值在服务端 $Camera3D.current = true func _physics_process(delta: float) -\u003e void: if not is_multiplayer_authority(): return # 客户端物理由服务端状态同步接管 var input_dir := Input.get_vector(\"move_left\", \"move_right\", \"move_up\", \"move_down\") var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() if direction: velocity.x = direction.x * SPEED velocity.z = direction.z * SPEED else: velocity.x = move_toward(velocity.x, 0, SPEED) velocity.z = move_toward(velocity.z, 0, SPEED) if not is_on_floor(): velocity.y -= 9.8 * delta if Input.is_action_just_pressed(\"jump\") and is_on_floor(): velocity.y = JUMP_VELOCITY move_and_slide() # 每 100ms 把自己的位置汇报给服务端(可改成更高频) # 这一步等下会被服务端校验拦截 rpc_id(1, \"server_request_move\", global_position) # ========== RPC:客户端 → 服务端 ========== @rpc(\"any_peer\", \"call_local\", \"reliable\") func server_request_move(pos: Vector3) -\u003e void: # 只有服务端执行这段 if not multiplayer.is_server(): return # 服务端的 ServerAuthority 节点会校验这个 RPC 是否合法 var ok := get_node(\"/root/CheatLab/ServerAuthority\").validate_move( multiplayer.get_remote_sender_id(), pos) if ok: global_position = pos _server_pos = pos 💡 为什么要这样做(小贴士 #2):你可能注意到 if not multiplayer.is_server(): return 这一行 —— 这是防御性编程。即使你只想让服务端调用这个 RPC,客户端也可能构造 RPC 直接调用你(假设他反编译了脚本)。这行相当于\"保险丝\":哪怕被绕,也只在服务端才生效。\n3.3 Project Settings:加 Input Map 菜单 Project → Project Settings → Input Map,加这几个 action:\nAction 名 物理键 move_left A move_right D move_up W move_down S jump Space attack Mouse Left 四、第二步:ServerAuthority —— 服务端校验 新建脚本 res://ServerAuthority.gd,挂到 CheatLab 下的 ServerAuthority 节点。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 # res://ServerAuthority.gd extends Node # 最大合法速度(米/秒)。高于这个就判定为瞬移。 const MAX_SPEED := 30.0 # 最大合法 HP const MAX_HP := 100 # 单次最大伤害(防止客户端说自己一拳 9999) const MAX_DAMAGE_PER_HIT := 50 # 允许的最大坐标范围(超出视为坐标攻击) const WORLD_BOUNDS := Vector3(500, 500, 500) # 记录每个 peer 的\"上一次合法位置\",用来算瞬移距离 var _last_known_pos: Dictionary = {} func _ready() -\u003e void: # 只有服务端跑校验 set_process(not multiplayer.is_server()) func validate_move(peer_id: int, claimed_pos: Vector3) -\u003e bool: if not multiplayer.is_server(): return false # === 校验 1:坐标必须在世界范围内 === if abs(claimed_pos.x) \u003e WORLD_BOUNDS.x \\ or abs(claimed_pos.y) \u003e WORLD_BOUNDS.y \\ or abs(claimed_pos.z) \u003e WORLD_BOUNDS.z: _flag(peer_id, \"坐标越界 %.1f,%.1f,%.1f\" % [claimed_pos.x, claimed_pos.y, claimed_pos.z]) return false # === 校验 2:距离必须合理 === var last_pos: Vector3 = _last_known_pos.get(peer_id, claimed_pos) var dist := claimed_pos.distance_to(last_pos) # 用服务器自己的物理节拍算合理距离上限(假设 60Hz) var max_dist := MAX_SPEED * 0.1 # 100ms 内最远 3 米 if dist \u003e max_dist: _flag(peer_id, \"瞬移 %.2f 米(限 %.2f)\" % [dist, max_dist]) # 把客户端位置强制拉回服务端认定的合法位置 var player := _get_player(peer_id) if player: player.rpc_id(peer_id, \"client_force_correct\", last_pos) return false _last_known_pos[peer_id] = claimed_pos return true func apply_damage(attacker_id: int, victim_id: int, damage: int) -\u003e bool: \"\"\"校验一次攻击是否合法\"\"\" if not multiplayer.is_server(): return false if damage \u003c= 0 or damage \u003e MAX_DAMAGE_PER_HIT: _flag(attacker_id, \"伤害值非法: %d\" % damage) return false var victim := _get_player(victim_id) if victim == null: return false victim.hp = clampi(victim.hp - damage, 0, MAX_HP) # 广播伤害事件给所有人(用于显示浮动数字) var payload := {\"victim\": victim_id, \"attacker\": attacker_id, \"damage\": damage} _broadcast_hp.rpc(payload) return true func _get_player(peer_id: int) -\u003e Node: var path := \"/root/CheatLab/Players/Player_%d\" % peer_id return get_node_or_null(path) func _flag(peer_id: int, reason: String) -\u003e void: print(\"[ANTI-CHEAT] peer %d 异常: %s\" % [peer_id, reason]) # 真上线时这里应该:发警告给运营后台、累加计数、到阈值踢人 # 本教程为简化只打日志 @rpc(\"authority\", \"call_remote\", \"reliable\") func _broadcast_hp(payload: Dictionary) -\u003e void: var victim := _get_player(payload.victim) if victim: victim.hp = payload.damage and victim.hp - payload.damage or victim.hp # 简化:用 MultiplayerSynchronizer 自动同步 hp 字段即可 挂到节点后,记得在 CheatLab.tscn 里把 ServerAuthority 节点的 process_mode 保持默认(Auto)。\n💡 为什么要这样做(小贴士 #3):@rpc(\"authority\", \"call_remote\") 的 authority 意思是\"只有服务端(authority = 1)能调用这个 RPC\"。这层防御避免任何客户端伪造 _broadcast_hp 来改别人血量。配合 apply_damage 里\"服务端唯一决策\",攻击流程就是闭环了:客户端 → RPC 给服务端 → 服务端校验 → 服务端写状态 → 服务端广播。客户端全程只能\"提议\",不能\"决定\"。\n五、第三步:RateLimiter —— 速率限制 有些攻击单看一帧是合法的(比如每秒移动 5 米确实合规),但频率高得离谱(比如每毫秒发一次 RPC)。\n新建 res://RateLimiter.gd:\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 # res://RateLimiter.gd extends Node # 每个 (peer, action) 一个 token bucket # 配置:每秒最多 N 次,桶容量也是 N(允许瞬时突发) const BUCKETS := { \"move\": {\"rate\": 20.0, \"burst\": 5}, # 移动 RPC:每秒 20 次,突发 5 \"attack\": {\"rate\": 2.0, \"burst\": 2}, # 攻击 RPC:每秒 2 次,突发 2 \"chat\": {\"rate\": 5.0, \"burst\": 3}, # 聊天:每秒 5 条,突发 3 } var _tokens: Dictionary = {} # key: \"peer_id:action\" -\u003e float var _last: Dictionary = {} # key: \"peer_id:action\" -\u003e float(秒) func _ready() -\u003e void: set_process(not multiplayer.is_server()) func allow(peer_id: int, action: String) -\u003e bool: \"\"\"返回 true 表示允许这一次调用,false 表示被限流\"\"\" if not multiplayer.is_server(): return true # 客户端不限流(也限不住) if not BUCKETS.has(action): push_warning(\"未知限流 action: %s\" % action) return true var cfg: Dictionary = BUCKETS[action] var key := \"%d:%s\" % [peer_id, action] var now := Time.get_ticks_msec() / 1000.0 var tokens: float = _tokens.get(key, float(cfg.burst)) var last: float = _last.get(key, now) # 补充 token tokens = min(float(cfg.burst), tokens + (now - last) * cfg.rate) _last[key] = now if tokens \u003e= 1.0: _tokens[key] = tokens - 1.0 return true else: _tokens[key] = tokens return false func reset(peer_id: int) -\u003e void: \"\"\"踢人/重连时清理这个 peer 的所有桶\"\"\" for key in _tokens.keys(): if key.begins_with(\"%d:\" % peer_id): _tokens.erase(key) _last.erase(key) 怎么用:Player.gd 里的 RPC 入口先过一遍限流:\n1 2 3 4 5 6 7 8 9 10 11 @rpc(\"any_peer\", \"call_local\", \"reliable\") func server_request_move(pos: Vector3) -\u003e void: if not multiplayer.is_server(): return var limiter := get_node(\"/root/CheatLab/RateLimiter\") if not limiter.allow(multiplayer.get_remote_sender_id(), \"move\"): return # 静默丢弃,不打日志,免得被探测 var ok := get_node(\"/root/CheatLab/ServerAuthority\").validate_move( multiplayer.get_remote_sender_id(), pos) if ok: global_position = pos 💡 为什么要这样做(小贴士 #4):Token Bucket 是工业界最常用的限流算法 —— 它既能抗突发(瞬时多打几发不算作弊),又能压住持续高频(每秒想打 1000 发会被压成 2 发)。比\"固定窗口计数\"更平滑,比\"漏桶\"更友好。你以后写后端、做 API 网关,这套思路都一样。\n六、第四步:把校验 + 限流串起来,开两个窗口测 写一个 LobbyBootstrap.gd 放 res://LobbyBootstrap.gd,用来起 server / connect:\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 # res://LobbyBootstrap.gd extends Node const PORT := 9999 func _on_host_pressed() -\u003e void: var peer := ENetMultiplayerPeer.new() var err := peer.create_server(PORT, 8) if err != OK: push_error(\"起 server 失败: %s\" % err) return multiplayer.multiplayer_peer = peer multiplayer.peer_connected.connect(_on_peer_connected) multiplayer.peer_disconnected.connect(_on_peer_disconnected) # server 自己也是 player,peer_id = 1 _spawn_player(1) get_tree().change_scene_to_file(\"res://scenes/CheatLab.tscn\") func _on_join_pressed() -\u003e void: var peer := ENetMultiplayerPeer.new() var err := peer.create_client(\"127.0.0.1\", PORT) if err != OK: push_error(\"连 server 失败: %s\" % err) return multiplayer.multiplayer_peer = peer multiplayer.connected_to_server.connect(func(): get_tree().change_scene_to_file(\"res://scenes/CheatLab.tscn\")) func _spawn_player(peer_id: int) -\u003e void: var lab := get_tree().current_scene var spawn := lab.get_node(\"SpawnPoints/P%d\" % ((peer_id - 1) % 2 + 1)) var p := preload(\"res://scenes/Player.tscn\").instantiate() p.name = \"Player_%d\" % peer_id p.position = spawn.global_position p.multiplayer_authority = peer_id lab.get_node(\"Players\").add_child(p, true) func _on_peer_connected(peer_id: int) -\u003e void: print(\"peer %d 连上\" % peer_id) _spawn_player(peer_id) var limiter := get_node_or_null(\"/root/CheatLab/RateLimiter\") if limiter: limiter.reset(peer_id) func _on_peer_disconnected(peer_id: int) -\u003e void: print(\"peer %d 断线\" % peer_id) var p := get_node_or_null(\"/root/CheatLab/Players/Player_%d\" % peer_id) if p: p.queue_free() var limiter := get_node_or_null(\"/root/CheatLab/RateLimiter\") if limiter: limiter.reset(peer_id) 开两个 Godot 实例跑(用 06-16 那一篇讲的 instance_per_process 模式):\n实例 A 点 Host → 切到 CheatLab 实例 B 点 Join → 切到 CheatLab A 按 WASD,B 窗口里 A 的角色跟着移动 —— OK 现在开挂自测(临时改客户端):\n1 2 3 4 5 6 7 8 # 在 Player.gd 末尾加这段,模拟\"飞天挂\" func _input(event: InputEvent) -\u003e void: if not is_multiplayer_authority(): return if event.is_action_pressed(\"ui_text_completion_accept\"): # Tab 键触发 # 假装自己是外挂,把自己的位置设到天上,然后告诉服务端\"我在这里\" global_position = Vector3(0, 1000, 0) rpc_id(1, \"server_request_move\", global_position) 按 Tab 后你会看到服务端日志:\n[ANTI-CHEAT] peer 2 异常: 瞬移 1003.21 米(限 3.00) 并且你的角色瞬间被拉回到之前的位置。飞不起来。\n💡 为什么要这样做(小贴士 #5):服务端必须能\"反驳\"客户端。注意 client_force_correct 这个 RPC —— 服务端发现客户端在撒谎时,会主动告诉客户端\"你的真位置应该是这个\"。如果你的协议里只有\"客户端上报 → 服务端沉默接受\",哪怕服务端内部状态是对的,客户端画面也会错位,玩家会困惑\"我明明飞天怎么不掉下来\"。\n七、常见坑点 + 解决方案 坑 1:服务端\"温柔地接受了\"客户端的数据 症状:客户端发 rpc_id(1, \"set_hp\", 99999),服务端 if is_server(): return 之后啥都没干,但服务端内部的 hp 字段还是被改了(因为 MultiplayerSynchronizer 默认把 hp 也同步给了服务端)。\n根因:把\"权威字段\"也加进了 MultiplayerSynchronizer 的复制列表。\n修复:在 MultiplayerSynchronizer 的 Replication Config 里,把所有\"只能服务端写\"的字段(hp、score、position 之于服务端)设为 Spawn → On Spawn 时同步一次或者干脆移除,只让客户端\"看\",不让它\"写\"。或者改用 ServerAuthority 手动 RPC 推回(就是本文的做法)。\n坑 2:限流把正常玩家也卡了 症状:玩家正常按 W 一秒 60 次,被 RateLimiter 拦到只能 20 次,移动一卡一卡。\n根因:move 事件的 rate 设太低。\n修复:移动/旋转这种高频状态,别走 RPC,直接用 MultiplayerSynchronizer 自动同步属性。只有\"事件\"(开火、换枪、发言)才走 RPC + 限流。本篇的 server_request_move 写出来是为了演示校验,真实工程里位置同步是 MultiplayerSynchronizer 直接做的,根本不需要 RPC。\n坑 3:校验日志太多把服务端打爆 症状:有人脚本攻击,每秒触发几万条 _flag 日志,服务端磁盘写满。\n修复:\n1 2 3 4 5 6 7 8 9 10 11 12 # ServerAuthority.gd 顶部加 const LOG_RATE_LIMIT := 2.0 # 同一 peer 同一原因,2 秒最多打一条 var _last_log: Dictionary = {} func _flag(peer_id: int, reason: String) -\u003e void: var key := \"%d:%s\" % [peer_id, reason] var now := Time.get_ticks_msec() / 1000.0 if now - _last_log.get(key, 0.0) \u003c LOG_RATE_LIMIT: return _last_log[key] = now print(\"[ANTI-CHEAT] peer %d 异常: %s\" % [peer_id, reason]) # 累积计数到阈值(比如 1 分钟 30 次)就踢人 上线时把 print 换成发到日志系统(ELK / Loki / Datadog),别在 stdout 里打 —— 不然你重启一次服务,日志就飞了。\n八、延伸阅读 Godot 官方文档 — High-level multiplayer https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html 权威服务器的官方权威教程,本文的 RPC / multiplayer_authority 用法都对得上。\nGaffer on Games — What every programmer needs to know about game networking https://gafferongames.com/post/what_every_programmer_needs_to_know_about_game_networking/ Glenn Fiedler 的\"游戏网络圣经\",从 TCP/UDP 讲到状态同步/帧同步,反作弊只是顺带提了一句,但你理解了\"权威服务端\"的物理基础。\nValve Developer Wiki — Source Multiplayer Networking https://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking Valve 在 Source 引擎里讲 lag compensation、entity interpolation、prediction。和你在 06-25 看到的预测/插值是一回事,但讲得更系统。\n(Bonus) OWASP — Game Security Guidelines https://owasp.org/www-project-game-security/ OWASP 专门给游戏做的安全清单,反作弊只是其中一节,但速查 cheat 分类、典型攻击向量很好用。\n九、小结 今天我们用 4 块最朴素的盾,挡住了 3 种最常见的挂:\n盾 挡什么 服务端权威 HP 改 99999、一拳 9999 伤害 坐标 sanity check 瞬移挂、飞天挂 Token bucket 限流 每毫秒 1000 发的 RPC 洪水 force-correct 拉回 客户端画面与真实状态脱节 真正上规模游戏还需要的 —— 不在今天范围,但你下一步可以研究:\n反作弊驱动 / 内核态 hook 检测(BattlEye / Easy Anti-Cheat) 行为检测(用 ML 识别\"机械鼠标轨迹\" vs “人手轨迹”) 服务器侧 tickrate 控制 + 状态快照回滚 加密通信(TLS over ENet / DTLS over WebRTC) 但今天这套,在你做的任何 indie / 学习用 / 朋友局联机里,90% 的攻击都已经挡掉了。\n软件版本:Godot 4.6 stable · GDScript 2.0 · ENet 1.3 · 本篇不涉及 Blender(纯网络层)。数据来源时间:2026-07-02 04:00 +08:00。\n下一篇预告:07-03 起我们从联机切回 Blender,讲\"几何节点 + 资产库\"组合拳 —— 做一个可以无限复用的低多边形房子工厂。预生成几百栋,直接拖进 Godot 当关卡素材。\n","wordCount":"1998","inLanguage":"zh","image":"https://gblog.brez.top/images/posts/blender-godot-2026-07-02.png","datePublished":"2026-07-02T04:00:00+08:00","dateModified":"2026-07-02T04:00:00+08:00","author":{"@type":"Person","name":"breeze"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://gblog.brez.top/zh/posts/blender-godot-2026-07-02/"},"publisher":{"@type":"Organization","name":"breeze 的博客","logo":{"@type":"ImageObject","url":"https://gblog.brez.top/favicon.svg"}}}</script><style>.about-header{text-align:center;padding:2.5rem 1rem;background:var(--entry);border-bottom:1px solid var(--border);margin-bottom:1.5rem}.about-avatar-icon{width:80px;height:80px;border-radius:50%;background:var(--primary);color:var(--theme);display:inline-grid;place-items:center;margin-bottom:1rem;box-shadow:0 4px 10px rgba(0,0,0,.1)}.about-avatar-icon svg{width:40px;height:40px}.about-header h1{font-size:2.2rem;margin:0 0 .4rem;font-weight:800;color:var(--primary)}.about-header .tagline{font-size:1.1rem;color:var(--secondary);margin:0;font-weight:300}.about-content{max-width:800px;margin:0 auto;padding:1rem 0 4rem}.about-section{background:var(--entry);border-radius:12px;padding:2rem;margin-bottom:2rem;border:1px solid var(--border)}.about-section h2{font-size:1.5rem;margin:0 0 1.5rem;color:var(--primary);display:flex;align-items:center;gap:.8rem}.about-section h2::before{content:'';width:4px;height:24px;background:var(--primary);border-radius:2px}.about-section p{line-height:1.8;color:var(--content);margin:0 0 1rem}.tech-stack{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}.tech-tag{display:inline-block;padding:.4rem 1rem;background:var(--tertiary);border-radius:8px;font-size:.85rem;color:var(--primary);transition:all .2s ease}.tech-tag:hover{background:var(--primary);color:var(--theme);transform:translateY(-2px)}.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.5rem}.contact-card{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--tertiary);border-radius:10px;text-decoration:none;color:var(--content);border:1px solid transparent;transition:all .2s ease}.contact-card:hover{border-color:var(--primary);background:var(--entry);transform:translateY(-2px)}.contact-card-icon{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;background:var(--primary);color:var(--theme);flex-shrink:0}.contact-card-icon svg{width:20px;height:20px}.contact-card-info{flex:1;min-width:0}.contact-card-label{font-size:.75rem;color:var(--secondary)}.contact-card-value{font-size:.9rem;font-weight:600;overflow:hidden;text-overflow:ellipsis}.contact-card-desc{font-size:.7rem;color:var(--secondary);margin-top:.2rem;line-height:1.3}.other-sites{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem}.site-link{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;background:var(--tertiary);border-radius:8px;text-decoration:none;color:var(--primary);font-weight:600;font-size:.9rem;transition:all .2s}.site-link:hover{background:var(--primary);color:var(--theme)}@media(max-width:768px){.about-header{padding:3rem 1rem}.about-section{padding:1.5rem}}.fade-in{animation:fadeIn .5s ease-out}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}</style></head><body id=top><header class=header><nav class=nav><div class=logo><a href=https://gblog.brez.top/zh/ accesskey=h title="breeze 的博客 (Alt + H)">breeze 的博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li><li><a href=https://gblog.brez.top/en/ title=English aria-label=English>En</a></li></ul></div></div><ul id=menu><li><a href=https://gblog.brez.top/zh/ title=首页><span>首页</span></a></li><li><a href=https://gblog.brez.top/zh/posts/ title=分享><span>分享</span></a></li><li><a href=https://gblog.brez.top/zh/life/ title=生活><span>生活</span></a></li><li><a href=https://gblog.brez.top/zh/tech/ title=技术><span>技术</span></a></li><li><a href=https://gblog.brez.top/zh/tags/ title=标签><span>标签</span></a></li><li><a href=https://gblog.brez.top/zh/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><div class=container><header class="about-header fade-in"><div class=about-avatar-icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h1>Blender & Godot 3D 教程 - 2026-07-02 - Godot 4 联机反作弊零基础入门:服务端校验 + 速率限制,让你的多人游戏不被一秒飞天秒杀</h1><p class=tagline>零基础搞懂多人游戏反作弊:为什么客户端永远不可信、用 Godot 4.6 + ENet 写一个「权威服务器」(Authority Server)做服务端校验(位置/速度/血量 sanity check)和速率限制(移动/射击频率),30 分钟跑通一个会踢掉飞天挂 + 秒杀挂的 3D 联机 Demo。</p></header><div class="about-content fade-in"><div class=about-section><p><img alt=cover loading=lazy src=/images/posts/blender-godot-2026-07-02.png></p><blockquote><p><strong>上一篇回顾</strong>:2026-06-28 我们用 Godot 4.6 搭了一个 4 人 3D 联机大厅 —— 创建房间 → 显示房间码 → 输入加入 → Ready → 房主按 Start。今天接着这间"网吧",继续往下推一步:</p><p><strong>联机跑起来了,但谁来防外挂?</strong></p><p>这一篇就专门讲这个:不靠任何"反作弊驱动",<strong>只用 Godot 自己的网络 API + 一两百行 GDScript</strong>,把"飞天挂 / 秒杀挂 / 瞬移挂"全部挡在服务端门外。学完你会在之前的大厅 Demo 基础上,加上「服务端校验」和「速率限制」两块盾牌。</p></blockquote><h2 id=0-本篇目标--前置>0. 本篇目标 & 前置</h2><p><strong>学完你能做什么:</strong></p><ul><li>理解为什么"客户端就是骗子,服务端才是法官"</li><li>在 Godot 4.6 里给玩家节点加 <code>multiplayer_authority</code>,把"谁说了算"理顺</li><li>写一个 <code>ServerAuthority</code> 脚本,对每个玩家的位置 / 速度 / 血量做 sanity check,作弊包直接丢弃 + 强制拉回</li><li>写一个 <code>RateLimiter</code> 工具类,对移动 / 射击等高频事件做 token bucket 限流</li><li>把这些套进 06-28 的大厅 Demo,跑起来两个窗口,自己开挂看自己被踢</li></ul><p><strong>前置知识:</strong></p><ul><li>看完了 06-28 的 <a href=/blog/blender-godot-2026-06-28/>Lobby 大厅</a> 那一篇(知道房间码 / Ready / Start 流程)</li><li>看过 06-16 的 <a href=/blog/blender-godot-2026-06-16/>ENet 高层 API</a> 那一篇(知道 <code>MultiplayerSpawner</code> / <code>MultiplayerSynchronizer</code> 是什么)</li><li>Godot 4.6 + GDScript 基础</li></ul><blockquote><p><strong>版本说明</strong>:本文写于 2026-07-02,基于 <strong>Godot 4.6 stable</strong> + <strong>GDScript 2.0</strong>。GDScript 一行一行的代码全部能跑。Blender 在本篇不涉及(纯网络层),所以版本号无所谓。<strong>数据来源时间:2026-07-02 04:00 +08:00</strong>。</p></blockquote><hr><h2 id=一为什么联机游戏必须反作弊>一、为什么联机游戏必须反作弊?</h2><p>先讲个故事,3 分钟。</p><p>假设你做了一个 3D 对战小游戏:<strong>8 人房,每人 100 HP,拳头一击 20 伤害</strong>。玩家 A 打开 Cheat Engine 搜了搜自己的 HP,把内存里的 <code>100</code> 改成 <code>99999</code>。现在他一拳下去,<strong>全服 8 个人原地暴毙</strong>,房主 B 莫名其妙看到结算画面写着"您已阵亡"。</p><p>你去找 A 投诉,A 微微一笑:&ldquo;游戏就是这么设计的呀,你也可以改啊。&rdquo;</p><p>你把这个事件报给引擎厂商。引擎厂商说:<strong>&ldquo;客户端的内存,玩家说了算;你做服务端的,必须自己做校验。&rdquo;</strong></p><p>这就是联机游戏反作弊的<strong>第一性原理</strong>:</p><blockquote><p><strong>客户端发出的任何数据,服务端都不能无条件信任。</strong></p></blockquote><p>听起来很反直觉 —— 我自己电脑里的数据,我自己的代码在跑,为什么不信任?</p><p>因为"我的电脑"在攻击者眼里<strong>不是"我的",是"可以改的"</strong>:</p><ul><li>改内存:Cheat Engine 一搜就找到了 HP 100</li><li>改代码:把 GDScript 里的 <code>damage = 20</code> 改成 <code>damage = 9999</code></li><li>改网络包:用 mitmproxy / Wireshark 拦截,改完重发</li><li>改 DLL/Module:在 Godot 二进制里 hook 一个函数,改返回值</li></ul><p>所以 <strong>凡是"只在客户端做的判断"全是漏的</strong>。真正稳的做法只有一种 —— <strong>服务端权威 (Server Authority)</strong>:</p><table><thead><tr><th>操作</th><th>客户端能不能做</th><th>服务端必须做</th></tr></thead><tbody><tr><td>显示自己的血条</td><td>✅ 随便显示</td><td>❌ 不管</td></tr><tr><td>实际 HP 数值</td><td>❌ 不算数</td><td>✅ 唯一来源</td></tr><tr><td>计算伤害</td><td>❌ 不算数</td><td>✅ 唯一来源</td></tr><tr><td>决定谁死了</td><td>❌ 不算数</td><td>✅ 唯一来源</td></tr><tr><td>显示位置</td><td>✅ 预测用</td><td>❌ 不管</td></tr><tr><td>决定别人看到我在哪</td><td>❌ 不算数</td><td>✅ 唯一来源</td></tr></tbody></table><p><strong>两件具体的事</strong>今天要落地:<strong>服务端校验 + 速率限制</strong>。</p><blockquote><p>💡 <strong>为什么要这样做(小贴士 #1)</strong>:你可能会想"我就做个小游戏,没人会来开挂吧"。<strong>错</strong>。作弊工具是全自动的 —— 你的游戏上线一周,bot 就开始扫描 24 小时找漏洞。哪怕只服务 10 个朋友的局域网联机,<strong>朋友开个玩笑改个内存你也会炸服</strong>。所以<strong>反作弊不是"上规模才需要",是"开服就需要"</strong>。</p></blockquote><hr><h2 id=二本篇要做的最终效果>二、本篇要做的最终效果</h2><p>我们今天在 06-28 的大厅基础上加 3 个新东西:</p><pre tabindex=0><code>GameWorld (Node3D)              ← 06-28 的玩法场景
+├── ServerAuthority (Node)       ← NEW: 跑校验
+├── RateLimiter (Node)           ← NEW: 跑限流
+├── Players (Node3D)
+│   ├── Player_1 (CharacterBody3D)
+│   │   ├── multi_player_authority = 1   ← 谁说了算
+│   │   ├── multiplayer_synchronizer.visible = true
+│   └── Player_2 ...
+</code></pre><p><strong>正常玩家的体验</strong>:跟之前一模一样,服务器在背后偷偷校验,什么都不用做。</p><p><strong>作弊玩家的体验</strong>:</p><table><thead><tr><th>作弊方式</th><th>结果</th></tr></thead><tbody><tr><td>客户端把 HP 改到 99999</td><td>服务端 HP 表里还是 100,被别人一拳照常死</td></tr><tr><td>客户端每帧 RPC &ldquo;我在 (-9999, 9999, 0)&rdquo;</td><td>服务端算出"这一帧位移 20000 米,显然挂",丢弃 + 拉回</td></tr><tr><td>客户端每帧 RPC &ldquo;我开火&rdquo; 1000 次</td><td>速率限制拦到每秒最多 5 次,其余 RPC 直接拒收</td></tr></tbody></table><p>OK,开干。</p><hr><h2 id=三第一步搭一个干净的作弊实验场>三、第一步:搭一个干净的"作弊实验场"</h2><blockquote><p>我们不重写 06-28 的全部大厅代码,只把"玩法世界"那一层重做一个<strong>最小可复现的作弊 Demo</strong>。做完你就能 <code>git diff</code> 把它合进你 06-28 的项目。</p></blockquote><h3 id=31-新建场景-cheatlabtscn>3.1 新建场景 <code>CheatLab.tscn</code></h3><p>在 Godot 编辑器顶部菜单点 <code>Scene → New Scene</code> → 选 <code>Node3D</code> 作为根 → 改名为 <code>CheatLab</code> → <strong>保存为 <code>res://scenes/CheatLab.tscn</code></strong>。</p><p>加下面这些节点:</p><pre tabindex=0><code>CheatLab (Node3D)
+├── Ground (MeshInstance3D + BoxShape3D StaticBody3D)
+├── DirectionalLight3D
+├── WorldEnvironment
+├── SpawnPoints (Node3D)
+│   ├── P1 (Marker3D) 位置 (3, 0, 0)
+│   └── P2 (Marker3D) 位置 (-3, 0, 0)
+└── Players (Node3D)
+    ├── Player (CharacterBody3D)
+    │   ├── CollisionShape3D (CapsuleShape3D)
+    │   ├── MeshInstance3D (CapsuleMesh)
+    │   ├── MultiplayerSynchronizer       ← 同步&#34;位置 / 旋转&#34;
+    │   └── Camera3D                       ← 自己看自己
+    └── Player_2 ... (同结构)
+</code></pre><blockquote><p><strong>为什么这么搭</strong>:每个 <code>Player</code> 就是一个联网的玩家。<code>MultiplayerSynchronizer</code> 会同步它身上的 <code>position</code> / <code>rotation</code>(视图层),但<strong>所有"修改"动作都先 RPC 到服务端,服务端校验后再回写</strong>。</p></blockquote><h3 id=32-给-player-挂脚本-playergd>3.2 给 Player 挂脚本 <code>Player.gd</code></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=c1># res://scenes/Player.gd</span>
+</span></span><span class=line><span class=cl><span class=kd>extends</span> <span class=nc>CharacterBody3D</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>SPEED</span> <span class=o>:=</span> <span class=mf>5.0</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>JUMP_VELOCITY</span> <span class=o>:=</span> <span class=mf>5.0</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>MAX_HP</span> <span class=o>:=</span> <span class=mi>100</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>ATTACK_DAMAGE</span> <span class=o>:=</span> <span class=mi>20</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 同步字段(被 MultiplayerSynchronizer 复制)</span>
+</span></span><span class=line><span class=cl><span class=nd>@export</span> <span class=kd>var</span> <span class=n>hp</span><span class=p>:</span> <span class=kt>int</span> <span class=o>=</span> <span class=n>MAX_HP</span>
+</span></span><span class=line><span class=cl><span class=nd>@export</span> <span class=kd>var</span> <span class=n>player_name</span><span class=p>:</span> <span class=nc>String</span> <span class=o>=</span> <span class=s2>&#34;Player&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 客户端预测用</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>_server_pos</span><span class=p>:</span> <span class=nc>Vector3</span> <span class=o>=</span> <span class=nc>Vector3</span><span class=o>.</span><span class=n>ZERO</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_ready</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 只有&#34;自己&#34;才控制输入并显示摄像机</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=nf>is_multiplayer_authority</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$Camera3D</span><span class=o>.</span><span class=nf>queue_free</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nc>Input</span><span class=o>.</span><span class=n>mouse_mode</span> <span class=o>=</span> <span class=nc>Input</span><span class=o>.</span><span class=n>MOUSE_MODE_CAPTURED</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 客户端的 HP 显示是&#34;预测&#34;,权威值在服务端</span>
+</span></span><span class=line><span class=cl>    <span class=nx>$Camera3D</span><span class=o>.</span><span class=n>current</span> <span class=o>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_physics_process</span><span class=p>(</span><span class=n>delta</span><span class=p>:</span> <span class=kt>float</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=nf>is_multiplayer_authority</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>  <span class=c1># 客户端物理由服务端状态同步接管</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>input_dir</span> <span class=o>:=</span> <span class=nc>Input</span><span class=o>.</span><span class=nf>get_vector</span><span class=p>(</span><span class=s2>&#34;move_left&#34;</span><span class=p>,</span> <span class=s2>&#34;move_right&#34;</span><span class=p>,</span> <span class=s2>&#34;move_up&#34;</span><span class=p>,</span> <span class=s2>&#34;move_down&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>direction</span> <span class=o>:=</span> <span class=p>(</span><span class=n>transform</span><span class=o>.</span><span class=n>basis</span> <span class=o>*</span> <span class=nc>Vector3</span><span class=p>(</span><span class=n>input_dir</span><span class=o>.</span><span class=n>x</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>input_dir</span><span class=o>.</span><span class=n>y</span><span class=p>))</span><span class=o>.</span><span class=nf>normalized</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>direction</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>velocity</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=n>direction</span><span class=o>.</span><span class=n>x</span> <span class=o>*</span> <span class=n>SPEED</span>
+</span></span><span class=line><span class=cl>        <span class=n>velocity</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=n>direction</span><span class=o>.</span><span class=n>z</span> <span class=o>*</span> <span class=n>SPEED</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>velocity</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=nb>move_toward</span><span class=p>(</span><span class=n>velocity</span><span class=o>.</span><span class=n>x</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>SPEED</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>velocity</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=nb>move_toward</span><span class=p>(</span><span class=n>velocity</span><span class=o>.</span><span class=n>z</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>SPEED</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=nf>is_on_floor</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=n>velocity</span><span class=o>.</span><span class=n>y</span> <span class=o>-=</span> <span class=mf>9.8</span> <span class=o>*</span> <span class=n>delta</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nc>Input</span><span class=o>.</span><span class=nf>is_action_just_pressed</span><span class=p>(</span><span class=s2>&#34;jump&#34;</span><span class=p>)</span> <span class=ow>and</span> <span class=nf>is_on_floor</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=n>velocity</span><span class=o>.</span><span class=n>y</span> <span class=o>=</span> <span class=n>JUMP_VELOCITY</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nf>move_and_slide</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 每 100ms 把自己的位置汇报给服务端(可改成更高频)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 这一步等下会被服务端校验拦截</span>
+</span></span><span class=line><span class=cl>    <span class=nf>rpc_id</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=s2>&#34;server_request_move&#34;</span><span class=p>,</span> <span class=n>global_position</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ========== RPC:客户端 → 服务端 ==========</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@rpc</span><span class=p>(</span><span class=s2>&#34;any_peer&#34;</span><span class=p>,</span> <span class=s2>&#34;call_local&#34;</span><span class=p>,</span> <span class=s2>&#34;reliable&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>server_request_move</span><span class=p>(</span><span class=n>pos</span><span class=p>:</span> <span class=nc>Vector3</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 只有服务端执行这段</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>is_server</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 服务端的 ServerAuthority 节点会校验这个 RPC 是否合法</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>ok</span> <span class=o>:=</span> <span class=nf>get_node</span><span class=p>(</span><span class=s2>&#34;/root/CheatLab/ServerAuthority&#34;</span><span class=p>)</span><span class=o>.</span><span class=nf>validate_move</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=n>multiplayer</span><span class=o>.</span><span class=nf>get_remote_sender_id</span><span class=p>(),</span> <span class=n>pos</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>ok</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>global_position</span> <span class=o>=</span> <span class=n>pos</span>
+</span></span><span class=line><span class=cl>        <span class=n>_server_pos</span> <span class=o>=</span> <span class=n>pos</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>💡 <strong>为什么要这样做(小贴士 #2)</strong>:你可能注意到 <code>if not multiplayer.is_server(): return</code> 这一行 —— 这是防御性编程。即使你<strong>只想让</strong>服务端调用这个 RPC,客户端也可能构造 RPC 直接调用你(假设他反编译了脚本)。这行相当于"保险丝":哪怕被绕,也只在服务端才生效。</p></blockquote><h3 id=33-project-settings加-input-map>3.3 Project Settings:加 Input Map</h3><p>菜单 <code>Project → Project Settings → Input Map</code>,加这几个 action:</p><table><thead><tr><th>Action 名</th><th>物理键</th></tr></thead><tbody><tr><td><code>move_left</code></td><td>A</td></tr><tr><td><code>move_right</code></td><td>D</td></tr><tr><td><code>move_up</code></td><td>W</td></tr><tr><td><code>move_down</code></td><td>S</td></tr><tr><td><code>jump</code></td><td>Space</td></tr><tr><td><code>attack</code></td><td>Mouse Left</td></tr></tbody></table><hr><h2 id=四第二步serverauthority--服务端校验>四、第二步:<code>ServerAuthority</code> —— 服务端校验</h2><p>新建脚本 <code>res://ServerAuthority.gd</code>,挂到 <code>CheatLab</code> 下的 <code>ServerAuthority</code> 节点。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=c1># res://ServerAuthority.gd</span>
+</span></span><span class=line><span class=cl><span class=kd>extends</span> <span class=nc>Node</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 最大合法速度(米/秒)。高于这个就判定为瞬移。</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>MAX_SPEED</span> <span class=o>:=</span> <span class=mf>30.0</span>
+</span></span><span class=line><span class=cl><span class=c1># 最大合法 HP</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>MAX_HP</span> <span class=o>:=</span> <span class=mi>100</span>
+</span></span><span class=line><span class=cl><span class=c1># 单次最大伤害(防止客户端说自己一拳 9999)</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>MAX_DAMAGE_PER_HIT</span> <span class=o>:=</span> <span class=mi>50</span>
+</span></span><span class=line><span class=cl><span class=c1># 允许的最大坐标范围(超出视为坐标攻击)</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>WORLD_BOUNDS</span> <span class=o>:=</span> <span class=nc>Vector3</span><span class=p>(</span><span class=mi>500</span><span class=p>,</span> <span class=mi>500</span><span class=p>,</span> <span class=mi>500</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 记录每个 peer 的&#34;上一次合法位置&#34;,用来算瞬移距离</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>_last_known_pos</span><span class=p>:</span> <span class=nc>Dictionary</span> <span class=o>=</span> <span class=p>{}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_ready</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 只有服务端跑校验</span>
+</span></span><span class=line><span class=cl>    <span class=nf>set_process</span><span class=p>(</span><span class=ow>not</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>is_server</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>validate_move</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>,</span> <span class=n>claimed_pos</span><span class=p>:</span> <span class=nc>Vector3</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>bool</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>is_server</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># === 校验 1:坐标必须在世界范围内 ===</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nb>abs</span><span class=p>(</span><span class=n>claimed_pos</span><span class=o>.</span><span class=n>x</span><span class=p>)</span> <span class=o>&gt;</span> <span class=n>WORLD_BOUNDS</span><span class=o>.</span><span class=n>x</span> \
+</span></span><span class=line><span class=cl>            <span class=ow>or</span> <span class=nb>abs</span><span class=p>(</span><span class=n>claimed_pos</span><span class=o>.</span><span class=n>y</span><span class=p>)</span> <span class=o>&gt;</span> <span class=n>WORLD_BOUNDS</span><span class=o>.</span><span class=n>y</span> \
+</span></span><span class=line><span class=cl>            <span class=ow>or</span> <span class=nb>abs</span><span class=p>(</span><span class=n>claimed_pos</span><span class=o>.</span><span class=n>z</span><span class=p>)</span> <span class=o>&gt;</span> <span class=n>WORLD_BOUNDS</span><span class=o>.</span><span class=n>z</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nf>_flag</span><span class=p>(</span><span class=n>peer_id</span><span class=p>,</span> <span class=s2>&#34;坐标越界 </span><span class=si>%.1f</span><span class=s2>,</span><span class=si>%.1f</span><span class=s2>,</span><span class=si>%.1f</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>[</span><span class=n>claimed_pos</span><span class=o>.</span><span class=n>x</span><span class=p>,</span> <span class=n>claimed_pos</span><span class=o>.</span><span class=n>y</span><span class=p>,</span> <span class=n>claimed_pos</span><span class=o>.</span><span class=n>z</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># === 校验 2:距离必须合理 ===</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>last_pos</span><span class=p>:</span> <span class=nc>Vector3</span> <span class=o>=</span> <span class=n>_last_known_pos</span><span class=o>.</span><span class=nf>get</span><span class=p>(</span><span class=n>peer_id</span><span class=p>,</span> <span class=n>claimed_pos</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>dist</span> <span class=o>:=</span> <span class=n>claimed_pos</span><span class=o>.</span><span class=nf>distance_to</span><span class=p>(</span><span class=n>last_pos</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 用服务器自己的物理节拍算合理距离上限(假设 60Hz)</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>max_dist</span> <span class=o>:=</span> <span class=n>MAX_SPEED</span> <span class=o>*</span> <span class=mf>0.1</span>  <span class=c1># 100ms 内最远 3 米</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>dist</span> <span class=o>&gt;</span> <span class=n>max_dist</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nf>_flag</span><span class=p>(</span><span class=n>peer_id</span><span class=p>,</span> <span class=s2>&#34;瞬移 </span><span class=si>%.2f</span><span class=s2> 米(限 </span><span class=si>%.2f</span><span class=s2>)&#34;</span> <span class=o>%</span> <span class=p>[</span><span class=n>dist</span><span class=p>,</span> <span class=n>max_dist</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 把客户端位置强制拉回服务端认定的合法位置</span>
+</span></span><span class=line><span class=cl>        <span class=kd>var</span> <span class=n>player</span> <span class=o>:=</span> <span class=nf>_get_player</span><span class=p>(</span><span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>player</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>player</span><span class=o>.</span><span class=nf>rpc_id</span><span class=p>(</span><span class=n>peer_id</span><span class=p>,</span> <span class=s2>&#34;client_force_correct&#34;</span><span class=p>,</span> <span class=n>last_pos</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>_last_known_pos</span><span class=p>[</span><span class=n>peer_id</span><span class=p>]</span> <span class=o>=</span> <span class=n>claimed_pos</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>apply_damage</span><span class=p>(</span><span class=n>attacker_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>,</span> <span class=n>victim_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>,</span> <span class=n>damage</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>bool</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;校验一次攻击是否合法&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>is_server</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>damage</span> <span class=o>&lt;=</span> <span class=mi>0</span> <span class=ow>or</span> <span class=n>damage</span> <span class=o>&gt;</span> <span class=n>MAX_DAMAGE_PER_HIT</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nf>_flag</span><span class=p>(</span><span class=n>attacker_id</span><span class=p>,</span> <span class=s2>&#34;伤害值非法: </span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>damage</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>victim</span> <span class=o>:=</span> <span class=nf>_get_player</span><span class=p>(</span><span class=n>victim_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>victim</span> <span class=o>==</span> <span class=kt>null</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>victim</span><span class=o>.</span><span class=n>hp</span> <span class=o>=</span> <span class=nb>clampi</span><span class=p>(</span><span class=n>victim</span><span class=o>.</span><span class=n>hp</span> <span class=o>-</span> <span class=n>damage</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>MAX_HP</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 广播伤害事件给所有人(用于显示浮动数字)</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>payload</span> <span class=o>:=</span> <span class=p>{</span><span class=s2>&#34;victim&#34;</span><span class=p>:</span> <span class=n>victim_id</span><span class=p>,</span> <span class=s2>&#34;attacker&#34;</span><span class=p>:</span> <span class=n>attacker_id</span><span class=p>,</span> <span class=s2>&#34;damage&#34;</span><span class=p>:</span> <span class=n>damage</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=n>_broadcast_hp</span><span class=o>.</span><span class=nf>rpc</span><span class=p>(</span><span class=n>payload</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_get_player</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nc>Node</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>path</span> <span class=o>:=</span> <span class=s2>&#34;/root/CheatLab/Players/Player_</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>peer_id</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nf>get_node_or_null</span><span class=p>(</span><span class=n>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_flag</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>,</span> <span class=n>reason</span><span class=p>:</span> <span class=nc>String</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[ANTI-CHEAT] peer </span><span class=si>%d</span><span class=s2> 异常: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>[</span><span class=n>peer_id</span><span class=p>,</span> <span class=n>reason</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 真上线时这里应该:发警告给运营后台、累加计数、到阈值踢人</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 本教程为简化只打日志</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@rpc</span><span class=p>(</span><span class=s2>&#34;authority&#34;</span><span class=p>,</span> <span class=s2>&#34;call_remote&#34;</span><span class=p>,</span> <span class=s2>&#34;reliable&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_broadcast_hp</span><span class=p>(</span><span class=n>payload</span><span class=p>:</span> <span class=nc>Dictionary</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>victim</span> <span class=o>:=</span> <span class=nf>_get_player</span><span class=p>(</span><span class=n>payload</span><span class=o>.</span><span class=n>victim</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>victim</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>victim</span><span class=o>.</span><span class=n>hp</span> <span class=o>=</span> <span class=n>payload</span><span class=o>.</span><span class=n>damage</span> <span class=ow>and</span> <span class=n>victim</span><span class=o>.</span><span class=n>hp</span> <span class=o>-</span> <span class=n>payload</span><span class=o>.</span><span class=n>damage</span> <span class=ow>or</span> <span class=n>victim</span><span class=o>.</span><span class=n>hp</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 简化:用 MultiplayerSynchronizer 自动同步 hp 字段即可</span>
+</span></span></code></pre></td></tr></table></div></div><p>挂到节点后,记得在 <code>CheatLab.tscn</code> 里把 <code>ServerAuthority</code> 节点的 <code>process_mode</code> 保持默认(Auto)。</p><blockquote><p>💡 <strong>为什么要这样做(小贴士 #3)</strong>:<code>@rpc("authority", "call_remote")</code> 的 <code>authority</code> 意思是"只有服务端(authority = 1)能调用这个 RPC"。这层防御<strong>避免任何客户端伪造 <code>_broadcast_hp</code> 来改别人血量</strong>。配合 <code>apply_damage</code> 里"服务端唯一决策",攻击流程就是闭环了:<strong>客户端 → RPC 给服务端 → 服务端校验 → 服务端写状态 → 服务端广播</strong>。客户端全程只能"提议",不能"决定"。</p></blockquote><hr><h2 id=五第三步ratelimiter--速率限制>五、第三步:<code>RateLimiter</code> —— 速率限制</h2><p>有些攻击<strong>单看一帧是合法的</strong>(比如每秒移动 5 米确实合规),但<strong>频率高得离谱</strong>(比如每毫秒发一次 RPC)。</p><p>新建 <code>res://RateLimiter.gd</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=c1># res://RateLimiter.gd</span>
+</span></span><span class=line><span class=cl><span class=kd>extends</span> <span class=nc>Node</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 每个 (peer, action) 一个 token bucket</span>
+</span></span><span class=line><span class=cl><span class=c1># 配置:每秒最多 N 次,桶容量也是 N(允许瞬时突发)</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>BUCKETS</span> <span class=o>:=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;move&#34;</span><span class=p>:</span>   <span class=p>{</span><span class=s2>&#34;rate&#34;</span><span class=p>:</span> <span class=mf>20.0</span><span class=p>,</span> <span class=s2>&#34;burst&#34;</span><span class=p>:</span> <span class=mi>5</span><span class=p>},</span>   <span class=c1># 移动 RPC:每秒 20 次,突发 5</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;attack&#34;</span><span class=p>:</span> <span class=p>{</span><span class=s2>&#34;rate&#34;</span><span class=p>:</span> <span class=mf>2.0</span><span class=p>,</span>  <span class=s2>&#34;burst&#34;</span><span class=p>:</span> <span class=mi>2</span><span class=p>},</span>   <span class=c1># 攻击 RPC:每秒 2 次,突发 2</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;chat&#34;</span><span class=p>:</span>   <span class=p>{</span><span class=s2>&#34;rate&#34;</span><span class=p>:</span> <span class=mf>5.0</span><span class=p>,</span>  <span class=s2>&#34;burst&#34;</span><span class=p>:</span> <span class=mi>3</span><span class=p>},</span>   <span class=c1># 聊天:每秒 5 条,突发 3</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>_tokens</span><span class=p>:</span> <span class=nc>Dictionary</span> <span class=o>=</span> <span class=p>{}</span>   <span class=c1># key: &#34;peer_id:action&#34; -&gt; float</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>_last</span><span class=p>:</span> <span class=nc>Dictionary</span> <span class=o>=</span> <span class=p>{}</span>     <span class=c1># key: &#34;peer_id:action&#34; -&gt; float(秒)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_ready</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nf>set_process</span><span class=p>(</span><span class=ow>not</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>is_server</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>allow</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>,</span> <span class=n>action</span><span class=p>:</span> <span class=nc>String</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>bool</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;返回 true 表示允许这一次调用,false 表示被限流&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>is_server</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>true</span>  <span class=c1># 客户端不限流(也限不住)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>BUCKETS</span><span class=o>.</span><span class=nf>has</span><span class=p>(</span><span class=n>action</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>push_warning</span><span class=p>(</span><span class=s2>&#34;未知限流 action: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>action</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>cfg</span><span class=p>:</span> <span class=nc>Dictionary</span> <span class=o>=</span> <span class=n>BUCKETS</span><span class=p>[</span><span class=n>action</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>key</span> <span class=o>:=</span> <span class=s2>&#34;</span><span class=si>%d</span><span class=s2>:</span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>[</span><span class=n>peer_id</span><span class=p>,</span> <span class=n>action</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>now</span> <span class=o>:=</span> <span class=nc>Time</span><span class=o>.</span><span class=nf>get_ticks_msec</span><span class=p>()</span> <span class=o>/</span> <span class=mf>1000.0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>tokens</span><span class=p>:</span> <span class=kt>float</span> <span class=o>=</span> <span class=n>_tokens</span><span class=o>.</span><span class=nf>get</span><span class=p>(</span><span class=n>key</span><span class=p>,</span> <span class=kt>float</span><span class=p>(</span><span class=n>cfg</span><span class=o>.</span><span class=n>burst</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>last</span><span class=p>:</span> <span class=kt>float</span> <span class=o>=</span> <span class=n>_last</span><span class=o>.</span><span class=nf>get</span><span class=p>(</span><span class=n>key</span><span class=p>,</span> <span class=n>now</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 补充 token</span>
+</span></span><span class=line><span class=cl>    <span class=n>tokens</span> <span class=o>=</span> <span class=nb>min</span><span class=p>(</span><span class=kt>float</span><span class=p>(</span><span class=n>cfg</span><span class=o>.</span><span class=n>burst</span><span class=p>),</span> <span class=n>tokens</span> <span class=o>+</span> <span class=p>(</span><span class=n>now</span> <span class=o>-</span> <span class=n>last</span><span class=p>)</span> <span class=o>*</span> <span class=n>cfg</span><span class=o>.</span><span class=n>rate</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>_last</span><span class=p>[</span><span class=n>key</span><span class=p>]</span> <span class=o>=</span> <span class=n>now</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>tokens</span> <span class=o>&gt;=</span> <span class=mf>1.0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>_tokens</span><span class=p>[</span><span class=n>key</span><span class=p>]</span> <span class=o>=</span> <span class=n>tokens</span> <span class=o>-</span> <span class=mf>1.0</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>_tokens</span><span class=p>[</span><span class=n>key</span><span class=p>]</span> <span class=o>=</span> <span class=n>tokens</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>reset</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;踢人/重连时清理这个 peer 的所有桶&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>key</span> <span class=ow>in</span> <span class=n>_tokens</span><span class=o>.</span><span class=nf>keys</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>key</span><span class=o>.</span><span class=nf>begins_with</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%d</span><span class=s2>:&#34;</span> <span class=o>%</span> <span class=n>peer_id</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>_tokens</span><span class=o>.</span><span class=nf>erase</span><span class=p>(</span><span class=n>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>_last</span><span class=o>.</span><span class=nf>erase</span><span class=p>(</span><span class=n>key</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>怎么用</strong>:<code>Player.gd</code> 里的 RPC 入口先过一遍限流:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=nd>@rpc</span><span class=p>(</span><span class=s2>&#34;any_peer&#34;</span><span class=p>,</span> <span class=s2>&#34;call_local&#34;</span><span class=p>,</span> <span class=s2>&#34;reliable&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>server_request_move</span><span class=p>(</span><span class=n>pos</span><span class=p>:</span> <span class=nc>Vector3</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>multiplayer</span><span class=o>.</span><span class=nf>is_server</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>limiter</span> <span class=o>:=</span> <span class=nf>get_node</span><span class=p>(</span><span class=s2>&#34;/root/CheatLab/RateLimiter&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>limiter</span><span class=o>.</span><span class=nf>allow</span><span class=p>(</span><span class=n>multiplayer</span><span class=o>.</span><span class=nf>get_remote_sender_id</span><span class=p>(),</span> <span class=s2>&#34;move&#34;</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>  <span class=c1># 静默丢弃,不打日志,免得被探测</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>ok</span> <span class=o>:=</span> <span class=nf>get_node</span><span class=p>(</span><span class=s2>&#34;/root/CheatLab/ServerAuthority&#34;</span><span class=p>)</span><span class=o>.</span><span class=nf>validate_move</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=n>multiplayer</span><span class=o>.</span><span class=nf>get_remote_sender_id</span><span class=p>(),</span> <span class=n>pos</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>ok</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>global_position</span> <span class=o>=</span> <span class=n>pos</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>💡 <strong>为什么要这样做(小贴士 #4)</strong>:<strong>Token Bucket</strong> 是工业界最常用的限流算法 —— 它既能抗突发(瞬时多打几发不算作弊),又能压住持续高频(每秒想打 1000 发会被压成 2 发)。比"固定窗口计数"更平滑,比"漏桶"更友好。你以后写后端、做 API 网关,这套思路都一样。</p></blockquote><hr><h2 id=六第四步把校验--限流串起来开两个窗口测>六、第四步:把校验 + 限流串起来,开两个窗口测</h2><p>写一个 <code>LobbyBootstrap.gd</code> 放 <code>res://LobbyBootstrap.gd</code>,用来起 server / connect:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=c1># res://LobbyBootstrap.gd</span>
+</span></span><span class=line><span class=cl><span class=kd>extends</span> <span class=nc>Node</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>PORT</span> <span class=o>:=</span> <span class=mi>9999</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_host_pressed</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>peer</span> <span class=o>:=</span> <span class=nc>ENetMultiplayerPeer</span><span class=o>.</span><span class=nf>new</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>err</span> <span class=o>:=</span> <span class=n>peer</span><span class=o>.</span><span class=nf>create_server</span><span class=p>(</span><span class=n>PORT</span><span class=p>,</span> <span class=mi>8</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>err</span> <span class=o>!=</span> <span class=n>OK</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nb>push_error</span><span class=p>(</span><span class=s2>&#34;起 server 失败: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>multiplayer_peer</span> <span class=o>=</span> <span class=n>peer</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>peer_connected</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_peer_connected</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>peer_disconnected</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=n>_on_peer_disconnected</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># server 自己也是 player,peer_id = 1</span>
+</span></span><span class=line><span class=cl>    <span class=nf>_spawn_player</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nf>get_tree</span><span class=p>()</span><span class=o>.</span><span class=nf>change_scene_to_file</span><span class=p>(</span><span class=s2>&#34;res://scenes/CheatLab.tscn&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_join_pressed</span><span class=p>()</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>peer</span> <span class=o>:=</span> <span class=nc>ENetMultiplayerPeer</span><span class=o>.</span><span class=nf>new</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>err</span> <span class=o>:=</span> <span class=n>peer</span><span class=o>.</span><span class=nf>create_client</span><span class=p>(</span><span class=s2>&#34;127.0.0.1&#34;</span><span class=p>,</span> <span class=n>PORT</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>err</span> <span class=o>!=</span> <span class=n>OK</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nb>push_error</span><span class=p>(</span><span class=s2>&#34;连 server 失败: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>multiplayer_peer</span> <span class=o>=</span> <span class=n>peer</span>
+</span></span><span class=line><span class=cl>    <span class=n>multiplayer</span><span class=o>.</span><span class=n>connected_to_server</span><span class=o>.</span><span class=nf>connect</span><span class=p>(</span><span class=nf>func</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=nf>get_tree</span><span class=p>()</span><span class=o>.</span><span class=nf>change_scene_to_file</span><span class=p>(</span><span class=s2>&#34;res://scenes/CheatLab.tscn&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_spawn_player</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>lab</span> <span class=o>:=</span> <span class=nf>get_tree</span><span class=p>()</span><span class=o>.</span><span class=n>current_scene</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>spawn</span> <span class=o>:=</span> <span class=n>lab</span><span class=o>.</span><span class=nf>get_node</span><span class=p>(</span><span class=s2>&#34;SpawnPoints/P</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>((</span><span class=n>peer_id</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span> <span class=o>%</span> <span class=mi>2</span> <span class=o>+</span> <span class=mi>1</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>p</span> <span class=o>:=</span> <span class=nb>preload</span><span class=p>(</span><span class=s2>&#34;res://scenes/Player.tscn&#34;</span><span class=p>)</span><span class=o>.</span><span class=nf>instantiate</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>p</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=s2>&#34;Player_</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>peer_id</span>
+</span></span><span class=line><span class=cl>    <span class=n>p</span><span class=o>.</span><span class=n>position</span> <span class=o>=</span> <span class=n>spawn</span><span class=o>.</span><span class=n>global_position</span>
+</span></span><span class=line><span class=cl>    <span class=n>p</span><span class=o>.</span><span class=n>multiplayer_authority</span> <span class=o>=</span> <span class=n>peer_id</span>
+</span></span><span class=line><span class=cl>    <span class=n>lab</span><span class=o>.</span><span class=nf>get_node</span><span class=p>(</span><span class=s2>&#34;Players&#34;</span><span class=p>)</span><span class=o>.</span><span class=nf>add_child</span><span class=p>(</span><span class=n>p</span><span class=p>,</span> <span class=kc>true</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_peer_connected</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;peer </span><span class=si>%d</span><span class=s2> 连上&#34;</span> <span class=o>%</span> <span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nf>_spawn_player</span><span class=p>(</span><span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>limiter</span> <span class=o>:=</span> <span class=nf>get_node_or_null</span><span class=p>(</span><span class=s2>&#34;/root/CheatLab/RateLimiter&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>limiter</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>limiter</span><span class=o>.</span><span class=nf>reset</span><span class=p>(</span><span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_on_peer_disconnected</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;peer </span><span class=si>%d</span><span class=s2> 断线&#34;</span> <span class=o>%</span> <span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>p</span> <span class=o>:=</span> <span class=nf>get_node_or_null</span><span class=p>(</span><span class=s2>&#34;/root/CheatLab/Players/Player_</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>peer_id</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>p</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>p</span><span class=o>.</span><span class=nf>queue_free</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>limiter</span> <span class=o>:=</span> <span class=nf>get_node_or_null</span><span class=p>(</span><span class=s2>&#34;/root/CheatLab/RateLimiter&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>limiter</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>limiter</span><span class=o>.</span><span class=nf>reset</span><span class=p>(</span><span class=n>peer_id</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>开两个 Godot 实例跑</strong>(用 06-16 那一篇讲的 <code>instance_per_process</code> 模式):</p><ol><li>实例 A 点 <code>Host</code> → 切到 CheatLab</li><li>实例 B 点 <code>Join</code> → 切到 CheatLab</li><li>A 按 WASD,B 窗口里 A 的角色跟着移动 —— OK</li></ol><p><strong>现在开挂自测</strong>(临时改客户端):</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=c1># 在 Player.gd 末尾加这段,模拟&#34;飞天挂&#34;</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_input</span><span class=p>(</span><span class=n>event</span><span class=p>:</span> <span class=nc>InputEvent</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=nf>is_multiplayer_authority</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>event</span><span class=o>.</span><span class=nf>is_action_pressed</span><span class=p>(</span><span class=s2>&#34;ui_text_completion_accept&#34;</span><span class=p>):</span>  <span class=c1># Tab 键触发</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 假装自己是外挂,把自己的位置设到天上,然后告诉服务端&#34;我在这里&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>global_position</span> <span class=o>=</span> <span class=nc>Vector3</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1000</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nf>rpc_id</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=s2>&#34;server_request_move&#34;</span><span class=p>,</span> <span class=n>global_position</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>按 Tab 后你会看到服务端日志:</p><pre tabindex=0><code>[ANTI-CHEAT] peer 2 异常: 瞬移 1003.21 米(限 3.00)
+</code></pre><p>并且你的角色<strong>瞬间被拉回</strong>到之前的位置。飞不起来。</p><blockquote><p>💡 <strong>为什么要这样做(小贴士 #5)</strong>:<strong>服务端必须能"反驳"客户端</strong>。注意 <code>client_force_correct</code> 这个 RPC —— 服务端发现客户端在撒谎时,会<strong>主动告诉客户端"你的真位置应该是这个"</strong>。如果你的协议里只有"客户端上报 → 服务端沉默接受",哪怕服务端内部状态是对的,客户端画面也会错位,玩家会困惑"我明明飞天怎么不掉下来"。</p></blockquote><hr><h2 id=七常见坑点--解决方案>七、常见坑点 + 解决方案</h2><h3 id=坑-1服务端温柔地接受了客户端的数据>坑 1:服务端"温柔地接受了"客户端的数据</h3><p><strong>症状</strong>:客户端发 <code>rpc_id(1, "set_hp", 99999)</code>,服务端 <code>if is_server(): return</code> 之后啥都没干,但<strong>服务端内部的 <code>hp</code> 字段还是被改了</strong>(因为 <code>MultiplayerSynchronizer</code> 默认把 <code>hp</code> 也同步给了服务端)。</p><p><strong>根因</strong>:把"权威字段"也加进了 <code>MultiplayerSynchronizer</code> 的复制列表。</p><p><strong>修复</strong>:在 <code>MultiplayerSynchronizer</code> 的 <code>Replication Config</code> 里,<strong>把所有"只能服务端写"的字段</strong>(<code>hp</code>、<code>score</code>、<code>position</code> 之于服务端)设为 <strong>Spawn → On Spawn 时同步一次</strong>或者干脆<strong>移除</strong>,只让客户端"看",不让它"写"。或者改用 <code>ServerAuthority</code> 手动 RPC 推回(就是本文的做法)。</p><h3 id=坑-2限流把正常玩家也卡了>坑 2:限流把正常玩家也卡了</h3><p><strong>症状</strong>:玩家正常按 W 一秒 60 次,被 <code>RateLimiter</code> 拦到只能 20 次,移动一卡一卡。</p><p><strong>根因</strong>:<code>move</code> 事件的 <code>rate</code> 设太低。</p><p><strong>修复</strong>:移动/旋转这种高频状态,<strong>别走 RPC</strong>,直接用 <code>MultiplayerSynchronizer</code> 自动同步属性。只有"事件"(开火、换枪、发言)才走 RPC + 限流。本篇的 <code>server_request_move</code> 写出来是为了<strong>演示校验</strong>,真实工程里位置同步是 <code>MultiplayerSynchronizer</code> 直接做的,根本不需要 RPC。</p><h3 id=坑-3校验日志太多把服务端打爆>坑 3:校验日志太多把服务端打爆</h3><p><strong>症状</strong>:有人脚本攻击,每秒触发几万条 <code>_flag</code> 日志,服务端磁盘写满。</p><p><strong>修复</strong>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript data-lang=gdscript><span class=line><span class=cl><span class=c1># ServerAuthority.gd 顶部加</span>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=n>LOG_RATE_LIMIT</span> <span class=o>:=</span> <span class=mf>2.0</span>   <span class=c1># 同一 peer 同一原因,2 秒最多打一条</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=n>_last_log</span><span class=p>:</span> <span class=nc>Dictionary</span> <span class=o>=</span> <span class=p>{}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>_flag</span><span class=p>(</span><span class=n>peer_id</span><span class=p>:</span> <span class=kt>int</span><span class=p>,</span> <span class=n>reason</span><span class=p>:</span> <span class=nc>String</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kt>void</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>key</span> <span class=o>:=</span> <span class=s2>&#34;</span><span class=si>%d</span><span class=s2>:</span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>[</span><span class=n>peer_id</span><span class=p>,</span> <span class=n>reason</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=n>now</span> <span class=o>:=</span> <span class=nc>Time</span><span class=o>.</span><span class=nf>get_ticks_msec</span><span class=p>()</span> <span class=o>/</span> <span class=mf>1000.0</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>now</span> <span class=o>-</span> <span class=n>_last_log</span><span class=o>.</span><span class=nf>get</span><span class=p>(</span><span class=n>key</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span> <span class=o>&lt;</span> <span class=n>LOG_RATE_LIMIT</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=n>_last_log</span><span class=p>[</span><span class=n>key</span><span class=p>]</span> <span class=o>=</span> <span class=n>now</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[ANTI-CHEAT] peer </span><span class=si>%d</span><span class=s2> 异常: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>[</span><span class=n>peer_id</span><span class=p>,</span> <span class=n>reason</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 累积计数到阈值(比如 1 分钟 30 次)就踢人</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>上线时把 <code>print</code> 换成发到日志系统(ELK / Loki / Datadog),别在 stdout 里打 —— 不然你重启一次服务,日志就飞了。</p></blockquote><hr><h2 id=八延伸阅读>八、延伸阅读</h2><ol><li><p><strong>Godot 官方文档 — High-level multiplayer</strong>
+<a href=https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html>https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html</a>
+<em>权威服务器的官方权威教程,本文的 RPC / <code>multiplayer_authority</code> 用法都对得上。</em></p></li><li><p><strong>Gaffer on Games — What every programmer needs to know about game networking</strong>
+<a href=https://gafferongames.com/post/what_every_programmer_needs_to_know_about_game_networking/>https://gafferongames.com/post/what_every_programmer_needs_to_know_about_game_networking/</a>
+<em>Glenn Fiedler 的"游戏网络圣经",从 TCP/UDP 讲到状态同步/帧同步,反作弊只是顺带提了一句,但你理解了"权威服务端"的物理基础。</em></p></li><li><p><strong>Valve Developer Wiki — Source Multiplayer Networking</strong>
+<a href=https://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking>https://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking</a>
+<em>Valve 在 Source 引擎里讲 lag compensation、entity interpolation、prediction。和你在 06-25 看到的预测/插值是一回事,但讲得更系统。</em></p></li><li><p><em>(Bonus)</em> <strong>OWASP — Game Security Guidelines</strong>
+<a href=https://owasp.org/www-project-game-security/>https://owasp.org/www-project-game-security/</a>
+<em>OWASP 专门给游戏做的安全清单,反作弊只是其中一节,但速查 cheat 分类、典型攻击向量很好用。</em></p></li></ol><hr><h2 id=九小结>九、小结</h2><p>今天我们用 4 块<strong>最朴素</strong>的盾,挡住了 3 种最常见的挂:</p><table><thead><tr><th>盾</th><th>挡什么</th></tr></thead><tbody><tr><td><strong>服务端权威</strong></td><td>HP 改 99999、一拳 9999 伤害</td></tr><tr><td><strong>坐标 sanity check</strong></td><td>瞬移挂、飞天挂</td></tr><tr><td><strong>Token bucket 限流</strong></td><td>每毫秒 1000 发的 RPC 洪水</td></tr><tr><td><strong>force-correct 拉回</strong></td><td>客户端画面与真实状态脱节</td></tr></tbody></table><p><strong>真正上规模游戏还需要的</strong> —— 不在今天范围,但你下一步可以研究:</p><ul><li><strong>反作弊驱动 / 内核态 hook 检测</strong>(BattlEye / Easy Anti-Cheat)</li><li><strong>行为检测</strong>(用 ML 识别"机械鼠标轨迹" vs &ldquo;人手轨迹&rdquo;)</li><li><strong>服务器侧 tickrate 控制 + 状态快照回滚</strong></li><li><strong>加密通信</strong>(TLS over ENet / DTLS over WebRTC)</li></ul><p>但<strong>今天这套,在你做的任何 indie / 学习用 / 朋友局联机里,90% 的攻击都已经挡掉了</strong>。</p><hr><p><strong>软件版本</strong>:Godot 4.6 stable · GDScript 2.0 · ENet 1.3 · 本篇不涉及 Blender(纯网络层)。<strong>数据来源时间:2026-07-02 04:00 +08:00</strong>。</p><p>下一篇预告:<strong>07-03 起我们从联机切回 Blender</strong>,讲"几何节点 + 资产库"组合拳 —— 做一个可以无限复用的低多边形房子工厂。预生成几百栋,直接拖进 Godot 当关卡素材。</p></div><section class=about-section><h2>技术栈</h2><div class=tech-stack><span class=tech-tag>HTML & CSS</span>
+<span class=tech-tag>JavaScript</span>
+<span class=tech-tag>Vue.js</span>
+<span class=tech-tag>React</span>
+<span class=tech-tag>Python</span>
+<span class=tech-tag>Go</span>
+<span class=tech-tag>Node.js</span>
+<span class=tech-tag>Git</span>
+<span class=tech-tag>Docker</span>
+<span class=tech-tag>Linux</span>
+<span class=tech-tag>Hugo</span>
+<span class=tech-tag>CI/CD</span></div></section><section class=about-section><h2>联系方式</h2><div class=contact-grid><a href=mailto:hello@brez.top class=contact-card><div class=contact-card-icon style=background:#ea4335><span style=font-size:1.1rem;font-weight:700;color:#fff>E</span></div><div class=contact-card-info><div class=contact-card-label>Email</div><div class=contact-card-value>hello@brez.top</div><div class=contact-card-desc>适合反馈链接错误、内容问题或合作沟通。</div></div></a><a href=https://github.com/breztop class=contact-card target=_blank rel=noopener><div class=contact-card-icon style=background:#24292f><span style=font-size:1.1rem;font-weight:700;color:#fff>G</span></div><div class=contact-card-info><div class=contact-card-label>GitHub</div><div class=contact-card-value>github.com/breztop</div><div class=contact-card-desc>提交问题、查看项目更新或直接发起交流。</div></div></a><a href=/index.xml class=contact-card target=_blank rel=noopener><div class=contact-card-icon style=background:#f59e0b><span style=font-size:1.1rem;font-weight:700;color:#fff>R</span></div><div class=contact-card-info><div class=contact-card-label>RSS</div><div class=contact-card-value>订阅博客更新</div><div class=contact-card-desc>想持续关注新文章，可以直接添加 RSS 订阅。</div></div></a><a href=https://x.com/brez_top class=contact-card target=_blank rel=noopener><div class=contact-card-icon style=background:#111><span style=font-size:1.1rem;font-weight:700;color:#fff>X</span></div><div class=contact-card-info><div class=contact-card-label>X</div><div class=contact-card-value>x.com/brez_top</div><div class=contact-card-desc>适合轻量沟通与关注最近动态。</div></div></a></div></section></div></div></main><footer class=footer><span>&copy; 2026 <a href=https://gblog.brez.top/zh/>breeze 的博客</a></span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg></a><style>.goatcounter-count{font-variant-numeric:tabular-nums}</style><script>document.addEventListener("DOMContentLoaded",()=>{const e="https://stats.brez.top";document.querySelectorAll(".goatcounter-count").forEach(async t=>{let n=t.getAttribute("data-goatcounter-path")||location.pathname;n=n.replace(/\/$/,"")||"/";const s=`${e}/counter/${n}.json`;try{const e=await fetch(s);if(e.ok){const n=await e.json();t.innerText=(n.count||0)+" 次阅读"}}catch{t.innerText==="..."&&(t.innerText="0 次阅读")}})})</script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="复制";function s(){t.innerHTML="已复制！",setTimeout(()=>{t.innerHTML="复制"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
